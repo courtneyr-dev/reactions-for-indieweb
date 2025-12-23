@@ -1,6 +1,11 @@
 # Reactions for IndieWeb
 
-A comprehensive WordPress plugin that extends IndieBlocks with rich support for IndieWeb Post Kinds, external API integrations, and media tracking.
+[![WordPress](https://img.shields.io/badge/WordPress-6.5%2B-blue.svg)](https://wordpress.org/)
+[![PHP](https://img.shields.io/badge/PHP-8.0%2B-purple.svg)](https://php.net/)
+[![License](https://img.shields.io/badge/License-GPL--2.0--or--later-green.svg)](LICENSE)
+[![IndieWeb](https://img.shields.io/badge/IndieWeb-compatible-orange.svg)](https://indieweb.org/)
+
+A comprehensive WordPress plugin that extends IndieBlocks with rich support for IndieWeb Post Kinds, external API integrations, and media tracking. Share what you're listening to, watching, reading, and experiencing—all on your own website.
 
 ## Features
 
@@ -121,12 +126,56 @@ All output includes proper microformats2 markup for IndieWeb compatibility:
 - `h-adr` for locations
 - `h-event` for events (RSVP)
 
+## Custom Blocks
+
+The plugin includes 7 custom Gutenberg blocks:
+
+| Block | Description |
+|-------|-------------|
+| **Listen Card** | Music/podcast with album art, artist, rating |
+| **Watch Card** | Movie/TV with poster, episode info, rewatch tracking |
+| **Read Card** | Book with cover, author, reading progress |
+| **Checkin Card** | Location with venue details and map embed |
+| **RSVP Card** | Event response (yes/no/maybe/interested/remote) |
+| **Star Rating** | Standalone rating component |
+| **Media Lookup** | Universal media search and embed |
+
+## Contributing
+
+Contributions are welcome! Please read our [Contributing Guidelines](CONTRIBUTING.md) before submitting a pull request.
+
+### Quick Start
+
+```bash
+git clone https://github.com/courtneyr-dev/reactions-for-indieweb.git
+cd reactions-for-indieweb
+composer install
+npm install
+npm run build
+```
+
+## Support
+
+- [GitHub Issues](https://github.com/courtneyr-dev/reactions-for-indieweb/issues) - Bug reports and feature requests
+- [GitHub Discussions](https://github.com/courtneyr-dev/reactions-for-indieweb/discussions) - Questions and ideas
+- [IndieWeb Chat](https://chat.indieweb.org/) - Real-time community help
+- [SUPPORT.md](SUPPORT.md) - FAQ and troubleshooting
+
+## Security
+
+Please report security vulnerabilities privately. See [SECURITY.md](SECURITY.md) for details.
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for a list of changes.
+
 ## License
 
-GPL v2 or later
+GPL v2 or later. See [LICENSE](LICENSE) for details.
 
 ## Credits
 
 - Built to extend [IndieBlocks](https://developer.wordpress.org/plugins/indieblocks/)
 - Inspired by [Post Kinds](https://developer.wordpress.org/plugins/indieweb-post-kinds/)
 - Uses data from MusicBrainz, TMDB, Open Library, and other open APIs
+- Made with love for the IndieWeb community
