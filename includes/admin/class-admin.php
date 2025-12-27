@@ -321,8 +321,11 @@ class Admin {
      * @return void
      */
     public function admin_notices(): void {
-        // Check for missing dependencies.
-        if ( ! class_exists( 'IndieBlocks\\IndieBlocks' ) ) {
+        // Check for missing dependencies using active_plugins option (reliable at all times).
+        $active_plugins   = (array) get_option( 'active_plugins', array() );
+        $indieblocks_active = in_array( 'indieblocks/indieblocks.php', $active_plugins, true );
+
+        if ( ! $indieblocks_active ) {
             echo '<div class="notice notice-warning"><p>';
             printf(
                 /* translators: %s: Plugin name */
