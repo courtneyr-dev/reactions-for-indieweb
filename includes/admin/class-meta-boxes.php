@@ -384,6 +384,11 @@ class Meta_Boxes {
             return;
         }
 
+        // Skip classic meta boxes when block editor is active - sidebar handles this.
+        if ( function_exists( 'use_block_editor_for_post_type' ) && use_block_editor_for_post_type( $post_type ) ) {
+            return;
+        }
+
         // Main reaction details meta box.
         add_meta_box(
             'reactions_indieweb_details',
