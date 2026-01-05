@@ -50,7 +50,9 @@ class API_Settings {
      */
     public function init(): void {
         add_action( 'admin_init', array( $this, 'register_settings' ) );
+        add_action( 'admin_init', array( $this, 'handle_oauth_return' ) );
         add_action( 'wp_ajax_reactions_indieweb_oauth_callback', array( $this, 'handle_oauth_callback' ) );
+        add_action( 'wp_ajax_reactions_indieweb_get_oauth_url', array( $this, 'ajax_get_oauth_url' ) );
     }
 
     /**
@@ -819,5 +821,104 @@ class API_Settings {
             default:
                 return null;
         }
+    }
+
+    /**
+     * Handle OAuth return from authorization server.
+     *
+     * This handles the redirect back from Trakt/Simkl with the authorization code.
+     *
+     * @return void
+     */
+    public function handle_oauth_return(): void {
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+        if ( ! isset( $_GET['page'] ) || 'reactions-indieweb-apis' !== $_GET['page'] ) {
+            return;
+        }
+
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+        if ( ! isset( $_GET['oauth_callback'] ) || ! isset( $_GET['code'] ) ) {
+            return;
+        }
+
+        if ( ! current_user_can( 'manage_options' ) ) {
+            return;
+        }
+
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+        $api  = sanitize_text_field( wp_unslash( $_GET['oauth_callback'] ) );
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+        $code = sanitize_text_field( wp_unslash( $_GET['code'] ) );
+
+        $result = $this->exchange_oauth_code( $api, $code );
+
+        if ( is_wp_error( $result ) ) {
+            add_settings_error(
+                'reactions_indieweb_apis',
+                'oauth_failed',
+                sprintf(
+                    /* translators: %s: Error message */
+                    __( 'OAuth authentication failed: %s', 'reactions-indieweb' ),
+                    $result->get_error_message()
+                ),
+                'error'
+            );
+        } else {
+            add_settings_error(
+                'reactions_indieweb_apis',
+                'oauth_success',
+                __( 'Successfully connected! You can now import your watch history.', 'reactions-indieweb' ),
+                'success'
+            );
+        }
+
+        // Redirect to remove the code from URL.
+        wp_safe_redirect( admin_url( 'admin.php?page=reactions-indieweb-apis&settings-updated=true' ) );
+        exit;
+    }
+
+    /**
+     * AJAX handler to get OAuth URL.
+     *
+     * Saves credentials first, then returns the authorization URL.
+     *
+     * @return void
+     */
+    public function ajax_get_oauth_url(): void {
+        check_ajax_referer( 'reactions_indieweb_admin', 'nonce' );
+
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'reactions-indieweb' ) ) );
+        }
+
+        $api           = isset( $_POST['api'] ) ? sanitize_text_field( wp_unslash( $_POST['api'] ) ) : '';
+        $client_id     = isset( $_POST['client_id'] ) ? sanitize_text_field( wp_unslash( $_POST['client_id'] ) ) : '';
+        $client_secret = isset( $_POST['client_secret'] ) ? sanitize_text_field( wp_unslash( $_POST['client_secret'] ) ) : '';
+
+        if ( empty( $api ) || empty( $client_id ) ) {
+            wp_send_json_error( array( 'message' => __( 'Missing API or Client ID.', 'reactions-indieweb' ) ) );
+        }
+
+        // Save credentials first so they're available for the callback.
+        $credentials = get_option( 'reactions_indieweb_api_credentials', array() );
+
+        if ( ! isset( $credentials[ $api ] ) ) {
+            $credentials[ $api ] = array();
+        }
+
+        $credentials[ $api ]['client_id']     = $client_id;
+        $credentials[ $api ]['client_secret'] = $client_secret;
+        $credentials[ $api ]['enabled']       = true;
+
+        update_option( 'reactions_indieweb_api_credentials', $credentials );
+
+        // Now get the OAuth URL.
+        $url = $this->get_oauth_url( $api );
+
+        if ( ! $url ) {
+            wp_send_json_error( array( 'message' => __( 'Could not generate OAuth URL.', 'reactions-indieweb' ) ) );
+        }
+
+        wp_send_json_success( array( 'url' => $url ) );
     }
 }

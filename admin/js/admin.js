@@ -238,18 +238,49 @@
             e.preventDefault();
             const api = $(this).data('api');
             const $form = $(this).closest('form');
+            const $button = $(this);
 
-            // Save form first, then redirect
-            // In production, this would get the OAuth URL from the server
+            // Get credentials from form
             const clientId = $form.find(`[name*="${api}"][name*="client_id"]`).val();
+            const clientSecret = $form.find(`[name*="${api}"][name*="client_secret"]`).val();
 
             if (!clientId) {
-                alert('Please enter your Client ID first and save settings.');
+                alert('Please enter your Client ID first.');
                 return;
             }
 
-            // This would be replaced with actual OAuth URL
-            alert('OAuth flow would redirect to authorization page here.');
+            if (!clientSecret && api === 'trakt') {
+                alert('Please enter your Client Secret first.');
+                return;
+            }
+
+            // Save credentials first, then get OAuth URL
+            $button.prop('disabled', true).text('Connecting...');
+
+            $.ajax({
+                url: reactionsIndieWeb.ajaxUrl,
+                type: 'POST',
+                data: {
+                    action: 'reactions_indieweb_get_oauth_url',
+                    nonce: reactionsIndieWeb.nonce,
+                    api: api,
+                    client_id: clientId,
+                    client_secret: clientSecret
+                },
+                success: function(response) {
+                    if (response.success && response.data.url) {
+                        // Redirect to OAuth authorization page
+                        window.location.href = response.data.url;
+                    } else {
+                        alert(response.data.message || 'Failed to get OAuth URL.');
+                        $button.prop('disabled', false).text('Connect to ' + api.charAt(0).toUpperCase() + api.slice(1));
+                    }
+                },
+                error: function() {
+                    alert('Failed to initiate OAuth. Please try again.');
+                    $button.prop('disabled', false).text('Connect to ' + api.charAt(0).toUpperCase() + api.slice(1));
+                }
+            });
         },
 
         /**
