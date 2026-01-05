@@ -237,12 +237,12 @@
         initiateOAuth: function(e) {
             e.preventDefault();
             const api = $(this).data('api');
-            const $form = $(this).closest('form');
+            const $card = $(this).closest('.reactions-api-card');
             const $button = $(this);
 
-            // Get credentials from form
-            const clientId = $form.find(`[name*="${api}"][name*="client_id"]`).val();
-            const clientSecret = $form.find(`[name*="${api}"][name*="client_secret"]`).val();
+            // Get credentials from the card (more specific selector)
+            const clientId = $card.find(`input[name="reactions_indieweb_api_credentials[${api}][client_id]"]`).val();
+            const clientSecret = $card.find(`input[name="reactions_indieweb_api_credentials[${api}][client_secret]"]`).val();
 
             if (!clientId) {
                 alert('Please enter your Client ID first.');
