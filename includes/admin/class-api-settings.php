@@ -564,7 +564,22 @@ class API_Settings {
                 </p>
             <?php else : ?>
                 <div class="oauth-disconnected">
-                    <p><?php esc_html_e( 'Click the button below to authorize with your account.', 'reactions-indieweb' ); ?></p>
+                    <?php
+                    $redirect_uri = admin_url( 'admin.php?page=reactions-indieweb-apis&oauth_callback=' . $api_id );
+                    ?>
+                    <p style="margin-bottom: 8px;">
+                        <strong><?php esc_html_e( 'Redirect URI:', 'reactions-indieweb' ); ?></strong><br>
+                        <code style="user-select: all; cursor: text; padding: 4px 8px; display: inline-block; margin-top: 4px; word-break: break-all;"><?php echo esc_url( $redirect_uri ); ?></code>
+                    </p>
+                    <p class="description" style="margin-bottom: 12px;">
+                        <?php
+                        printf(
+                            /* translators: %s: Service name */
+                            esc_html__( 'Copy this URL to your %s app settings as the Redirect URI.', 'reactions-indieweb' ),
+                            esc_html( $config['name'] )
+                        );
+                        ?>
+                    </p>
                     <button type="button" class="button button-primary oauth-connect" data-api="<?php echo esc_attr( $api_id ); ?>">
                         <?php
                         printf(
