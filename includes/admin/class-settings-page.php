@@ -761,15 +761,6 @@ class Settings_Page {
      */
     public function render_watch_section(): void {
         echo '<p>' . esc_html__( 'Configure settings for watch posts (movies and TV shows).', 'reactions-indieweb' ) . '</p>';
-
-        // YouTube tip notice.
-        echo '<div class="notice notice-info inline" style="margin: 16px 0; padding: 12px;">';
-        echo '<p style="margin: 0 0 8px 0;"><strong>' . esc_html__( 'Tip: Track YouTube Watches', 'reactions-indieweb' ) . '</strong></p>';
-        echo '<p style="margin: 0;">';
-        echo esc_html__( 'YouTube\'s watch history API is not publicly available. However, you can track YouTube video watches by manually logging them on Trakt.tv, then importing via the Trakt integration.', 'reactions-indieweb' );
-        echo ' <a href="https://trakt.tv/" target="_blank" rel="noopener">' . esc_html__( 'Visit Trakt.tv', 'reactions-indieweb' ) . ' <span class="dashicons dashicons-external" style="font-size: 14px; vertical-align: text-bottom;"></span></a>';
-        echo '</p>';
-        echo '</div>';
     }
 
     /**
