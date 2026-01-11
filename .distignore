@@ -1,9 +1,11 @@
 # Directories to exclude from distribution
 /.git
 /.github
+/.claude
 /node_modules
 /tests
 /bin
+/src
 
 # Files to exclude from distribution
 .distignore
@@ -11,6 +13,7 @@
 .gitignore
 .gitattributes
 .phpcs.xml.dist
+.phpcs.cache
 .wp-env.json
 composer.json
 composer.lock

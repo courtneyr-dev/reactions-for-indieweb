@@ -261,6 +261,7 @@ abstract class API_Base {
 		}
 
 		if ( $last_error ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Exception messages are not output directly.
 			throw new \Exception(
 				sprintf(
 					/* translators: 1: API name, 2: Error message */
@@ -271,6 +272,7 @@ abstract class API_Base {
 			);
 		}
 
+		// phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Exception messages are not output directly.
 		throw new \Exception(
 			sprintf(
 				/* translators: %s: API name */

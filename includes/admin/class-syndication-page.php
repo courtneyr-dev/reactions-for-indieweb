@@ -392,9 +392,11 @@ class Syndication_Page {
 	 * @return void
 	 */
 	public function render(): void {
-		$services        = $this->get_services();
+		$services = $this->get_services();
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- View-only parameters for tab navigation.
 		$current_service = isset( $_GET['service'] ) ? sanitize_key( $_GET['service'] ) : '';
-		$current_tab     = isset( $_GET['tab'] ) ? sanitize_key( $_GET['tab'] ) : 'skipped';
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- View-only parameters for tab navigation.
+		$current_tab = isset( $_GET['tab'] ) ? sanitize_key( $_GET['tab'] ) : 'skipped';
 
 		if ( empty( $current_service ) && ! empty( $services ) ) {
 			$current_service = array_key_first( $services );
@@ -414,7 +416,7 @@ class Syndication_Page {
 							esc_html__( 'No syndication services are configured. %s to enable syndication.', 'reactions-for-indieweb' ),
 							sprintf(
 								'<a href="%s">%s</a>',
-								esc_url( admin_url( 'admin.php?page=reactions-for-indieweb' ) ),
+								esc_url( admin_url( 'admin.php?page=reactions-indieweb' ) ),
 								esc_html__( 'Configure settings', 'reactions-for-indieweb' )
 							)
 						);

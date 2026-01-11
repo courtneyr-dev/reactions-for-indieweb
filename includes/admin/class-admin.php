@@ -392,7 +392,7 @@ class Admin {
     public function plugin_action_links( array $links ): array {
         $settings_link = sprintf(
             '<a href="%s">%s</a>',
-            admin_url( 'admin.php?page=reactions-indieweb' ),
+            admin_url( 'admin.php?page=reactions-for-indieweb' ),
             __( 'Settings', 'reactions-for-indieweb' )
         );
 

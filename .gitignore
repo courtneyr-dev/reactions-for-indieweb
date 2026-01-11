@@ -34,3 +34,9 @@ Thumbs.db
 *.temp
 *.swp
 *~
+
+# Development/build files (not needed in production)
+.phpcs.cache
+.phpcs.xml.dist
+phpcs.xml
+phpunit.xml

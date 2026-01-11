@@ -744,7 +744,7 @@ class Settings_Page {
             $active = $this->active_tab === $slug ? ' nav-tab-active' : '';
             printf(
                 '<a href="%s" class="nav-tab%s">%s</a>',
-                esc_url( add_query_arg( 'tab', $slug, admin_url( 'admin.php?page=reactions-indieweb' ) ) ),
+                esc_url( add_query_arg( 'tab', $slug, admin_url( 'admin.php?page=reactions-for-indieweb' ) ) ),
                 esc_attr( $active ),
                 esc_html( $label )
             );
@@ -1665,7 +1665,7 @@ class Settings_Page {
                 <p style="margin-top: 8px; margin-left: 4px; color: #dba617; font-size: 13px;">
                     <span class="dashicons dashicons-info" style="font-size: 14px; vertical-align: text-bottom;"></span>
                     <?php esc_html_e( 'Note: Main background sync is off.', 'reactions-for-indieweb' ); ?>
-                    <a href="<?php echo esc_url( admin_url( 'admin.php?page=reactions-indieweb&tab=performance' ) ); ?>"><?php esc_html_e( 'Enable in Performance tab', 'reactions-for-indieweb' ); ?></a>
+                    <a href="<?php echo esc_url( admin_url( 'admin.php?page=reactions-for-indieweb&tab=performance' ) ); ?>"><?php esc_html_e( 'Enable in Performance tab', 'reactions-for-indieweb' ); ?></a>
                 </p>
             <?php endif; ?>
 
