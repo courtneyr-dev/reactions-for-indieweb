@@ -465,9 +465,10 @@ class Settings_Page {
             array(
                 'id'      => 'read_import_source',
                 'options' => array(
-                    'hardcover' => 'Hardcover',
+                    'hardcover'      => 'Hardcover',
+                    'readwise_books' => 'Readwise Books',
                 ),
-                'desc'    => __( 'Primary source for importing book reading history.', 'reactions-indieweb' ),
+                'desc'    => __( 'Primary source for importing book reading history. Readwise imports include Kindle highlights.', 'reactions-indieweb' ),
             )
         );
 
@@ -960,7 +961,15 @@ class Settings_Page {
                 <tr>
                     <th scope="row"><?php esc_html_e( 'IndieBlocks', 'reactions-indieweb' ); ?></th>
                     <td>
-                        <?php if ( class_exists( 'IndieBlocks\\IndieBlocks' ) ) : ?>
+                        <?php
+                        // Check multiple ways IndieBlocks might be detected.
+                        $indieblocks_active = class_exists( 'IndieBlocks\\IndieBlocks' )
+                            || class_exists( 'IndieBlocks\\Plugin' )
+                            || function_exists( 'indieblocks' )
+                            || defined( 'INDIEBLOCKS_VERSION' )
+                            || is_plugin_active( 'indieblocks/indieblocks.php' );
+                        ?>
+                        <?php if ( $indieblocks_active ) : ?>
                             <span class="dashicons dashicons-yes-alt" style="color: #46b450;"></span>
                             <?php esc_html_e( 'Installed', 'reactions-indieweb' ); ?>
                         <?php else : ?>

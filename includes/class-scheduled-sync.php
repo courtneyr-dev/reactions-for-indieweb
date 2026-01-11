@@ -263,16 +263,17 @@ class Scheduled_Sync {
 	 */
 	private function sync_read_books( array $settings ): void {
 		$source = $settings['read_import_source'] ?? 'hardcover';
-
-		// Sync Readwise books if configured.
-		// Use smaller limit - each book requires API calls for highlights.
 		$credentials = get_option( 'reactions_indieweb_api_credentials', array() );
-		if ( ! empty( $credentials['readwise']['access_token'] ) ) {
-			$this->run_import( 'readwise_books', array( 'limit' => 20 ) );
-		}
 
-		if ( 'hardcover' === $source ) {
-			$this->run_import( 'hardcover' );
+		if ( 'readwise_books' === $source ) {
+			// Use smaller limit - each book requires API calls for highlights.
+			if ( ! empty( $credentials['readwise']['access_token'] ) ) {
+				$this->run_import( 'readwise_books', array( 'limit' => 20 ) );
+			}
+		} elseif ( 'hardcover' === $source ) {
+			if ( ! empty( $credentials['hardcover']['api_token'] ) ) {
+				$this->run_import( 'hardcover' );
+			}
 		}
 	}
 
