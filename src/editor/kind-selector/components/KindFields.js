@@ -61,6 +61,22 @@ export default function KindFields( { kind } ) {
 			return <ReviewFields />;
 		case 'play':
 			return <PlayFields />;
+		case 'eat':
+			return <EatFields />;
+		case 'drink':
+			return <DrinkFields />;
+		case 'favorite':
+			return <FavoriteFields />;
+		case 'jam':
+			return <JamFields />;
+		case 'wish':
+			return <WishFields />;
+		case 'mood':
+			return <MoodFields />;
+		case 'acquisition':
+			return <AcquisitionFields />;
+		case 'recipe':
+			return <RecipeFields />;
 		case 'reply':
 		case 'like':
 		case 'repost':
@@ -1317,6 +1333,517 @@ function PlayFields() {
 					/>
 				</VStack>
 			</details>
+		</VStack>
+	);
+}
+
+/**
+ * Eat Fields Component
+ *
+ * Fields for food/meal logging.
+ *
+ * @return {JSX.Element} Eat fields.
+ */
+function EatFields() {
+	const { eatName, eatType, eatRestaurant, eatPhoto, eatRating } = useSelect( ( select ) => {
+		const getKindMeta = select( STORE_NAME ).getKindMeta;
+		return {
+			eatName: getKindMeta( 'eat_name' ),
+			eatType: getKindMeta( 'eat_type' ),
+			eatRestaurant: getKindMeta( 'eat_restaurant' ),
+			eatPhoto: getKindMeta( 'eat_photo' ),
+			eatRating: getKindMeta( 'eat_rating' ),
+		};
+	}, [] );
+
+	const { updateKindMeta } = useDispatch( STORE_NAME );
+
+	const typeOptions = [
+		{ label: __( 'Select type...', 'reactions-for-indieweb' ), value: '' },
+		{ label: __( 'Breakfast', 'reactions-for-indieweb' ), value: 'breakfast' },
+		{ label: __( 'Lunch', 'reactions-for-indieweb' ), value: 'lunch' },
+		{ label: __( 'Dinner', 'reactions-for-indieweb' ), value: 'dinner' },
+		{ label: __( 'Snack', 'reactions-for-indieweb' ), value: 'snack' },
+		{ label: __( 'Dessert', 'reactions-for-indieweb' ), value: 'dessert' },
+	];
+
+	return (
+		<VStack spacing={ 4 } className="reactions-indieweb-kind-fields">
+			<TextControl
+				label={ __( 'Food/Meal', 'reactions-for-indieweb' ) }
+				value={ eatName }
+				onChange={ ( value ) => updateKindMeta( 'eat_name', value ) }
+				placeholder={ __( 'What did you eat?', 'reactions-for-indieweb' ) }
+			/>
+			<SelectControl
+				label={ __( 'Meal Type', 'reactions-for-indieweb' ) }
+				value={ eatType }
+				options={ typeOptions }
+				onChange={ ( value ) => updateKindMeta( 'eat_type', value ) }
+			/>
+			<TextControl
+				label={ __( 'Restaurant/Location', 'reactions-for-indieweb' ) }
+				value={ eatRestaurant }
+				onChange={ ( value ) => updateKindMeta( 'eat_restaurant', value ) }
+			/>
+			<RangeControl
+				label={ __( 'Rating', 'reactions-for-indieweb' ) }
+				value={ eatRating || 0 }
+				onChange={ ( value ) => updateKindMeta( 'eat_rating', value ) }
+				min={ 0 }
+				max={ 5 }
+				step={ 0.5 }
+				withInputField
+			/>
+			<TextControl
+				label={ __( 'Photo URL', 'reactions-for-indieweb' ) }
+				type="url"
+				value={ eatPhoto }
+				onChange={ ( value ) => updateKindMeta( 'eat_photo', value ) }
+				placeholder="https://"
+			/>
+		</VStack>
+	);
+}
+
+/**
+ * Drink Fields Component
+ *
+ * Fields for beverage logging.
+ *
+ * @return {JSX.Element} Drink fields.
+ */
+function DrinkFields() {
+	const { drinkName, drinkType, drinkBrewery, drinkPhoto, drinkRating } = useSelect( ( select ) => {
+		const getKindMeta = select( STORE_NAME ).getKindMeta;
+		return {
+			drinkName: getKindMeta( 'drink_name' ),
+			drinkType: getKindMeta( 'drink_type' ),
+			drinkBrewery: getKindMeta( 'drink_brewery' ),
+			drinkPhoto: getKindMeta( 'drink_photo' ),
+			drinkRating: getKindMeta( 'drink_rating' ),
+		};
+	}, [] );
+
+	const { updateKindMeta } = useDispatch( STORE_NAME );
+
+	const typeOptions = [
+		{ label: __( 'Select type...', 'reactions-for-indieweb' ), value: '' },
+		{ label: __( 'Coffee', 'reactions-for-indieweb' ), value: 'coffee' },
+		{ label: __( 'Tea', 'reactions-for-indieweb' ), value: 'tea' },
+		{ label: __( 'Beer', 'reactions-for-indieweb' ), value: 'beer' },
+		{ label: __( 'Wine', 'reactions-for-indieweb' ), value: 'wine' },
+		{ label: __( 'Cocktail', 'reactions-for-indieweb' ), value: 'cocktail' },
+		{ label: __( 'Spirit', 'reactions-for-indieweb' ), value: 'spirit' },
+		{ label: __( 'Soda', 'reactions-for-indieweb' ), value: 'soda' },
+		{ label: __( 'Juice', 'reactions-for-indieweb' ), value: 'juice' },
+		{ label: __( 'Water', 'reactions-for-indieweb' ), value: 'water' },
+		{ label: __( 'Other', 'reactions-for-indieweb' ), value: 'other' },
+	];
+
+	return (
+		<VStack spacing={ 4 } className="reactions-indieweb-kind-fields">
+			<TextControl
+				label={ __( 'Drink Name', 'reactions-for-indieweb' ) }
+				value={ drinkName }
+				onChange={ ( value ) => updateKindMeta( 'drink_name', value ) }
+				placeholder={ __( 'What are you drinking?', 'reactions-for-indieweb' ) }
+			/>
+			<SelectControl
+				label={ __( 'Type', 'reactions-for-indieweb' ) }
+				value={ drinkType }
+				options={ typeOptions }
+				onChange={ ( value ) => updateKindMeta( 'drink_type', value ) }
+			/>
+			<TextControl
+				label={ __( 'Brewery/Brand', 'reactions-for-indieweb' ) }
+				value={ drinkBrewery }
+				onChange={ ( value ) => updateKindMeta( 'drink_brewery', value ) }
+			/>
+			<RangeControl
+				label={ __( 'Rating', 'reactions-for-indieweb' ) }
+				value={ drinkRating || 0 }
+				onChange={ ( value ) => updateKindMeta( 'drink_rating', value ) }
+				min={ 0 }
+				max={ 5 }
+				step={ 0.5 }
+				withInputField
+			/>
+			<TextControl
+				label={ __( 'Photo URL', 'reactions-for-indieweb' ) }
+				type="url"
+				value={ drinkPhoto }
+				onChange={ ( value ) => updateKindMeta( 'drink_photo', value ) }
+				placeholder="https://"
+			/>
+		</VStack>
+	);
+}
+
+/**
+ * Favorite Fields Component
+ *
+ * Fields for starring/saving items.
+ *
+ * @return {JSX.Element} Favorite fields.
+ */
+function FavoriteFields() {
+	const { favoriteName, favoriteUrl, favoriteRating } = useSelect( ( select ) => {
+		const getKindMeta = select( STORE_NAME ).getKindMeta;
+		return {
+			favoriteName: getKindMeta( 'favorite_name' ),
+			favoriteUrl: getKindMeta( 'favorite_url' ),
+			favoriteRating: getKindMeta( 'favorite_rating' ),
+		};
+	}, [] );
+
+	const { updateKindMeta } = useDispatch( STORE_NAME );
+
+	return (
+		<VStack spacing={ 4 } className="reactions-indieweb-kind-fields">
+			<TextControl
+				label={ __( 'Name/Title', 'reactions-for-indieweb' ) }
+				value={ favoriteName }
+				onChange={ ( value ) => updateKindMeta( 'favorite_name', value ) }
+			/>
+			<TextControl
+				label={ __( 'URL', 'reactions-for-indieweb' ) }
+				type="url"
+				value={ favoriteUrl }
+				onChange={ ( value ) => updateKindMeta( 'favorite_url', value ) }
+				placeholder="https://"
+			/>
+			<RangeControl
+				label={ __( 'Rating', 'reactions-for-indieweb' ) }
+				value={ favoriteRating || 0 }
+				onChange={ ( value ) => updateKindMeta( 'favorite_rating', value ) }
+				min={ 0 }
+				max={ 5 }
+				step={ 0.5 }
+				withInputField
+			/>
+		</VStack>
+	);
+}
+
+/**
+ * Jam Fields Component
+ *
+ * Fields for "this is my jam" music highlights.
+ *
+ * @return {JSX.Element} Jam fields.
+ */
+function JamFields() {
+	const { jamTrack, jamArtist, jamAlbum, jamUrl, jamCover } = useSelect( ( select ) => {
+		const getKindMeta = select( STORE_NAME ).getKindMeta;
+		return {
+			jamTrack: getKindMeta( 'jam_track' ),
+			jamArtist: getKindMeta( 'jam_artist' ),
+			jamAlbum: getKindMeta( 'jam_album' ),
+			jamUrl: getKindMeta( 'jam_url' ),
+			jamCover: getKindMeta( 'jam_cover' ),
+		};
+	}, [] );
+
+	const { updateKindMeta } = useDispatch( STORE_NAME );
+
+	return (
+		<VStack spacing={ 4 } className="reactions-indieweb-kind-fields">
+			{ jamCover && (
+				<div style={ { textAlign: 'center' } }>
+					<img
+						src={ jamCover }
+						alt={ jamTrack }
+						style={ { maxWidth: '120px', borderRadius: '4px' } }
+					/>
+				</div>
+			) }
+			<TextControl
+				label={ __( 'Track', 'reactions-for-indieweb' ) }
+				value={ jamTrack }
+				onChange={ ( value ) => updateKindMeta( 'jam_track', value ) }
+			/>
+			<TextControl
+				label={ __( 'Artist', 'reactions-for-indieweb' ) }
+				value={ jamArtist }
+				onChange={ ( value ) => updateKindMeta( 'jam_artist', value ) }
+			/>
+			<TextControl
+				label={ __( 'Album', 'reactions-for-indieweb' ) }
+				value={ jamAlbum }
+				onChange={ ( value ) => updateKindMeta( 'jam_album', value ) }
+			/>
+			<TextControl
+				label={ __( 'Link', 'reactions-for-indieweb' ) }
+				type="url"
+				value={ jamUrl }
+				onChange={ ( value ) => updateKindMeta( 'jam_url', value ) }
+				placeholder="https://open.spotify.com/..."
+			/>
+			<TextControl
+				label={ __( 'Cover Image URL', 'reactions-for-indieweb' ) }
+				type="url"
+				value={ jamCover }
+				onChange={ ( value ) => updateKindMeta( 'jam_cover', value ) }
+				placeholder="https://"
+			/>
+		</VStack>
+	);
+}
+
+/**
+ * Wish Fields Component
+ *
+ * Fields for wishlist items.
+ *
+ * @return {JSX.Element} Wish fields.
+ */
+function WishFields() {
+	const { wishName, wishUrl, wishType, wishPriority, wishPhoto } = useSelect( ( select ) => {
+		const getKindMeta = select( STORE_NAME ).getKindMeta;
+		return {
+			wishName: getKindMeta( 'wish_name' ),
+			wishUrl: getKindMeta( 'wish_url' ),
+			wishType: getKindMeta( 'wish_type' ),
+			wishPriority: getKindMeta( 'wish_priority' ),
+			wishPhoto: getKindMeta( 'wish_photo' ),
+		};
+	}, [] );
+
+	const { updateKindMeta } = useDispatch( STORE_NAME );
+
+	const typeOptions = [
+		{ label: __( 'Select type...', 'reactions-for-indieweb' ), value: '' },
+		{ label: __( 'Book', 'reactions-for-indieweb' ), value: 'book' },
+		{ label: __( 'Movie/Show', 'reactions-for-indieweb' ), value: 'movie' },
+		{ label: __( 'Game', 'reactions-for-indieweb' ), value: 'game' },
+		{ label: __( 'Music', 'reactions-for-indieweb' ), value: 'music' },
+		{ label: __( 'Product', 'reactions-for-indieweb' ), value: 'product' },
+		{ label: __( 'Experience', 'reactions-for-indieweb' ), value: 'experience' },
+		{ label: __( 'Other', 'reactions-for-indieweb' ), value: 'other' },
+	];
+
+	const priorityOptions = [
+		{ label: __( 'Low', 'reactions-for-indieweb' ), value: 'low' },
+		{ label: __( 'Medium', 'reactions-for-indieweb' ), value: 'medium' },
+		{ label: __( 'High', 'reactions-for-indieweb' ), value: 'high' },
+	];
+
+	return (
+		<VStack spacing={ 4 } className="reactions-indieweb-kind-fields">
+			<TextControl
+				label={ __( 'Item Name', 'reactions-for-indieweb' ) }
+				value={ wishName }
+				onChange={ ( value ) => updateKindMeta( 'wish_name', value ) }
+				placeholder={ __( 'What do you wish for?', 'reactions-for-indieweb' ) }
+			/>
+			<TextControl
+				label={ __( 'URL', 'reactions-for-indieweb' ) }
+				type="url"
+				value={ wishUrl }
+				onChange={ ( value ) => updateKindMeta( 'wish_url', value ) }
+				placeholder="https://"
+			/>
+			<SelectControl
+				label={ __( 'Type', 'reactions-for-indieweb' ) }
+				value={ wishType }
+				options={ typeOptions }
+				onChange={ ( value ) => updateKindMeta( 'wish_type', value ) }
+			/>
+			<SelectControl
+				label={ __( 'Priority', 'reactions-for-indieweb' ) }
+				value={ wishPriority || 'medium' }
+				options={ priorityOptions }
+				onChange={ ( value ) => updateKindMeta( 'wish_priority', value ) }
+			/>
+			<TextControl
+				label={ __( 'Photo URL', 'reactions-for-indieweb' ) }
+				type="url"
+				value={ wishPhoto }
+				onChange={ ( value ) => updateKindMeta( 'wish_photo', value ) }
+				placeholder="https://"
+			/>
+		</VStack>
+	);
+}
+
+/**
+ * Mood Fields Component
+ *
+ * Fields for emotional state logging.
+ *
+ * @return {JSX.Element} Mood fields.
+ */
+function MoodFields() {
+	const { moodEmoji, moodLabel, moodRating } = useSelect( ( select ) => {
+		const getKindMeta = select( STORE_NAME ).getKindMeta;
+		return {
+			moodEmoji: getKindMeta( 'mood_emoji' ),
+			moodLabel: getKindMeta( 'mood_label' ),
+			moodRating: getKindMeta( 'mood_rating' ),
+		};
+	}, [] );
+
+	const { updateKindMeta } = useDispatch( STORE_NAME );
+
+	const ratingOptions = [
+		{ label: __( 'Select level...', 'reactions-for-indieweb' ), value: '' },
+		{ label: '1 - ' + __( 'Low', 'reactions-for-indieweb' ), value: '1' },
+		{ label: '2', value: '2' },
+		{ label: '3 - ' + __( 'Neutral', 'reactions-for-indieweb' ), value: '3' },
+		{ label: '4', value: '4' },
+		{ label: '5 - ' + __( 'High', 'reactions-for-indieweb' ), value: '5' },
+	];
+
+	return (
+		<VStack spacing={ 4 } className="reactions-indieweb-kind-fields">
+			{ moodEmoji && (
+				<div style={ { fontSize: '48px', textAlign: 'center' } }>{ moodEmoji }</div>
+			) }
+			<TextControl
+				label={ __( 'Mood Emoji', 'reactions-for-indieweb' ) }
+				value={ moodEmoji }
+				onChange={ ( value ) => updateKindMeta( 'mood_emoji', value ) }
+				placeholder="😊"
+				maxLength={ 10 }
+			/>
+			<TextControl
+				label={ __( 'Mood Label', 'reactions-for-indieweb' ) }
+				value={ moodLabel }
+				onChange={ ( value ) => updateKindMeta( 'mood_label', value ) }
+				placeholder={ __( 'How are you feeling?', 'reactions-for-indieweb' ) }
+			/>
+			<SelectControl
+				label={ __( 'Level (1-5)', 'reactions-for-indieweb' ) }
+				value={ moodRating ? String( moodRating ) : '' }
+				options={ ratingOptions }
+				onChange={ ( value ) => updateKindMeta( 'mood_rating', parseInt( value ) || 0 ) }
+			/>
+		</VStack>
+	);
+}
+
+/**
+ * Acquisition Fields Component
+ *
+ * Fields for items acquired/purchased.
+ *
+ * @return {JSX.Element} Acquisition fields.
+ */
+function AcquisitionFields() {
+	const { acquisitionName, acquisitionUrl, acquisitionPrice, acquisitionPhoto, acquisitionRating } = useSelect( ( select ) => {
+		const getKindMeta = select( STORE_NAME ).getKindMeta;
+		return {
+			acquisitionName: getKindMeta( 'acquisition_name' ),
+			acquisitionUrl: getKindMeta( 'acquisition_url' ),
+			acquisitionPrice: getKindMeta( 'acquisition_price' ),
+			acquisitionPhoto: getKindMeta( 'acquisition_photo' ),
+			acquisitionRating: getKindMeta( 'acquisition_rating' ),
+		};
+	}, [] );
+
+	const { updateKindMeta } = useDispatch( STORE_NAME );
+
+	return (
+		<VStack spacing={ 4 } className="reactions-indieweb-kind-fields">
+			{ acquisitionPhoto && (
+				<div style={ { textAlign: 'center' } }>
+					<img
+						src={ acquisitionPhoto }
+						alt={ acquisitionName }
+						style={ { maxWidth: '150px', borderRadius: '4px' } }
+					/>
+				</div>
+			) }
+			<TextControl
+				label={ __( 'Item Name', 'reactions-for-indieweb' ) }
+				value={ acquisitionName }
+				onChange={ ( value ) => updateKindMeta( 'acquisition_name', value ) }
+				placeholder={ __( 'What did you get?', 'reactions-for-indieweb' ) }
+			/>
+			<TextControl
+				label={ __( 'URL', 'reactions-for-indieweb' ) }
+				type="url"
+				value={ acquisitionUrl }
+				onChange={ ( value ) => updateKindMeta( 'acquisition_url', value ) }
+				placeholder="https://"
+			/>
+			<TextControl
+				label={ __( 'Price', 'reactions-for-indieweb' ) }
+				value={ acquisitionPrice }
+				onChange={ ( value ) => updateKindMeta( 'acquisition_price', value ) }
+				placeholder="$0.00"
+			/>
+			<RangeControl
+				label={ __( 'Rating', 'reactions-for-indieweb' ) }
+				value={ acquisitionRating || 0 }
+				onChange={ ( value ) => updateKindMeta( 'acquisition_rating', value ) }
+				min={ 0 }
+				max={ 5 }
+				step={ 0.5 }
+				withInputField
+			/>
+			<TextControl
+				label={ __( 'Photo URL', 'reactions-for-indieweb' ) }
+				type="url"
+				value={ acquisitionPhoto }
+				onChange={ ( value ) => updateKindMeta( 'acquisition_photo', value ) }
+				placeholder="https://"
+			/>
+		</VStack>
+	);
+}
+
+/**
+ * Recipe Fields Component
+ *
+ * Fields for recipe posts (integrates with WP Recipe Maker).
+ *
+ * @return {JSX.Element} Recipe fields.
+ */
+function RecipeFields() {
+	const { recipeName, recipeYield, recipeDuration, recipeUrl } = useSelect( ( select ) => {
+		const getKindMeta = select( STORE_NAME ).getKindMeta;
+		return {
+			recipeName: getKindMeta( 'recipe_name' ),
+			recipeYield: getKindMeta( 'recipe_yield' ),
+			recipeDuration: getKindMeta( 'recipe_duration' ),
+			recipeUrl: getKindMeta( 'recipe_url' ),
+		};
+	}, [] );
+
+	const { updateKindMeta } = useDispatch( STORE_NAME );
+
+	return (
+		<VStack spacing={ 4 } className="reactions-indieweb-kind-fields">
+			<p className="description" style={ { margin: 0, fontSize: '12px', color: '#757575' } }>
+				{ __( 'For full recipe features, use WP Recipe Maker blocks.', 'reactions-for-indieweb' ) }
+			</p>
+			<TextControl
+				label={ __( 'Recipe Name', 'reactions-for-indieweb' ) }
+				value={ recipeName }
+				onChange={ ( value ) => updateKindMeta( 'recipe_name', value ) }
+			/>
+			<TextControl
+				label={ __( 'Yield/Servings', 'reactions-for-indieweb' ) }
+				value={ recipeYield }
+				onChange={ ( value ) => updateKindMeta( 'recipe_yield', value ) }
+				placeholder={ __( '4 servings', 'reactions-for-indieweb' ) }
+			/>
+			<TextControl
+				label={ __( 'Total Time', 'reactions-for-indieweb' ) }
+				value={ recipeDuration }
+				onChange={ ( value ) => updateKindMeta( 'recipe_duration', value ) }
+				placeholder={ __( 'PT1H30M (ISO 8601)', 'reactions-for-indieweb' ) }
+				help={ __( 'Format: PT1H30M = 1 hour 30 minutes', 'reactions-for-indieweb' ) }
+			/>
+			<TextControl
+				label={ __( 'Recipe Source URL', 'reactions-for-indieweb' ) }
+				type="url"
+				value={ recipeUrl }
+				onChange={ ( value ) => updateKindMeta( 'recipe_url', value ) }
+				placeholder="https://"
+			/>
 		</VStack>
 	);
 }
