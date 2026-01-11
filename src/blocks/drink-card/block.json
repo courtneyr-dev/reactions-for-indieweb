@@ -1,0 +1,79 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "reactions-indieweb/drink-card",
+	"version": "1.0.0",
+	"title": "Drink Card",
+	"category": "reactions-indieweb",
+	"description": "Display a drink you had with photo, type, brand, and rating.",
+	"keywords": ["drink", "beverage", "coffee", "beer", "wine", "cocktail"],
+	"textdomain": "reactions-indieweb",
+	"attributes": {
+		"name": {
+			"type": "string",
+			"source": "html",
+			"selector": ".drink-name"
+		},
+		"drinkType": {
+			"type": "string",
+			"default": "coffee"
+		},
+		"brand": {
+			"type": "string"
+		},
+		"photo": {
+			"type": "string",
+			"source": "attribute",
+			"selector": ".drink-photo img",
+			"attribute": "src"
+		},
+		"photoAlt": {
+			"type": "string",
+			"source": "attribute",
+			"selector": ".drink-photo img",
+			"attribute": "alt"
+		},
+		"rating": {
+			"type": "number",
+			"default": 0
+		},
+		"drankAt": {
+			"type": "string"
+		},
+		"notes": {
+			"type": "string",
+			"source": "html",
+			"selector": ".drink-notes"
+		},
+		"venue": {
+			"type": "string"
+		},
+		"venueUrl": {
+			"type": "string"
+		},
+		"layout": {
+			"type": "string",
+			"default": "horizontal"
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"],
+		"color": {
+			"background": true,
+			"text": true
+		},
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	},
+	"example": {
+		"attributes": {
+			"name": "Flat White",
+			"drinkType": "coffee",
+			"brand": "Blue Bottle",
+			"rating": 4
+		}
+	}
+}

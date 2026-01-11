@@ -1,0 +1,64 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "reactions-indieweb/favorite-card",
+	"version": "1.0.0",
+	"title": "Favorite Card",
+	"category": "reactions-indieweb",
+	"description": "Display something you favorited with title, URL, and description.",
+	"keywords": ["favorite", "star", "like", "bookmark"],
+	"textdomain": "reactions-indieweb",
+	"attributes": {
+		"title": {
+			"type": "string",
+			"source": "html",
+			"selector": ".favorite-title"
+		},
+		"url": {
+			"type": "string"
+		},
+		"description": {
+			"type": "string",
+			"source": "html",
+			"selector": ".favorite-description"
+		},
+		"image": {
+			"type": "string",
+			"source": "attribute",
+			"selector": ".favorite-image img",
+			"attribute": "src"
+		},
+		"imageAlt": {
+			"type": "string"
+		},
+		"author": {
+			"type": "string"
+		},
+		"favoritedAt": {
+			"type": "string"
+		},
+		"layout": {
+			"type": "string",
+			"default": "horizontal"
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"],
+		"color": {
+			"background": true,
+			"text": true
+		},
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	},
+	"example": {
+		"attributes": {
+			"title": "Amazing Blog Post",
+			"url": "https://example.com/post",
+			"author": "Jane Doe"
+		}
+	}
+}

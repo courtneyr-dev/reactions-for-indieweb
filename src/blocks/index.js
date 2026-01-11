@@ -12,6 +12,14 @@ import './watch-card';
 import './read-card';
 import './checkin-card';
 import './rsvp-card';
+import './play-card';
+import './eat-card';
+import './drink-card';
+import './favorite-card';
+import './jam-card';
+import './wish-card';
+import './mood-card';
+import './acquisition-card';
 import './star-rating';
 import './media-lookup';
 

@@ -1,0 +1,108 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "reactions-indieweb/play-card",
+	"version": "1.0.0",
+	"title": "Play Card",
+	"category": "reactions-indieweb",
+	"description": "Display a game you played with cover art, platform, status, and rating.",
+	"keywords": ["play", "game", "gaming", "video game", "board game"],
+	"textdomain": "reactions-indieweb",
+	"attributes": {
+		"title": {
+			"type": "string",
+			"source": "html",
+			"selector": ".game-title"
+		},
+		"platform": {
+			"type": "string"
+		},
+		"cover": {
+			"type": "string",
+			"source": "attribute",
+			"selector": ".game-cover img",
+			"attribute": "src"
+		},
+		"coverAlt": {
+			"type": "string",
+			"source": "attribute",
+			"selector": ".game-cover img",
+			"attribute": "alt"
+		},
+		"status": {
+			"type": "string",
+			"default": "playing",
+			"enum": ["playing", "completed", "abandoned", "backlog", "wishlist"]
+		},
+		"hoursPlayed": {
+			"type": "number",
+			"default": 0
+		},
+		"rating": {
+			"type": "number",
+			"default": 0
+		},
+		"playedAt": {
+			"type": "string"
+		},
+		"review": {
+			"type": "string",
+			"source": "html",
+			"selector": ".game-review"
+		},
+		"gameUrl": {
+			"type": "string"
+		},
+		"bggId": {
+			"type": "string"
+		},
+		"rawgId": {
+			"type": "string"
+		},
+		"developer": {
+			"type": "string"
+		},
+		"publisher": {
+			"type": "string"
+		},
+		"releaseYear": {
+			"type": "string"
+		},
+		"layout": {
+			"type": "string",
+			"default": "horizontal"
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"],
+		"color": {
+			"background": true,
+			"text": true
+		},
+		"spacing": {
+			"margin": true,
+			"padding": true
+		},
+		"typography": {
+			"fontSize": true
+		},
+		"__experimentalBorder": {
+			"color": true,
+			"radius": true,
+			"width": true
+		}
+	},
+	"example": {
+		"attributes": {
+			"title": "The Legend of Zelda: Breath of the Wild",
+			"platform": "Nintendo Switch",
+			"status": "completed",
+			"rating": 5,
+			"hoursPlayed": 120
+		}
+	},
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./editor.css",
+	"style": "file:./style.css"
+}

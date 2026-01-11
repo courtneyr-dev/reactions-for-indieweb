@@ -1,0 +1,87 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "reactions-indieweb/eat-card",
+  "version": "1.0.0",
+  "title": "Eat Card",
+  "category": "reactions-indieweb",
+  "description": "Display a meal or food you ate with photo, restaurant, cuisine, and rating.",
+  "keywords": [
+    "eat",
+    "food",
+    "meal",
+    "restaurant",
+    "dining"
+  ],
+  "textdomain": "reactions-indieweb",
+  "attributes": {
+    "name": {
+      "type": "string",
+      "source": "html",
+      "selector": ".food-name"
+    },
+    "restaurant": {
+      "type": "string"
+    },
+    "cuisine": {
+      "type": "string"
+    },
+    "photo": {
+      "type": "string",
+      "source": "attribute",
+      "selector": ".food-photo img",
+      "attribute": "src"
+    },
+    "photoAlt": {
+      "type": "string",
+      "source": "attribute",
+      "selector": ".food-photo img",
+      "attribute": "alt"
+    },
+    "rating": {
+      "type": "number",
+      "default": 0
+    },
+    "ateAt": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string",
+      "source": "html",
+      "selector": ".food-notes"
+    },
+    "restaurantUrl": {
+      "type": "string"
+    },
+    "locality": {
+      "type": "string"
+    },
+    "layout": {
+      "type": "string",
+      "default": "horizontal"
+    }
+  },
+  "supports": {
+    "html": false,
+    "align": [
+      "wide",
+      "full"
+    ],
+    "color": {
+      "background": true,
+      "text": true
+    },
+    "spacing": {
+      "margin": true,
+      "padding": true
+    }
+  },
+  "example": {
+    "attributes": {
+      "name": "Margherita Pizza",
+      "restaurant": "Pizzeria Napoletana",
+      "cuisine": "Italian",
+      "rating": 5
+    }
+  }
+}

@@ -13,9 +13,10 @@
  */
 import { __ } from '@wordpress/i18n';
 import { useSelect, useDispatch } from '@wordpress/data';
-import { useEffect } from '@wordpress/element';
+import { useEffect, useCallback } from '@wordpress/element';
 import { PluginDocumentSettingPanel, store as editorStore } from '@wordpress/editor';
 import { store as blockEditorStore } from '@wordpress/block-editor';
+import { createBlock } from '@wordpress/blocks';
 
 /**
  * Internal dependencies
@@ -31,6 +32,11 @@ import { kindIcons } from './icons';
  *
  * @type {Object}
  */
+/**
+ * Map block names to kind slugs (for auto-detection).
+ *
+ * @type {Object}
+ */
 const BLOCK_KIND_MAP = {
 	'indieblocks/reply': 'reply',
 	'indieblocks/like': 'like',
@@ -40,6 +46,28 @@ const BLOCK_KIND_MAP = {
 	'core/image': 'photo',
 	'core/video': 'video',
 	'core/audio': 'listen',
+};
+
+/**
+ * Map kind slugs to their corresponding card block names.
+ * When a kind is selected, we auto-insert this block if not present.
+ *
+ * @type {Object}
+ */
+const KIND_CARD_BLOCK_MAP = {
+	listen: 'reactions-indieweb/listen-card',
+	watch: 'reactions-indieweb/watch-card',
+	read: 'reactions-indieweb/read-card',
+	checkin: 'reactions-indieweb/checkin-card',
+	rsvp: 'reactions-indieweb/rsvp-card',
+	play: 'reactions-indieweb/play-card',
+	eat: 'reactions-indieweb/eat-card',
+	drink: 'reactions-indieweb/drink-card',
+	favorite: 'reactions-indieweb/favorite-card',
+	jam: 'reactions-indieweb/jam-card',
+	wish: 'reactions-indieweb/wish-card',
+	mood: 'reactions-indieweb/mood-card',
+	acquisition: 'reactions-indieweb/acquisition-card',
 };
 
 /**
@@ -125,6 +153,60 @@ export default function KindSelectorPanel() {
 		disableAutoDetection,
 	} = useDispatch( STORE_NAME );
 
+	const { insertBlocks } = useDispatch( blockEditorStore );
+
+	/**
+	 * Check if a card block for the given kind already exists in the post.
+	 *
+	 * @param {string} kind Kind slug.
+	 * @return {boolean} True if card block exists.
+	 */
+	const hasCardBlockForKind = useCallback( ( kind ) => {
+		const blockName = KIND_CARD_BLOCK_MAP[ kind ];
+		if ( ! blockName ) {
+			return true; // No card block defined for this kind
+		}
+
+		// Check if any block matches the card block name
+		const checkBlocks = ( blockList ) => {
+			for ( const block of blockList ) {
+				if ( block.name === blockName ) {
+					return true;
+				}
+				// Check inner blocks recursively
+				if ( block.innerBlocks && block.innerBlocks.length > 0 ) {
+					if ( checkBlocks( block.innerBlocks ) ) {
+						return true;
+					}
+				}
+			}
+			return false;
+		};
+
+		return checkBlocks( blocks );
+	}, [ blocks ] );
+
+	/**
+	 * Insert card block for the given kind at the beginning of the post.
+	 *
+	 * @param {string} kind Kind slug.
+	 */
+	const insertCardBlock = useCallback( ( kind ) => {
+		const blockName = KIND_CARD_BLOCK_MAP[ kind ];
+		if ( ! blockName ) {
+			return; // No card block defined for this kind
+		}
+
+		// Don't insert if block already exists
+		if ( hasCardBlockForKind( kind ) ) {
+			return;
+		}
+
+		// Create and insert the block at the beginning
+		const newBlock = createBlock( blockName );
+		insertBlocks( newBlock, 0 );
+	}, [ hasCardBlockForKind, insertBlocks ] );
+
 	// Initialize store on mount.
 	useEffect( () => {
 		if ( ! isInitialized ) {
@@ -150,6 +232,9 @@ export default function KindSelectorPanel() {
 	function handleKindSelect( kind ) {
 		updatePostKind( kind );
 		disableAutoDetection();
+
+		// Auto-insert the corresponding card block if not already present
+		insertCardBlock( kind );
 	}
 
 	/**
@@ -159,6 +244,9 @@ export default function KindSelectorPanel() {
 		if ( autoDetectedKind ) {
 			updatePostKind( autoDetectedKind );
 			disableAutoDetection();
+
+			// Auto-insert the corresponding card block if not already present
+			insertCardBlock( autoDetectedKind );
 		}
 	}
 

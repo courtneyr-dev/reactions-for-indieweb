@@ -1,0 +1,75 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "reactions-indieweb/jam-card",
+  "version": "1.0.0",
+  "title": "Jam Card",
+  "category": "reactions-indieweb",
+  "description": "Display a song you're jamming to with cover art and artist.",
+  "keywords": [
+    "jam",
+    "music",
+    "song",
+    "currently playing"
+  ],
+  "textdomain": "reactions-indieweb",
+  "attributes": {
+    "title": {
+      "type": "string",
+      "source": "html",
+      "selector": ".jam-title"
+    },
+    "artist": {
+      "type": "string"
+    },
+    "album": {
+      "type": "string"
+    },
+    "cover": {
+      "type": "string",
+      "source": "attribute",
+      "selector": ".jam-cover img",
+      "attribute": "src"
+    },
+    "coverAlt": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "note": {
+      "type": "string",
+      "source": "html",
+      "selector": ".jam-note"
+    },
+    "jammedAt": {
+      "type": "string"
+    },
+    "layout": {
+      "type": "string",
+      "default": "horizontal"
+    }
+  },
+  "supports": {
+    "html": false,
+    "align": [
+      "wide",
+      "full"
+    ],
+    "color": {
+      "background": true,
+      "text": true
+    },
+    "spacing": {
+      "margin": true,
+      "padding": true
+    }
+  },
+  "example": {
+    "attributes": {
+      "title": "Bohemian Rhapsody",
+      "artist": "Queen",
+      "album": "A Night at the Opera"
+    }
+  }
+}

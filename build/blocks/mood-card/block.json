@@ -1,0 +1,65 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "reactions-indieweb/mood-card",
+  "version": "1.0.0",
+  "title": "Mood Card",
+  "category": "reactions-indieweb",
+  "description": "Display your current mood with emoji and note.",
+  "keywords": [
+    "mood",
+    "feeling",
+    "emotion",
+    "status"
+  ],
+  "textdomain": "reactions-indieweb",
+  "attributes": {
+    "mood": {
+      "type": "string",
+      "source": "html",
+      "selector": ".mood-text"
+    },
+    "emoji": {
+      "type": "string",
+      "default": ""
+    },
+    "note": {
+      "type": "string",
+      "source": "html",
+      "selector": ".mood-note"
+    },
+    "intensity": {
+      "type": "number",
+      "default": 3
+    },
+    "moodAt": {
+      "type": "string"
+    },
+    "layout": {
+      "type": "string",
+      "default": "compact"
+    }
+  },
+  "supports": {
+    "html": false,
+    "align": [
+      "wide",
+      "full"
+    ],
+    "color": {
+      "background": true,
+      "text": true
+    },
+    "spacing": {
+      "margin": true,
+      "padding": true
+    }
+  },
+  "example": {
+    "attributes": {
+      "mood": "Happy",
+      "emoji": "😊",
+      "intensity": 4
+    }
+  }
+}

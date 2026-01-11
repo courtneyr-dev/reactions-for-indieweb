@@ -1,0 +1,80 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "reactions-indieweb/wish-card",
+  "version": "1.0.0",
+  "title": "Wish Card",
+  "category": "reactions-indieweb",
+  "description": "Display something you wish for or want with image and reason.",
+  "keywords": [
+    "wish",
+    "want",
+    "wishlist",
+    "gift"
+  ],
+  "textdomain": "reactions-indieweb",
+  "attributes": {
+    "title": {
+      "type": "string",
+      "source": "html",
+      "selector": ".wish-title"
+    },
+    "wishType": {
+      "type": "string",
+      "default": "item"
+    },
+    "url": {
+      "type": "string"
+    },
+    "image": {
+      "type": "string",
+      "source": "attribute",
+      "selector": ".wish-image img",
+      "attribute": "src"
+    },
+    "imageAlt": {
+      "type": "string"
+    },
+    "price": {
+      "type": "string"
+    },
+    "reason": {
+      "type": "string",
+      "source": "html",
+      "selector": ".wish-reason"
+    },
+    "priority": {
+      "type": "string",
+      "default": "medium"
+    },
+    "wishedAt": {
+      "type": "string"
+    },
+    "layout": {
+      "type": "string",
+      "default": "horizontal"
+    }
+  },
+  "supports": {
+    "html": false,
+    "align": [
+      "wide",
+      "full"
+    ],
+    "color": {
+      "background": true,
+      "text": true
+    },
+    "spacing": {
+      "margin": true,
+      "padding": true
+    }
+  },
+  "example": {
+    "attributes": {
+      "title": "Mechanical Keyboard",
+      "wishType": "item",
+      "priority": "high"
+    }
+  }
+}
