@@ -3,7 +3,7 @@
  *
  * Extends the default @wordpress/scripts webpack config.
  *
- * @package ReactionsForIndieWeb
+ * @package
  * @since   1.0.0
  */
 

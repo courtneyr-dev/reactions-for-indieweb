@@ -18,7 +18,7 @@ import './media-lookup';
 // Register block category
 import { registerBlockCollection } from '@wordpress/blocks';
 
-registerBlockCollection('reactions-indieweb', {
+registerBlockCollection('reactions-for-indieweb', {
     title: 'Reactions for IndieWeb',
     icon: 'heart',
 });

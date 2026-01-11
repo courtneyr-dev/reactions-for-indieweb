@@ -52,7 +52,7 @@ export function StarRating({ value = 0, onChange, max = 5, readonly = false }) {
             className="reactions-star-rating"
             onMouseLeave={handleMouseLeave}
             role="group"
-            aria-label={__('Rating', 'reactions-indieweb')}
+            aria-label={__('Rating', 'reactions-for-indieweb')}
         >
             {Array.from({ length: max }, (_, i) => i + 1).map((rating) => (
                 <button
@@ -62,7 +62,7 @@ export function StarRating({ value = 0, onChange, max = 5, readonly = false }) {
                     onClick={() => handleClick(rating)}
                     onMouseEnter={() => handleMouseEnter(rating)}
                     disabled={readonly}
-                    aria-label={`${rating} ${rating === 1 ? __('star', 'reactions-indieweb') : __('stars', 'reactions-indieweb')}`}
+                    aria-label={`${rating} ${rating === 1 ? __('star', 'reactions-for-indieweb') : __('stars', 'reactions-for-indieweb')}`}
                     aria-pressed={rating <= value}
                 >
                     {rating <= displayValue ? starIcon : starOutlineIcon}
@@ -152,10 +152,10 @@ export function MediaSearch({ type, placeholder, onSelect }) {
             if (response.results && response.results.length) {
                 setResults(response.results);
             } else {
-                setError(__('No results found.', 'reactions-indieweb'));
+                setError(__('No results found.', 'reactions-for-indieweb'));
             }
         } catch (err) {
-            setError(err.message || __('Search failed.', 'reactions-indieweb'));
+            setError(err.message || __('Search failed.', 'reactions-for-indieweb'));
         } finally {
             setIsSearching(false);
         }
@@ -191,7 +191,7 @@ export function MediaSearch({ type, placeholder, onSelect }) {
                     onClick={doSearch}
                     disabled={isSearching || !query.trim()}
                 >
-                    {isSearching ? <Spinner /> : __('Search', 'reactions-indieweb')}
+                    {isSearching ? <Spinner /> : __('Search', 'reactions-for-indieweb')}
                 </Button>
             </div>
 
@@ -348,7 +348,7 @@ export function CiteBlock({ url, name, author, type = 'u-cite' }) {
             </a>
             {author && (
                 <span className="p-author h-card">
-                    {__(' by ', 'reactions-indieweb')}
+                    {__(' by ', 'reactions-for-indieweb')}
                     <span className="p-name">{author}</span>
                 </span>
             )}
@@ -414,14 +414,14 @@ function getRelativeTime(date) {
     const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
     if (diffDays === 0) {
-        return __('Today', 'reactions-indieweb');
+        return __('Today', 'reactions-for-indieweb');
     } else if (diffDays === 1) {
-        return __('Yesterday', 'reactions-indieweb');
+        return __('Yesterday', 'reactions-for-indieweb');
     } else if (diffDays < 7) {
-        return `${diffDays} ${__('days ago', 'reactions-indieweb')}`;
+        return `${diffDays} ${__('days ago', 'reactions-for-indieweb')}`;
     } else if (diffDays < 30) {
         const weeks = Math.floor(diffDays / 7);
-        return `${weeks} ${weeks === 1 ? __('week ago', 'reactions-indieweb') : __('weeks ago', 'reactions-indieweb')}`;
+        return `${weeks} ${weeks === 1 ? __('week ago', 'reactions-for-indieweb') : __('weeks ago', 'reactions-for-indieweb')}`;
     } else {
         return date.toLocaleDateString();
     }
@@ -456,7 +456,7 @@ export function LocationDisplay({ name, address, city, country, latitude, longit
                     <data className="p-longitude" value={longitude} />
                     {mapUrl && (
                         <a href={mapUrl} target="_blank" rel="noopener noreferrer" className="map-link">
-                            {__('View on map', 'reactions-indieweb')}
+                            {__('View on map', 'reactions-for-indieweb')}
                         </a>
                     )}
                 </span>

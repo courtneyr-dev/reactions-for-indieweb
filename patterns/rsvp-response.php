@@ -23,9 +23,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 register_block_pattern(
 	'reactions-indieweb/rsvp-response',
 	array(
-		'title'       => __( 'RSVP Response', 'reactions-indieweb' ),
-		'description' => __( 'Respond to an event with yes, no, maybe, or interested.', 'reactions-indieweb' ),
-		'categories'  => array( 'reactions-indieweb' ),
+		'title'       => __( 'RSVP Response', 'reactions-for-indieweb' ),
+		'description' => __( 'Respond to an event with yes, no, maybe, or interested.', 'reactions-for-indieweb' ),
+		'categories'  => array( 'reactions-for-indieweb' ),
 		'keywords'    => array( 'rsvp', 'event', 'response', 'indieweb', 'reaction' ),
 		'blockTypes'  => array( 'core/group' ),
 		'postTypes'   => array( 'post' ),

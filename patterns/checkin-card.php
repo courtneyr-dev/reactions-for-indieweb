@@ -23,9 +23,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 register_block_pattern(
 	'reactions-indieweb/checkin-card',
 	array(
-		'title'       => __( 'Check-in Card', 'reactions-indieweb' ),
-		'description' => __( 'Check in at a location or venue.', 'reactions-indieweb' ),
-		'categories'  => array( 'reactions-indieweb' ),
+		'title'       => __( 'Check-in Card', 'reactions-for-indieweb' ),
+		'description' => __( 'Check in at a location or venue.', 'reactions-for-indieweb' ),
+		'categories'  => array( 'reactions-for-indieweb' ),
 		'keywords'    => array( 'checkin', 'check-in', 'location', 'venue', 'place', 'geo', 'indieweb', 'reaction' ),
 		'blockTypes'  => array( 'core/group' ),
 		'postTypes'   => array( 'post' ),

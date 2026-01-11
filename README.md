@@ -5,7 +5,9 @@
 [![License](https://img.shields.io/badge/License-GPL--2.0--or--later-green.svg)](LICENSE)
 [![IndieWeb](https://img.shields.io/badge/IndieWeb-compatible-orange.svg)](https://indieweb.org/)
 
-A comprehensive WordPress plugin that extends IndieBlocks with rich support for IndieWeb Post Kinds, external API integrations, and media tracking. Share what you're listening to, watching, reading, and experiencing—all on your own website.
+**Post Kinds successor for the block editor.** Extends IndieBlocks with reaction posts (listen, watch, read, checkin, RSVP) and media import/syndication.
+
+Share what you're listening to, watching, reading, and experiencing—all on your own website.
 
 ## Features
 
@@ -38,7 +40,19 @@ A comprehensive WordPress plugin that extends IndieBlocks with rich support for 
 
 - WordPress 6.5+
 - PHP 8.0+
-- [IndieBlocks](https://developer.wordpress.org/plugins/indieblocks/) plugin (recommended)
+
+## Related Plugins
+
+**Recommended:**
+- [IndieBlocks](https://wordpress.org/plugins/indieblocks/) - Core IndieWeb blocks for bookmarks, likes, replies, reposts
+- [Syndication Links](https://wordpress.org/plugins/syndication-links/) - Stores and displays syndication URLs for POSSE
+- [Webmention](https://wordpress.org/plugins/webmention/) - Cross-site conversations
+
+**Optional:**
+- [ActivityPub](https://wordpress.org/plugins/activitypub/) - Fediverse federation
+
+**Conflicts:**
+- [Post Kinds](https://wordpress.org/plugins/indieweb-post-kinds/) - Use one or the other (this plugin is the block editor successor)
 
 ## Installation
 

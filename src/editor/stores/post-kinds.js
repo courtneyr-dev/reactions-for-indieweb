@@ -3,7 +3,7 @@
  *
  * Manages post kind state, auto-detection, and metadata in the block editor.
  *
- * @package ReactionsForIndieWeb
+ * @package
  * @since   1.0.0
  */
 
@@ -13,7 +13,6 @@
 import { createReduxStore, createRegistrySelector } from '@wordpress/data';
 import apiFetch from '@wordpress/api-fetch';
 import { store as editorStore } from '@wordpress/editor';
-import { store as coreStore } from '@wordpress/core-data';
 
 /**
  * Store name constant.
@@ -203,7 +202,6 @@ const actions = {
 	updatePostKind( kind ) {
 		return async ( { dispatch, registry } ) => {
 			const { editPost } = registry.dispatch( editorStore );
-			const { getEditedPostAttribute } = registry.select( editorStore );
 
 			// Get available kinds to find the term ID.
 			const kinds = registry.select( STORE_NAME ).getAvailableKinds();
@@ -499,10 +497,9 @@ const selectors = {
 	/**
 	 * Get all kind meta values.
 	 *
-	 * @param {Object} state Store state.
 	 * @return {Object} All meta values.
 	 */
-	getAllKindMeta: createRegistrySelector( ( select ) => ( state ) => {
+	getAllKindMeta: createRegistrySelector( ( select ) => () => {
 		const meta = select( editorStore ).getEditedPostAttribute( 'meta' ) || {};
 		const kindMeta = {};
 

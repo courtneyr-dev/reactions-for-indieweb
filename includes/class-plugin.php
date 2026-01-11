@@ -42,6 +42,13 @@ final class Plugin {
 	private bool $indieblocks_active = false;
 
 	/**
+	 * Whether Post Kinds plugin is active (conflict).
+	 *
+	 * @var bool
+	 */
+	private bool $post_kinds_conflict = false;
+
+	/**
 	 * Taxonomy component instance.
 	 *
 	 * @var Taxonomy|null
@@ -112,6 +119,20 @@ final class Plugin {
 	private array $checkin_sync_services = array();
 
 	/**
+	 * Listen sync services.
+	 *
+	 * @var array<Sync\Listen_Sync_Base>
+	 */
+	private array $listen_sync_services = array();
+
+	/**
+	 * Watch sync services.
+	 *
+	 * @var array<Sync\Watch_Sync_Base>
+	 */
+	private array $watch_sync_services = array();
+
+	/**
 	 * Import Manager component instance.
 	 *
 	 * @var Import_Manager|null
@@ -172,6 +193,12 @@ final class Plugin {
 	 * @return void
 	 */
 	public function init(): void {
+		// Check for Post Kinds plugin conflict.
+		if ( $this->detect_post_kinds_conflict() ) {
+			add_action( 'admin_notices', array( $this, 'post_kinds_conflict_notice' ) );
+			return; // Don't initialize - Post Kinds is active.
+		}
+
 		// Detect IndieBlocks presence.
 		$this->detect_indieblocks();
 
@@ -180,6 +207,40 @@ final class Plugin {
 
 		// Register hooks.
 		$this->register_hooks();
+	}
+
+	/**
+	 * Detect if Post Kinds plugin is active (conflict).
+	 *
+	 * Post Kinds and Reactions for IndieWeb both use the 'kind' taxonomy
+	 * and provide similar functionality. Only one should be active.
+	 *
+	 * @return bool True if Post Kinds is active (conflict detected).
+	 */
+	private function detect_post_kinds_conflict(): bool {
+		// Check for Post Kinds plugin file.
+		$active_plugins = (array) get_option( 'active_plugins', array() );
+		if ( in_array( 'indieweb-post-kinds/indieweb-post-kinds.php', $active_plugins, true ) ) {
+			$this->post_kinds_conflict = true;
+			return true;
+		}
+
+		// Check network-activated plugins for multisite.
+		if ( is_multisite() ) {
+			$network_plugins = (array) get_site_option( 'active_sitewide_plugins', array() );
+			if ( isset( $network_plugins['indieweb-post-kinds/indieweb-post-kinds.php'] ) ) {
+				$this->post_kinds_conflict = true;
+				return true;
+			}
+		}
+
+		// Check for Post Kinds main class.
+		if ( class_exists( 'Kind_Taxonomy' ) ) {
+			$this->post_kinds_conflict = true;
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
@@ -275,8 +336,10 @@ final class Plugin {
 			$this->query_filter = new Query_Filter();
 		}
 
-		// Initialize checkin sync services.
+		// Initialize sync services.
 		$this->init_checkin_sync_services();
+		$this->init_listen_sync_services();
+		$this->init_watch_sync_services();
 
 		// Initialize import manager and scheduled sync.
 		if ( class_exists( __NAMESPACE__ . '\\Import_Manager' ) ) {
@@ -351,6 +414,100 @@ final class Plugin {
 	}
 
 	/**
+	 * Initialize listen synchronization services.
+	 *
+	 * Sets up POSSE for listen/scrobble posts.
+	 *
+	 * @return void
+	 */
+	private function init_listen_sync_services(): void {
+		// Last.fm scrobble sync.
+		if ( class_exists( __NAMESPACE__ . '\\Sync\\Lastfm_Listen_Sync' ) ) {
+			$lastfm_sync = new Sync\Lastfm_Listen_Sync();
+			$lastfm_sync->init();
+			$this->listen_sync_services['lastfm'] = $lastfm_sync;
+		}
+
+		/**
+		 * Filter to add additional listen sync services.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param array<Sync\Listen_Sync_Base> $services Listen sync services.
+		 */
+		$this->listen_sync_services = apply_filters(
+			'reactions_indieweb_listen_sync_services',
+			$this->listen_sync_services
+		);
+	}
+
+	/**
+	 * Get a listen sync service by ID.
+	 *
+	 * @param string $service_id Service ID.
+	 * @return Sync\Listen_Sync_Base|null
+	 */
+	public function get_listen_sync_service( string $service_id ): ?Sync\Listen_Sync_Base {
+		return $this->listen_sync_services[ $service_id ] ?? null;
+	}
+
+	/**
+	 * Get all listen sync services.
+	 *
+	 * @return array<Sync\Listen_Sync_Base>
+	 */
+	public function get_listen_sync_services(): array {
+		return $this->listen_sync_services;
+	}
+
+	/**
+	 * Initialize watch synchronization services.
+	 *
+	 * Sets up POSSE for watch posts.
+	 *
+	 * @return void
+	 */
+	private function init_watch_sync_services(): void {
+		// Trakt watch sync.
+		if ( class_exists( __NAMESPACE__ . '\\Sync\\Trakt_Watch_Sync' ) ) {
+			$trakt_sync = new Sync\Trakt_Watch_Sync();
+			$trakt_sync->init();
+			$this->watch_sync_services['trakt'] = $trakt_sync;
+		}
+
+		/**
+		 * Filter to add additional watch sync services.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param array<Sync\Watch_Sync_Base> $services Watch sync services.
+		 */
+		$this->watch_sync_services = apply_filters(
+			'reactions_indieweb_watch_sync_services',
+			$this->watch_sync_services
+		);
+	}
+
+	/**
+	 * Get a watch sync service by ID.
+	 *
+	 * @param string $service_id Service ID.
+	 * @return Sync\Watch_Sync_Base|null
+	 */
+	public function get_watch_sync_service( string $service_id ): ?Sync\Watch_Sync_Base {
+		return $this->watch_sync_services[ $service_id ] ?? null;
+	}
+
+	/**
+	 * Get all watch sync services.
+	 *
+	 * @return array<Sync\Watch_Sync_Base>
+	 */
+	public function get_watch_sync_services(): array {
+		return $this->watch_sync_services;
+	}
+
+	/**
 	 * Register WordPress hooks.
 	 *
 	 * Sets up actions and filters for the plugin.
@@ -395,8 +552,8 @@ final class Plugin {
 				return array_merge(
 					array(
 						array(
-							'slug'  => 'reactions-indieweb',
-							'title' => __( 'Reactions for IndieWeb', 'reactions-indieweb' ),
+							'slug'  => 'reactions-for-indieweb',
+							'title' => __( 'Reactions for IndieWeb', 'reactions-for-indieweb' ),
 							'icon'  => 'heart',
 						),
 					),
@@ -441,7 +598,7 @@ final class Plugin {
 
 			wp_set_script_translations(
 				'reactions-indieweb-blocks',
-				'reactions-indieweb',
+				'reactions-for-indieweb',
 				\REACTIONS_INDIEWEB_PATH . 'languages'
 			);
 		}
@@ -485,7 +642,7 @@ final class Plugin {
 
 		wp_set_script_translations(
 			'reactions-indieweb-editor',
-			'reactions-indieweb',
+			'reactions-for-indieweb',
 			\REACTIONS_INDIEWEB_PATH . 'languages'
 		);
 
@@ -494,9 +651,10 @@ final class Plugin {
 			'reactions-indieweb-editor',
 			'reactionsIndieWeb',
 			array(
-				'indieBlocksActive' => $this->indieblocks_active,
-				'restUrl'           => rest_url( 'reactions-indieweb/v1/' ),
-				'nonce'             => wp_create_nonce( 'wp_rest' ),
+				'indieBlocksActive'     => $this->indieblocks_active,
+				'restUrl'               => rest_url( 'reactions-indieweb/v1/' ),
+				'nonce'                 => wp_create_nonce( 'wp_rest' ),
+				'syndicationServices'   => $this->get_available_syndication_services(),
 			)
 		);
 
@@ -523,10 +681,10 @@ final class Plugin {
 	public function register_block_patterns(): void {
 		// Register pattern category.
 		register_block_pattern_category(
-			'reactions-indieweb',
+			'reactions-for-indieweb',
 			array(
-				'label'       => __( 'Reactions for IndieWeb', 'reactions-indieweb' ),
-				'description' => __( 'Patterns for IndieWeb post kinds and reactions.', 'reactions-indieweb' ),
+				'label'       => __( 'Reactions for IndieWeb', 'reactions-for-indieweb' ),
+				'description' => __( 'Patterns for IndieWeb post kinds and reactions.', 'reactions-for-indieweb' ),
 			)
 		);
 
@@ -562,11 +720,40 @@ final class Plugin {
 			sprintf(
 				'<a href="%s">%s</a>',
 				esc_url( admin_url( 'admin.php?page=reactions-indieweb' ) ),
-				esc_html__( 'Settings', 'reactions-indieweb' )
+				esc_html__( 'Settings', 'reactions-for-indieweb' )
 			),
 		);
 
 		return array_merge( $plugin_links, $links );
+	}
+
+	/**
+	 * Display Post Kinds conflict error notice.
+	 *
+	 * Shows an error notice when Post Kinds plugin is active.
+	 * These plugins are mutually exclusive.
+	 *
+	 * @return void
+	 */
+	public function post_kinds_conflict_notice(): void {
+		$message = sprintf(
+			/* translators: %s: Post Kinds plugin name */
+			esc_html__(
+				'Reactions for IndieWeb cannot run while %s is active. These plugins provide the same functionality - Reactions for IndieWeb is the block editor successor to Post Kinds. Please deactivate one of them.',
+				'reactions-for-indieweb'
+			),
+			'<strong>Post Kinds</strong>'
+		);
+
+		printf(
+			'<div class="notice notice-error"><p>%s</p></div>',
+			wp_kses(
+				$message,
+				array(
+					'strong' => array(),
+				)
+			)
+		);
 	}
 
 	/**
@@ -604,7 +791,7 @@ final class Plugin {
 			/* translators: %s: IndieBlocks plugin link */
 			esc_html__(
 				'Reactions for IndieWeb works best with %s installed. While not required, IndieBlocks provides essential blocks for bookmarks, likes, replies, and more.',
-				'reactions-indieweb'
+				'reactions-for-indieweb'
 			),
 			'<a href="https://wordpress.org/plugins/indieblocks/" target="_blank" rel="noopener noreferrer">IndieBlocks</a>'
 		);
@@ -742,5 +929,59 @@ final class Plugin {
 			flush_rewrite_rules();
 			delete_option( 'reactions_indieweb_flush_rewrite' );
 		}
+	}
+
+	/**
+	 * Get available syndication services for the editor.
+	 *
+	 * Returns information about which POSSE syndication services are
+	 * connected and enabled, so the editor can show opt-out toggles.
+	 *
+	 * @return array<string, array<string, mixed>> Array of service info.
+	 */
+	private function get_available_syndication_services(): array {
+		$services = array();
+		$settings = get_option( 'reactions_indieweb_settings', array() );
+
+		// Check Last.fm for listen posts.
+		if ( ! empty( $settings['listen_sync_to_lastfm'] ) ) {
+			$credentials = get_option( 'reactions_indieweb_api_credentials', array() );
+			$lastfm      = $credentials['lastfm'] ?? array();
+
+			if ( ! empty( $lastfm['session_key'] ) ) {
+				$services['lastfm'] = array(
+					'name'      => 'Last.fm',
+					'kind'      => 'listen',
+					'metaKey'   => '_reactions_syndicate_lastfm',
+					'connected' => true,
+				);
+			}
+		}
+
+		// Check Trakt for watch posts.
+		if ( ! empty( $settings['watch_sync_to_trakt'] ) ) {
+			$credentials = get_option( 'reactions_indieweb_api_credentials', array() );
+			$trakt       = $credentials['trakt'] ?? array();
+
+			if ( ! empty( $trakt['access_token'] ) ) {
+				$services['trakt'] = array(
+					'name'      => 'Trakt',
+					'kind'      => 'watch',
+					'metaKey'   => '_reactions_syndicate_trakt',
+					'connected' => true,
+				);
+			}
+		}
+
+		/**
+		 * Filters the available syndication services.
+		 *
+		 * Allows adding additional syndication services for the editor UI.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param array $services Array of service configurations.
+		 */
+		return apply_filters( 'reactions_indieweb_syndication_services', $services );
 	}
 }

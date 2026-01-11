@@ -264,9 +264,9 @@ abstract class API_Base {
 			throw new \Exception(
 				sprintf(
 					/* translators: 1: API name, 2: Error message */
-					__( '%1$s API error: %2$s', 'reactions-indieweb' ),
-					$this->api_name,
-					$last_error->get_error_message()
+					__( '%1$s API error: %2$s', 'reactions-for-indieweb' ),
+					esc_html( $this->api_name ),
+					esc_html( $last_error->get_error_message() )
 				)
 			);
 		}
@@ -274,8 +274,8 @@ abstract class API_Base {
 		throw new \Exception(
 			sprintf(
 				/* translators: %s: API name */
-				__( '%s API request failed after multiple attempts.', 'reactions-indieweb' ),
-				$this->api_name
+				__( '%s API request failed after multiple attempts.', 'reactions-for-indieweb' ),
+				esc_html( $this->api_name )
 			)
 		);
 	}
@@ -289,7 +289,7 @@ abstract class API_Base {
 	 */
 	protected function parse_response( $response ): array {
 		if ( is_wp_error( $response ) ) {
-			throw new \Exception( $response->get_error_message() );
+			throw new \Exception( esc_html( $response->get_error_message() ) );
 		}
 
 		$code = wp_remote_retrieve_response_code( $response );
@@ -307,7 +307,7 @@ abstract class API_Base {
 		if ( $code >= 400 ) {
 			$error_message = $this->extract_error_message( $data, $code );
 
-			throw new \Exception( $error_message );
+			throw new \Exception( esc_html( $error_message ) );
 		}
 
 		return $data ?? array();
@@ -344,7 +344,7 @@ abstract class API_Base {
 		// Default error message.
 		return sprintf(
 			/* translators: 1: API name, 2: HTTP status code */
-			__( '%1$s API returned error code %2$d', 'reactions-indieweb' ),
+			__( '%1$s API returned error code %2$d', 'reactions-for-indieweb' ),
 			$this->api_name,
 			$code
 		);
@@ -479,17 +479,6 @@ abstract class API_Base {
 	 * @return void
 	 */
 	protected function log_error( string $message, array $context = array() ): void {
-		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-			error_log(
-				sprintf(
-					'[Reactions for IndieWeb] %s API: %s | Context: %s',
-					$this->api_name,
-					$message,
-					wp_json_encode( $context )
-				)
-			);
-		}
-
 		/**
 		 * Fires when an API error occurs.
 		 *
@@ -510,16 +499,16 @@ abstract class API_Base {
 	 * @return void
 	 */
 	protected function log_debug( string $message, array $context = array() ): void {
-		if ( defined( 'WP_DEBUG' ) && WP_DEBUG && defined( 'REACTIONS_INDIEWEB_DEBUG' ) && \REACTIONS_INDIEWEB_DEBUG ) {
-			error_log(
-				sprintf(
-					'[Reactions for IndieWeb] %s API DEBUG: %s | Context: %s',
-					$this->api_name,
-					$message,
-					wp_json_encode( $context )
-				)
-			);
-		}
+		/**
+		 * Fires when an API debug message is logged.
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param string               $api_name API name.
+		 * @param string               $message  Debug message.
+		 * @param array<string, mixed> $context  Additional context.
+		 */
+		do_action( 'reactions_indieweb_api_debug', $this->api_name, $message, $context );
 	}
 
 	/**

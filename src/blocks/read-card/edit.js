@@ -106,21 +106,21 @@ export default function Edit({ attributes, setAttributes }) {
             <div {...blockProps}>
                 <BlockPlaceholder
                     icon={readIcon}
-                    label={__('Read Card', 'reactions-indieweb')}
-                    instructions={__('Add a book you\'re reading or have read. Search or enter details manually.', 'reactions-indieweb')}
+                    label={__('Read Card', 'reactions-for-indieweb')}
+                    instructions={__('Add a book you\'re reading or have read. Search or enter details manually.', 'reactions-for-indieweb')}
                 >
                     {isSearching ? (
                         <div className="search-mode">
                             <MediaSearch
                                 type="book"
-                                placeholder={__('Search by title, author, or ISBN...', 'reactions-indieweb')}
+                                placeholder={__('Search by title, author, or ISBN...', 'reactions-for-indieweb')}
                                 onSelect={handleSearchSelect}
                             />
                             <Button
                                 variant="link"
                                 onClick={() => setIsSearching(false)}
                             >
-                                {__('Enter manually', 'reactions-indieweb')}
+                                {__('Enter manually', 'reactions-for-indieweb')}
                             </Button>
                         </div>
                     ) : (
@@ -129,13 +129,13 @@ export default function Edit({ attributes, setAttributes }) {
                                 variant="primary"
                                 onClick={() => setIsSearching(true)}
                             >
-                                {__('Search Books', 'reactions-indieweb')}
+                                {__('Search Books', 'reactions-for-indieweb')}
                             </Button>
                             <Button
                                 variant="secondary"
                                 onClick={() => setAttributes({ bookTitle: '' })}
                             >
-                                {__('Enter Manually', 'reactions-indieweb')}
+                                {__('Enter Manually', 'reactions-for-indieweb')}
                             </Button>
                         </div>
                     )}
@@ -147,51 +147,51 @@ export default function Edit({ attributes, setAttributes }) {
     return (
         <>
             <InspectorControls>
-                <PanelBody title={__('Book Details', 'reactions-indieweb')}>
+                <PanelBody title={__('Book Details', 'reactions-for-indieweb')}>
                     <TextControl
-                        label={__('Title', 'reactions-indieweb')}
+                        label={__('Title', 'reactions-for-indieweb')}
                         value={bookTitle || ''}
                         onChange={(value) => setAttributes({ bookTitle: value })}
                     />
                     <TextControl
-                        label={__('Author', 'reactions-indieweb')}
+                        label={__('Author', 'reactions-for-indieweb')}
                         value={authorName || ''}
                         onChange={(value) => setAttributes({ authorName: value })}
                     />
                     <TextControl
-                        label={__('ISBN', 'reactions-indieweb')}
+                        label={__('ISBN', 'reactions-for-indieweb')}
                         value={isbn || ''}
                         onChange={(value) => setAttributes({ isbn: value })}
                     />
                     <TextControl
-                        label={__('Publisher', 'reactions-indieweb')}
+                        label={__('Publisher', 'reactions-for-indieweb')}
                         value={publisher || ''}
                         onChange={(value) => setAttributes({ publisher: value })}
                     />
                     <NumberControl
-                        label={__('Total Pages', 'reactions-indieweb')}
+                        label={__('Total Pages', 'reactions-for-indieweb')}
                         value={pageCount}
                         onChange={(value) => setAttributes({ pageCount: parseInt(value) || null })}
                         min={1}
                     />
                 </PanelBody>
 
-                <PanelBody title={__('Reading Status', 'reactions-indieweb')}>
+                <PanelBody title={__('Reading Status', 'reactions-for-indieweb')}>
                     <SelectControl
-                        label={__('Status', 'reactions-indieweb')}
+                        label={__('Status', 'reactions-for-indieweb')}
                         value={readStatus}
                         options={[
-                            { label: __('To Read', 'reactions-indieweb'), value: 'to-read' },
-                            { label: __('Currently Reading', 'reactions-indieweb'), value: 'reading' },
-                            { label: __('Finished', 'reactions-indieweb'), value: 'finished' },
-                            { label: __('Abandoned', 'reactions-indieweb'), value: 'abandoned' },
+                            { label: __('To Read', 'reactions-for-indieweb'), value: 'to-read' },
+                            { label: __('Currently Reading', 'reactions-for-indieweb'), value: 'reading' },
+                            { label: __('Finished', 'reactions-for-indieweb'), value: 'finished' },
+                            { label: __('Abandoned', 'reactions-for-indieweb'), value: 'abandoned' },
                         ]}
                         onChange={(value) => setAttributes({ readStatus: value })}
                     />
 
                     {readStatus === 'reading' && pageCount && (
                         <RangeControl
-                            label={__('Current Page', 'reactions-indieweb')}
+                            label={__('Current Page', 'reactions-for-indieweb')}
                             value={currentPage || 0}
                             onChange={(value) => setAttributes({ currentPage: value })}
                             min={0}
@@ -202,7 +202,7 @@ export default function Edit({ attributes, setAttributes }) {
 
                     <div className="components-base-control">
                         <label className="components-base-control__label">
-                            {__('Rating', 'reactions-indieweb')}
+                            {__('Rating', 'reactions-for-indieweb')}
                         </label>
                         <StarRating
                             value={rating}
@@ -213,7 +213,7 @@ export default function Edit({ attributes, setAttributes }) {
 
                     <div className="components-base-control">
                         <label className="components-base-control__label">
-                            {__('Started', 'reactions-indieweb')}
+                            {__('Started', 'reactions-for-indieweb')}
                         </label>
                         <Button
                             variant="secondary"
@@ -221,7 +221,7 @@ export default function Edit({ attributes, setAttributes }) {
                         >
                             {startedAt
                                 ? new Date(startedAt).toLocaleDateString()
-                                : __('Set date', 'reactions-indieweb')
+                                : __('Set date', 'reactions-for-indieweb')
                             }
                         </Button>
                         {showStartPicker && (
@@ -240,7 +240,7 @@ export default function Edit({ attributes, setAttributes }) {
                     {(readStatus === 'finished' || readStatus === 'abandoned') && (
                         <div className="components-base-control">
                             <label className="components-base-control__label">
-                                {__('Finished', 'reactions-indieweb')}
+                                {__('Finished', 'reactions-for-indieweb')}
                             </label>
                             <Button
                                 variant="secondary"
@@ -248,7 +248,7 @@ export default function Edit({ attributes, setAttributes }) {
                             >
                                 {finishedAt
                                     ? new Date(finishedAt).toLocaleDateString()
-                                    : __('Set date', 'reactions-indieweb')
+                                    : __('Set date', 'reactions-for-indieweb')
                                 }
                             </Button>
                             {showFinishPicker && (
@@ -266,29 +266,29 @@ export default function Edit({ attributes, setAttributes }) {
                     )}
                 </PanelBody>
 
-                <PanelBody title={__('Layout', 'reactions-indieweb')}>
+                <PanelBody title={__('Layout', 'reactions-for-indieweb')}>
                     <SelectControl
-                        label={__('Layout Style', 'reactions-indieweb')}
+                        label={__('Layout Style', 'reactions-for-indieweb')}
                         value={layout}
                         options={[
-                            { label: __('Horizontal', 'reactions-indieweb'), value: 'horizontal' },
-                            { label: __('Vertical', 'reactions-indieweb'), value: 'vertical' },
-                            { label: __('Cover Focus', 'reactions-indieweb'), value: 'cover' },
-                            { label: __('Compact', 'reactions-indieweb'), value: 'compact' },
+                            { label: __('Horizontal', 'reactions-for-indieweb'), value: 'horizontal' },
+                            { label: __('Vertical', 'reactions-for-indieweb'), value: 'vertical' },
+                            { label: __('Cover Focus', 'reactions-for-indieweb'), value: 'cover' },
+                            { label: __('Compact', 'reactions-for-indieweb'), value: 'compact' },
                         ]}
                         onChange={(value) => setAttributes({ layout: value })}
                     />
                 </PanelBody>
 
-                <PanelBody title={__('Links', 'reactions-indieweb')} initialOpen={false}>
+                <PanelBody title={__('Links', 'reactions-for-indieweb')} initialOpen={false}>
                     <TextControl
-                        label={__('Book URL', 'reactions-indieweb')}
+                        label={__('Book URL', 'reactions-for-indieweb')}
                         value={bookUrl || ''}
                         onChange={(value) => setAttributes({ bookUrl: value })}
                         type="url"
                     />
                     <TextControl
-                        label={__('Open Library ID', 'reactions-indieweb')}
+                        label={__('Open Library ID', 'reactions-for-indieweb')}
                         value={openlibraryId || ''}
                         onChange={(value) => setAttributes({ openlibraryId: value })}
                     />
@@ -317,10 +317,10 @@ export default function Edit({ attributes, setAttributes }) {
 
                     <div className="read-info">
                         <span className={`status-badge status-${readStatus}`}>
-                            {readStatus === 'to-read' && __('To Read', 'reactions-indieweb')}
-                            {readStatus === 'reading' && __('Reading', 'reactions-indieweb')}
-                            {readStatus === 'finished' && __('Finished', 'reactions-indieweb')}
-                            {readStatus === 'abandoned' && __('Abandoned', 'reactions-indieweb')}
+                            {readStatus === 'to-read' && __('To Read', 'reactions-for-indieweb')}
+                            {readStatus === 'reading' && __('Reading', 'reactions-for-indieweb')}
+                            {readStatus === 'finished' && __('Finished', 'reactions-for-indieweb')}
+                            {readStatus === 'abandoned' && __('Abandoned', 'reactions-for-indieweb')}
                         </span>
 
                         <RichText
@@ -328,7 +328,7 @@ export default function Edit({ attributes, setAttributes }) {
                             className="book-title p-name"
                             value={bookTitle}
                             onChange={(value) => setAttributes({ bookTitle: value })}
-                            placeholder={__('Book title', 'reactions-indieweb')}
+                            placeholder={__('Book title', 'reactions-for-indieweb')}
                         />
 
                         <RichText
@@ -336,7 +336,7 @@ export default function Edit({ attributes, setAttributes }) {
                             className="author-name p-author h-card"
                             value={authorName}
                             onChange={(value) => setAttributes({ authorName: value })}
-                            placeholder={__('Author name', 'reactions-indieweb')}
+                            placeholder={__('Author name', 'reactions-for-indieweb')}
                         />
 
                         {readStatus === 'reading' && progressPercent > 0 && (
@@ -357,7 +357,7 @@ export default function Edit({ attributes, setAttributes }) {
                             className="book-review"
                             value={review}
                             onChange={(value) => setAttributes({ review: value })}
-                            placeholder={__('Write a review...', 'reactions-indieweb')}
+                            placeholder={__('Write a review...', 'reactions-for-indieweb')}
                         />
                     </div>
                 </div>

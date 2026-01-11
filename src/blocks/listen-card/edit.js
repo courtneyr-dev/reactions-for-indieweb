@@ -89,21 +89,21 @@ export default function Edit({ attributes, setAttributes }) {
             <div {...blockProps}>
                 <BlockPlaceholder
                     icon={listenIcon}
-                    label={__('Listen Card', 'reactions-indieweb')}
-                    instructions={__('Add a track you listened to. Search for music or enter details manually.', 'reactions-indieweb')}
+                    label={__('Listen Card', 'reactions-for-indieweb')}
+                    instructions={__('Add a track you listened to. Search for music or enter details manually.', 'reactions-for-indieweb')}
                 >
                     {isSearching ? (
                         <div className="search-mode">
                             <MediaSearch
                                 type="music"
-                                placeholder={__('Search for a song or album...', 'reactions-indieweb')}
+                                placeholder={__('Search for a song or album...', 'reactions-for-indieweb')}
                                 onSelect={handleSearchSelect}
                             />
                             <Button
                                 variant="link"
                                 onClick={() => setIsSearching(false)}
                             >
-                                {__('Enter manually', 'reactions-indieweb')}
+                                {__('Enter manually', 'reactions-for-indieweb')}
                             </Button>
                         </div>
                     ) : (
@@ -112,13 +112,13 @@ export default function Edit({ attributes, setAttributes }) {
                                 variant="primary"
                                 onClick={() => setIsSearching(true)}
                             >
-                                {__('Search Music', 'reactions-indieweb')}
+                                {__('Search Music', 'reactions-for-indieweb')}
                             </Button>
                             <Button
                                 variant="secondary"
                                 onClick={() => setAttributes({ trackTitle: '' })}
                             >
-                                {__('Enter Manually', 'reactions-indieweb')}
+                                {__('Enter Manually', 'reactions-for-indieweb')}
                             </Button>
                         </div>
                     )}
@@ -130,34 +130,34 @@ export default function Edit({ attributes, setAttributes }) {
     return (
         <>
             <InspectorControls>
-                <PanelBody title={__('Track Details', 'reactions-indieweb')}>
+                <PanelBody title={__('Track Details', 'reactions-for-indieweb')}>
                     <TextControl
-                        label={__('Track Title', 'reactions-indieweb')}
+                        label={__('Track Title', 'reactions-for-indieweb')}
                         value={trackTitle || ''}
                         onChange={(value) => setAttributes({ trackTitle: value })}
                     />
                     <TextControl
-                        label={__('Artist', 'reactions-indieweb')}
+                        label={__('Artist', 'reactions-for-indieweb')}
                         value={artistName || ''}
                         onChange={(value) => setAttributes({ artistName: value })}
                     />
                     <TextControl
-                        label={__('Album', 'reactions-indieweb')}
+                        label={__('Album', 'reactions-for-indieweb')}
                         value={albumTitle || ''}
                         onChange={(value) => setAttributes({ albumTitle: value })}
                     />
                     <TextControl
-                        label={__('Release Date', 'reactions-indieweb')}
+                        label={__('Release Date', 'reactions-for-indieweb')}
                         value={releaseDate || ''}
                         onChange={(value) => setAttributes({ releaseDate: value })}
                         type="date"
                     />
                 </PanelBody>
 
-                <PanelBody title={__('Listen Info', 'reactions-indieweb')}>
+                <PanelBody title={__('Listen Info', 'reactions-for-indieweb')}>
                     <div className="components-base-control">
                         <label className="components-base-control__label">
-                            {__('Rating', 'reactions-indieweb')}
+                            {__('Rating', 'reactions-for-indieweb')}
                         </label>
                         <StarRating
                             value={rating}
@@ -168,7 +168,7 @@ export default function Edit({ attributes, setAttributes }) {
 
                     <div className="components-base-control">
                         <label className="components-base-control__label">
-                            {__('Listened At', 'reactions-indieweb')}
+                            {__('Listened At', 'reactions-for-indieweb')}
                         </label>
                         <Button
                             variant="secondary"
@@ -176,7 +176,7 @@ export default function Edit({ attributes, setAttributes }) {
                         >
                             {listenedAt
                                 ? new Date(listenedAt).toLocaleString()
-                                : __('Set date/time', 'reactions-indieweb')
+                                : __('Set date/time', 'reactions-for-indieweb')
                             }
                         </Button>
                         {showDatePicker && (
@@ -194,33 +194,33 @@ export default function Edit({ attributes, setAttributes }) {
                     </div>
 
                     <TextControl
-                        label={__('Listen URL', 'reactions-indieweb')}
+                        label={__('Listen URL', 'reactions-for-indieweb')}
                         value={listenUrl || ''}
                         onChange={(value) => setAttributes({ listenUrl: value })}
                         type="url"
-                        help={__('Link to the track on a streaming service.', 'reactions-indieweb')}
+                        help={__('Link to the track on a streaming service.', 'reactions-for-indieweb')}
                     />
                 </PanelBody>
 
-                <PanelBody title={__('Layout', 'reactions-indieweb')}>
+                <PanelBody title={__('Layout', 'reactions-for-indieweb')}>
                     <SelectControl
-                        label={__('Layout Style', 'reactions-indieweb')}
+                        label={__('Layout Style', 'reactions-for-indieweb')}
                         value={layout}
                         options={[
-                            { label: __('Horizontal', 'reactions-indieweb'), value: 'horizontal' },
-                            { label: __('Vertical', 'reactions-indieweb'), value: 'vertical' },
-                            { label: __('Compact', 'reactions-indieweb'), value: 'compact' },
+                            { label: __('Horizontal', 'reactions-for-indieweb'), value: 'horizontal' },
+                            { label: __('Vertical', 'reactions-for-indieweb'), value: 'vertical' },
+                            { label: __('Compact', 'reactions-for-indieweb'), value: 'compact' },
                         ]}
                         onChange={(value) => setAttributes({ layout: value })}
                     />
                 </PanelBody>
 
-                <PanelBody title={__('Metadata', 'reactions-indieweb')} initialOpen={false}>
+                <PanelBody title={__('Metadata', 'reactions-for-indieweb')} initialOpen={false}>
                     <TextControl
-                        label={__('MusicBrainz ID', 'reactions-indieweb')}
+                        label={__('MusicBrainz ID', 'reactions-for-indieweb')}
                         value={musicbrainzId || ''}
                         onChange={(value) => setAttributes({ musicbrainzId: value })}
-                        help={__('Used for linking to music databases.', 'reactions-indieweb')}
+                        help={__('Used for linking to music databases.', 'reactions-for-indieweb')}
                     />
                 </PanelBody>
             </InspectorControls>
@@ -251,7 +251,7 @@ export default function Edit({ attributes, setAttributes }) {
                             className="track-title p-name"
                             value={trackTitle}
                             onChange={(value) => setAttributes({ trackTitle: value })}
-                            placeholder={__('Track title', 'reactions-indieweb')}
+                            placeholder={__('Track title', 'reactions-for-indieweb')}
                         />
 
                         <RichText
@@ -259,7 +259,7 @@ export default function Edit({ attributes, setAttributes }) {
                             className="artist-name p-author h-card"
                             value={artistName}
                             onChange={(value) => setAttributes({ artistName: value })}
-                            placeholder={__('Artist name', 'reactions-indieweb')}
+                            placeholder={__('Artist name', 'reactions-for-indieweb')}
                         />
 
                         {(albumTitle || layout !== 'compact') && (
@@ -268,7 +268,7 @@ export default function Edit({ attributes, setAttributes }) {
                                 className="album-title"
                                 value={albumTitle}
                                 onChange={(value) => setAttributes({ albumTitle: value })}
-                                placeholder={__('Album title', 'reactions-indieweb')}
+                                placeholder={__('Album title', 'reactions-for-indieweb')}
                             />
                         )}
 

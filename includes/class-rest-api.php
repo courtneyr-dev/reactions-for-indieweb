@@ -88,20 +88,20 @@ class REST_API {
 						'required'          => true,
 						'type'              => 'string',
 						'sanitize_callback' => 'sanitize_text_field',
-						'description'       => __( 'Search query (track name, artist, or both)', 'reactions-indieweb' ),
+						'description'       => __( 'Search query (track name, artist, or both)', 'reactions-for-indieweb' ),
 					),
 					'artist' => array(
 						'required'          => false,
 						'type'              => 'string',
 						'sanitize_callback' => 'sanitize_text_field',
-						'description'       => __( 'Artist name to narrow search', 'reactions-indieweb' ),
+						'description'       => __( 'Artist name to narrow search', 'reactions-for-indieweb' ),
 					),
 					'source' => array(
 						'required'          => false,
 						'type'              => 'string',
 						'default'           => 'musicbrainz',
 						'enum'              => array( 'musicbrainz', 'lastfm', 'listenbrainz' ),
-						'description'       => __( 'API source to use', 'reactions-indieweb' ),
+						'description'       => __( 'API source to use', 'reactions-for-indieweb' ),
 					),
 				),
 			)
@@ -120,27 +120,27 @@ class REST_API {
 						'required'          => true,
 						'type'              => 'string',
 						'sanitize_callback' => 'sanitize_text_field',
-						'description'       => __( 'Search query (title)', 'reactions-indieweb' ),
+						'description'       => __( 'Search query (title)', 'reactions-for-indieweb' ),
 					),
 					'type'   => array(
 						'required'          => false,
 						'type'              => 'string',
 						'default'           => 'multi',
 						'enum'              => array( 'movie', 'tv', 'multi' ),
-						'description'       => __( 'Content type to search', 'reactions-indieweb' ),
+						'description'       => __( 'Content type to search', 'reactions-for-indieweb' ),
 					),
 					'year'   => array(
 						'required'          => false,
 						'type'              => 'integer',
 						'sanitize_callback' => 'absint',
-						'description'       => __( 'Release year to narrow search', 'reactions-indieweb' ),
+						'description'       => __( 'Release year to narrow search', 'reactions-for-indieweb' ),
 					),
 					'source' => array(
 						'required'          => false,
 						'type'              => 'string',
 						'default'           => 'tmdb',
 						'enum'              => array( 'tmdb', 'trakt', 'tvmaze', 'simkl' ),
-						'description'       => __( 'API source to use', 'reactions-indieweb' ),
+						'description'       => __( 'API source to use', 'reactions-for-indieweb' ),
 					),
 				),
 			)
@@ -159,26 +159,26 @@ class REST_API {
 						'required'          => true,
 						'type'              => 'string',
 						'sanitize_callback' => 'sanitize_text_field',
-						'description'       => __( 'Search query (title, author, or ISBN)', 'reactions-indieweb' ),
+						'description'       => __( 'Search query (title, author, or ISBN)', 'reactions-for-indieweb' ),
 					),
 					'isbn'   => array(
 						'required'          => false,
 						'type'              => 'string',
 						'sanitize_callback' => 'sanitize_text_field',
-						'description'       => __( 'ISBN for direct lookup', 'reactions-indieweb' ),
+						'description'       => __( 'ISBN for direct lookup', 'reactions-for-indieweb' ),
 					),
 					'author' => array(
 						'required'          => false,
 						'type'              => 'string',
 						'sanitize_callback' => 'sanitize_text_field',
-						'description'       => __( 'Author name to narrow search', 'reactions-indieweb' ),
+						'description'       => __( 'Author name to narrow search', 'reactions-for-indieweb' ),
 					),
 					'source' => array(
 						'required'          => false,
 						'type'              => 'string',
 						'default'           => 'openlibrary',
 						'enum'              => array( 'openlibrary', 'hardcover', 'googlebooks' ),
-						'description'       => __( 'API source to use', 'reactions-indieweb' ),
+						'description'       => __( 'API source to use', 'reactions-for-indieweb' ),
 					),
 				),
 			)
@@ -197,13 +197,13 @@ class REST_API {
 						'required'          => true,
 						'type'              => 'string',
 						'sanitize_callback' => 'sanitize_text_field',
-						'description'       => __( 'Search query (podcast name)', 'reactions-indieweb' ),
+						'description'       => __( 'Search query (podcast name)', 'reactions-for-indieweb' ),
 					),
 					'feed' => array(
 						'required'          => false,
 						'type'              => 'string',
 						'sanitize_callback' => 'esc_url_raw',
-						'description'       => __( 'RSS feed URL for direct lookup', 'reactions-indieweb' ),
+						'description'       => __( 'RSS feed URL for direct lookup', 'reactions-for-indieweb' ),
 					),
 				),
 			)
@@ -222,24 +222,24 @@ class REST_API {
 						'required'          => true,
 						'type'              => 'string',
 						'sanitize_callback' => 'sanitize_text_field',
-						'description'       => __( 'Search query (venue name or address)', 'reactions-indieweb' ),
+						'description'       => __( 'Search query (venue name or address)', 'reactions-for-indieweb' ),
 					),
 					'lat'    => array(
 						'required'          => false,
 						'type'              => 'number',
-						'description'       => __( 'Latitude for nearby search', 'reactions-indieweb' ),
+						'description'       => __( 'Latitude for nearby search', 'reactions-for-indieweb' ),
 					),
 					'lng'    => array(
 						'required'          => false,
 						'type'              => 'number',
-						'description'       => __( 'Longitude for nearby search', 'reactions-indieweb' ),
+						'description'       => __( 'Longitude for nearby search', 'reactions-for-indieweb' ),
 					),
 					'source' => array(
 						'required'          => false,
 						'type'              => 'string',
 						'default'           => 'foursquare',
 						'enum'              => array( 'foursquare', 'nominatim' ),
-						'description'       => __( 'API source to use', 'reactions-indieweb' ),
+						'description'       => __( 'API source to use', 'reactions-for-indieweb' ),
 					),
 				),
 			)
@@ -258,17 +258,17 @@ class REST_API {
 						'required'          => false,
 						'type'              => 'string',
 						'sanitize_callback' => 'sanitize_text_field',
-						'description'       => __( 'Address to geocode', 'reactions-indieweb' ),
+						'description'       => __( 'Address to geocode', 'reactions-for-indieweb' ),
 					),
 					'lat'     => array(
 						'required'          => false,
 						'type'              => 'number',
-						'description'       => __( 'Latitude for reverse geocoding', 'reactions-indieweb' ),
+						'description'       => __( 'Latitude for reverse geocoding', 'reactions-for-indieweb' ),
 					),
 					'lng'     => array(
 						'required'          => false,
 						'type'              => 'number',
-						'description'       => __( 'Longitude for reverse geocoding', 'reactions-indieweb' ),
+						'description'       => __( 'Longitude for reverse geocoding', 'reactions-for-indieweb' ),
 					),
 				),
 			)
@@ -322,7 +322,7 @@ class REST_API {
 						'required'          => true,
 						'type'              => 'string',
 						'sanitize_callback' => 'sanitize_text_field',
-						'description'       => __( 'Search query for location', 'reactions-indieweb' ),
+						'description'       => __( 'Search query for location', 'reactions-for-indieweb' ),
 					),
 				),
 			)
@@ -340,12 +340,12 @@ class REST_API {
 					'lat' => array(
 						'required'          => true,
 						'type'              => 'number',
-						'description'       => __( 'Latitude', 'reactions-indieweb' ),
+						'description'       => __( 'Latitude', 'reactions-for-indieweb' ),
 					),
 					'lon' => array(
 						'required'          => true,
 						'type'              => 'number',
-						'description'       => __( 'Longitude', 'reactions-indieweb' ),
+						'description'       => __( 'Longitude', 'reactions-for-indieweb' ),
 					),
 				),
 			)
@@ -364,17 +364,17 @@ class REST_API {
 						'required'          => false,
 						'type'              => 'string',
 						'sanitize_callback' => 'sanitize_text_field',
-						'description'       => __( 'Search query', 'reactions-indieweb' ),
+						'description'       => __( 'Search query', 'reactions-for-indieweb' ),
 					),
 					'lat'   => array(
 						'required'          => false,
 						'type'              => 'number',
-						'description'       => __( 'Latitude for nearby search', 'reactions-indieweb' ),
+						'description'       => __( 'Latitude for nearby search', 'reactions-for-indieweb' ),
 					),
 					'lon'   => array(
 						'required'          => false,
 						'type'              => 'number',
-						'description'       => __( 'Longitude for nearby search', 'reactions-indieweb' ),
+						'description'       => __( 'Longitude for nearby search', 'reactions-for-indieweb' ),
 					),
 				),
 			)
@@ -412,20 +412,20 @@ class REST_API {
 						'required'          => false,
 						'type'              => 'string',
 						'sanitize_callback' => 'sanitize_text_field',
-						'description'       => __( 'Start date (ISO 8601)', 'reactions-indieweb' ),
+						'description'       => __( 'Start date (ISO 8601)', 'reactions-for-indieweb' ),
 					),
 					'date_to'    => array(
 						'required'          => false,
 						'type'              => 'string',
 						'sanitize_callback' => 'sanitize_text_field',
-						'description'       => __( 'End date (ISO 8601)', 'reactions-indieweb' ),
+						'description'       => __( 'End date (ISO 8601)', 'reactions-for-indieweb' ),
 					),
 					'limit'      => array(
 						'required'          => false,
 						'type'              => 'integer',
 						'default'           => 50,
 						'sanitize_callback' => 'absint',
-						'description'       => __( 'Maximum items to import', 'reactions-indieweb' ),
+						'description'       => __( 'Maximum items to import', 'reactions-for-indieweb' ),
 					),
 					'dry_run'    => array(
 						'required' => false,
@@ -962,7 +962,7 @@ class REST_API {
 			} else {
 				return new \WP_Error(
 					'missing_params',
-					__( 'Provide either address or lat/lng coordinates.', 'reactions-indieweb' ),
+					__( 'Provide either address or lat/lng coordinates.', 'reactions-for-indieweb' ),
 					array( 'status' => 400 )
 				);
 			}
@@ -993,7 +993,7 @@ class REST_API {
 		if ( $last_request && ( time() - $last_request ) < 1 ) {
 			return new \WP_Error(
 				'rate_limited',
-				__( 'Please wait a moment before searching again.', 'reactions-indieweb' ),
+				__( 'Please wait a moment before searching again.', 'reactions-for-indieweb' ),
 				array( 'status' => 429 )
 			);
 		}
@@ -1028,7 +1028,7 @@ class REST_API {
 		if ( $lat < -90 || $lat > 90 || $lon < -180 || $lon > 180 ) {
 			return new \WP_Error(
 				'invalid_coordinates',
-				__( 'Invalid coordinates provided.', 'reactions-indieweb' ),
+				__( 'Invalid coordinates provided.', 'reactions-for-indieweb' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -1040,7 +1040,7 @@ class REST_API {
 		if ( $last_request && ( time() - $last_request ) < 1 ) {
 			return new \WP_Error(
 				'rate_limited',
-				__( 'Please wait a moment before searching again.', 'reactions-indieweb' ),
+				__( 'Please wait a moment before searching again.', 'reactions-for-indieweb' ),
 				array( 'status' => 429 )
 			);
 		}
@@ -1054,7 +1054,7 @@ class REST_API {
 			if ( ! $result ) {
 				return new \WP_Error(
 					'not_found',
-					__( 'No location found for these coordinates.', 'reactions-indieweb' ),
+					__( 'No location found for these coordinates.', 'reactions-for-indieweb' ),
 					array( 'status' => 404 )
 				);
 			}
@@ -1087,7 +1087,7 @@ class REST_API {
 		if ( $last_request && ( time() - $last_request ) < 1 ) {
 			return new \WP_Error(
 				'rate_limited',
-				__( 'Please wait a moment before searching again.', 'reactions-indieweb' ),
+				__( 'Please wait a moment before searching again.', 'reactions-for-indieweb' ),
 				array( 'status' => 429 )
 			);
 		}
@@ -1101,7 +1101,7 @@ class REST_API {
 			if ( ! $api->test_connection() ) {
 				return new \WP_Error(
 					'foursquare_not_configured',
-					__( 'Foursquare API is not configured. Please add your API key in Settings > APIs.', 'reactions-indieweb' ),
+					__( 'Foursquare API is not configured. Please add your API key in Settings > APIs.', 'reactions-for-indieweb' ),
 					array( 'status' => 400 )
 				);
 			}
@@ -1115,7 +1115,7 @@ class REST_API {
 			} else {
 				return new \WP_Error(
 					'missing_params',
-					__( 'Provide either a search query or lat/lon coordinates.', 'reactions-indieweb' ),
+					__( 'Provide either a search query or lat/lon coordinates.', 'reactions-for-indieweb' ),
 					array( 'status' => 400 )
 				);
 			}
@@ -1147,7 +1147,7 @@ class REST_API {
 			if ( ! $api ) {
 				return new \WP_Error(
 					'invalid_type',
-					__( 'Invalid content type.', 'reactions-indieweb' ),
+					__( 'Invalid content type.', 'reactions-for-indieweb' ),
 					array( 'status' => 400 )
 				);
 			}
@@ -1224,7 +1224,7 @@ class REST_API {
 			return rest_ensure_response(
 				array(
 					'job_id'  => $job_id,
-					'message' => __( 'Import started.', 'reactions-indieweb' ),
+					'message' => __( 'Import started.', 'reactions-for-indieweb' ),
 					'status'  => 'processing',
 				)
 			);
@@ -1252,7 +1252,7 @@ class REST_API {
 		if ( ! $status ) {
 			return new \WP_Error(
 				'job_not_found',
-				__( 'Import job not found.', 'reactions-indieweb' ),
+				__( 'Import job not found.', 'reactions-for-indieweb' ),
 				array( 'status' => 404 )
 			);
 		}
@@ -1275,14 +1275,14 @@ class REST_API {
 		if ( ! $result ) {
 			return new \WP_Error(
 				'cancel_failed',
-				__( 'Could not cancel import.', 'reactions-indieweb' ),
+				__( 'Could not cancel import.', 'reactions-for-indieweb' ),
 				array( 'status' => 500 )
 			);
 		}
 
 		return rest_ensure_response(
 			array(
-				'message' => __( 'Import cancelled.', 'reactions-indieweb' ),
+				'message' => __( 'Import cancelled.', 'reactions-for-indieweb' ),
 			)
 		);
 	}
@@ -1367,7 +1367,7 @@ class REST_API {
 		if ( ! $saved_state || ! hash_equals( $saved_state, $state ) ) {
 			return new \WP_Error(
 				'invalid_state',
-				__( 'Invalid OAuth state. Please try again.', 'reactions-indieweb' ),
+				__( 'Invalid OAuth state. Please try again.', 'reactions-for-indieweb' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -1378,7 +1378,7 @@ class REST_API {
 			$api = $this->get_oauth_api( $service );
 
 			if ( ! $api ) {
-				throw new \Exception( __( 'Unknown service.', 'reactions-indieweb' ) );
+				throw new \Exception( __( 'Unknown service.', 'reactions-for-indieweb' ) );
 			}
 
 			$tokens = $api->exchange_code( $code );
@@ -1423,7 +1423,7 @@ class REST_API {
 			$api = $this->get_oauth_api( $service );
 
 			if ( ! $api ) {
-				throw new \Exception( __( 'Unknown service.', 'reactions-indieweb' ) );
+				throw new \Exception( __( 'Unknown service.', 'reactions-for-indieweb' ) );
 			}
 
 			// Generate state token.
@@ -1468,7 +1468,7 @@ class REST_API {
 
 			return rest_ensure_response(
 				array(
-					'message' => __( 'Connection revoked.', 'reactions-indieweb' ),
+					'message' => __( 'Connection revoked.', 'reactions-for-indieweb' ),
 				)
 			);
 		} catch ( \Exception $e ) {
@@ -1600,7 +1600,7 @@ class REST_API {
 
 		return rest_ensure_response(
 			array(
-				'message' => __( 'Settings saved.', 'reactions-indieweb' ),
+				'message' => __( 'Settings saved.', 'reactions-for-indieweb' ),
 			)
 		);
 	}
@@ -1618,7 +1618,7 @@ class REST_API {
 			$api = $this->get_api_for_service( $service );
 
 			if ( ! $api ) {
-				throw new \Exception( __( 'Unknown service.', 'reactions-indieweb' ) );
+				throw new \Exception( __( 'Unknown service.', 'reactions-for-indieweb' ) );
 			}
 
 			$result = $api->test_connection();
@@ -1627,8 +1627,8 @@ class REST_API {
 				array(
 					'success' => $result,
 					'message' => $result
-						? __( 'Connection successful!', 'reactions-indieweb' )
-						: __( 'Connection failed.', 'reactions-indieweb' ),
+						? __( 'Connection successful!', 'reactions-for-indieweb' )
+						: __( 'Connection failed.', 'reactions-for-indieweb' ),
 				)
 			);
 		} catch ( \Exception $e ) {
@@ -1709,7 +1709,7 @@ class REST_API {
 		return rest_ensure_response(
 			array(
 				'secret'  => $secret,
-				'message' => __( 'Webhook secret regenerated.', 'reactions-indieweb' ),
+				'message' => __( 'Webhook secret regenerated.', 'reactions-for-indieweb' ),
 			)
 		);
 	}

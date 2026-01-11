@@ -69,44 +69,44 @@ class Block_Bindings {
 		$this->bindings = array(
 			// Citation bindings.
 			'cite_name'        => array(
-				'label'    => __( 'Citation Title', 'reactions-indieweb' ),
+				'label'    => __( 'Citation Title', 'reactions-for-indieweb' ),
 				'meta_key' => 'cite_name',
 				'type'     => 'string',
 			),
 			'cite_url'         => array(
-				'label'    => __( 'Citation URL', 'reactions-indieweb' ),
+				'label'    => __( 'Citation URL', 'reactions-for-indieweb' ),
 				'meta_key' => 'cite_url',
 				'type'     => 'url',
 			),
 			'cite_author'      => array(
-				'label'    => __( 'Citation Author', 'reactions-indieweb' ),
+				'label'    => __( 'Citation Author', 'reactions-for-indieweb' ),
 				'meta_key' => 'cite_author',
 				'type'     => 'string',
 			),
 			'cite_author_url'  => array(
-				'label'    => __( 'Citation Author URL', 'reactions-indieweb' ),
+				'label'    => __( 'Citation Author URL', 'reactions-for-indieweb' ),
 				'meta_key' => 'cite_author_url',
 				'type'     => 'url',
 			),
 			'cite_photo'       => array(
-				'label'    => __( 'Citation Image', 'reactions-indieweb' ),
+				'label'    => __( 'Citation Image', 'reactions-for-indieweb' ),
 				'meta_key' => 'cite_photo',
 				'type'     => 'url',
 			),
 			'cite_summary'     => array(
-				'label'    => __( 'Citation Summary', 'reactions-indieweb' ),
+				'label'    => __( 'Citation Summary', 'reactions-for-indieweb' ),
 				'meta_key' => 'cite_summary',
 				'type'     => 'string',
 			),
 			'cite_published'   => array(
-				'label'    => __( 'Citation Date', 'reactions-indieweb' ),
+				'label'    => __( 'Citation Date', 'reactions-for-indieweb' ),
 				'meta_key' => 'cite_published',
 				'type'     => 'date',
 			),
 
 			// RSVP bindings.
 			'rsvp_status'      => array(
-				'label'    => __( 'RSVP Status', 'reactions-indieweb' ),
+				'label'    => __( 'RSVP Status', 'reactions-for-indieweb' ),
 				'meta_key' => 'rsvp_status',
 				'type'     => 'string',
 				'format'   => 'rsvp',
@@ -114,28 +114,28 @@ class Block_Bindings {
 
 			// Check-in bindings.
 			'checkin_name'     => array(
-				'label'    => __( 'Venue Name', 'reactions-indieweb' ),
+				'label'    => __( 'Venue Name', 'reactions-for-indieweb' ),
 				'meta_key' => 'checkin_name',
 				'type'     => 'string',
 			),
 			'checkin_url'      => array(
-				'label'    => __( 'Venue URL', 'reactions-indieweb' ),
+				'label'    => __( 'Venue URL', 'reactions-for-indieweb' ),
 				'meta_key' => 'checkin_url',
 				'type'     => 'url',
 			),
 			'checkin_address'  => array(
-				'label'    => __( 'Venue Address', 'reactions-indieweb' ),
+				'label'    => __( 'Venue Address', 'reactions-for-indieweb' ),
 				'meta_key' => 'checkin_address',
 				'type'     => 'string',
 			),
 			'checkin_full_address' => array(
-				'label'    => __( 'Full Address', 'reactions-indieweb' ),
+				'label'    => __( 'Full Address', 'reactions-for-indieweb' ),
 				'meta_key' => null, // Computed field.
 				'type'     => 'computed',
 				'compute'  => 'full_address',
 			),
 			'geo_coordinates'  => array(
-				'label'    => __( 'Coordinates', 'reactions-indieweb' ),
+				'label'    => __( 'Coordinates', 'reactions-for-indieweb' ),
 				'meta_key' => null, // Computed field.
 				'type'     => 'computed',
 				'compute'  => 'coordinates',
@@ -143,27 +143,27 @@ class Block_Bindings {
 
 			// Listen bindings.
 			'listen_track'     => array(
-				'label'    => __( 'Track Name', 'reactions-indieweb' ),
+				'label'    => __( 'Track Name', 'reactions-for-indieweb' ),
 				'meta_key' => 'listen_track',
 				'type'     => 'string',
 			),
 			'listen_artist'    => array(
-				'label'    => __( 'Artist', 'reactions-indieweb' ),
+				'label'    => __( 'Artist', 'reactions-for-indieweb' ),
 				'meta_key' => 'listen_artist',
 				'type'     => 'string',
 			),
 			'listen_album'     => array(
-				'label'    => __( 'Album', 'reactions-indieweb' ),
+				'label'    => __( 'Album', 'reactions-for-indieweb' ),
 				'meta_key' => 'listen_album',
 				'type'     => 'string',
 			),
 			'listen_cover'     => array(
-				'label'    => __( 'Album Art', 'reactions-indieweb' ),
+				'label'    => __( 'Album Art', 'reactions-for-indieweb' ),
 				'meta_key' => 'listen_cover',
 				'type'     => 'url',
 			),
 			'listen_display'   => array(
-				'label'    => __( 'Track by Artist', 'reactions-indieweb' ),
+				'label'    => __( 'Track by Artist', 'reactions-for-indieweb' ),
 				'meta_key' => null, // Computed field.
 				'type'     => 'computed',
 				'compute'  => 'listen_display',
@@ -171,28 +171,28 @@ class Block_Bindings {
 
 			// Watch bindings.
 			'watch_title'      => array(
-				'label'    => __( 'Title', 'reactions-indieweb' ),
+				'label'    => __( 'Title', 'reactions-for-indieweb' ),
 				'meta_key' => 'watch_title',
 				'type'     => 'string',
 			),
 			'watch_year'       => array(
-				'label'    => __( 'Year', 'reactions-indieweb' ),
+				'label'    => __( 'Year', 'reactions-for-indieweb' ),
 				'meta_key' => 'watch_year',
 				'type'     => 'string',
 			),
 			'watch_poster'     => array(
-				'label'    => __( 'Poster', 'reactions-indieweb' ),
+				'label'    => __( 'Poster', 'reactions-for-indieweb' ),
 				'meta_key' => 'watch_poster',
 				'type'     => 'url',
 			),
 			'watch_status'     => array(
-				'label'    => __( 'Watch Status', 'reactions-indieweb' ),
+				'label'    => __( 'Watch Status', 'reactions-for-indieweb' ),
 				'meta_key' => 'watch_status',
 				'type'     => 'string',
 				'format'   => 'watch_status',
 			),
 			'watch_display'    => array(
-				'label'    => __( 'Title (Year)', 'reactions-indieweb' ),
+				'label'    => __( 'Title (Year)', 'reactions-for-indieweb' ),
 				'meta_key' => null, // Computed field.
 				'type'     => 'computed',
 				'compute'  => 'watch_display',
@@ -200,33 +200,33 @@ class Block_Bindings {
 
 			// Read bindings.
 			'read_title'       => array(
-				'label'    => __( 'Book Title', 'reactions-indieweb' ),
+				'label'    => __( 'Book Title', 'reactions-for-indieweb' ),
 				'meta_key' => 'read_title',
 				'type'     => 'string',
 			),
 			'read_author'      => array(
-				'label'    => __( 'Book Author', 'reactions-indieweb' ),
+				'label'    => __( 'Book Author', 'reactions-for-indieweb' ),
 				'meta_key' => 'read_author',
 				'type'     => 'string',
 			),
 			'read_cover'       => array(
-				'label'    => __( 'Book Cover', 'reactions-indieweb' ),
+				'label'    => __( 'Book Cover', 'reactions-for-indieweb' ),
 				'meta_key' => 'read_cover',
 				'type'     => 'url',
 			),
 			'read_isbn'        => array(
-				'label'    => __( 'ISBN', 'reactions-indieweb' ),
+				'label'    => __( 'ISBN', 'reactions-for-indieweb' ),
 				'meta_key' => 'read_isbn',
 				'type'     => 'string',
 			),
 			'read_status'      => array(
-				'label'    => __( 'Reading Status', 'reactions-indieweb' ),
+				'label'    => __( 'Reading Status', 'reactions-for-indieweb' ),
 				'meta_key' => 'read_status',
 				'type'     => 'string',
 				'format'   => 'read_status',
 			),
 			'read_progress_display' => array(
-				'label'    => __( 'Reading Progress', 'reactions-indieweb' ),
+				'label'    => __( 'Reading Progress', 'reactions-for-indieweb' ),
 				'meta_key' => null, // Computed field.
 				'type'     => 'computed',
 				'compute'  => 'read_progress',
@@ -234,22 +234,22 @@ class Block_Bindings {
 
 			// Event bindings.
 			'event_start'      => array(
-				'label'    => __( 'Start Date/Time', 'reactions-indieweb' ),
+				'label'    => __( 'Start Date/Time', 'reactions-for-indieweb' ),
 				'meta_key' => 'event_start',
 				'type'     => 'date',
 			),
 			'event_end'        => array(
-				'label'    => __( 'End Date/Time', 'reactions-indieweb' ),
+				'label'    => __( 'End Date/Time', 'reactions-for-indieweb' ),
 				'meta_key' => 'event_end',
 				'type'     => 'date',
 			),
 			'event_location'   => array(
-				'label'    => __( 'Event Location', 'reactions-indieweb' ),
+				'label'    => __( 'Event Location', 'reactions-for-indieweb' ),
 				'meta_key' => 'event_location',
 				'type'     => 'string',
 			),
 			'event_datetime_display' => array(
-				'label'    => __( 'Event Date/Time', 'reactions-indieweb' ),
+				'label'    => __( 'Event Date/Time', 'reactions-for-indieweb' ),
 				'meta_key' => null, // Computed field.
 				'type'     => 'computed',
 				'compute'  => 'event_datetime',
@@ -257,29 +257,29 @@ class Block_Bindings {
 
 			// Review bindings.
 			'review_rating'    => array(
-				'label'    => __( 'Rating', 'reactions-indieweb' ),
+				'label'    => __( 'Rating', 'reactions-for-indieweb' ),
 				'meta_key' => 'review_rating',
 				'type'     => 'number',
 			),
 			'review_rating_display' => array(
-				'label'    => __( 'Rating Display', 'reactions-indieweb' ),
+				'label'    => __( 'Rating Display', 'reactions-for-indieweb' ),
 				'meta_key' => null, // Computed field.
 				'type'     => 'computed',
 				'compute'  => 'rating_display',
 			),
 			'review_stars'     => array(
-				'label'    => __( 'Star Rating', 'reactions-indieweb' ),
+				'label'    => __( 'Star Rating', 'reactions-for-indieweb' ),
 				'meta_key' => null, // Computed field.
 				'type'     => 'computed',
 				'compute'  => 'star_rating',
 			),
 			'review_item_name' => array(
-				'label'    => __( 'Reviewed Item', 'reactions-indieweb' ),
+				'label'    => __( 'Reviewed Item', 'reactions-for-indieweb' ),
 				'meta_key' => 'review_item_name',
 				'type'     => 'string',
 			),
 			'review_item_url'  => array(
-				'label'    => __( 'Reviewed Item URL', 'reactions-indieweb' ),
+				'label'    => __( 'Reviewed Item URL', 'reactions-for-indieweb' ),
 				'meta_key' => 'review_item_url',
 				'type'     => 'url',
 			),
@@ -318,7 +318,7 @@ class Block_Bindings {
 		register_block_bindings_source(
 			self::SOURCE_NAME,
 			array(
-				'label'              => __( 'Reactions for IndieWeb', 'reactions-indieweb' ),
+				'label'              => __( 'Reactions for IndieWeb', 'reactions-for-indieweb' ),
 				'get_value_callback' => array( $this, 'get_binding_value' ),
 				'uses_context'       => array( 'postId', 'postType' ),
 			)
@@ -405,7 +405,7 @@ class Block_Bindings {
 				$artist = get_post_meta( $post_id, $prefix . 'listen_artist', true );
 				if ( $track && $artist ) {
 					/* translators: 1: Track name, 2: Artist name */
-					return sprintf( __( '%1$s by %2$s', 'reactions-indieweb' ), $track, $artist );
+					return sprintf( __( '%1$s by %2$s', 'reactions-for-indieweb' ), $track, $artist );
 				}
 				return $track ?: null;
 
@@ -423,17 +423,17 @@ class Block_Bindings {
 				$status   = get_post_meta( $post_id, $prefix . 'read_status', true );
 
 				if ( 'finished' === $status ) {
-					return __( 'Completed', 'reactions-indieweb' );
+					return __( 'Completed', 'reactions-for-indieweb' );
 				}
 
 				if ( $progress && $pages ) {
 					/* translators: 1: Current page, 2: Total pages */
-					return sprintf( __( 'Page %1$d of %2$d', 'reactions-indieweb' ), $progress, $pages );
+					return sprintf( __( 'Page %1$d of %2$d', 'reactions-for-indieweb' ), $progress, $pages );
 				}
 
 				if ( $progress ) {
 					/* translators: %d: Progress percentage */
-					return sprintf( __( '%d%% complete', 'reactions-indieweb' ), $progress );
+					return sprintf( __( '%d%% complete', 'reactions-for-indieweb' ), $progress );
 				}
 
 				return null;
@@ -451,7 +451,7 @@ class Block_Bindings {
 				if ( $end ) {
 					$end_date = wp_date( get_option( 'time_format' ), strtotime( $end ) );
 					/* translators: 1: Start date/time, 2: End time */
-					return sprintf( __( '%1$s – %2$s', 'reactions-indieweb' ), $start_date, $end_date );
+					return sprintf( __( '%1$s – %2$s', 'reactions-for-indieweb' ), $start_date, $end_date );
 				}
 
 				return $start_date;
@@ -461,7 +461,7 @@ class Block_Bindings {
 				$best   = (int) get_post_meta( $post_id, $prefix . 'review_best', true ) ?: 5;
 				if ( $rating ) {
 					/* translators: 1: Rating value, 2: Maximum rating */
-					return sprintf( __( '%1$s out of %2$s', 'reactions-indieweb' ), $rating, $best );
+					return sprintf( __( '%1$s out of %2$s', 'reactions-for-indieweb' ), $rating, $best );
 				}
 				return null;
 
@@ -486,27 +486,27 @@ class Block_Bindings {
 		switch ( $format ) {
 			case 'rsvp':
 				$labels = array(
-					'yes'        => __( 'Yes, attending', 'reactions-indieweb' ),
-					'no'         => __( 'Not attending', 'reactions-indieweb' ),
-					'maybe'      => __( 'Maybe attending', 'reactions-indieweb' ),
-					'interested' => __( 'Interested', 'reactions-indieweb' ),
+					'yes'        => __( 'Yes, attending', 'reactions-for-indieweb' ),
+					'no'         => __( 'Not attending', 'reactions-for-indieweb' ),
+					'maybe'      => __( 'Maybe attending', 'reactions-for-indieweb' ),
+					'interested' => __( 'Interested', 'reactions-for-indieweb' ),
 				);
 				return $labels[ $value ] ?? (string) $value;
 
 			case 'watch_status':
 				$labels = array(
-					'watched'   => __( 'Watched', 'reactions-indieweb' ),
-					'watching'  => __( 'Currently Watching', 'reactions-indieweb' ),
-					'abandoned' => __( 'Abandoned', 'reactions-indieweb' ),
+					'watched'   => __( 'Watched', 'reactions-for-indieweb' ),
+					'watching'  => __( 'Currently Watching', 'reactions-for-indieweb' ),
+					'abandoned' => __( 'Abandoned', 'reactions-for-indieweb' ),
 				);
 				return $labels[ $value ] ?? (string) $value;
 
 			case 'read_status':
 				$labels = array(
-					'to-read'   => __( 'To Read', 'reactions-indieweb' ),
-					'reading'   => __( 'Currently Reading', 'reactions-indieweb' ),
-					'finished'  => __( 'Finished', 'reactions-indieweb' ),
-					'abandoned' => __( 'Abandoned', 'reactions-indieweb' ),
+					'to-read'   => __( 'To Read', 'reactions-for-indieweb' ),
+					'reading'   => __( 'Currently Reading', 'reactions-for-indieweb' ),
+					'finished'  => __( 'Finished', 'reactions-for-indieweb' ),
+					'abandoned' => __( 'Abandoned', 'reactions-for-indieweb' ),
 				);
 				return $labels[ $value ] ?? (string) $value;
 

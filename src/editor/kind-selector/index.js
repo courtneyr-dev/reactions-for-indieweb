@@ -4,7 +4,7 @@
  * Main sidebar panel component for selecting post kinds and managing
  * kind-specific metadata in the block editor.
  *
- * @package ReactionsForIndieWeb
+ * @package
  * @since   1.0.0
  */
 
@@ -14,8 +14,7 @@
 import { __ } from '@wordpress/i18n';
 import { useSelect, useDispatch } from '@wordpress/data';
 import { useEffect } from '@wordpress/element';
-import { PluginDocumentSettingPanel } from '@wordpress/editor';
-import { store as editorStore } from '@wordpress/editor';
+import { PluginDocumentSettingPanel, store as editorStore } from '@wordpress/editor';
 import { store as blockEditorStore } from '@wordpress/block-editor';
 
 /**
@@ -42,6 +41,50 @@ const BLOCK_KIND_MAP = {
 	'core/video': 'video',
 	'core/audio': 'listen',
 };
+
+/**
+ * Detect kind from post content and blocks.
+ *
+ * @param {Array}  blockList Post blocks.
+ * @param {string} title     Post title.
+ * @return {string|null} Detected kind or null.
+ */
+function detectKindFromContent( blockList, title ) {
+	// Check for IndieBlocks blocks first.
+	for ( const block of blockList ) {
+		if ( BLOCK_KIND_MAP[ block.name ] ) {
+			return BLOCK_KIND_MAP[ block.name ];
+		}
+
+		// Check inner blocks recursively.
+		if ( block.innerBlocks && block.innerBlocks.length > 0 ) {
+			const innerKind = detectKindFromContent( block.innerBlocks, title );
+			if ( innerKind ) {
+				return innerKind;
+			}
+		}
+	}
+
+	// Check for media-heavy posts.
+	const hasGallery = blockList.some( ( b ) => b.name === 'core/gallery' );
+	const imageCount = blockList.filter( ( b ) => b.name === 'core/image' ).length;
+	const hasVideo = blockList.some( ( b ) => b.name === 'core/video' );
+
+	if ( hasGallery || imageCount >= 3 ) {
+		return 'photo';
+	}
+
+	if ( hasVideo ) {
+		return 'video';
+	}
+
+	// Determine article vs note based on title.
+	if ( title && title.trim().length > 0 ) {
+		return 'article';
+	}
+
+	return 'note';
+}
 
 /**
  * Kind Selector Panel Component
@@ -100,50 +143,6 @@ export default function KindSelectorPanel() {
 	}, [ blocks, postTitle, isAutoDetectionEnabled, selectedKind, setAutoDetectedKind ] );
 
 	/**
-	 * Detect kind from post content and blocks.
-	 *
-	 * @param {Array}  blockList Post blocks.
-	 * @param {string} title     Post title.
-	 * @return {string|null} Detected kind or null.
-	 */
-	function detectKindFromContent( blockList, title ) {
-		// Check for IndieBlocks blocks first.
-		for ( const block of blockList ) {
-			if ( BLOCK_KIND_MAP[ block.name ] ) {
-				return BLOCK_KIND_MAP[ block.name ];
-			}
-
-			// Check inner blocks recursively.
-			if ( block.innerBlocks && block.innerBlocks.length > 0 ) {
-				const innerKind = detectKindFromContent( block.innerBlocks, title );
-				if ( innerKind ) {
-					return innerKind;
-				}
-			}
-		}
-
-		// Check for media-heavy posts.
-		const hasGallery = blockList.some( ( b ) => b.name === 'core/gallery' );
-		const imageCount = blockList.filter( ( b ) => b.name === 'core/image' ).length;
-		const hasVideo = blockList.some( ( b ) => b.name === 'core/video' );
-
-		if ( hasGallery || imageCount >= 3 ) {
-			return 'photo';
-		}
-
-		if ( hasVideo ) {
-			return 'video';
-		}
-
-		// Determine article vs note based on title.
-		if ( title && title.trim().length > 0 ) {
-			return 'article';
-		}
-
-		return 'note';
-	}
-
-	/**
 	 * Handle kind selection.
 	 *
 	 * @param {string} kind Kind slug.
@@ -173,7 +172,7 @@ export default function KindSelectorPanel() {
 	return (
 		<PluginDocumentSettingPanel
 			name="reactions-indieweb-kind-selector"
-			title={ __( 'Post Kind', 'reactions-indieweb' ) }
+			title={ __( 'Post Kind', 'reactions-for-indieweb' ) }
 			className="reactions-indieweb-kind-panel"
 			icon={ <KindIcon /> }
 		>

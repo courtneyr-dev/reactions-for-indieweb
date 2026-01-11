@@ -44,17 +44,17 @@ export default function Edit({ attributes, setAttributes }) {
 
     // Size options
     const sizeOptions = [
-        { label: __('Small', 'reactions-indieweb'), value: 'small' },
-        { label: __('Medium', 'reactions-indieweb'), value: 'medium' },
-        { label: __('Large', 'reactions-indieweb'), value: 'large' },
+        { label: __('Small', 'reactions-for-indieweb'), value: 'small' },
+        { label: __('Medium', 'reactions-for-indieweb'), value: 'medium' },
+        { label: __('Large', 'reactions-for-indieweb'), value: 'large' },
     ];
 
     // Style options
     const styleOptions = [
-        { label: __('Stars', 'reactions-indieweb'), value: 'stars' },
-        { label: __('Hearts', 'reactions-indieweb'), value: 'hearts' },
-        { label: __('Circles', 'reactions-indieweb'), value: 'circles' },
-        { label: __('Numeric', 'reactions-indieweb'), value: 'numeric' },
+        { label: __('Stars', 'reactions-for-indieweb'), value: 'stars' },
+        { label: __('Hearts', 'reactions-for-indieweb'), value: 'hearts' },
+        { label: __('Circles', 'reactions-for-indieweb'), value: 'circles' },
+        { label: __('Numeric', 'reactions-for-indieweb'), value: 'numeric' },
     ];
 
     /**
@@ -127,7 +127,7 @@ export default function Edit({ attributes, setAttributes }) {
         <div
             className="rating-icons"
             role="radiogroup"
-            aria-label={label || __('Rating', 'reactions-indieweb')}
+            aria-label={label || __('Rating', 'reactions-for-indieweb')}
         >
             {Array.from({ length: maxRating }, (_, i) => {
                 const value = i + 1;
@@ -143,7 +143,7 @@ export default function Edit({ attributes, setAttributes }) {
                         onKeyDown={(e) => handleKeyDown(e, i)}
                         role="radio"
                         aria-checked={isFilled}
-                        aria-label={`${value} ${value === 1 ? __('star', 'reactions-indieweb') : __('stars', 'reactions-indieweb')}`}
+                        aria-label={`${value} ${value === 1 ? __('star', 'reactions-for-indieweb') : __('stars', 'reactions-for-indieweb')}`}
                         tabIndex={i === 0 ? 0 : -1}
                     >
                         {isHalfFilled ? (
@@ -163,9 +163,9 @@ export default function Edit({ attributes, setAttributes }) {
     return (
         <>
             <InspectorControls>
-                <PanelBody title={__('Rating Settings', 'reactions-indieweb')}>
+                <PanelBody title={__('Rating Settings', 'reactions-for-indieweb')}>
                     <RangeControl
-                        label={__('Current Rating', 'reactions-indieweb')}
+                        label={__('Current Rating', 'reactions-for-indieweb')}
                         value={rating}
                         onChange={(value) => setAttributes({ rating: value })}
                         min={0}
@@ -173,60 +173,60 @@ export default function Edit({ attributes, setAttributes }) {
                         step={allowHalf ? 0.5 : 1}
                     />
                     <RangeControl
-                        label={__('Maximum Rating', 'reactions-indieweb')}
+                        label={__('Maximum Rating', 'reactions-for-indieweb')}
                         value={maxRating}
                         onChange={(value) => setAttributes({ maxRating: value })}
                         min={3}
                         max={10}
                     />
                     <ToggleControl
-                        label={__('Allow Half Stars', 'reactions-indieweb')}
+                        label={__('Allow Half Stars', 'reactions-for-indieweb')}
                         checked={allowHalf}
                         onChange={(value) => setAttributes({ allowHalf: value })}
                     />
                 </PanelBody>
 
-                <PanelBody title={__('Display Options', 'reactions-indieweb')}>
+                <PanelBody title={__('Display Options', 'reactions-for-indieweb')}>
                     <SelectControl
-                        label={__('Style', 'reactions-indieweb')}
+                        label={__('Style', 'reactions-for-indieweb')}
                         value={style}
                         options={styleOptions}
                         onChange={(value) => setAttributes({ style: value })}
                     />
                     <SelectControl
-                        label={__('Size', 'reactions-indieweb')}
+                        label={__('Size', 'reactions-for-indieweb')}
                         value={size}
                         options={sizeOptions}
                         onChange={(value) => setAttributes({ size: value })}
                     />
                     <ToggleControl
-                        label={__('Show Label', 'reactions-indieweb')}
+                        label={__('Show Label', 'reactions-for-indieweb')}
                         checked={showLabel}
                         onChange={(value) => setAttributes({ showLabel: value })}
                     />
                     {showLabel && (
                         <TextControl
-                            label={__('Label Text', 'reactions-indieweb')}
+                            label={__('Label Text', 'reactions-for-indieweb')}
                             value={label}
                             onChange={(value) => setAttributes({ label: value })}
                         />
                     )}
                     <ToggleControl
-                        label={__('Show Value', 'reactions-indieweb')}
+                        label={__('Show Value', 'reactions-for-indieweb')}
                         checked={showValue}
                         onChange={(value) => setAttributes({ showValue: value })}
                     />
                 </PanelBody>
 
-                <PanelBody title={__('Rated Item', 'reactions-indieweb')} initialOpen={false}>
+                <PanelBody title={__('Rated Item', 'reactions-for-indieweb')} initialOpen={false}>
                     <TextControl
-                        label={__('Item Name', 'reactions-indieweb')}
+                        label={__('Item Name', 'reactions-for-indieweb')}
                         value={itemName || ''}
                         onChange={(value) => setAttributes({ itemName: value })}
-                        help={__('What are you rating?', 'reactions-indieweb')}
+                        help={__('What are you rating?', 'reactions-for-indieweb')}
                     />
                     <TextControl
-                        label={__('Item URL', 'reactions-indieweb')}
+                        label={__('Item URL', 'reactions-for-indieweb')}
                         value={itemUrl || ''}
                         onChange={(value) => setAttributes({ itemUrl: value })}
                         type="url"

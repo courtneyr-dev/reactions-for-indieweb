@@ -100,8 +100,8 @@ export default function Edit({ attributes, setAttributes }) {
             <div {...blockProps}>
                 <BlockPlaceholder
                     icon={watchIcon}
-                    label={__('Watch Card', 'reactions-indieweb')}
-                    instructions={__('Add a movie or TV show you watched. Search or enter details manually.', 'reactions-indieweb')}
+                    label={__('Watch Card', 'reactions-for-indieweb')}
+                    instructions={__('Add a movie or TV show you watched. Search or enter details manually.', 'reactions-for-indieweb')}
                 >
                     {isSearching ? (
                         <div className="search-mode">
@@ -110,20 +110,20 @@ export default function Edit({ attributes, setAttributes }) {
                                     variant={searchType === 'movie' ? 'primary' : 'secondary'}
                                     onClick={() => setSearchType('movie')}
                                 >
-                                    {__('Movie', 'reactions-indieweb')}
+                                    {__('Movie', 'reactions-for-indieweb')}
                                 </Button>
                                 <Button
                                     variant={searchType === 'tv' ? 'primary' : 'secondary'}
                                     onClick={() => setSearchType('tv')}
                                 >
-                                    {__('TV Show', 'reactions-indieweb')}
+                                    {__('TV Show', 'reactions-for-indieweb')}
                                 </Button>
                             </div>
                             <MediaSearch
                                 type={searchType}
                                 placeholder={searchType === 'movie'
-                                    ? __('Search for a movie...', 'reactions-indieweb')
-                                    : __('Search for a TV show...', 'reactions-indieweb')
+                                    ? __('Search for a movie...', 'reactions-for-indieweb')
+                                    : __('Search for a TV show...', 'reactions-for-indieweb')
                                 }
                                 onSelect={handleSearchSelect}
                             />
@@ -131,7 +131,7 @@ export default function Edit({ attributes, setAttributes }) {
                                 variant="link"
                                 onClick={() => setIsSearching(false)}
                             >
-                                {__('Enter manually', 'reactions-indieweb')}
+                                {__('Enter manually', 'reactions-for-indieweb')}
                             </Button>
                         </div>
                     ) : (
@@ -140,13 +140,13 @@ export default function Edit({ attributes, setAttributes }) {
                                 variant="primary"
                                 onClick={() => setIsSearching(true)}
                             >
-                                {__('Search Movies & TV', 'reactions-indieweb')}
+                                {__('Search Movies & TV', 'reactions-for-indieweb')}
                             </Button>
                             <Button
                                 variant="secondary"
                                 onClick={() => setAttributes({ mediaTitle: '' })}
                             >
-                                {__('Enter Manually', 'reactions-indieweb')}
+                                {__('Enter Manually', 'reactions-for-indieweb')}
                             </Button>
                         </div>
                     )}
@@ -158,20 +158,20 @@ export default function Edit({ attributes, setAttributes }) {
     return (
         <>
             <InspectorControls>
-                <PanelBody title={__('Media Details', 'reactions-indieweb')}>
+                <PanelBody title={__('Media Details', 'reactions-for-indieweb')}>
                     <SelectControl
-                        label={__('Type', 'reactions-indieweb')}
+                        label={__('Type', 'reactions-for-indieweb')}
                         value={mediaType}
                         options={[
-                            { label: __('Movie', 'reactions-indieweb'), value: 'movie' },
-                            { label: __('TV Show', 'reactions-indieweb'), value: 'tv' },
-                            { label: __('TV Episode', 'reactions-indieweb'), value: 'episode' },
+                            { label: __('Movie', 'reactions-for-indieweb'), value: 'movie' },
+                            { label: __('TV Show', 'reactions-for-indieweb'), value: 'tv' },
+                            { label: __('TV Episode', 'reactions-for-indieweb'), value: 'episode' },
                         ]}
                         onChange={(value) => setAttributes({ mediaType: value })}
                     />
 
                     <TextControl
-                        label={__('Title', 'reactions-indieweb')}
+                        label={__('Title', 'reactions-for-indieweb')}
                         value={mediaTitle || ''}
                         onChange={(value) => setAttributes({ mediaTitle: value })}
                     />
@@ -179,19 +179,19 @@ export default function Edit({ attributes, setAttributes }) {
                     {mediaType === 'episode' && (
                         <>
                             <TextControl
-                                label={__('Show Title', 'reactions-indieweb')}
+                                label={__('Show Title', 'reactions-for-indieweb')}
                                 value={showTitle || ''}
                                 onChange={(value) => setAttributes({ showTitle: value })}
                             />
                             <div className="episode-numbers">
                                 <NumberControl
-                                    label={__('Season', 'reactions-indieweb')}
+                                    label={__('Season', 'reactions-for-indieweb')}
                                     value={seasonNumber}
                                     onChange={(value) => setAttributes({ seasonNumber: parseInt(value) || null })}
                                     min={1}
                                 />
                                 <NumberControl
-                                    label={__('Episode', 'reactions-indieweb')}
+                                    label={__('Episode', 'reactions-for-indieweb')}
                                     value={episodeNumber}
                                     onChange={(value) => setAttributes({ episodeNumber: parseInt(value) || null })}
                                     min={1}
@@ -201,7 +201,7 @@ export default function Edit({ attributes, setAttributes }) {
                     )}
 
                     <NumberControl
-                        label={__('Year', 'reactions-indieweb')}
+                        label={__('Year', 'reactions-for-indieweb')}
                         value={releaseYear}
                         onChange={(value) => setAttributes({ releaseYear: parseInt(value) || null })}
                         min={1900}
@@ -209,16 +209,16 @@ export default function Edit({ attributes, setAttributes }) {
                     />
 
                     <TextControl
-                        label={__('Director', 'reactions-indieweb')}
+                        label={__('Director', 'reactions-for-indieweb')}
                         value={director || ''}
                         onChange={(value) => setAttributes({ director: value })}
                     />
                 </PanelBody>
 
-                <PanelBody title={__('Watch Info', 'reactions-indieweb')}>
+                <PanelBody title={__('Watch Info', 'reactions-for-indieweb')}>
                     <div className="components-base-control">
                         <label className="components-base-control__label">
-                            {__('Rating', 'reactions-indieweb')}
+                            {__('Rating', 'reactions-for-indieweb')}
                         </label>
                         <StarRating
                             value={rating}
@@ -228,15 +228,15 @@ export default function Edit({ attributes, setAttributes }) {
                     </div>
 
                     <ToggleControl
-                        label={__('Rewatch', 'reactions-indieweb')}
+                        label={__('Rewatch', 'reactions-for-indieweb')}
                         checked={isRewatch}
                         onChange={(value) => setAttributes({ isRewatch: value })}
-                        help={__('Check if this is a rewatch.', 'reactions-indieweb')}
+                        help={__('Check if this is a rewatch.', 'reactions-for-indieweb')}
                     />
 
                     <div className="components-base-control">
                         <label className="components-base-control__label">
-                            {__('Watched At', 'reactions-indieweb')}
+                            {__('Watched At', 'reactions-for-indieweb')}
                         </label>
                         <Button
                             variant="secondary"
@@ -244,7 +244,7 @@ export default function Edit({ attributes, setAttributes }) {
                         >
                             {watchedAt
                                 ? new Date(watchedAt).toLocaleString()
-                                : __('Set date/time', 'reactions-indieweb')
+                                : __('Set date/time', 'reactions-for-indieweb')
                             }
                         </Button>
                         {showDatePicker && (
@@ -262,36 +262,36 @@ export default function Edit({ attributes, setAttributes }) {
                     </div>
 
                     <TextControl
-                        label={__('Watch URL', 'reactions-indieweb')}
+                        label={__('Watch URL', 'reactions-for-indieweb')}
                         value={watchUrl || ''}
                         onChange={(value) => setAttributes({ watchUrl: value })}
                         type="url"
-                        help={__('Link to the content on a streaming service.', 'reactions-indieweb')}
+                        help={__('Link to the content on a streaming service.', 'reactions-for-indieweb')}
                     />
                 </PanelBody>
 
-                <PanelBody title={__('Layout', 'reactions-indieweb')}>
+                <PanelBody title={__('Layout', 'reactions-for-indieweb')}>
                     <SelectControl
-                        label={__('Layout Style', 'reactions-indieweb')}
+                        label={__('Layout Style', 'reactions-for-indieweb')}
                         value={layout}
                         options={[
-                            { label: __('Horizontal', 'reactions-indieweb'), value: 'horizontal' },
-                            { label: __('Vertical', 'reactions-indieweb'), value: 'vertical' },
-                            { label: __('Poster Focus', 'reactions-indieweb'), value: 'poster' },
-                            { label: __('Compact', 'reactions-indieweb'), value: 'compact' },
+                            { label: __('Horizontal', 'reactions-for-indieweb'), value: 'horizontal' },
+                            { label: __('Vertical', 'reactions-for-indieweb'), value: 'vertical' },
+                            { label: __('Poster Focus', 'reactions-for-indieweb'), value: 'poster' },
+                            { label: __('Compact', 'reactions-for-indieweb'), value: 'compact' },
                         ]}
                         onChange={(value) => setAttributes({ layout: value })}
                     />
                 </PanelBody>
 
-                <PanelBody title={__('Metadata', 'reactions-indieweb')} initialOpen={false}>
+                <PanelBody title={__('Metadata', 'reactions-for-indieweb')} initialOpen={false}>
                     <TextControl
-                        label={__('TMDB ID', 'reactions-indieweb')}
+                        label={__('TMDB ID', 'reactions-for-indieweb')}
                         value={tmdbId || ''}
                         onChange={(value) => setAttributes({ tmdbId: value })}
                     />
                     <TextControl
-                        label={__('IMDb ID', 'reactions-indieweb')}
+                        label={__('IMDb ID', 'reactions-for-indieweb')}
                         value={imdbId || ''}
                         onChange={(value) => setAttributes({ imdbId: value })}
                     />
@@ -328,7 +328,7 @@ export default function Edit({ attributes, setAttributes }) {
                             className="media-title p-name"
                             value={mediaTitle}
                             onChange={(value) => setAttributes({ mediaTitle: value })}
-                            placeholder={__('Title', 'reactions-indieweb')}
+                            placeholder={__('Title', 'reactions-for-indieweb')}
                         />
 
                         {mediaType === 'episode' && (seasonNumber || episodeNumber) && (
@@ -341,8 +341,8 @@ export default function Edit({ attributes, setAttributes }) {
 
                         <div className="meta-line">
                             {releaseYear && <span className="year">({releaseYear})</span>}
-                            {director && <span className="director">{__('Dir.', 'reactions-indieweb')} {director}</span>}
-                            {isRewatch && <span className="rewatch-badge">{__('Rewatch', 'reactions-indieweb')}</span>}
+                            {director && <span className="director">{__('Dir.', 'reactions-for-indieweb')} {director}</span>}
+                            {isRewatch && <span className="rewatch-badge">{__('Rewatch', 'reactions-for-indieweb')}</span>}
                         </div>
 
                         {rating > 0 && (
@@ -356,7 +356,7 @@ export default function Edit({ attributes, setAttributes }) {
                             className="watch-review"
                             value={review}
                             onChange={(value) => setAttributes({ review: value })}
-                            placeholder={__('Write a review...', 'reactions-indieweb')}
+                            placeholder={__('Write a review...', 'reactions-for-indieweb')}
                         />
                     </div>
                 </div>

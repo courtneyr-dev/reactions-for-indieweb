@@ -41,7 +41,7 @@ export default function AutoDetectionNotice( {
 			<p>
 				{ __(
 					'Auto-detected as:',
-					'reactions-indieweb'
+					'reactions-for-indieweb'
 				) }{ ' ' }
 				<strong>{ kindLabel }</strong>
 			</p>
@@ -52,7 +52,7 @@ export default function AutoDetectionNotice( {
 					icon={ check }
 					onClick={ onAccept }
 				>
-					{ __( 'Use this', 'reactions-indieweb' ) }
+					{ __( 'Use this', 'reactions-for-indieweb' ) }
 				</Button>
 				<Button
 					variant="secondary"
@@ -60,7 +60,7 @@ export default function AutoDetectionNotice( {
 					icon={ closeSmall }
 					onClick={ onDismiss }
 				>
-					{ __( 'Choose different', 'reactions-indieweb' ) }
+					{ __( 'Choose different', 'reactions-for-indieweb' ) }
 				</Button>
 			</div>
 

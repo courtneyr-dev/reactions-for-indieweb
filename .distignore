@@ -1,0 +1,26 @@
+# Directories to exclude from distribution
+/.git
+/.github
+/node_modules
+/tests
+/bin
+
+# Files to exclude from distribution
+.distignore
+.editorconfig
+.gitignore
+.gitattributes
+.phpcs.xml.dist
+.wp-env.json
+composer.json
+composer.lock
+package.json
+package-lock.json
+phpunit.xml.dist
+webpack.config.js
+
+# Development documentation
+CONTRIBUTING.md
+SECURITY.md
+SUPPORT.md
+TESTING.md

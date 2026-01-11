@@ -3,14 +3,14 @@
  *
  * SVG icons for each post kind type.
  *
- * @package ReactionsForIndieWeb
+ * @package
  * @since   1.0.0
  */
 
 /**
  * WordPress dependencies
  */
-import { SVG, Path, Circle, Rect, Polygon } from '@wordpress/primitives';
+import { SVG, Path, Circle } from '@wordpress/primitives';
 
 /**
  * Note icon - simple document/text

@@ -73,7 +73,7 @@ class OwnTracks_Checkin_Sync extends Checkin_Sync_Base {
 
         // Check if OwnTracks is enabled.
         if ( empty( $settings['owntracks_enabled'] ) ) {
-            return new \WP_Error( 'disabled', __( 'OwnTracks integration is disabled.', 'reactions-indieweb' ), array( 'status' => 403 ) );
+            return new \WP_Error( 'disabled', __( 'OwnTracks integration is disabled.', 'reactions-for-indieweb' ), array( 'status' => 403 ) );
         }
 
         $expected_username = $settings['owntracks_username'] ?? '';
@@ -87,7 +87,7 @@ class OwnTracks_Checkin_Sync extends Checkin_Sync_Base {
         // Check HTTP Basic auth.
         $auth_header = $request->get_header( 'Authorization' );
         if ( empty( $auth_header ) || 0 !== strpos( $auth_header, 'Basic ' ) ) {
-            return new \WP_Error( 'unauthorized', __( 'Authentication required.', 'reactions-indieweb' ), array( 'status' => 401 ) );
+            return new \WP_Error( 'unauthorized', __( 'Authentication required.', 'reactions-for-indieweb' ), array( 'status' => 401 ) );
         }
 
         // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
@@ -95,7 +95,7 @@ class OwnTracks_Checkin_Sync extends Checkin_Sync_Base {
         list( $username, $password ) = explode( ':', $credentials, 2 );
 
         if ( $username !== $expected_username || $password !== $expected_password ) {
-            return new \WP_Error( 'forbidden', __( 'Invalid credentials.', 'reactions-indieweb' ), array( 'status' => 403 ) );
+            return new \WP_Error( 'forbidden', __( 'Invalid credentials.', 'reactions-for-indieweb' ), array( 'status' => 403 ) );
         }
 
         return true;
@@ -111,7 +111,7 @@ class OwnTracks_Checkin_Sync extends Checkin_Sync_Base {
         $payload = $request->get_json_params();
 
         if ( empty( $payload ) ) {
-            return new \WP_Error( 'empty_payload', __( 'No data received.', 'reactions-indieweb' ), array( 'status' => 400 ) );
+            return new \WP_Error( 'empty_payload', __( 'No data received.', 'reactions-for-indieweb' ), array( 'status' => 400 ) );
         }
 
         $type = $payload['_type'] ?? '';
@@ -237,12 +237,12 @@ class OwnTracks_Checkin_Sync extends Checkin_Sync_Base {
         $poi = $payload['poi'] ?? '';
 
         if ( empty( $lat ) || empty( $lon ) ) {
-            return new \WP_Error( 'no_location', __( 'No location data.', 'reactions-indieweb' ), array( 'status' => 400 ) );
+            return new \WP_Error( 'no_location', __( 'No location data.', 'reactions-for-indieweb' ), array( 'status' => 400 ) );
         }
 
         // Check for recent duplicate.
         if ( $this->has_recent_checkin_at_location( $lat, $lon, $tst ) ) {
-            return new \WP_Error( 'duplicate', __( 'Recent checkin at this location exists.', 'reactions-indieweb' ), array( 'status' => 200 ) );
+            return new \WP_Error( 'duplicate', __( 'Recent checkin at this location exists.', 'reactions-for-indieweb' ), array( 'status' => 200 ) );
         }
 
         // Try to reverse geocode.
@@ -271,7 +271,7 @@ class OwnTracks_Checkin_Sync extends Checkin_Sync_Base {
         $post_id = wp_insert_post( $post_data );
 
         if ( is_wp_error( $post_id ) || ! $post_id ) {
-            return $post_id ?: new \WP_Error( 'insert_failed', __( 'Failed to create post.', 'reactions-indieweb' ) );
+            return $post_id ?: new \WP_Error( 'insert_failed', __( 'Failed to create post.', 'reactions-for-indieweb' ) );
         }
 
         // Set post kind.

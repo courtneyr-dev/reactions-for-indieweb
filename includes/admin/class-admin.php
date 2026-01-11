@@ -71,6 +71,13 @@ class Admin {
     private Quick_Post $quick_post;
 
     /**
+     * Syndication page instance.
+     *
+     * @var Syndication_Page
+     */
+    private Syndication_Page $syndication_page;
+
+    /**
      * Admin page hook suffixes.
      *
      * @var array<string, string>
@@ -97,8 +104,9 @@ class Admin {
         $this->api_settings  = new API_Settings( $this );
         $this->import_page   = new Import_Page( $this );
         $this->webhooks_page = new Webhooks_Page( $this );
-        $this->meta_boxes    = new Meta_Boxes( $this );
-        $this->quick_post    = new Quick_Post( $this );
+        $this->meta_boxes       = new Meta_Boxes( $this );
+        $this->quick_post       = new Quick_Post( $this );
+        $this->syndication_page = new Syndication_Page( $this );
 
         // Register hooks.
         add_action( 'admin_menu', array( $this, 'register_menu' ) );
@@ -114,6 +122,7 @@ class Admin {
         $this->webhooks_page->init();
         $this->meta_boxes->init();
         $this->quick_post->init();
+        $this->syndication_page->init();
 
         // AJAX handlers.
         add_action( 'wp_ajax_reactions_indieweb_test_api', array( $this, 'ajax_test_api' ) );
@@ -132,10 +141,10 @@ class Admin {
     public function register_menu(): void {
         // Main menu page.
         $this->page_hooks['main'] = add_menu_page(
-            __( 'Reactions', 'reactions-indieweb' ),
-            __( 'Reactions', 'reactions-indieweb' ),
+            __( 'Reactions', 'reactions-for-indieweb' ),
+            __( 'Reactions', 'reactions-for-indieweb' ),
             'manage_options',
-            'reactions-indieweb',
+            'reactions-for-indieweb',
             array( $this->settings_page, 'render' ),
             'dashicons-heart',
             30
@@ -143,19 +152,19 @@ class Admin {
 
         // Settings submenu (same as main).
         $this->page_hooks['settings'] = add_submenu_page(
-            'reactions-indieweb',
-            __( 'Settings', 'reactions-indieweb' ),
-            __( 'Settings', 'reactions-indieweb' ),
+            'reactions-for-indieweb',
+            __( 'Settings', 'reactions-for-indieweb' ),
+            __( 'Settings', 'reactions-for-indieweb' ),
             'manage_options',
-            'reactions-indieweb',
+            'reactions-for-indieweb',
             array( $this->settings_page, 'render' )
         );
 
         // API Connections submenu.
         $this->page_hooks['apis'] = add_submenu_page(
-            'reactions-indieweb',
-            __( 'API Connections', 'reactions-indieweb' ),
-            __( 'API Connections', 'reactions-indieweb' ),
+            'reactions-for-indieweb',
+            __( 'API Connections', 'reactions-for-indieweb' ),
+            __( 'API Connections', 'reactions-for-indieweb' ),
             'manage_options',
             'reactions-indieweb-apis',
             array( $this->api_settings, 'render' )
@@ -163,9 +172,9 @@ class Admin {
 
         // Import submenu.
         $this->page_hooks['import'] = add_submenu_page(
-            'reactions-indieweb',
-            __( 'Import', 'reactions-indieweb' ),
-            __( 'Import', 'reactions-indieweb' ),
+            'reactions-for-indieweb',
+            __( 'Import', 'reactions-for-indieweb' ),
+            __( 'Import', 'reactions-for-indieweb' ),
             'manage_options',
             'reactions-indieweb-import',
             array( $this->import_page, 'render' )
@@ -173,9 +182,9 @@ class Admin {
 
         // Webhooks submenu.
         $this->page_hooks['webhooks'] = add_submenu_page(
-            'reactions-indieweb',
-            __( 'Webhooks', 'reactions-indieweb' ),
-            __( 'Webhooks', 'reactions-indieweb' ),
+            'reactions-for-indieweb',
+            __( 'Webhooks', 'reactions-for-indieweb' ),
+            __( 'Webhooks', 'reactions-for-indieweb' ),
             'manage_options',
             'reactions-indieweb-webhooks',
             array( $this->webhooks_page, 'render' )
@@ -183,12 +192,22 @@ class Admin {
 
         // Quick Post submenu.
         $this->page_hooks['quick_post'] = add_submenu_page(
-            'reactions-indieweb',
-            __( 'Quick Post', 'reactions-indieweb' ),
-            __( 'Quick Post', 'reactions-indieweb' ),
+            'reactions-for-indieweb',
+            __( 'Quick Post', 'reactions-for-indieweb' ),
+            __( 'Quick Post', 'reactions-for-indieweb' ),
             'edit_posts',
             'reactions-indieweb-quick-post',
             array( $this->quick_post, 'render' )
+        );
+
+        // Syndication submenu.
+        $this->page_hooks['syndication'] = add_submenu_page(
+            'reactions-for-indieweb',
+            __( 'Syndication', 'reactions-for-indieweb' ),
+            __( 'Syndication', 'reactions-for-indieweb' ),
+            'edit_posts',
+            'reactions-indieweb-syndication',
+            array( $this->syndication_page, 'render' )
         );
     }
 
@@ -277,18 +296,18 @@ class Admin {
                 'nonce'     => wp_create_nonce( 'reactions_indieweb_admin' ),
                 'restNonce' => wp_create_nonce( 'wp_rest' ),
                 'strings'   => array(
-                    'confirmDelete'   => __( 'Are you sure you want to delete this?', 'reactions-indieweb' ),
-                    'confirmClear'    => __( 'Are you sure you want to clear all cached data?', 'reactions-indieweb' ),
-                    'testingApi'      => __( 'Testing connection...', 'reactions-indieweb' ),
-                    'testSuccess'     => __( 'Connection successful!', 'reactions-indieweb' ),
-                    'testFailed'      => __( 'Connection failed: ', 'reactions-indieweb' ),
-                    'importing'       => __( 'Importing...', 'reactions-indieweb' ),
-                    'importComplete'  => __( 'Import complete!', 'reactions-indieweb' ),
-                    'lookingUp'       => __( 'Looking up...', 'reactions-indieweb' ),
-                    'noResults'       => __( 'No results found.', 'reactions-indieweb' ),
-                    'error'           => __( 'An error occurred.', 'reactions-indieweb' ),
-                    'saved'           => __( 'Settings saved.', 'reactions-indieweb' ),
-                    'copied'          => __( 'Copied to clipboard!', 'reactions-indieweb' ),
+                    'confirmDelete'   => __( 'Are you sure you want to delete this?', 'reactions-for-indieweb' ),
+                    'confirmClear'    => __( 'Are you sure you want to clear all cached data?', 'reactions-for-indieweb' ),
+                    'testingApi'      => __( 'Testing connection...', 'reactions-for-indieweb' ),
+                    'testSuccess'     => __( 'Connection successful!', 'reactions-for-indieweb' ),
+                    'testFailed'      => __( 'Connection failed: ', 'reactions-for-indieweb' ),
+                    'importing'       => __( 'Importing...', 'reactions-for-indieweb' ),
+                    'importComplete'  => __( 'Import complete!', 'reactions-for-indieweb' ),
+                    'lookingUp'       => __( 'Looking up...', 'reactions-for-indieweb' ),
+                    'noResults'       => __( 'No results found.', 'reactions-for-indieweb' ),
+                    'error'           => __( 'An error occurred.', 'reactions-for-indieweb' ),
+                    'saved'           => __( 'Settings saved.', 'reactions-for-indieweb' ),
+                    'copied'          => __( 'Copied to clipboard!', 'reactions-for-indieweb' ),
                 ),
                 'postKinds' => $this->get_post_kinds(),
             )
@@ -303,13 +322,13 @@ class Admin {
         if ( $is_our_page ) {
             wp_enqueue_style(
                 'select2',
-                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css',
+                REACTIONS_INDIEWEB_URL . 'assets/vendor/select2/select2.min.css',
                 array(),
                 '4.1.0'
             );
             wp_enqueue_script(
                 'select2',
-                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js',
+                REACTIONS_INDIEWEB_URL . 'assets/vendor/select2/select2.min.js',
                 array( 'jquery' ),
                 '4.1.0',
                 true
@@ -331,7 +350,7 @@ class Admin {
             echo '<div class="notice notice-warning"><p>';
             printf(
                 /* translators: %s: Plugin name */
-                esc_html__( '%s requires IndieBlocks to be installed and activated for full functionality.', 'reactions-indieweb' ),
+                esc_html__( '%s requires IndieBlocks to be installed and activated for full functionality.', 'reactions-for-indieweb' ),
                 '<strong>Reactions for IndieWeb</strong>'
             );
             echo '</p></div>';
@@ -340,7 +359,7 @@ class Admin {
         // Show success message after settings save.
         if ( isset( $_GET['settings-updated'] ) && 'true' === $_GET['settings-updated'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
             echo '<div class="notice notice-success is-dismissible"><p>';
-            esc_html_e( 'Settings saved successfully.', 'reactions-indieweb' );
+            esc_html_e( 'Settings saved successfully.', 'reactions-for-indieweb' );
             echo '</p></div>';
         }
 
@@ -355,7 +374,7 @@ class Admin {
                     '%1$d import is currently running. <a href="%2$s">View progress</a>',
                     '%1$d imports are currently running. <a href="%2$s">View progress</a>',
                     $count,
-                    'reactions-indieweb'
+                    'reactions-for-indieweb'
                 ) ),
                 (int) $count,
                 esc_url( admin_url( 'admin.php?page=reactions-indieweb-import' ) )
@@ -374,7 +393,7 @@ class Admin {
         $settings_link = sprintf(
             '<a href="%s">%s</a>',
             admin_url( 'admin.php?page=reactions-indieweb' ),
-            __( 'Settings', 'reactions-indieweb' )
+            __( 'Settings', 'reactions-for-indieweb' )
         );
 
         array_unshift( $links, $settings_link );
@@ -680,39 +699,39 @@ class Admin {
     public function get_post_kinds(): array {
         $kinds = array(
             'listen'  => array(
-                'label' => __( 'Listen', 'reactions-indieweb' ),
+                'label' => __( 'Listen', 'reactions-for-indieweb' ),
                 'icon'  => 'dashicons-format-audio',
             ),
             'watch'   => array(
-                'label' => __( 'Watch', 'reactions-indieweb' ),
+                'label' => __( 'Watch', 'reactions-for-indieweb' ),
                 'icon'  => 'dashicons-video-alt2',
             ),
             'read'    => array(
-                'label' => __( 'Read', 'reactions-indieweb' ),
+                'label' => __( 'Read', 'reactions-for-indieweb' ),
                 'icon'  => 'dashicons-book',
             ),
             'checkin' => array(
-                'label' => __( 'Checkin', 'reactions-indieweb' ),
+                'label' => __( 'Checkin', 'reactions-for-indieweb' ),
                 'icon'  => 'dashicons-location',
             ),
             'like'    => array(
-                'label' => __( 'Like', 'reactions-indieweb' ),
+                'label' => __( 'Like', 'reactions-for-indieweb' ),
                 'icon'  => 'dashicons-heart',
             ),
             'reply'   => array(
-                'label' => __( 'Reply', 'reactions-indieweb' ),
+                'label' => __( 'Reply', 'reactions-for-indieweb' ),
                 'icon'  => 'dashicons-format-chat',
             ),
             'repost'  => array(
-                'label' => __( 'Repost', 'reactions-indieweb' ),
+                'label' => __( 'Repost', 'reactions-for-indieweb' ),
                 'icon'  => 'dashicons-controls-repeat',
             ),
             'bookmark' => array(
-                'label' => __( 'Bookmark', 'reactions-indieweb' ),
+                'label' => __( 'Bookmark', 'reactions-for-indieweb' ),
                 'icon'  => 'dashicons-bookmark',
             ),
             'rsvp'    => array(
-                'label' => __( 'RSVP', 'reactions-indieweb' ),
+                'label' => __( 'RSVP', 'reactions-for-indieweb' ),
                 'icon'  => 'dashicons-calendar-alt',
             ),
         );
@@ -734,13 +753,13 @@ class Admin {
         check_ajax_referer( 'reactions_indieweb_admin', 'nonce' );
 
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'reactions-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'reactions-for-indieweb' ) ) );
         }
 
         $api = isset( $_POST['api'] ) ? sanitize_text_field( wp_unslash( $_POST['api'] ) ) : '';
 
         if ( empty( $api ) ) {
-            wp_send_json_error( array( 'message' => __( 'No API specified.', 'reactions-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'No API specified.', 'reactions-for-indieweb' ) ) );
         }
 
         // Get API instance and test connection.
@@ -751,7 +770,7 @@ class Admin {
         }
 
         wp_send_json_success( array(
-            'message' => __( 'Connection successful!', 'reactions-indieweb' ),
+            'message' => __( 'Connection successful!', 'reactions-for-indieweb' ),
             'data'    => $result,
         ) );
     }
@@ -767,7 +786,7 @@ class Admin {
         $api_creds   = $credentials[ $api ] ?? array();
 
         if ( empty( $api_creds['enabled'] ) ) {
-            return new \WP_Error( 'disabled', __( 'API is not enabled.', 'reactions-indieweb' ) );
+            return new \WP_Error( 'disabled', __( 'API is not enabled.', 'reactions-for-indieweb' ) );
         }
 
         $class_map = array(
@@ -785,12 +804,12 @@ class Admin {
         );
 
         if ( ! isset( $class_map[ $api ] ) ) {
-            return new \WP_Error( 'unknown', __( 'Unknown API.', 'reactions-indieweb' ) );
+            return new \WP_Error( 'unknown', __( 'Unknown API.', 'reactions-for-indieweb' ) );
         }
 
         $class = $class_map[ $api ];
         if ( ! class_exists( $class ) ) {
-            return new \WP_Error( 'missing', __( 'API class not found.', 'reactions-indieweb' ) );
+            return new \WP_Error( 'missing', __( 'API class not found.', 'reactions-for-indieweb' ) );
         }
 
         try {
@@ -820,7 +839,7 @@ class Admin {
         check_ajax_referer( 'reactions_indieweb_admin', 'nonce' );
 
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'reactions-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'reactions-for-indieweb' ) ) );
         }
 
         $type = isset( $_POST['type'] ) ? sanitize_text_field( wp_unslash( $_POST['type'] ) ) : 'all';
@@ -831,9 +850,11 @@ class Admin {
 
         if ( 'all' === $type || 'api' === $type ) {
             // Clear API response transients.
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Bulk transient cleanup.
             $deleted += $wpdb->query(
                 "DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_reactions_indieweb_api_%'"
             );
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Bulk transient cleanup.
             $wpdb->query(
                 "DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_timeout_reactions_indieweb_api_%'"
             );
@@ -841,9 +862,11 @@ class Admin {
 
         if ( 'all' === $type || 'metadata' === $type ) {
             // Clear metadata cache transients.
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Bulk transient cleanup.
             $deleted += $wpdb->query(
                 "DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_reactions_indieweb_meta_%'"
             );
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Bulk transient cleanup.
             $wpdb->query(
                 "DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_timeout_reactions_indieweb_meta_%'"
             );
@@ -852,7 +875,7 @@ class Admin {
         wp_send_json_success( array(
             'message' => sprintf(
                 /* translators: %d: Number of cache entries cleared */
-                __( 'Cleared %d cached entries.', 'reactions-indieweb' ),
+                __( 'Cleared %d cached entries.', 'reactions-for-indieweb' ),
                 $deleted
             ),
         ) );
@@ -867,14 +890,14 @@ class Admin {
         check_ajax_referer( 'reactions_indieweb_admin', 'nonce' );
 
         if ( ! current_user_can( 'edit_posts' ) ) {
-            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'reactions-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'reactions-for-indieweb' ) ) );
         }
 
         $type  = isset( $_POST['type'] ) ? sanitize_text_field( wp_unslash( $_POST['type'] ) ) : '';
         $query = isset( $_POST['query'] ) ? sanitize_text_field( wp_unslash( $_POST['query'] ) ) : '';
 
         if ( empty( $type ) || empty( $query ) ) {
-            wp_send_json_error( array( 'message' => __( 'Type and query are required.', 'reactions-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Type and query are required.', 'reactions-for-indieweb' ) ) );
         }
 
         $results = $this->lookup_media( $type, $query );
@@ -932,12 +955,12 @@ class Admin {
                 if ( ! empty( $credentials['foursquare']['enabled'] ) ) {
                     $api = new \ReactionsForIndieWeb\APIs\Foursquare( $credentials['foursquare'] );
                     // Would need lat/lng for this.
-                    return new \WP_Error( 'needs_location', __( 'Location required for venue search.', 'reactions-indieweb' ) );
+                    return new \WP_Error( 'needs_location', __( 'Location required for venue search.', 'reactions-for-indieweb' ) );
                 }
                 break;
         }
 
-        return new \WP_Error( 'no_api', __( 'No API available for this media type.', 'reactions-indieweb' ) );
+        return new \WP_Error( 'no_api', __( 'No API available for this media type.', 'reactions-for-indieweb' ) );
     }
 
     /**
@@ -949,13 +972,13 @@ class Admin {
         check_ajax_referer( 'reactions_indieweb_admin', 'nonce' );
 
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'reactions-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'reactions-for-indieweb' ) ) );
         }
 
         $import_id = isset( $_POST['import_id'] ) ? sanitize_text_field( wp_unslash( $_POST['import_id'] ) ) : '';
 
         if ( empty( $import_id ) ) {
-            wp_send_json_error( array( 'message' => __( 'Import ID required.', 'reactions-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Import ID required.', 'reactions-for-indieweb' ) ) );
         }
 
         $import_manager = new \ReactionsForIndieWeb\Import_Manager();
@@ -1008,17 +1031,17 @@ class Admin {
         check_ajax_referer( 'reactions_indieweb_admin', 'nonce' );
 
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'reactions-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'reactions-for-indieweb' ) ) );
         }
 
         $foursquare_sync = $this->plugin->get_checkin_sync_service( 'foursquare' );
 
         if ( ! $foursquare_sync ) {
-            wp_send_json_error( array( 'message' => __( 'Foursquare sync service not available.', 'reactions-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Foursquare sync service not available.', 'reactions-for-indieweb' ) ) );
         }
 
         if ( ! $foursquare_sync->is_connected() ) {
-            wp_send_json_error( array( 'message' => __( 'Foursquare not connected. Please authorize first.', 'reactions-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Foursquare not connected. Please authorize first.', 'reactions-for-indieweb' ) ) );
         }
 
         try {
@@ -1031,7 +1054,7 @@ class Admin {
             wp_send_json_success( array(
                 'message' => sprintf(
                     /* translators: %d: Number of checkins imported */
-                    __( 'Imported %d new checkins.', 'reactions-indieweb' ),
+                    __( 'Imported %d new checkins.', 'reactions-for-indieweb' ),
                     $result['imported'] ?? 0
                 ),
                 'imported' => $result['imported'] ?? 0,
@@ -1051,7 +1074,7 @@ class Admin {
         check_ajax_referer( 'reactions_indieweb_admin', 'nonce' );
 
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'reactions-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'reactions-for-indieweb' ) ) );
         }
 
         $credentials = get_option( 'reactions_indieweb_api_credentials', array() );
@@ -1063,6 +1086,6 @@ class Admin {
             update_option( 'reactions_indieweb_api_credentials', $credentials );
         }
 
-        wp_send_json_success( array( 'message' => __( 'Disconnected from Foursquare.', 'reactions-indieweb' ) ) );
+        wp_send_json_success( array( 'message' => __( 'Disconnected from Foursquare.', 'reactions-for-indieweb' ) ) );
     }
 }

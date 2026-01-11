@@ -70,24 +70,24 @@ class API_Settings {
             // Note: MusicBrainz and ListenBrainz removed - complicated setup and credential saving issues.
             'lastfm' => array(
                 'name'        => 'Last.fm',
-                'description' => __( 'Scrobble service and music database. Requires API account.', 'reactions-indieweb' ),
+                'description' => __( 'Scrobble service and music database. Requires API account.', 'reactions-for-indieweb' ),
                 'category'    => 'music',
                 'docs_url'    => 'https://www.last.fm/api',
                 'signup_url'  => 'https://www.last.fm/api/account/create',
                 'auth_type'   => 'api_key_secret',
                 'fields'      => array(
                     'api_key' => array(
-                        'label'    => __( 'API Key', 'reactions-indieweb' ),
+                        'label'    => __( 'API Key', 'reactions-for-indieweb' ),
                         'type'     => 'text',
                         'required' => true,
                     ),
                     'api_secret' => array(
-                        'label'    => __( 'Shared Secret', 'reactions-indieweb' ),
+                        'label'    => __( 'Shared Secret', 'reactions-for-indieweb' ),
                         'type'     => 'password',
                         'required' => true,
                     ),
                     'username' => array(
-                        'label'    => __( 'Username', 'reactions-indieweb' ),
+                        'label'    => __( 'Username', 'reactions-for-indieweb' ),
                         'type'     => 'text',
                         'required' => false,
                     ),
@@ -95,23 +95,23 @@ class API_Settings {
             ),
             'tmdb' => array(
                 'name'        => 'TMDB',
-                'description' => __( 'The Movie Database. Comprehensive movie and TV metadata.', 'reactions-indieweb' ),
+                'description' => __( 'The Movie Database. Comprehensive movie and TV metadata.', 'reactions-for-indieweb' ),
                 'category'    => 'video',
                 'docs_url'    => 'https://developer.themoviedb.org/',
                 'signup_url'  => 'https://www.themoviedb.org/settings/api',
                 'auth_type'   => 'bearer',
                 'fields'      => array(
                     'access_token' => array(
-                        'label'    => __( 'API Read Access Token', 'reactions-indieweb' ),
+                        'label'    => __( 'API Read Access Token', 'reactions-for-indieweb' ),
                         'type'     => 'password',
                         'required' => true,
-                        'help'     => __( 'Use the "API Read Access Token" (v4 auth), not the API Key.', 'reactions-indieweb' ),
+                        'help'     => __( 'Use the "API Read Access Token" (v4 auth), not the API Key.', 'reactions-for-indieweb' ),
                     ),
                 ),
             ),
             'trakt' => array(
                 'name'        => 'Trakt',
-                'description' => __( 'Watch history tracking. Requires OAuth authentication.', 'reactions-indieweb' ),
+                'description' => __( 'Watch history tracking. Requires OAuth authentication.', 'reactions-for-indieweb' ),
                 'category'    => 'video',
                 'docs_url'    => 'https://trakt.docs.apiary.io/',
                 'signup_url'  => 'https://trakt.tv/oauth/applications',
@@ -119,17 +119,17 @@ class API_Settings {
                 'oauth_url'   => 'https://trakt.tv/oauth/authorize',
                 'fields'      => array(
                     'client_id' => array(
-                        'label'    => __( 'Client ID', 'reactions-indieweb' ),
+                        'label'    => __( 'Client ID', 'reactions-for-indieweb' ),
                         'type'     => 'text',
                         'required' => true,
                     ),
                     'client_secret' => array(
-                        'label'    => __( 'Client Secret', 'reactions-indieweb' ),
+                        'label'    => __( 'Client Secret', 'reactions-for-indieweb' ),
                         'type'     => 'password',
                         'required' => true,
                     ),
                     'username' => array(
-                        'label'    => __( 'Trakt Username', 'reactions-indieweb' ),
+                        'label'    => __( 'Trakt Username', 'reactions-for-indieweb' ),
                         'type'     => 'text',
                         'required' => false,
                     ),
@@ -137,14 +137,14 @@ class API_Settings {
             ),
             'simkl' => array(
                 'name'        => 'Simkl',
-                'description' => __( 'Watch tracking for movies, TV, and anime.', 'reactions-indieweb' ),
+                'description' => __( 'Watch tracking for movies, TV, and anime.', 'reactions-for-indieweb' ),
                 'category'    => 'video',
                 'docs_url'    => 'https://simkl.docs.apiary.io/',
                 'signup_url'  => 'https://simkl.com/settings/developer/',
                 'auth_type'   => 'oauth',
                 'fields'      => array(
                     'client_id' => array(
-                        'label'    => __( 'Client ID', 'reactions-indieweb' ),
+                        'label'    => __( 'Client ID', 'reactions-for-indieweb' ),
                         'type'     => 'text',
                         'required' => true,
                     ),
@@ -152,23 +152,23 @@ class API_Settings {
             ),
             'tvmaze' => array(
                 'name'        => 'TVmaze',
-                'description' => __( 'TV show database. Works without API key, but premium key gives higher rate limits.', 'reactions-indieweb' ),
+                'description' => __( 'TV show database. Works without API key, but premium key gives higher rate limits.', 'reactions-for-indieweb' ),
                 'category'    => 'video',
                 'docs_url'    => 'https://www.tvmaze.com/api',
                 'signup_url'  => 'https://www.tvmaze.com/api#premium',
                 'auth_type'   => 'api_key',
                 'fields'      => array(
                     'api_key' => array(
-                        'label'    => __( 'API Key (Optional)', 'reactions-indieweb' ),
+                        'label'    => __( 'API Key (Optional)', 'reactions-for-indieweb' ),
                         'type'     => 'password',
                         'required' => false,
-                        'help'     => __( 'Premium API key for higher rate limits. Free tier works without a key.', 'reactions-indieweb' ),
+                        'help'     => __( 'Premium API key for higher rate limits. Free tier works without a key.', 'reactions-for-indieweb' ),
                     ),
                 ),
             ),
             'openlibrary' => array(
                 'name'        => 'Open Library',
-                'description' => __( 'Book metadata from Internet Archive. Free, no API key required.', 'reactions-indieweb' ),
+                'description' => __( 'Book metadata from Internet Archive. Free, no API key required.', 'reactions-for-indieweb' ),
                 'category'    => 'books',
                 'docs_url'    => 'https://openlibrary.org/developers/api',
                 'auth_type'   => 'none',
@@ -176,19 +176,19 @@ class API_Settings {
             ),
             'hardcover' => array(
                 'name'        => 'Hardcover',
-                'description' => __( 'Book tracking service. Get your token from your settings.', 'reactions-indieweb' ),
+                'description' => __( 'Book tracking service. Get your token from your settings.', 'reactions-for-indieweb' ),
                 'category'    => 'books',
                 'docs_url'    => 'https://hardcover.app/docs',
                 'signup_url'  => 'https://hardcover.app/account/api',
                 'auth_type'   => 'bearer',
                 'fields'      => array(
                     'api_token' => array(
-                        'label'    => __( 'API Token', 'reactions-indieweb' ),
+                        'label'    => __( 'API Token', 'reactions-for-indieweb' ),
                         'type'     => 'password',
                         'required' => true,
                     ),
                     'username' => array(
-                        'label'    => __( 'Username', 'reactions-indieweb' ),
+                        'label'    => __( 'Username', 'reactions-for-indieweb' ),
                         'type'     => 'text',
                         'required' => false,
                     ),
@@ -196,24 +196,24 @@ class API_Settings {
             ),
             'google_books' => array(
                 'name'        => 'Google Books',
-                'description' => __( 'Book metadata fallback. Optional API key for higher rate limits.', 'reactions-indieweb' ),
+                'description' => __( 'Book metadata fallback. Optional API key for higher rate limits.', 'reactions-for-indieweb' ),
                 'category'    => 'books',
                 'docs_url'    => 'https://developers.google.com/books',
                 'signup_url'  => 'https://console.cloud.google.com/apis/library/books.googleapis.com',
                 'auth_type'   => 'api_key',
                 'fields'      => array(
                     'api_key' => array(
-                        'label'    => __( 'API Key', 'reactions-indieweb' ),
+                        'label'    => __( 'API Key', 'reactions-for-indieweb' ),
                         'type'     => 'text',
                         'required' => false,
-                        'help'     => __( 'Optional. Works without API key but with lower rate limits.', 'reactions-indieweb' ),
+                        'help'     => __( 'Optional. Works without API key but with lower rate limits.', 'reactions-for-indieweb' ),
                     ),
                 ),
             ),
             // Note: Podcast Index removed - API signup requires app/business email, not personal accounts.
             'foursquare' => array(
                 'name'        => 'Foursquare',
-                'description' => __( 'Venue search and bidirectional checkin sync. API key for venue lookup, OAuth for syncing checkins.', 'reactions-indieweb' ),
+                'description' => __( 'Venue search and bidirectional checkin sync. API key for venue lookup, OAuth for syncing checkins.', 'reactions-for-indieweb' ),
                 'category'    => 'location',
                 'docs_url'    => 'https://location.foursquare.com/developer/',
                 'signup_url'  => 'https://foursquare.com/developers/apps',
@@ -221,19 +221,19 @@ class API_Settings {
                 'oauth_url'   => 'https://foursquare.com/oauth2/authorize',
                 'fields'      => array(
                     'api_key' => array(
-                        'label'    => __( 'API Key (Places API)', 'reactions-indieweb' ),
+                        'label'    => __( 'API Key (Places API)', 'reactions-for-indieweb' ),
                         'type'     => 'password',
                         'required' => false,
-                        'help'     => __( 'For venue search in the block editor. Get from Foursquare Developer Console.', 'reactions-indieweb' ),
+                        'help'     => __( 'For venue search in the block editor. Get from Foursquare Developer Console.', 'reactions-for-indieweb' ),
                     ),
                     'client_id' => array(
-                        'label'    => __( 'Client ID (OAuth)', 'reactions-indieweb' ),
+                        'label'    => __( 'Client ID (OAuth)', 'reactions-for-indieweb' ),
                         'type'     => 'text',
                         'required' => false,
-                        'help'     => __( 'For syncing checkins. Create an app at foursquare.com/developers/apps.', 'reactions-indieweb' ),
+                        'help'     => __( 'For syncing checkins. Create an app at foursquare.com/developers/apps.', 'reactions-for-indieweb' ),
                     ),
                     'client_secret' => array(
-                        'label'    => __( 'Client Secret (OAuth)', 'reactions-indieweb' ),
+                        'label'    => __( 'Client Secret (OAuth)', 'reactions-for-indieweb' ),
                         'type'     => 'password',
                         'required' => false,
                     ),
@@ -241,32 +241,32 @@ class API_Settings {
             ),
             'nominatim' => array(
                 'name'        => 'Nominatim',
-                'description' => __( 'OpenStreetMap geocoding. Free with usage policy.', 'reactions-indieweb' ),
+                'description' => __( 'OpenStreetMap geocoding. Free with usage policy.', 'reactions-for-indieweb' ),
                 'category'    => 'location',
                 'docs_url'    => 'https://nominatim.org/release-docs/develop/api/Overview/',
                 'auth_type'   => 'email',
                 'fields'      => array(
                     'email' => array(
-                        'label'    => __( 'Contact Email', 'reactions-indieweb' ),
+                        'label'    => __( 'Contact Email', 'reactions-for-indieweb' ),
                         'type'     => 'email',
                         'required' => true,
-                        'help'     => __( 'Required by Nominatim usage policy.', 'reactions-indieweb' ),
+                        'help'     => __( 'Required by Nominatim usage policy.', 'reactions-for-indieweb' ),
                     ),
                 ),
             ),
             'readwise' => array(
                 'name'        => 'Readwise',
-                'description' => __( 'Import highlights from books, articles, podcasts (Snipd), tweets, and more.', 'reactions-indieweb' ),
+                'description' => __( 'Import highlights from books, articles, podcasts (Snipd), tweets, and more.', 'reactions-for-indieweb' ),
                 'category'    => 'aggregators',
                 'docs_url'    => 'https://readwise.io/api_deets',
                 'signup_url'  => 'https://readwise.io/access_token',
                 'auth_type'   => 'token',
                 'fields'      => array(
                     'access_token' => array(
-                        'label'    => __( 'Access Token', 'reactions-indieweb' ),
+                        'label'    => __( 'Access Token', 'reactions-for-indieweb' ),
                         'type'     => 'password',
                         'required' => true,
-                        'help'     => __( 'Get your token from readwise.io/access_token', 'reactions-indieweb' ),
+                        'help'     => __( 'Get your token from readwise.io/access_token', 'reactions-for-indieweb' ),
                     ),
                 ),
             ),
@@ -310,12 +310,12 @@ class API_Settings {
 
         $credentials = get_option( 'reactions_indieweb_api_credentials', array() );
         $categories  = array(
-            'music'       => __( 'Music', 'reactions-indieweb' ),
-            'video'       => __( 'Movies & TV', 'reactions-indieweb' ),
-            'books'       => __( 'Books', 'reactions-indieweb' ),
-            'audio'       => __( 'Podcasts', 'reactions-indieweb' ),
-            'location'    => __( 'Location', 'reactions-indieweb' ),
-            'aggregators' => __( 'Aggregators', 'reactions-indieweb' ),
+            'music'       => __( 'Music', 'reactions-for-indieweb' ),
+            'video'       => __( 'Movies & TV', 'reactions-for-indieweb' ),
+            'books'       => __( 'Books', 'reactions-for-indieweb' ),
+            'audio'       => __( 'Podcasts', 'reactions-for-indieweb' ),
+            'location'    => __( 'Location', 'reactions-for-indieweb' ),
+            'aggregators' => __( 'Aggregators', 'reactions-for-indieweb' ),
         );
 
         ?>
@@ -328,7 +328,7 @@ class API_Settings {
                         <?php
                         printf(
                             /* translators: %s: Error message */
-                            esc_html__( 'OAuth authentication failed: %s', 'reactions-indieweb' ),
+                            esc_html__( 'OAuth authentication failed: %s', 'reactions-for-indieweb' ),
                             esc_html( $oauth_error )
                         );
                         ?>
@@ -338,12 +338,12 @@ class API_Settings {
 
             <?php if ( $oauth_success ) : ?>
                 <div class="notice notice-success is-dismissible">
-                    <p><?php esc_html_e( 'Successfully connected! You can now import your watch history.', 'reactions-indieweb' ); ?></p>
+                    <p><?php esc_html_e( 'Successfully connected! You can now import your watch history.', 'reactions-for-indieweb' ); ?></p>
                 </div>
             <?php endif; ?>
 
             <p class="description">
-                <?php esc_html_e( 'Configure API connections for fetching media metadata and importing history.', 'reactions-indieweb' ); ?>
+                <?php esc_html_e( 'Configure API connections for fetching media metadata and importing history.', 'reactions-for-indieweb' ); ?>
             </p>
 
             <form method="post" action="options.php">
@@ -388,11 +388,11 @@ class API_Settings {
                     <span class="api-status-badge <?php echo esc_attr( $status_class ); ?>">
                         <?php
                         if ( ! $is_enabled ) {
-                            esc_html_e( 'Disabled', 'reactions-indieweb' );
+                            esc_html_e( 'Disabled', 'reactions-for-indieweb' );
                         } elseif ( $is_connected ) {
-                            esc_html_e( 'Connected', 'reactions-indieweb' );
+                            esc_html_e( 'Connected', 'reactions-for-indieweb' );
                         } else {
-                            esc_html_e( 'Not Connected', 'reactions-indieweb' );
+                            esc_html_e( 'Not Connected', 'reactions-for-indieweb' );
                         }
                         ?>
                     </span>
@@ -419,7 +419,7 @@ class API_Settings {
                 <?php else : ?>
                     <p class="no-config-needed">
                         <span class="dashicons dashicons-yes"></span>
-                        <?php esc_html_e( 'No configuration needed.', 'reactions-indieweb' ); ?>
+                        <?php esc_html_e( 'No configuration needed.', 'reactions-for-indieweb' ); ?>
                     </p>
                 <?php endif; ?>
 
@@ -433,20 +433,20 @@ class API_Settings {
                     <?php if ( $is_enabled && ! empty( $config['fields'] ) ) : ?>
                         <button type="button" class="button api-test-button" data-api="<?php echo esc_attr( $api_id ); ?>">
                             <span class="dashicons dashicons-update"></span>
-                            <?php esc_html_e( 'Test Connection', 'reactions-indieweb' ); ?>
+                            <?php esc_html_e( 'Test Connection', 'reactions-for-indieweb' ); ?>
                         </button>
                     <?php endif; ?>
                 </div>
                 <div class="api-links">
                     <?php if ( ! empty( $config['docs_url'] ) ) : ?>
                         <a href="<?php echo esc_url( $config['docs_url'] ); ?>" target="_blank" rel="noopener noreferrer">
-                            <?php esc_html_e( 'Documentation', 'reactions-indieweb' ); ?>
+                            <?php esc_html_e( 'Documentation', 'reactions-for-indieweb' ); ?>
                             <span class="dashicons dashicons-external"></span>
                         </a>
                     <?php endif; ?>
                     <?php if ( ! empty( $config['signup_url'] ) ) : ?>
                         <a href="<?php echo esc_url( $config['signup_url'] ); ?>" target="_blank" rel="noopener noreferrer">
-                            <?php esc_html_e( 'Get API Key', 'reactions-indieweb' ); ?>
+                            <?php esc_html_e( 'Get API Key', 'reactions-for-indieweb' ); ?>
                             <span class="dashicons dashicons-external"></span>
                         </a>
                     <?php endif; ?>
@@ -491,7 +491,7 @@ class API_Settings {
                                class="regular-text"
                                placeholder="<?php echo esc_attr( $field['placeholder'] ?? '' ); ?>"
                                autocomplete="new-password">
-                        <button type="button" class="button toggle-password" aria-label="<?php esc_attr_e( 'Toggle password visibility', 'reactions-indieweb' ); ?>">
+                        <button type="button" class="button toggle-password" aria-label="<?php esc_attr_e( 'Toggle password visibility', 'reactions-for-indieweb' ); ?>">
                             <span class="dashicons dashicons-visibility"></span>
                         </button>
                     </div>
@@ -533,19 +533,19 @@ class API_Settings {
 
         ?>
         <div class="oauth-section">
-            <h4><?php esc_html_e( 'OAuth Connection', 'reactions-indieweb' ); ?></h4>
+            <h4><?php esc_html_e( 'OAuth Connection', 'reactions-for-indieweb' ); ?></h4>
 
             <?php if ( $has_tokens ) : ?>
                 <div class="oauth-connected">
                     <span class="dashicons dashicons-yes-alt" style="color: #46b450;"></span>
-                    <?php esc_html_e( 'Connected', 'reactions-indieweb' ); ?>
+                    <?php esc_html_e( 'Connected', 'reactions-for-indieweb' ); ?>
 
                     <?php if ( ! empty( $token_info['username'] ) ) : ?>
                         <span class="oauth-username">
                             <?php
                             printf(
                                 /* translators: %s: Username */
-                                esc_html__( 'as %s', 'reactions-indieweb' ),
+                                esc_html__( 'as %s', 'reactions-for-indieweb' ),
                                 esc_html( $token_info['username'] )
                             );
                             ?>
@@ -557,7 +557,7 @@ class API_Settings {
                             <?php
                             printf(
                                 /* translators: %s: Expiration date */
-                                esc_html__( '(expires %s)', 'reactions-indieweb' ),
+                                esc_html__( '(expires %s)', 'reactions-for-indieweb' ),
                                 esc_html( human_time_diff( time(), $token_info['expires'] ) )
                             );
                             ?>
@@ -567,10 +567,10 @@ class API_Settings {
 
                 <p>
                     <button type="button" class="button oauth-disconnect" data-api="<?php echo esc_attr( $api_id ); ?>">
-                        <?php esc_html_e( 'Disconnect', 'reactions-indieweb' ); ?>
+                        <?php esc_html_e( 'Disconnect', 'reactions-for-indieweb' ); ?>
                     </button>
                     <button type="button" class="button oauth-refresh" data-api="<?php echo esc_attr( $api_id ); ?>">
-                        <?php esc_html_e( 'Refresh Token', 'reactions-indieweb' ); ?>
+                        <?php esc_html_e( 'Refresh Token', 'reactions-for-indieweb' ); ?>
                     </button>
                 </p>
             <?php else : ?>
@@ -579,14 +579,14 @@ class API_Settings {
                     $redirect_uri = $this->get_oauth_redirect_uri( $api_id );
                     ?>
                     <p style="margin-bottom: 8px;">
-                        <strong><?php esc_html_e( 'Redirect URI:', 'reactions-indieweb' ); ?></strong><br>
+                        <strong><?php esc_html_e( 'Redirect URI:', 'reactions-for-indieweb' ); ?></strong><br>
                         <code style="user-select: all; cursor: text; padding: 4px 8px; display: inline-block; margin-top: 4px; word-break: break-all;"><?php echo esc_url( $redirect_uri ); ?></code>
                     </p>
                     <p class="description" style="margin-bottom: 12px;">
                         <?php
                         printf(
                             /* translators: %s: Service name */
-                            esc_html__( 'Copy this URL to your %s app settings as the Redirect URI.', 'reactions-indieweb' ),
+                            esc_html__( 'Copy this URL to your %s app settings as the Redirect URI.', 'reactions-for-indieweb' ),
                             esc_html( $config['name'] )
                         );
                         ?>
@@ -595,7 +595,7 @@ class API_Settings {
                         <?php
                         printf(
                             /* translators: %s: Service name */
-                            esc_html__( 'Connect to %s', 'reactions-indieweb' ),
+                            esc_html__( 'Connect to %s', 'reactions-for-indieweb' ),
                             esc_html( $config['name'] )
                         );
                         ?>
@@ -683,14 +683,14 @@ class API_Settings {
         check_ajax_referer( 'reactions_indieweb_admin', 'nonce' );
 
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'reactions-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'reactions-for-indieweb' ) ) );
         }
 
         $api  = isset( $_POST['api'] ) ? sanitize_text_field( wp_unslash( $_POST['api'] ) ) : '';
         $code = isset( $_POST['code'] ) ? sanitize_text_field( wp_unslash( $_POST['code'] ) ) : '';
 
         if ( empty( $api ) || empty( $code ) ) {
-            wp_send_json_error( array( 'message' => __( 'Missing API or authorization code.', 'reactions-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Missing API or authorization code.', 'reactions-for-indieweb' ) ) );
         }
 
         $result = $this->exchange_oauth_code( $api, $code );
@@ -723,7 +723,7 @@ class API_Settings {
             case 'untappd':
                 return $this->exchange_untappd_code( $code, $api_creds );
             default:
-                return new \WP_Error( 'unsupported', __( 'OAuth not supported for this API.', 'reactions-indieweb' ) );
+                return new \WP_Error( 'unsupported', __( 'OAuth not supported for this API.', 'reactions-for-indieweb' ) );
         }
     }
 
@@ -756,7 +756,7 @@ class API_Settings {
         $body = json_decode( wp_remote_retrieve_body( $response ), true );
 
         if ( empty( $body['access_token'] ) ) {
-            return new \WP_Error( 'no_token', __( 'No access token received.', 'reactions-indieweb' ) );
+            return new \WP_Error( 'no_token', __( 'No access token received.', 'reactions-for-indieweb' ) );
         }
 
         // Save tokens.
@@ -801,7 +801,7 @@ class API_Settings {
         $body = json_decode( wp_remote_retrieve_body( $response ), true );
 
         if ( empty( $body['access_token'] ) ) {
-            return new \WP_Error( 'no_token', __( 'No access token received.', 'reactions-indieweb' ) );
+            return new \WP_Error( 'no_token', __( 'No access token received.', 'reactions-for-indieweb' ) );
         }
 
         // Save token.
@@ -841,7 +841,7 @@ class API_Settings {
         $body = json_decode( wp_remote_retrieve_body( $response ), true );
 
         if ( empty( $body['access_token'] ) ) {
-            $error_msg = $body['error'] ?? __( 'No access token received.', 'reactions-indieweb' );
+            $error_msg = $body['error'] ?? __( 'No access token received.', 'reactions-for-indieweb' );
             return new \WP_Error( 'no_token', $error_msg );
         }
 
@@ -907,7 +907,7 @@ class API_Settings {
         $body = json_decode( wp_remote_retrieve_body( $response ), true );
 
         if ( empty( $body['response']['access_token'] ) ) {
-            $error_msg = $body['meta']['error_detail'] ?? __( 'No access token received.', 'reactions-indieweb' );
+            $error_msg = $body['meta']['error_detail'] ?? __( 'No access token received.', 'reactions-for-indieweb' );
             return new \WP_Error( 'no_token', $error_msg );
         }
 
@@ -1058,7 +1058,7 @@ class API_Settings {
      */
     private function process_oauth_callback( string $api ): void {
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_die( esc_html__( 'Permission denied.', 'reactions-indieweb' ) );
+            wp_die( esc_html__( 'Permission denied.', 'reactions-for-indieweb' ) );
         }
 
         // phpcs:ignore WordPress.Security.NonceVerification.Recommended
@@ -1099,7 +1099,7 @@ class API_Settings {
         check_ajax_referer( 'reactions_indieweb_admin', 'nonce' );
 
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'reactions-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'reactions-for-indieweb' ) ) );
         }
 
         $api           = isset( $_POST['api'] ) ? sanitize_text_field( wp_unslash( $_POST['api'] ) ) : '';
@@ -1107,7 +1107,7 @@ class API_Settings {
         $client_secret = isset( $_POST['client_secret'] ) ? sanitize_text_field( wp_unslash( $_POST['client_secret'] ) ) : '';
 
         if ( empty( $api ) || empty( $client_id ) ) {
-            wp_send_json_error( array( 'message' => __( 'Missing API or Client ID.', 'reactions-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Missing API or Client ID.', 'reactions-for-indieweb' ) ) );
         }
 
         // Save credentials first so they're available for the callback.
@@ -1127,7 +1127,7 @@ class API_Settings {
         $url = $this->get_oauth_url( $api );
 
         if ( ! $url ) {
-            wp_send_json_error( array( 'message' => __( 'Could not generate OAuth URL.', 'reactions-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Could not generate OAuth URL.', 'reactions-for-indieweb' ) ) );
         }
 
         wp_send_json_success( array( 'url' => $url ) );

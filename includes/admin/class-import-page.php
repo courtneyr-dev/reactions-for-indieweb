@@ -66,21 +66,21 @@ class Import_Page {
         return array(
             'listenbrainz' => array(
                 'name'        => 'ListenBrainz',
-                'description' => __( 'Import your listening history from ListenBrainz.', 'reactions-indieweb' ),
+                'description' => __( 'Import your listening history from ListenBrainz.', 'reactions-for-indieweb' ),
                 'post_kind'   => 'listen',
                 'icon'        => 'dashicons-format-audio',
                 'api_key'     => 'listenbrainz',
                 'options'     => array(
                     'date_from' => array(
-                        'label' => __( 'From Date', 'reactions-indieweb' ),
+                        'label' => __( 'From Date', 'reactions-for-indieweb' ),
                         'type'  => 'date',
                     ),
                     'date_to' => array(
-                        'label' => __( 'To Date', 'reactions-indieweb' ),
+                        'label' => __( 'To Date', 'reactions-for-indieweb' ),
                         'type'  => 'date',
                     ),
                     'limit' => array(
-                        'label'   => __( 'Maximum Items', 'reactions-indieweb' ),
+                        'label'   => __( 'Maximum Items', 'reactions-for-indieweb' ),
                         'type'    => 'number',
                         'default' => 100,
                         'max'     => 1000,
@@ -89,26 +89,26 @@ class Import_Page {
             ),
             'lastfm' => array(
                 'name'        => 'Last.fm',
-                'description' => __( 'Import your scrobble history from Last.fm.', 'reactions-indieweb' ),
+                'description' => __( 'Import your scrobble history from Last.fm.', 'reactions-for-indieweb' ),
                 'post_kind'   => 'listen',
                 'icon'        => 'dashicons-format-audio',
                 'api_key'     => 'lastfm',
                 'options'     => array(
                     'username' => array(
-                        'label'    => __( 'Last.fm Username', 'reactions-indieweb' ),
+                        'label'    => __( 'Last.fm Username', 'reactions-for-indieweb' ),
                         'type'     => 'text',
                         'required' => true,
                     ),
                     'date_from' => array(
-                        'label' => __( 'From Date', 'reactions-indieweb' ),
+                        'label' => __( 'From Date', 'reactions-for-indieweb' ),
                         'type'  => 'date',
                     ),
                     'date_to' => array(
-                        'label' => __( 'To Date', 'reactions-indieweb' ),
+                        'label' => __( 'To Date', 'reactions-for-indieweb' ),
                         'type'  => 'date',
                     ),
                     'limit' => array(
-                        'label'   => __( 'Maximum Items', 'reactions-indieweb' ),
+                        'label'   => __( 'Maximum Items', 'reactions-for-indieweb' ),
                         'type'    => 'number',
                         'default' => 100,
                         'max'     => 1000,
@@ -117,21 +117,21 @@ class Import_Page {
             ),
             'trakt_movies' => array(
                 'name'        => 'Trakt Movies',
-                'description' => __( 'Import your movie watch history from Trakt.', 'reactions-indieweb' ),
+                'description' => __( 'Import your movie watch history from Trakt.', 'reactions-for-indieweb' ),
                 'post_kind'   => 'watch',
                 'icon'        => 'dashicons-video-alt2',
                 'api_key'     => 'trakt',
                 'options'     => array(
                     'date_from' => array(
-                        'label' => __( 'From Date', 'reactions-indieweb' ),
+                        'label' => __( 'From Date', 'reactions-for-indieweb' ),
                         'type'  => 'date',
                     ),
                     'date_to' => array(
-                        'label' => __( 'To Date', 'reactions-indieweb' ),
+                        'label' => __( 'To Date', 'reactions-for-indieweb' ),
                         'type'  => 'date',
                     ),
                     'include_ratings' => array(
-                        'label'   => __( 'Include Ratings', 'reactions-indieweb' ),
+                        'label'   => __( 'Include Ratings', 'reactions-for-indieweb' ),
                         'type'    => 'checkbox',
                         'default' => true,
                     ),
@@ -139,26 +139,26 @@ class Import_Page {
             ),
             'trakt_shows' => array(
                 'name'        => 'Trakt TV Shows',
-                'description' => __( 'Import your TV show watch history from Trakt.', 'reactions-indieweb' ),
+                'description' => __( 'Import your TV show watch history from Trakt.', 'reactions-for-indieweb' ),
                 'post_kind'   => 'watch',
                 'icon'        => 'dashicons-video-alt2',
                 'api_key'     => 'trakt',
                 'options'     => array(
                     'date_from' => array(
-                        'label' => __( 'From Date', 'reactions-indieweb' ),
+                        'label' => __( 'From Date', 'reactions-for-indieweb' ),
                         'type'  => 'date',
                     ),
                     'date_to' => array(
-                        'label' => __( 'To Date', 'reactions-indieweb' ),
+                        'label' => __( 'To Date', 'reactions-for-indieweb' ),
                         'type'  => 'date',
                     ),
                     'group_by' => array(
-                        'label'   => __( 'Group Episodes', 'reactions-indieweb' ),
+                        'label'   => __( 'Group Episodes', 'reactions-for-indieweb' ),
                         'type'    => 'select',
                         'options' => array(
-                            'none'    => __( 'Individual episodes', 'reactions-indieweb' ),
-                            'season'  => __( 'By season', 'reactions-indieweb' ),
-                            'show'    => __( 'By show', 'reactions-indieweb' ),
+                            'none'    => __( 'Individual episodes', 'reactions-for-indieweb' ),
+                            'season'  => __( 'By season', 'reactions-for-indieweb' ),
+                            'show'    => __( 'By show', 'reactions-for-indieweb' ),
                         ),
                         'default' => 'none',
                     ),
@@ -166,29 +166,29 @@ class Import_Page {
             ),
             'simkl' => array(
                 'name'        => 'Simkl',
-                'description' => __( 'Import your watch history from Simkl.', 'reactions-indieweb' ),
+                'description' => __( 'Import your watch history from Simkl.', 'reactions-for-indieweb' ),
                 'post_kind'   => 'watch',
                 'icon'        => 'dashicons-video-alt2',
                 'api_key'     => 'simkl',
                 'options'     => array(
                     'type' => array(
-                        'label'   => __( 'Content Type', 'reactions-indieweb' ),
+                        'label'   => __( 'Content Type', 'reactions-for-indieweb' ),
                         'type'    => 'select',
                         'options' => array(
-                            'movies' => __( 'Movies', 'reactions-indieweb' ),
-                            'shows'  => __( 'TV Shows', 'reactions-indieweb' ),
-                            'anime'  => __( 'Anime', 'reactions-indieweb' ),
+                            'movies' => __( 'Movies', 'reactions-for-indieweb' ),
+                            'shows'  => __( 'TV Shows', 'reactions-for-indieweb' ),
+                            'anime'  => __( 'Anime', 'reactions-for-indieweb' ),
                         ),
                         'default' => 'movies',
                     ),
                     'status' => array(
-                        'label'   => __( 'Watch Status', 'reactions-indieweb' ),
+                        'label'   => __( 'Watch Status', 'reactions-for-indieweb' ),
                         'type'    => 'select',
                         'options' => array(
-                            'completed'  => __( 'Completed', 'reactions-indieweb' ),
-                            'watching'   => __( 'Currently Watching', 'reactions-indieweb' ),
-                            'plantowatch' => __( 'Plan to Watch', 'reactions-indieweb' ),
-                            'all'        => __( 'All', 'reactions-indieweb' ),
+                            'completed'  => __( 'Completed', 'reactions-for-indieweb' ),
+                            'watching'   => __( 'Currently Watching', 'reactions-for-indieweb' ),
+                            'plantowatch' => __( 'Plan to Watch', 'reactions-for-indieweb' ),
+                            'all'        => __( 'All', 'reactions-for-indieweb' ),
                         ),
                         'default' => 'completed',
                     ),
@@ -196,30 +196,30 @@ class Import_Page {
             ),
             'hardcover' => array(
                 'name'        => 'Hardcover',
-                'description' => __( 'Import your reading history from Hardcover.', 'reactions-indieweb' ),
+                'description' => __( 'Import your reading history from Hardcover.', 'reactions-for-indieweb' ),
                 'post_kind'   => 'read',
                 'icon'        => 'dashicons-book',
                 'api_key'     => 'hardcover',
                 'options'     => array(
                     'status' => array(
-                        'label'   => __( 'Reading Status', 'reactions-indieweb' ),
+                        'label'   => __( 'Reading Status', 'reactions-for-indieweb' ),
                         'type'    => 'select',
                         'options' => array(
-                            'finished' => __( 'Finished', 'reactions-indieweb' ),
-                            'reading'  => __( 'Currently Reading', 'reactions-indieweb' ),
-                            'want'     => __( 'Want to Read', 'reactions-indieweb' ),
-                            'dnf'      => __( 'Did Not Finish', 'reactions-indieweb' ),
-                            'all'      => __( 'All', 'reactions-indieweb' ),
+                            'finished' => __( 'Finished', 'reactions-for-indieweb' ),
+                            'reading'  => __( 'Currently Reading', 'reactions-for-indieweb' ),
+                            'want'     => __( 'Want to Read', 'reactions-for-indieweb' ),
+                            'dnf'      => __( 'Did Not Finish', 'reactions-for-indieweb' ),
+                            'all'      => __( 'All', 'reactions-for-indieweb' ),
                         ),
                         'default' => 'finished',
                     ),
                     'include_ratings' => array(
-                        'label'   => __( 'Include Ratings', 'reactions-indieweb' ),
+                        'label'   => __( 'Include Ratings', 'reactions-for-indieweb' ),
                         'type'    => 'checkbox',
                         'default' => true,
                     ),
                     'include_reviews' => array(
-                        'label'   => __( 'Include Reviews', 'reactions-indieweb' ),
+                        'label'   => __( 'Include Reviews', 'reactions-for-indieweb' ),
                         'type'    => 'checkbox',
                         'default' => true,
                     ),
@@ -227,13 +227,13 @@ class Import_Page {
             ),
             'foursquare' => array(
                 'name'        => 'Foursquare / Swarm',
-                'description' => __( 'Import your checkin history from Foursquare/Swarm.', 'reactions-indieweb' ),
+                'description' => __( 'Import your checkin history from Foursquare/Swarm.', 'reactions-for-indieweb' ),
                 'post_kind'   => 'checkin',
                 'icon'        => 'dashicons-location-alt',
                 'api_key'     => 'foursquare',
                 'options'     => array(
                     'limit' => array(
-                        'label'   => __( 'Maximum Checkins', 'reactions-indieweb' ),
+                        'label'   => __( 'Maximum Checkins', 'reactions-for-indieweb' ),
                         'type'    => 'number',
                         'default' => 100,
                         'max'     => 500,
@@ -246,24 +246,24 @@ class Import_Page {
             // Readwise imports - multiple content types.
             'readwise_books' => array(
                 'name'        => 'Readwise Books',
-                'description' => __( 'Import book highlights from Readwise (Kindle, Apple Books, etc.). Each book requires separate API calls for highlights.', 'reactions-indieweb' ),
+                'description' => __( 'Import book highlights from Readwise (Kindle, Apple Books, etc.). Each book requires separate API calls for highlights.', 'reactions-for-indieweb' ),
                 'post_kind'   => 'read',
                 'icon'        => 'dashicons-book',
                 'api_key'     => 'readwise',
                 'options'     => array(
                     'limit' => array(
-                        'label'   => __( 'Maximum Books', 'reactions-indieweb' ),
+                        'label'   => __( 'Maximum Books', 'reactions-for-indieweb' ),
                         'type'    => 'number',
                         'default' => 20,
                         'max'     => 100,
                     ),
                     'include_highlights' => array(
-                        'label'   => __( 'Include Highlights', 'reactions-indieweb' ),
+                        'label'   => __( 'Include Highlights', 'reactions-for-indieweb' ),
                         'type'    => 'checkbox',
                         'default' => true,
                     ),
                     'update_existing' => array(
-                        'label'   => __( 'Update existing posts', 'reactions-indieweb' ),
+                        'label'   => __( 'Update existing posts', 'reactions-for-indieweb' ),
                         'type'    => 'checkbox',
                         'default' => false,
                     ),
@@ -271,24 +271,24 @@ class Import_Page {
             ),
             'readwise_articles' => array(
                 'name'        => 'Readwise Articles',
-                'description' => __( 'Import article highlights from Readwise (Reader, Instapaper, Pocket, etc.).', 'reactions-indieweb' ),
+                'description' => __( 'Import article highlights from Readwise (Reader, Instapaper, Pocket, etc.).', 'reactions-for-indieweb' ),
                 'post_kind'   => 'bookmark',
                 'icon'        => 'dashicons-admin-links',
                 'api_key'     => 'readwise',
                 'options'     => array(
                     'limit' => array(
-                        'label'   => __( 'Maximum Articles', 'reactions-indieweb' ),
+                        'label'   => __( 'Maximum Articles', 'reactions-for-indieweb' ),
                         'type'    => 'number',
                         'default' => 100,
                         'max'     => 500,
                     ),
                     'include_highlights' => array(
-                        'label'   => __( 'Include Highlights', 'reactions-indieweb' ),
+                        'label'   => __( 'Include Highlights', 'reactions-for-indieweb' ),
                         'type'    => 'checkbox',
                         'default' => true,
                     ),
                     'update_existing' => array(
-                        'label'   => __( 'Update existing posts', 'reactions-indieweb' ),
+                        'label'   => __( 'Update existing posts', 'reactions-for-indieweb' ),
                         'type'    => 'checkbox',
                         'default' => false,
                     ),
@@ -296,39 +296,39 @@ class Import_Page {
             ),
             'readwise_podcasts' => array(
                 'name'        => 'Readwise Podcasts',
-                'description' => __( 'Import podcast episode highlights from Readwise (Snipd, Airr, etc.). Each episode requires separate API calls, so import in small batches.', 'reactions-indieweb' ),
+                'description' => __( 'Import podcast episode highlights from Readwise (Snipd, Airr, etc.). Each episode requires separate API calls, so import in small batches.', 'reactions-for-indieweb' ),
                 'post_kind'   => 'listen',
                 'icon'        => 'dashicons-microphone',
                 'api_key'     => 'readwise',
                 'options'     => array(
                     'limit' => array(
-                        'label'   => __( 'Maximum Episodes', 'reactions-indieweb' ),
+                        'label'   => __( 'Maximum Episodes', 'reactions-for-indieweb' ),
                         'type'    => 'number',
                         'default' => 20,
                         'max'     => 100,
                     ),
                     'include_highlights' => array(
-                        'label'   => __( 'Include Highlights/Snips', 'reactions-indieweb' ),
+                        'label'   => __( 'Include Highlights/Snips', 'reactions-for-indieweb' ),
                         'type'    => 'checkbox',
                         'default' => true,
                     ),
                     'update_existing' => array(
-                        'label'   => __( 'Update existing posts', 'reactions-indieweb' ),
+                        'label'   => __( 'Update existing posts', 'reactions-for-indieweb' ),
                         'type'    => 'checkbox',
                         'default' => false,
-                        'description' => __( 'Update metadata on previously imported posts instead of skipping them.', 'reactions-indieweb' ),
+                        'description' => __( 'Update metadata on previously imported posts instead of skipping them.', 'reactions-for-indieweb' ),
                     ),
                 ),
             ),
             'readwise_tweets' => array(
                 'name'        => 'Readwise Tweets',
-                'description' => __( 'Import saved tweet threads from Readwise.', 'reactions-indieweb' ),
+                'description' => __( 'Import saved tweet threads from Readwise.', 'reactions-for-indieweb' ),
                 'post_kind'   => 'bookmark',
                 'icon'        => 'dashicons-twitter',
                 'api_key'     => 'readwise',
                 'options'     => array(
                     'limit' => array(
-                        'label'   => __( 'Maximum Threads', 'reactions-indieweb' ),
+                        'label'   => __( 'Maximum Threads', 'reactions-for-indieweb' ),
                         'type'    => 'number',
                         'default' => 100,
                         'max'     => 500,
@@ -337,13 +337,13 @@ class Import_Page {
             ),
             'readwise_supplementals' => array(
                 'name'        => 'Readwise Supplementals',
-                'description' => __( 'Import supplemental materials from Readwise (PDFs, notes, etc.).', 'reactions-indieweb' ),
+                'description' => __( 'Import supplemental materials from Readwise (PDFs, notes, etc.).', 'reactions-for-indieweb' ),
                 'post_kind'   => 'note',
                 'icon'        => 'dashicons-media-document',
                 'api_key'     => 'readwise',
                 'options'     => array(
                     'limit' => array(
-                        'label'   => __( 'Maximum Items', 'reactions-indieweb' ),
+                        'label'   => __( 'Maximum Items', 'reactions-for-indieweb' ),
                         'type'    => 'number',
                         'default' => 100,
                         'max'     => 500,
@@ -372,15 +372,15 @@ class Import_Page {
 
             <?php if ( ! empty( $active_imports ) ) : ?>
                 <div class="active-imports-section">
-                    <h2><?php esc_html_e( 'Active Imports', 'reactions-indieweb' ); ?></h2>
+                    <h2><?php esc_html_e( 'Active Imports', 'reactions-for-indieweb' ); ?></h2>
                     <?php $this->render_active_imports( $active_imports ); ?>
                 </div>
                 <hr>
             <?php endif; ?>
 
-            <h2><?php esc_html_e( 'Start New Import', 'reactions-indieweb' ); ?></h2>
+            <h2><?php esc_html_e( 'Start New Import', 'reactions-for-indieweb' ); ?></h2>
             <p class="description">
-                <?php esc_html_e( 'Import your media history from connected services. Imports run in the background and may take a while for large collections.', 'reactions-indieweb' ); ?>
+                <?php esc_html_e( 'Import your media history from connected services. Imports run in the background and may take a while for large collections.', 'reactions-for-indieweb' ); ?>
             </p>
 
             <div class="import-sources">
@@ -398,7 +398,7 @@ class Import_Page {
                             <h3><?php echo esc_html( $source['name'] ); ?></h3>
                             <?php if ( ! $is_connected ) : ?>
                                 <span class="status-badge not-connected">
-                                    <?php esc_html_e( 'Not Connected', 'reactions-indieweb' ); ?>
+                                    <?php esc_html_e( 'Not Connected', 'reactions-for-indieweb' ); ?>
                                 </span>
                             <?php endif; ?>
                         </div>
@@ -413,21 +413,21 @@ class Import_Page {
                             <div class="source-actions">
                                 <button type="button" class="button import-preview-button" data-source="<?php echo esc_attr( $source_id ); ?>">
                                     <span class="dashicons dashicons-visibility"></span>
-                                    <?php esc_html_e( 'Preview', 'reactions-indieweb' ); ?>
+                                    <?php esc_html_e( 'Preview', 'reactions-for-indieweb' ); ?>
                                 </button>
                                 <button type="button" class="button button-primary import-start-button" data-source="<?php echo esc_attr( $source_id ); ?>">
                                     <span class="dashicons dashicons-download"></span>
-                                    <?php esc_html_e( 'Start Import', 'reactions-indieweb' ); ?>
+                                    <?php esc_html_e( 'Start Import', 'reactions-for-indieweb' ); ?>
                                 </button>
-                                <button type="button" class="button import-resync-button" data-source="<?php echo esc_attr( $source_id ); ?>" title="<?php esc_attr_e( 'Update metadata for previously imported posts', 'reactions-indieweb' ); ?>">
+                                <button type="button" class="button import-resync-button" data-source="<?php echo esc_attr( $source_id ); ?>" title="<?php esc_attr_e( 'Update metadata for previously imported posts', 'reactions-for-indieweb' ); ?>">
                                     <span class="dashicons dashicons-update"></span>
-                                    <?php esc_html_e( 'Re-sync', 'reactions-indieweb' ); ?>
+                                    <?php esc_html_e( 'Re-sync', 'reactions-for-indieweb' ); ?>
                                 </button>
                             </div>
                         <?php else : ?>
                             <div class="source-actions">
                                 <a href="<?php echo esc_url( admin_url( 'admin.php?page=reactions-indieweb-apis' ) ); ?>" class="button">
-                                    <?php esc_html_e( 'Configure API', 'reactions-indieweb' ); ?>
+                                    <?php esc_html_e( 'Configure API', 'reactions-for-indieweb' ); ?>
                                 </a>
                             </div>
                         <?php endif; ?>
@@ -439,22 +439,22 @@ class Import_Page {
             <div id="import-preview-modal" class="reactions-modal" style="display: none;">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h2><?php esc_html_e( 'Import Preview', 'reactions-indieweb' ); ?></h2>
+                        <h2><?php esc_html_e( 'Import Preview', 'reactions-for-indieweb' ); ?></h2>
                         <button type="button" class="modal-close">&times;</button>
                     </div>
                     <div class="modal-body">
                         <div class="preview-loading">
                             <span class="spinner is-active"></span>
-                            <?php esc_html_e( 'Loading preview...', 'reactions-indieweb' ); ?>
+                            <?php esc_html_e( 'Loading preview...', 'reactions-for-indieweb' ); ?>
                         </div>
                         <div class="preview-content" style="display: none;"></div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="button modal-cancel">
-                            <?php esc_html_e( 'Cancel', 'reactions-indieweb' ); ?>
+                            <?php esc_html_e( 'Cancel', 'reactions-for-indieweb' ); ?>
                         </button>
                         <button type="button" class="button button-primary modal-confirm-import">
-                            <?php esc_html_e( 'Start Import', 'reactions-indieweb' ); ?>
+                            <?php esc_html_e( 'Start Import', 'reactions-for-indieweb' ); ?>
                         </button>
                     </div>
                 </div>
@@ -462,7 +462,7 @@ class Import_Page {
 
             <hr>
 
-            <h2><?php esc_html_e( 'Import History', 'reactions-indieweb' ); ?></h2>
+            <h2><?php esc_html_e( 'Import History', 'reactions-for-indieweb' ); ?></h2>
             <?php $this->render_import_history(); ?>
         </div>
         <?php
@@ -480,28 +480,28 @@ class Import_Page {
         ?>
         <div class="common-import-options">
             <div class="import-amount-options">
-                <label class="option-label"><?php esc_html_e( 'Import:', 'reactions-indieweb' ); ?></label>
+                <label class="option-label"><?php esc_html_e( 'Import:', 'reactions-for-indieweb' ); ?></label>
                 <div class="radio-group">
                     <label>
                         <input type="radio" name="import_<?php echo esc_attr( $source_id ); ?>_amount"
                                value="1" class="import-option"
                                data-source="<?php echo esc_attr( $source_id ); ?>"
                                data-option="import_amount">
-                        <?php esc_html_e( 'Last 1 (Test)', 'reactions-indieweb' ); ?>
+                        <?php esc_html_e( 'Last 1 (Test)', 'reactions-for-indieweb' ); ?>
                     </label>
                     <label>
                         <input type="radio" name="import_<?php echo esc_attr( $source_id ); ?>_amount"
                                value="all" class="import-option"
                                data-source="<?php echo esc_attr( $source_id ); ?>"
                                data-option="import_amount" checked>
-                        <?php esc_html_e( 'All', 'reactions-indieweb' ); ?>
+                        <?php esc_html_e( 'All', 'reactions-for-indieweb' ); ?>
                     </label>
                     <label class="custom-amount-label">
                         <input type="radio" name="import_<?php echo esc_attr( $source_id ); ?>_amount"
                                value="custom" class="import-option import-amount-custom-radio"
                                data-source="<?php echo esc_attr( $source_id ); ?>"
                                data-option="import_amount">
-                        <?php esc_html_e( 'Last', 'reactions-indieweb' ); ?>
+                        <?php esc_html_e( 'Last', 'reactions-for-indieweb' ); ?>
                         <input type="number"
                                name="import_<?php echo esc_attr( $source_id ); ?>_custom_limit"
                                class="small-text import-option import-custom-limit"
@@ -509,7 +509,7 @@ class Import_Page {
                                data-option="custom_limit"
                                min="1" max="1000" value="50"
                                style="width: 60px;">
-                        <?php esc_html_e( 'items', 'reactions-indieweb' ); ?>
+                        <?php esc_html_e( 'items', 'reactions-for-indieweb' ); ?>
                     </label>
                 </div>
             </div>
@@ -521,11 +521,11 @@ class Import_Page {
                            value="1" class="import-option import-publish-checkbox"
                            data-source="<?php echo esc_attr( $source_id ); ?>"
                            data-option="publish_immediately">
-                    <?php esc_html_e( 'Publish immediately', 'reactions-indieweb' ); ?>
+                    <?php esc_html_e( 'Publish immediately', 'reactions-for-indieweb' ); ?>
                 </label>
                 <p class="publish-warning" style="display: none; color: #d63638; margin: 5px 0 0 24px;">
                     <span class="dashicons dashicons-warning"></span>
-                    <?php esc_html_e( 'Warning: Posts will be published to your site immediately. Leave unchecked to create drafts for review.', 'reactions-indieweb' ); ?>
+                    <?php esc_html_e( 'Warning: Posts will be published to your site immediately. Leave unchecked to create drafts for review.', 'reactions-for-indieweb' ); ?>
                 </p>
             </div>
         </div>
@@ -654,7 +654,7 @@ class Import_Page {
                             <?php
                             printf(
                                 /* translators: 1: Processed count, 2: Total count */
-                                esc_html__( '%1$d of %2$d items', 'reactions-indieweb' ),
+                                esc_html__( '%1$d of %2$d items', 'reactions-for-indieweb' ),
                                 (int) ( $import['processed'] ?? 0 ),
                                 (int) ( $import['total'] ?? 0 )
                             );
@@ -664,7 +664,7 @@ class Import_Page {
 
                     <div class="import-actions">
                         <button type="button" class="button import-cancel-button" data-import-id="<?php echo esc_attr( $import_id ); ?>">
-                            <?php esc_html_e( 'Cancel', 'reactions-indieweb' ); ?>
+                            <?php esc_html_e( 'Cancel', 'reactions-for-indieweb' ); ?>
                         </button>
                     </div>
                 </div>
@@ -682,7 +682,7 @@ class Import_Page {
         $history = get_option( 'reactions_indieweb_import_history', array() );
 
         if ( empty( $history ) ) {
-            echo '<p class="description">' . esc_html__( 'No imports have been run yet.', 'reactions-indieweb' ) . '</p>';
+            echo '<p class="description">' . esc_html__( 'No imports have been run yet.', 'reactions-for-indieweb' ) . '</p>';
             return;
         }
 
@@ -698,12 +698,12 @@ class Import_Page {
         <table class="wp-list-table widefat fixed striped">
             <thead>
                 <tr>
-                    <th><?php esc_html_e( 'Source', 'reactions-indieweb' ); ?></th>
-                    <th><?php esc_html_e( 'Date', 'reactions-indieweb' ); ?></th>
-                    <th><?php esc_html_e( 'Status', 'reactions-indieweb' ); ?></th>
-                    <th><?php esc_html_e( 'Items', 'reactions-indieweb' ); ?></th>
-                    <th><?php esc_html_e( 'Posts Created', 'reactions-indieweb' ); ?></th>
-                    <th><?php esc_html_e( 'Duplicates Skipped', 'reactions-indieweb' ); ?></th>
+                    <th><?php esc_html_e( 'Source', 'reactions-for-indieweb' ); ?></th>
+                    <th><?php esc_html_e( 'Date', 'reactions-for-indieweb' ); ?></th>
+                    <th><?php esc_html_e( 'Status', 'reactions-for-indieweb' ); ?></th>
+                    <th><?php esc_html_e( 'Items', 'reactions-for-indieweb' ); ?></th>
+                    <th><?php esc_html_e( 'Posts Created', 'reactions-for-indieweb' ); ?></th>
+                    <th><?php esc_html_e( 'Duplicates Skipped', 'reactions-for-indieweb' ); ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -780,7 +780,7 @@ class Import_Page {
         check_ajax_referer( 'reactions_indieweb_admin', 'nonce' );
 
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'reactions-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'reactions-for-indieweb' ) ) );
         }
 
         $source = isset( $_POST['source'] ) ? sanitize_text_field( wp_unslash( $_POST['source'] ) ) : '';
@@ -788,7 +788,7 @@ class Import_Page {
         $options = isset( $_POST['options'] ) ? $this->sanitize_import_options( wp_unslash( $_POST['options'] ) ) : array();
 
         if ( empty( $source ) || ! isset( $this->import_sources[ $source ] ) ) {
-            wp_send_json_error( array( 'message' => __( 'Invalid import source.', 'reactions-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Invalid import source.', 'reactions-for-indieweb' ) ) );
         }
 
         try {
@@ -802,7 +802,7 @@ class Import_Page {
             // Handle array result from Import_Manager.
             if ( is_array( $result ) ) {
                 if ( empty( $result['success'] ) ) {
-                    wp_send_json_error( array( 'message' => $result['error'] ?? __( 'Import failed to start.', 'reactions-indieweb' ) ) );
+                    wp_send_json_error( array( 'message' => $result['error'] ?? __( 'Import failed to start.', 'reactions-for-indieweb' ) ) );
                 }
 
                 $job_id = $result['job_id'] ?? '';
@@ -822,29 +822,34 @@ class Import_Page {
                     if ( 'failed' === ( $job_status['status'] ?? '' ) ) {
                         $error_msg = ! empty( $job_status['errors'] )
                             ? implode( '; ', $job_status['errors'] )
-                            : __( 'Import failed.', 'reactions-indieweb' );
+                            : __( 'Import failed.', 'reactions-for-indieweb' );
                         wp_send_json_error( array( 'message' => $error_msg ) );
                     }
 
                     $updated_count = $job_status['updated'] ?? 0;
                     $message_parts = array();
                     if ( ( $job_status['imported'] ?? 0 ) > 0 ) {
-                        $message_parts[] = sprintf( __( '%d imported', 'reactions-indieweb' ), $job_status['imported'] );
+                        /* translators: %d: Number of items imported */
+                        $message_parts[] = sprintf( __( '%d imported', 'reactions-for-indieweb' ), $job_status['imported'] );
                     }
                     if ( $updated_count > 0 ) {
-                        $message_parts[] = sprintf( __( '%d updated', 'reactions-indieweb' ), $updated_count );
+                        /* translators: %d: Number of items updated */
+                        $message_parts[] = sprintf( __( '%d updated', 'reactions-for-indieweb' ), $updated_count );
                     }
                     if ( ( $job_status['skipped'] ?? 0 ) > 0 ) {
-                        $message_parts[] = sprintf( __( '%d skipped', 'reactions-indieweb' ), $job_status['skipped'] );
+                        /* translators: %d: Number of items skipped */
+                        $message_parts[] = sprintf( __( '%d skipped', 'reactions-for-indieweb' ), $job_status['skipped'] );
                     }
                     if ( ( $job_status['failed'] ?? 0 ) > 0 ) {
-                        $message_parts[] = sprintf( __( '%d failed', 'reactions-indieweb' ), $job_status['failed'] );
+                        /* translators: %d: Number of items that failed */
+                        $message_parts[] = sprintf( __( '%d failed', 'reactions-for-indieweb' ), $job_status['failed'] );
                     }
 
                     wp_send_json_success( array(
                         'import_id' => $job_id,
                         'message'   => sprintf(
-                            __( 'Import completed: %s.', 'reactions-indieweb' ),
+                            /* translators: %s: Comma-separated list of import results */
+                            __( 'Import completed: %s.', 'reactions-for-indieweb' ),
                             implode( ', ', $message_parts )
                         ),
                         'imported'  => $job_status['imported'] ?? 0,
@@ -867,21 +872,25 @@ class Import_Page {
                     // Build result message.
                     $message_parts = array();
                     if ( ( $job_status['imported'] ?? 0 ) > 0 ) {
-                        $message_parts[] = sprintf( __( '%d imported', 'reactions-indieweb' ), $job_status['imported'] );
+                        /* translators: %d: Number of items imported */
+                        $message_parts[] = sprintf( __( '%d imported', 'reactions-for-indieweb' ), $job_status['imported'] );
                     }
                     if ( ( $job_status['updated'] ?? 0 ) > 0 ) {
-                        $message_parts[] = sprintf( __( '%d updated', 'reactions-indieweb' ), $job_status['updated'] );
+                        /* translators: %d: Number of items updated */
+                        $message_parts[] = sprintf( __( '%d updated', 'reactions-for-indieweb' ), $job_status['updated'] );
                     }
                     if ( ( $job_status['skipped'] ?? 0 ) > 0 ) {
-                        $message_parts[] = sprintf( __( '%d skipped', 'reactions-indieweb' ), $job_status['skipped'] );
+                        /* translators: %d: Number of items skipped */
+                        $message_parts[] = sprintf( __( '%d skipped', 'reactions-for-indieweb' ), $job_status['skipped'] );
                     }
 
                     // Spawn cron for any remaining items.
                     spawn_cron();
 
                     $message = ! empty( $message_parts )
-                        ? sprintf( __( 'Import progress: %s. More items processing in background.', 'reactions-indieweb' ), implode( ', ', $message_parts ) )
-                        : __( 'Import started. Processing in background...', 'reactions-indieweb' );
+                        /* translators: %s: Comma-separated list of import progress */
+                        ? sprintf( __( 'Import progress: %s. More items processing in background.', 'reactions-for-indieweb' ), implode( ', ', $message_parts ) )
+                        : __( 'Import started. Processing in background...', 'reactions-for-indieweb' );
 
                     wp_send_json_success( array(
                         'import_id'  => $job_id,
@@ -895,13 +904,13 @@ class Import_Page {
 
                 wp_send_json_success( array(
                     'import_id' => $job_id,
-                    'message'   => $result['message'] ?? __( 'Import started successfully.', 'reactions-indieweb' ),
+                    'message'   => $result['message'] ?? __( 'Import started successfully.', 'reactions-for-indieweb' ),
                 ) );
             }
 
             wp_send_json_success( array(
                 'import_id' => $result,
-                'message'   => __( 'Import started successfully.', 'reactions-indieweb' ),
+                'message'   => __( 'Import started successfully.', 'reactions-for-indieweb' ),
             ) );
         } catch ( \Exception $e ) {
             wp_send_json_error( array( 'message' => $e->getMessage() ) );
@@ -919,13 +928,13 @@ class Import_Page {
         check_ajax_referer( 'reactions_indieweb_admin', 'nonce' );
 
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'reactions-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'reactions-for-indieweb' ) ) );
         }
 
         $import_id = isset( $_POST['import_id'] ) ? sanitize_text_field( wp_unslash( $_POST['import_id'] ) ) : '';
 
         if ( empty( $import_id ) ) {
-            wp_send_json_error( array( 'message' => __( 'Import ID required.', 'reactions-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Import ID required.', 'reactions-for-indieweb' ) ) );
         }
 
         $import_manager = new Import_Manager();
@@ -936,7 +945,7 @@ class Import_Page {
         }
 
         wp_send_json_success( array(
-            'message' => __( 'Import cancelled.', 'reactions-indieweb' ),
+            'message' => __( 'Import cancelled.', 'reactions-for-indieweb' ),
         ) );
     }
 
@@ -949,7 +958,7 @@ class Import_Page {
         check_ajax_referer( 'reactions_indieweb_admin', 'nonce' );
 
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'reactions-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'reactions-for-indieweb' ) ) );
         }
 
         $source = isset( $_POST['source'] ) ? sanitize_text_field( wp_unslash( $_POST['source'] ) ) : '';
@@ -957,7 +966,7 @@ class Import_Page {
         $options = isset( $_POST['options'] ) ? $this->sanitize_import_options( wp_unslash( $_POST['options'] ) ) : array();
 
         if ( empty( $source ) || ! isset( $this->import_sources[ $source ] ) ) {
-            wp_send_json_error( array( 'message' => __( 'Invalid import source.', 'reactions-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Invalid import source.', 'reactions-for-indieweb' ) ) );
         }
 
         $preview = $this->get_import_preview( $source, $options );
@@ -992,7 +1001,7 @@ class Import_Page {
                 $lb_creds = $credentials['listenbrainz'] ?? array();
                 $username = $lb_creds['username'] ?? '';
                 if ( empty( $username ) ) {
-                    return new \WP_Error( 'missing_username', __( 'ListenBrainz username not configured. Please set it in API Connections.', 'reactions-indieweb' ) );
+                    return new \WP_Error( 'missing_username', __( 'ListenBrainz username not configured. Please set it in API Connections.', 'reactions-for-indieweb' ) );
                 }
 
                 $api = new \ReactionsForIndieWeb\APIs\ListenBrainz();
@@ -1008,14 +1017,14 @@ class Import_Page {
             case 'lastfm':
                 $username = $options['username'] ?? '';
                 if ( empty( $username ) ) {
-                    return new \WP_Error( 'missing_username', __( 'Please enter your Last.fm username.', 'reactions-indieweb' ) );
+                    return new \WP_Error( 'missing_username', __( 'Please enter your Last.fm username.', 'reactions-for-indieweb' ) );
                 }
 
                 $api = new \ReactionsForIndieWeb\APIs\LastFM();
 
                 // Check if API is configured.
                 if ( ! $api->test_connection() ) {
-                    return new \WP_Error( 'api_not_configured', __( 'Last.fm API is not configured. Please add your API key in API Connections.', 'reactions-indieweb' ) );
+                    return new \WP_Error( 'api_not_configured', __( 'Last.fm API is not configured. Please add your API key in API Connections.', 'reactions-for-indieweb' ) );
                 }
 
                 $tracks = $api->get_recent_tracks( $username, $preview_limit );
@@ -1027,7 +1036,7 @@ class Import_Page {
                 $items = array_slice( $tracks['tracks'] ?? array(), 0, $preview_limit );
 
                 if ( empty( $items ) && 0 === $total_count ) {
-                    return new \WP_Error( 'no_tracks', __( 'No tracks found for this username. Check that the username is correct.', 'reactions-indieweb' ) );
+                    return new \WP_Error( 'no_tracks', __( 'No tracks found for this username. Check that the username is correct.', 'reactions-for-indieweb' ) );
                 }
                 break;
 
@@ -1035,7 +1044,7 @@ class Import_Page {
             case 'trakt_shows':
                 $api = new \ReactionsForIndieWeb\APIs\Trakt();
                 if ( ! $api->is_configured() ) {
-                    return new \WP_Error( 'api_not_configured', __( 'Trakt API is not configured. Please set up OAuth in API Connections.', 'reactions-indieweb' ) );
+                    return new \WP_Error( 'api_not_configured', __( 'Trakt API is not configured. Please set up OAuth in API Connections.', 'reactions-for-indieweb' ) );
                 }
 
                 $type = 'trakt_movies' === $source ? 'movies' : 'shows';
@@ -1051,7 +1060,7 @@ class Import_Page {
             case 'simkl':
                 $api = new \ReactionsForIndieWeb\APIs\Simkl();
                 if ( ! $api->is_configured() ) {
-                    return new \WP_Error( 'api_not_configured', __( 'Simkl API is not configured. Please set up OAuth in API Connections.', 'reactions-indieweb' ) );
+                    return new \WP_Error( 'api_not_configured', __( 'Simkl API is not configured. Please set up OAuth in API Connections.', 'reactions-for-indieweb' ) );
                 }
 
                 $type = $options['type'] ?? 'movies';
@@ -1067,7 +1076,7 @@ class Import_Page {
             case 'hardcover':
                 $api = new \ReactionsForIndieWeb\APIs\Hardcover();
                 if ( ! $api->is_configured() ) {
-                    return new \WP_Error( 'api_not_configured', __( 'Hardcover API is not configured. Please add your API token in API Connections.', 'reactions-indieweb' ) );
+                    return new \WP_Error( 'api_not_configured', __( 'Hardcover API is not configured. Please add your API token in API Connections.', 'reactions-for-indieweb' ) );
                 }
 
                 $status = $options['status'] ?? 'finished';
@@ -1083,7 +1092,7 @@ class Import_Page {
             case 'foursquare':
                 $foursquare_sync = \ReactionsForIndieWeb\Plugin::get_instance()->get_checkin_sync_service( 'foursquare' );
                 if ( ! $foursquare_sync || ! $foursquare_sync->is_connected() ) {
-                    return new \WP_Error( 'api_not_configured', __( 'Foursquare is not connected. Please authorize in API Connections.', 'reactions-indieweb' ) );
+                    return new \WP_Error( 'api_not_configured', __( 'Foursquare is not connected. Please authorize in API Connections.', 'reactions-for-indieweb' ) );
                 }
 
                 $checkins = $foursquare_sync->fetch_recent_checkins( $preview_limit );
@@ -1098,7 +1107,7 @@ class Import_Page {
             case 'untappd':
                 $untappd_sync = \ReactionsForIndieWeb\Plugin::get_instance()->get_checkin_sync_service( 'untappd' );
                 if ( ! $untappd_sync || ! $untappd_sync->is_connected() ) {
-                    return new \WP_Error( 'api_not_configured', __( 'Untappd is not connected. Please authorize in API Connections.', 'reactions-indieweb' ) );
+                    return new \WP_Error( 'api_not_configured', __( 'Untappd is not connected. Please authorize in API Connections.', 'reactions-for-indieweb' ) );
                 }
 
                 $checkins = $untappd_sync->fetch_recent_checkins( $preview_limit );
@@ -1113,7 +1122,7 @@ class Import_Page {
             case 'readwise_books':
                 $api = new \ReactionsForIndieWeb\APIs\Readwise();
                 if ( ! $api->is_configured() ) {
-                    return new \WP_Error( 'api_not_configured', __( 'Readwise is not configured. Please add your access token in API Connections.', 'reactions-indieweb' ) );
+                    return new \WP_Error( 'api_not_configured', __( 'Readwise is not configured. Please add your access token in API Connections.', 'reactions-for-indieweb' ) );
                 }
 
                 // For preview, don't fetch all highlights (slower), just book info.
@@ -1125,7 +1134,7 @@ class Import_Page {
             case 'readwise_articles':
                 $api = new \ReactionsForIndieWeb\APIs\Readwise();
                 if ( ! $api->is_configured() ) {
-                    return new \WP_Error( 'api_not_configured', __( 'Readwise is not configured. Please add your access token in API Connections.', 'reactions-indieweb' ) );
+                    return new \WP_Error( 'api_not_configured', __( 'Readwise is not configured. Please add your access token in API Connections.', 'reactions-for-indieweb' ) );
                 }
 
                 $articles = $api->get_articles( $preview_limit );
@@ -1136,7 +1145,7 @@ class Import_Page {
             case 'readwise_podcasts':
                 $api = new \ReactionsForIndieWeb\APIs\Readwise();
                 if ( ! $api->is_configured() ) {
-                    return new \WP_Error( 'api_not_configured', __( 'Readwise is not configured. Please add your access token in API Connections.', 'reactions-indieweb' ) );
+                    return new \WP_Error( 'api_not_configured', __( 'Readwise is not configured. Please add your access token in API Connections.', 'reactions-for-indieweb' ) );
                 }
 
                 $podcasts = $api->get_podcast_episodes( $preview_limit );
@@ -1147,7 +1156,7 @@ class Import_Page {
             case 'readwise_tweets':
                 $api = new \ReactionsForIndieWeb\APIs\Readwise();
                 if ( ! $api->is_configured() ) {
-                    return new \WP_Error( 'api_not_configured', __( 'Readwise is not configured. Please add your access token in API Connections.', 'reactions-indieweb' ) );
+                    return new \WP_Error( 'api_not_configured', __( 'Readwise is not configured. Please add your access token in API Connections.', 'reactions-for-indieweb' ) );
                 }
 
                 $tweets = $api->get_tweets( $preview_limit );
@@ -1158,7 +1167,7 @@ class Import_Page {
             case 'readwise_supplementals':
                 $api = new \ReactionsForIndieWeb\APIs\Readwise();
                 if ( ! $api->is_configured() ) {
-                    return new \WP_Error( 'api_not_configured', __( 'Readwise is not configured. Please add your access token in API Connections.', 'reactions-indieweb' ) );
+                    return new \WP_Error( 'api_not_configured', __( 'Readwise is not configured. Please add your access token in API Connections.', 'reactions-for-indieweb' ) );
                 }
 
                 $supplementals = $api->get_books( 'supplementals', $preview_limit );
@@ -1167,7 +1176,7 @@ class Import_Page {
                 break;
 
             default:
-                return new \WP_Error( 'unsupported', __( 'Import preview not supported for this source.', 'reactions-indieweb' ) );
+                return new \WP_Error( 'unsupported', __( 'Import preview not supported for this source.', 'reactions-for-indieweb' ) );
         }
 
         return array(
@@ -1359,13 +1368,13 @@ class Import_Page {
         check_ajax_referer( 'reactions_indieweb_admin', 'nonce' );
 
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'reactions-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'reactions-for-indieweb' ) ) );
         }
 
         $source = isset( $_POST['source'] ) ? sanitize_text_field( wp_unslash( $_POST['source'] ) ) : '';
 
         if ( empty( $source ) ) {
-            wp_send_json_error( array( 'message' => __( 'No import source specified.', 'reactions-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'No import source specified.', 'reactions-for-indieweb' ) ) );
         }
 
         try {
@@ -1373,7 +1382,7 @@ class Import_Page {
             $result = $import_manager->resync_metadata( $source );
 
             if ( empty( $result['success'] ) ) {
-                wp_send_json_error( array( 'message' => $result['error'] ?? __( 'Re-sync failed.', 'reactions-indieweb' ) ) );
+                wp_send_json_error( array( 'message' => $result['error'] ?? __( 'Re-sync failed.', 'reactions-for-indieweb' ) ) );
             }
 
             wp_send_json_success( $result );

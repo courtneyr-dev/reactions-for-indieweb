@@ -1388,6 +1388,7 @@ class Import_Manager {
 		global $wpdb;
 
 		$prefix = $wpdb->esc_like( self::JOB_PREFIX );
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Dynamic option lookup for import jobs.
 		$results = $wpdb->get_results(
 			$wpdb->prepare(
 				"SELECT option_name, option_value FROM {$wpdb->options} WHERE option_name LIKE %s",
@@ -1417,6 +1418,7 @@ class Import_Manager {
 		global $wpdb;
 
 		$prefix = $wpdb->esc_like( self::JOB_PREFIX );
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Dynamic option lookup for job cleanup.
 		$results = $wpdb->get_results(
 			$wpdb->prepare(
 				"SELECT option_name, option_value FROM {$wpdb->options} WHERE option_name LIKE %s",
@@ -1447,7 +1449,7 @@ class Import_Manager {
 		if ( ! isset( $this->sources[ $source ] ) ) {
 			return array(
 				'success' => false,
-				'error'   => __( 'Invalid import source.', 'reactions-indieweb' ),
+				'error'   => __( 'Invalid import source.', 'reactions-for-indieweb' ),
 			);
 		}
 
@@ -1480,7 +1482,7 @@ class Import_Manager {
 				'success' => true,
 				'updated' => 0,
 				'skipped' => 0,
-				'message' => __( 'No imported posts found to re-sync.', 'reactions-indieweb' ),
+				'message' => __( 'No imported posts found to re-sync.', 'reactions-for-indieweb' ),
 			);
 		}
 
@@ -1503,7 +1505,7 @@ class Import_Manager {
 			'skipped' => $skipped,
 			'message' => sprintf(
 				/* translators: 1: Updated count, 2: Skipped count */
-				__( 'Re-synced %1$d posts, skipped %2$d.', 'reactions-indieweb' ),
+				__( 'Re-synced %1$d posts, skipped %2$d.', 'reactions-for-indieweb' ),
 				$updated,
 				$skipped
 			),

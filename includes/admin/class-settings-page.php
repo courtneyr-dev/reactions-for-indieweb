@@ -60,7 +60,7 @@ class Settings_Page {
         // General section.
         add_settings_section(
             'reactions_indieweb_general_section',
-            __( 'General Settings', 'reactions-indieweb' ),
+            __( 'General Settings', 'reactions-for-indieweb' ),
             array( $this, 'render_general_section' ),
             'reactions_indieweb_general'
         );
@@ -70,7 +70,7 @@ class Settings_Page {
         // Content section.
         add_settings_section(
             'reactions_indieweb_content_section',
-            __( 'Content Settings', 'reactions-indieweb' ),
+            __( 'Content Settings', 'reactions-for-indieweb' ),
             array( $this, 'render_content_section' ),
             'reactions_indieweb_content'
         );
@@ -80,7 +80,7 @@ class Settings_Page {
         // Listen section.
         add_settings_section(
             'reactions_indieweb_listen_section',
-            __( 'Listen Posts', 'reactions-indieweb' ),
+            __( 'Listen Posts', 'reactions-for-indieweb' ),
             array( $this, 'render_listen_section' ),
             'reactions_indieweb_listen'
         );
@@ -90,7 +90,7 @@ class Settings_Page {
         // Watch section.
         add_settings_section(
             'reactions_indieweb_watch_section',
-            __( 'Watch Posts', 'reactions-indieweb' ),
+            __( 'Watch Posts', 'reactions-for-indieweb' ),
             array( $this, 'render_watch_section' ),
             'reactions_indieweb_watch'
         );
@@ -100,7 +100,7 @@ class Settings_Page {
         // Read section.
         add_settings_section(
             'reactions_indieweb_read_section',
-            __( 'Read Posts', 'reactions-indieweb' ),
+            __( 'Read Posts', 'reactions-for-indieweb' ),
             array( $this, 'render_read_section' ),
             'reactions_indieweb_read'
         );
@@ -110,7 +110,7 @@ class Settings_Page {
         // Checkin section.
         add_settings_section(
             'reactions_indieweb_checkin_section',
-            __( 'Checkin Posts', 'reactions-indieweb' ),
+            __( 'Checkin Posts', 'reactions-for-indieweb' ),
             array( $this, 'render_checkin_section' ),
             'reactions_indieweb_checkin'
         );
@@ -120,7 +120,7 @@ class Settings_Page {
         // Performance section.
         add_settings_section(
             'reactions_indieweb_performance_section',
-            __( 'Performance', 'reactions-indieweb' ),
+            __( 'Performance', 'reactions-for-indieweb' ),
             array( $this, 'render_performance_section' ),
             'reactions_indieweb_performance'
         );
@@ -136,115 +136,115 @@ class Settings_Page {
     private function add_general_fields(): void {
         add_settings_field(
             'default_post_status',
-            __( 'Default Post Status', 'reactions-indieweb' ),
+            __( 'Default Post Status', 'reactions-for-indieweb' ),
             array( $this, 'render_select_field' ),
             'reactions_indieweb_general',
             'reactions_indieweb_general_section',
             array(
                 'id'      => 'default_post_status',
                 'options' => array(
-                    'publish' => __( 'Published', 'reactions-indieweb' ),
-                    'draft'   => __( 'Draft', 'reactions-indieweb' ),
-                    'pending' => __( 'Pending Review', 'reactions-indieweb' ),
-                    'private' => __( 'Private', 'reactions-indieweb' ),
+                    'publish' => __( 'Published', 'reactions-for-indieweb' ),
+                    'draft'   => __( 'Draft', 'reactions-for-indieweb' ),
+                    'pending' => __( 'Pending Review', 'reactions-for-indieweb' ),
+                    'private' => __( 'Private', 'reactions-for-indieweb' ),
                 ),
-                'desc'    => __( 'Default status for new reaction posts.', 'reactions-indieweb' ),
+                'desc'    => __( 'Default status for new reaction posts.', 'reactions-for-indieweb' ),
             )
         );
 
         add_settings_field(
             'default_post_format',
-            __( 'Default Post Format', 'reactions-indieweb' ),
+            __( 'Default Post Format', 'reactions-for-indieweb' ),
             array( $this, 'render_select_field' ),
             'reactions_indieweb_general',
             'reactions_indieweb_general_section',
             array(
                 'id'      => 'default_post_format',
                 'options' => array(
-                    'standard' => __( 'Standard', 'reactions-indieweb' ),
-                    'aside'    => __( 'Aside', 'reactions-indieweb' ),
-                    'status'   => __( 'Status', 'reactions-indieweb' ),
-                    'link'     => __( 'Link', 'reactions-indieweb' ),
+                    'standard' => __( 'Standard', 'reactions-for-indieweb' ),
+                    'aside'    => __( 'Aside', 'reactions-for-indieweb' ),
+                    'status'   => __( 'Status', 'reactions-for-indieweb' ),
+                    'link'     => __( 'Link', 'reactions-for-indieweb' ),
                 ),
-                'desc'    => __( 'Default post format for reaction posts.', 'reactions-indieweb' ),
+                'desc'    => __( 'Default post format for reaction posts.', 'reactions-for-indieweb' ),
             )
         );
 
         add_settings_field(
             'enable_microformats',
-            __( 'Enable Microformats', 'reactions-indieweb' ),
+            __( 'Enable Microformats', 'reactions-for-indieweb' ),
             array( $this, 'render_checkbox_field' ),
             'reactions_indieweb_general',
             'reactions_indieweb_general_section',
             array(
                 'id'   => 'enable_microformats',
-                'desc' => __( 'Add microformats2 markup to reaction posts for IndieWeb compatibility.', 'reactions-indieweb' ),
+                'desc' => __( 'Add microformats2 markup to reaction posts for IndieWeb compatibility.', 'reactions-for-indieweb' ),
             )
         );
 
         add_settings_field(
             'enable_syndication',
-            __( 'Enable Syndication', 'reactions-indieweb' ),
+            __( 'Enable Syndication', 'reactions-for-indieweb' ),
             array( $this, 'render_checkbox_field' ),
             'reactions_indieweb_general',
             'reactions_indieweb_general_section',
             array(
                 'id'   => 'enable_syndication',
-                'desc' => __( 'Allow sending reactions to syndication targets (requires Syndication Links plugin).', 'reactions-indieweb' ),
+                'desc' => __( 'Allow sending reactions to syndication targets (requires Syndication Links plugin).', 'reactions-for-indieweb' ),
             )
         );
 
         add_settings_field(
             'import_storage_mode',
-            __( 'Import Post Storage', 'reactions-indieweb' ),
+            __( 'Import Post Storage', 'reactions-for-indieweb' ),
             array( $this, 'render_select_field' ),
             'reactions_indieweb_general',
             'reactions_indieweb_general_section',
             array(
                 'id'      => 'import_storage_mode',
                 'options' => array(
-                    'standard' => __( 'Standard Posts', 'reactions-indieweb' ),
-                    'cpt'      => __( 'Custom Post Type (Reactions)', 'reactions-indieweb' ),
-                    'hidden'   => __( 'Standard Posts (Hidden from Blog)', 'reactions-indieweb' ),
+                    'standard' => __( 'Standard Posts', 'reactions-for-indieweb' ),
+                    'cpt'      => __( 'Custom Post Type (Reactions)', 'reactions-for-indieweb' ),
+                    'hidden'   => __( 'Standard Posts (Hidden from Blog)', 'reactions-for-indieweb' ),
                 ),
-                'desc'    => __( 'How imported posts are stored. Standard Posts appear in your blog feed. Custom Post Type keeps imports separate. Hidden removes imports from the main blog but keeps them accessible via kind archives. Only affects new imports.', 'reactions-indieweb' ),
+                'desc'    => __( 'How imported posts are stored. Standard Posts appear in your blog feed. Custom Post Type keeps imports separate. Hidden removes imports from the main blog but keeps them accessible via kind archives. Only affects new imports.', 'reactions-for-indieweb' ),
             )
         );
 
         // Post Format Sync Settings.
         add_settings_field(
             'sync_formats_to_kinds',
-            __( 'Sync Post Formats to Kinds', 'reactions-indieweb' ),
+            __( 'Sync Post Formats to Kinds', 'reactions-for-indieweb' ),
             array( $this, 'render_checkbox_field' ),
             'reactions_indieweb_general',
             'reactions_indieweb_general_section',
             array(
                 'id'   => 'sync_formats_to_kinds',
-                'desc' => __( 'Automatically set Post Kind when Post Format changes (and vice versa).', 'reactions-indieweb' ),
+                'desc' => __( 'Automatically set Post Kind when Post Format changes (and vice versa).', 'reactions-for-indieweb' ),
             )
         );
 
         add_settings_field(
             'format_kind_mappings',
-            __( 'Post Format Mappings', 'reactions-indieweb' ),
+            __( 'Post Format Mappings', 'reactions-for-indieweb' ),
             array( $this, 'render_format_mappings_field' ),
             'reactions_indieweb_general',
             'reactions_indieweb_general_section',
             array(
                 'id'   => 'format_kind_mappings',
-                'desc' => __( 'Map WordPress Post Formats to Reaction Kinds. When a post format is selected, the corresponding kind will be set automatically.', 'reactions-indieweb' ),
+                'desc' => __( 'Map WordPress Post Formats to Reaction Kinds. When a post format is selected, the corresponding kind will be set automatically.', 'reactions-for-indieweb' ),
             )
         );
 
         add_settings_field(
             'enabled_kinds',
-            __( 'Enabled Reaction Types', 'reactions-indieweb' ),
+            __( 'Enabled Reaction Types', 'reactions-for-indieweb' ),
             array( $this, 'render_enabled_kinds_field' ),
             'reactions_indieweb_general',
             'reactions_indieweb_general_section',
             array(
                 'id'   => 'enabled_kinds',
-                'desc' => __( 'Choose which reaction types are available in your site. Disabled types will not appear in the editor, taxonomy, or blocks.', 'reactions-indieweb' ),
+                'desc' => __( 'Choose which reaction types are available in your site. Disabled types will not appear in the editor, taxonomy, or blocks.', 'reactions-for-indieweb' ),
             )
         );
     }
@@ -257,50 +257,50 @@ class Settings_Page {
     private function add_content_fields(): void {
         add_settings_field(
             'auto_fetch_metadata',
-            __( 'Auto-fetch Metadata', 'reactions-indieweb' ),
+            __( 'Auto-fetch Metadata', 'reactions-for-indieweb' ),
             array( $this, 'render_checkbox_field' ),
             'reactions_indieweb_content',
             'reactions_indieweb_content_section',
             array(
                 'id'   => 'auto_fetch_metadata',
-                'desc' => __( 'Automatically fetch metadata from external APIs when creating posts.', 'reactions-indieweb' ),
+                'desc' => __( 'Automatically fetch metadata from external APIs when creating posts.', 'reactions-for-indieweb' ),
             )
         );
 
         add_settings_field(
             'cache_duration',
-            __( 'Cache Duration', 'reactions-indieweb' ),
+            __( 'Cache Duration', 'reactions-for-indieweb' ),
             array( $this, 'render_select_field' ),
             'reactions_indieweb_content',
             'reactions_indieweb_content_section',
             array(
                 'id'      => 'cache_duration',
                 'options' => array(
-                    '3600'   => __( '1 hour', 'reactions-indieweb' ),
-                    '21600'  => __( '6 hours', 'reactions-indieweb' ),
-                    '43200'  => __( '12 hours', 'reactions-indieweb' ),
-                    '86400'  => __( '24 hours', 'reactions-indieweb' ),
-                    '259200' => __( '3 days', 'reactions-indieweb' ),
-                    '604800' => __( '1 week', 'reactions-indieweb' ),
+                    '3600'   => __( '1 hour', 'reactions-for-indieweb' ),
+                    '21600'  => __( '6 hours', 'reactions-for-indieweb' ),
+                    '43200'  => __( '12 hours', 'reactions-for-indieweb' ),
+                    '86400'  => __( '24 hours', 'reactions-for-indieweb' ),
+                    '259200' => __( '3 days', 'reactions-for-indieweb' ),
+                    '604800' => __( '1 week', 'reactions-for-indieweb' ),
                 ),
-                'desc'    => __( 'How long to cache API responses.', 'reactions-indieweb' ),
+                'desc'    => __( 'How long to cache API responses.', 'reactions-for-indieweb' ),
             )
         );
 
         add_settings_field(
             'image_handling',
-            __( 'Image Handling', 'reactions-indieweb' ),
+            __( 'Image Handling', 'reactions-for-indieweb' ),
             array( $this, 'render_select_field' ),
             'reactions_indieweb_content',
             'reactions_indieweb_content_section',
             array(
                 'id'      => 'image_handling',
                 'options' => array(
-                    'sideload' => __( 'Download to Media Library', 'reactions-indieweb' ),
-                    'hotlink'  => __( 'Link to External URL', 'reactions-indieweb' ),
-                    'none'     => __( 'Do Not Include Images', 'reactions-indieweb' ),
+                    'sideload' => __( 'Download to Media Library', 'reactions-for-indieweb' ),
+                    'hotlink'  => __( 'Link to External URL', 'reactions-for-indieweb' ),
+                    'none'     => __( 'Do Not Include Images', 'reactions-for-indieweb' ),
                 ),
-                'desc'    => __( 'How to handle cover images and artwork from external sources.', 'reactions-indieweb' ),
+                'desc'    => __( 'How to handle cover images and artwork from external sources.', 'reactions-for-indieweb' ),
             )
         );
     }
@@ -313,7 +313,7 @@ class Settings_Page {
     private function add_listen_fields(): void {
         add_settings_field(
             'listen_auto_import',
-            __( 'Auto-Sync Music', 'reactions-indieweb' ),
+            __( 'Auto-Sync Music', 'reactions-for-indieweb' ),
             array( $this, 'render_source_auto_sync_field' ),
             'reactions_indieweb_listen',
             'reactions_indieweb_listen_section',
@@ -321,13 +321,13 @@ class Settings_Page {
                 'id'          => 'listen_auto_import',
                 'source_type' => 'music',
                 'icon'        => 'format-audio',
-                'desc'        => __( 'Automatically import new music scrobbles from your connected music service.', 'reactions-indieweb' ),
+                'desc'        => __( 'Automatically import new music scrobbles from your connected music service.', 'reactions-for-indieweb' ),
             )
         );
 
         add_settings_field(
             'listen_import_source',
-            __( 'Music Import Source', 'reactions-indieweb' ),
+            __( 'Music Import Source', 'reactions-for-indieweb' ),
             array( $this, 'render_select_field' ),
             'reactions_indieweb_listen',
             'reactions_indieweb_listen_section',
@@ -337,13 +337,13 @@ class Settings_Page {
                     'listenbrainz' => 'ListenBrainz',
                     'lastfm'       => 'Last.fm',
                 ),
-                'desc'    => __( 'Primary source for importing music/scrobble history.', 'reactions-indieweb' ),
+                'desc'    => __( 'Primary source for importing music/scrobble history.', 'reactions-for-indieweb' ),
             )
         );
 
         add_settings_field(
             'listen_podcast_auto_import',
-            __( 'Auto-Sync Podcasts', 'reactions-indieweb' ),
+            __( 'Auto-Sync Podcasts', 'reactions-for-indieweb' ),
             array( $this, 'render_source_auto_sync_field' ),
             'reactions_indieweb_listen',
             'reactions_indieweb_listen_section',
@@ -351,14 +351,14 @@ class Settings_Page {
                 'id'          => 'listen_podcast_auto_import',
                 'source_type' => 'podcasts',
                 'icon'        => 'microphone',
-                'desc'        => __( 'Automatically import podcast episodes with highlights from Readwise/Snipd.', 'reactions-indieweb' ),
+                'desc'        => __( 'Automatically import podcast episodes with highlights from Readwise/Snipd.', 'reactions-for-indieweb' ),
                 'source_name' => 'Readwise',
             )
         );
 
         add_settings_field(
             'listen_default_rating',
-            __( 'Default Rating', 'reactions-indieweb' ),
+            __( 'Default Rating', 'reactions-for-indieweb' ),
             array( $this, 'render_number_field' ),
             'reactions_indieweb_listen',
             'reactions_indieweb_listen_section',
@@ -367,7 +367,19 @@ class Settings_Page {
                 'min'  => 0,
                 'max'  => 10,
                 'step' => 1,
-                'desc' => __( 'Default rating for listen posts (0 = no rating).', 'reactions-indieweb' ),
+                'desc' => __( 'Default rating for listen posts (0 = no rating).', 'reactions-for-indieweb' ),
+            )
+        );
+
+        add_settings_field(
+            'listen_sync_to_lastfm',
+            __( 'Scrobble to Last.fm', 'reactions-for-indieweb' ),
+            array( $this, 'render_checkbox_field' ),
+            'reactions_indieweb_listen',
+            'reactions_indieweb_listen_section',
+            array(
+                'id'   => 'listen_sync_to_lastfm',
+                'desc' => __( 'Automatically scrobble listen posts to Last.fm when published (requires Last.fm session key).', 'reactions-for-indieweb' ),
             )
         );
     }
@@ -380,7 +392,7 @@ class Settings_Page {
     private function add_watch_fields(): void {
         add_settings_field(
             'watch_auto_import',
-            __( 'Auto-Sync Movies & TV', 'reactions-indieweb' ),
+            __( 'Auto-Sync Movies & TV', 'reactions-for-indieweb' ),
             array( $this, 'render_source_auto_sync_field' ),
             'reactions_indieweb_watch',
             'reactions_indieweb_watch_section',
@@ -388,13 +400,13 @@ class Settings_Page {
                 'id'          => 'watch_auto_import',
                 'source_type' => 'watch',
                 'icon'        => 'video-alt3',
-                'desc'        => __( 'Automatically import movies and TV shows you watch.', 'reactions-indieweb' ),
+                'desc'        => __( 'Automatically import movies and TV shows you watch.', 'reactions-for-indieweb' ),
             )
         );
 
         add_settings_field(
             'watch_import_source',
-            __( 'Import Source', 'reactions-indieweb' ),
+            __( 'Import Source', 'reactions-for-indieweb' ),
             array( $this, 'render_select_field' ),
             'reactions_indieweb_watch',
             'reactions_indieweb_watch_section',
@@ -404,13 +416,13 @@ class Settings_Page {
                     'trakt' => 'Trakt',
                     'simkl' => 'Simkl',
                 ),
-                'desc'    => __( 'Primary source for importing watch history.', 'reactions-indieweb' ),
+                'desc'    => __( 'Primary source for importing watch history.', 'reactions-for-indieweb' ),
             )
         );
 
         add_settings_field(
             'watch_default_rating',
-            __( 'Default Rating', 'reactions-indieweb' ),
+            __( 'Default Rating', 'reactions-for-indieweb' ),
             array( $this, 'render_number_field' ),
             'reactions_indieweb_watch',
             'reactions_indieweb_watch_section',
@@ -419,19 +431,31 @@ class Settings_Page {
                 'min'  => 0,
                 'max'  => 10,
                 'step' => 1,
-                'desc' => __( 'Default rating for watch posts (0 = no rating).', 'reactions-indieweb' ),
+                'desc' => __( 'Default rating for watch posts (0 = no rating).', 'reactions-for-indieweb' ),
             )
         );
 
         add_settings_field(
             'watch_include_rewatches',
-            __( 'Include Rewatches', 'reactions-indieweb' ),
+            __( 'Include Rewatches', 'reactions-for-indieweb' ),
             array( $this, 'render_checkbox_field' ),
             'reactions_indieweb_watch',
             'reactions_indieweb_watch_section',
             array(
                 'id'   => 'watch_include_rewatches',
-                'desc' => __( 'Create posts for rewatched content (may create duplicates).', 'reactions-indieweb' ),
+                'desc' => __( 'Create posts for rewatched content (may create duplicates).', 'reactions-for-indieweb' ),
+            )
+        );
+
+        add_settings_field(
+            'watch_sync_to_trakt',
+            __( 'Sync to Trakt', 'reactions-for-indieweb' ),
+            array( $this, 'render_checkbox_field' ),
+            'reactions_indieweb_watch',
+            'reactions_indieweb_watch_section',
+            array(
+                'id'   => 'watch_sync_to_trakt',
+                'desc' => __( 'Automatically sync watch posts to Trakt history when published (requires Trakt OAuth).', 'reactions-for-indieweb' ),
             )
         );
     }
@@ -444,7 +468,7 @@ class Settings_Page {
     private function add_read_fields(): void {
         add_settings_field(
             'read_auto_import',
-            __( 'Auto-Sync Books', 'reactions-indieweb' ),
+            __( 'Auto-Sync Books', 'reactions-for-indieweb' ),
             array( $this, 'render_source_auto_sync_field' ),
             'reactions_indieweb_read',
             'reactions_indieweb_read_section',
@@ -452,13 +476,13 @@ class Settings_Page {
                 'id'          => 'read_auto_import',
                 'source_type' => 'books',
                 'icon'        => 'book',
-                'desc'        => __( 'Automatically import books you\'re reading or have read.', 'reactions-indieweb' ),
+                'desc'        => __( 'Automatically import books you\'re reading or have read.', 'reactions-for-indieweb' ),
             )
         );
 
         add_settings_field(
             'read_import_source',
-            __( 'Book Import Source', 'reactions-indieweb' ),
+            __( 'Book Import Source', 'reactions-for-indieweb' ),
             array( $this, 'render_select_field' ),
             'reactions_indieweb_read',
             'reactions_indieweb_read_section',
@@ -468,13 +492,13 @@ class Settings_Page {
                     'hardcover'      => 'Hardcover',
                     'readwise_books' => 'Readwise Books',
                 ),
-                'desc'    => __( 'Primary source for importing book reading history. Readwise imports include Kindle highlights.', 'reactions-indieweb' ),
+                'desc'    => __( 'Primary source for importing book reading history. Readwise imports include Kindle highlights.', 'reactions-for-indieweb' ),
             )
         );
 
         add_settings_field(
             'read_articles_auto_import',
-            __( 'Auto-Sync Articles', 'reactions-indieweb' ),
+            __( 'Auto-Sync Articles', 'reactions-for-indieweb' ),
             array( $this, 'render_source_auto_sync_field' ),
             'reactions_indieweb_read',
             'reactions_indieweb_read_section',
@@ -482,26 +506,26 @@ class Settings_Page {
                 'id'          => 'read_articles_auto_import',
                 'source_type' => 'articles',
                 'icon'        => 'media-text',
-                'desc'        => __( 'Automatically import articles with highlights from Readwise.', 'reactions-indieweb' ),
+                'desc'        => __( 'Automatically import articles with highlights from Readwise.', 'reactions-for-indieweb' ),
                 'source_name' => 'Readwise',
             )
         );
 
         add_settings_field(
             'read_default_status',
-            __( 'Default Read Status', 'reactions-indieweb' ),
+            __( 'Default Read Status', 'reactions-for-indieweb' ),
             array( $this, 'render_select_field' ),
             'reactions_indieweb_read',
             'reactions_indieweb_read_section',
             array(
                 'id'      => 'read_default_status',
                 'options' => array(
-                    'to-read'    => __( 'To Read', 'reactions-indieweb' ),
-                    'reading'    => __( 'Currently Reading', 'reactions-indieweb' ),
-                    'finished'   => __( 'Finished', 'reactions-indieweb' ),
-                    'abandoned'  => __( 'Abandoned', 'reactions-indieweb' ),
+                    'to-read'    => __( 'To Read', 'reactions-for-indieweb' ),
+                    'reading'    => __( 'Currently Reading', 'reactions-for-indieweb' ),
+                    'finished'   => __( 'Finished', 'reactions-for-indieweb' ),
+                    'abandoned'  => __( 'Abandoned', 'reactions-for-indieweb' ),
                 ),
-                'desc'    => __( 'Default status for new read posts.', 'reactions-indieweb' ),
+                'desc'    => __( 'Default status for new read posts.', 'reactions-for-indieweb' ),
             )
         );
     }
@@ -514,7 +538,7 @@ class Settings_Page {
     private function add_checkin_fields(): void {
         add_settings_field(
             'checkin_auto_import',
-            __( 'Auto-Sync Checkins', 'reactions-indieweb' ),
+            __( 'Auto-Sync Checkins', 'reactions-for-indieweb' ),
             array( $this, 'render_source_auto_sync_field' ),
             'reactions_indieweb_checkin',
             'reactions_indieweb_checkin_section',
@@ -522,14 +546,14 @@ class Settings_Page {
                 'id'          => 'checkin_auto_import',
                 'source_type' => 'checkins',
                 'icon'        => 'location-alt',
-                'desc'        => __( 'Automatically import checkins from Foursquare/Swarm.', 'reactions-indieweb' ),
+                'desc'        => __( 'Automatically import checkins from Foursquare/Swarm.', 'reactions-for-indieweb' ),
                 'source_name' => 'Foursquare',
             )
         );
 
         add_settings_field(
             'checkin_default_privacy',
-            __( 'Default Location Privacy', 'reactions-indieweb' ),
+            __( 'Default Location Privacy', 'reactions-for-indieweb' ),
             array( $this, 'render_privacy_field' ),
             'reactions_indieweb_checkin',
             'reactions_indieweb_checkin_section',
@@ -540,7 +564,7 @@ class Settings_Page {
 
         add_settings_field(
             'checkin_coordinate_handling',
-            __( 'Coordinate Handling', 'reactions-indieweb' ),
+            __( 'Coordinate Handling', 'reactions-for-indieweb' ),
             array( $this, 'render_coordinate_handling_field' ),
             'reactions_indieweb_checkin',
             'reactions_indieweb_checkin_section',
@@ -551,36 +575,36 @@ class Settings_Page {
 
         add_settings_field(
             'checkin_venue_source',
-            __( 'Venue Search Source', 'reactions-indieweb' ),
+            __( 'Venue Search Source', 'reactions-for-indieweb' ),
             array( $this, 'render_select_field' ),
             'reactions_indieweb_checkin',
             'reactions_indieweb_checkin_section',
             array(
                 'id'      => 'checkin_venue_source',
                 'options' => array(
-                    'nominatim'  => __( 'OpenStreetMap (Nominatim)', 'reactions-indieweb' ),
-                    'foursquare' => __( 'Foursquare (requires API key)', 'reactions-indieweb' ),
-                    'both'       => __( 'Both (Foursquare first, OSM fallback)', 'reactions-indieweb' ),
+                    'nominatim'  => __( 'OpenStreetMap (Nominatim)', 'reactions-for-indieweb' ),
+                    'foursquare' => __( 'Foursquare (requires API key)', 'reactions-for-indieweb' ),
+                    'both'       => __( 'Both (Foursquare first, OSM fallback)', 'reactions-for-indieweb' ),
                 ),
-                'desc'    => __( 'Which service to use for venue/location search in the block editor.', 'reactions-indieweb' ),
+                'desc'    => __( 'Which service to use for venue/location search in the block editor.', 'reactions-for-indieweb' ),
             )
         );
 
         add_settings_field(
             'checkin_sync_to_foursquare',
-            __( 'Sync to Foursquare', 'reactions-indieweb' ),
+            __( 'Sync to Foursquare', 'reactions-for-indieweb' ),
             array( $this, 'render_checkbox_field' ),
             'reactions_indieweb_checkin',
             'reactions_indieweb_checkin_section',
             array(
                 'id'   => 'checkin_sync_to_foursquare',
-                'desc' => __( 'Post checkins to Foursquare when publishing (requires Foursquare OAuth connection). This is a POSSE approach - Publish on your Own Site, Syndicate Elsewhere.', 'reactions-indieweb' ),
+                'desc' => __( 'Post checkins to Foursquare when publishing (requires Foursquare OAuth connection). This is a POSSE approach - Publish on your Own Site, Syndicate Elsewhere.', 'reactions-for-indieweb' ),
             )
         );
 
         add_settings_field(
             'foursquare_connection',
-            __( 'Foursquare Connection', 'reactions-indieweb' ),
+            __( 'Foursquare Connection', 'reactions-for-indieweb' ),
             array( $this, 'render_foursquare_connection_field' ),
             'reactions_indieweb_checkin',
             'reactions_indieweb_checkin_section',
@@ -598,7 +622,7 @@ class Settings_Page {
     private function add_performance_fields(): void {
         add_settings_field(
             'enable_background_sync',
-            __( 'Automatic Sync', 'reactions-indieweb' ),
+            __( 'Automatic Sync', 'reactions-for-indieweb' ),
             array( $this, 'render_auto_sync_field' ),
             'reactions_indieweb_performance',
             'reactions_indieweb_performance_section',
@@ -609,7 +633,7 @@ class Settings_Page {
 
         add_settings_field(
             'rate_limit_delay',
-            __( 'Rate Limit Delay', 'reactions-indieweb' ),
+            __( 'Rate Limit Delay', 'reactions-for-indieweb' ),
             array( $this, 'render_number_field' ),
             'reactions_indieweb_performance',
             'reactions_indieweb_performance_section',
@@ -618,13 +642,13 @@ class Settings_Page {
                 'min'  => 0,
                 'max'  => 10000,
                 'step' => 100,
-                'desc' => __( 'Milliseconds to wait between API requests (to avoid rate limits).', 'reactions-indieweb' ),
+                'desc' => __( 'Milliseconds to wait between API requests (to avoid rate limits).', 'reactions-for-indieweb' ),
             )
         );
 
         add_settings_field(
             'batch_size',
-            __( 'Import Batch Size', 'reactions-indieweb' ),
+            __( 'Import Batch Size', 'reactions-for-indieweb' ),
             array( $this, 'render_number_field' ),
             'reactions_indieweb_performance',
             'reactions_indieweb_performance_section',
@@ -633,7 +657,7 @@ class Settings_Page {
                 'min'  => 1,
                 'max'  => 500,
                 'step' => 10,
-                'desc' => __( 'Number of items to process per batch during imports.', 'reactions-indieweb' ),
+                'desc' => __( 'Number of items to process per batch during imports.', 'reactions-for-indieweb' ),
             )
         );
     }
@@ -706,14 +730,14 @@ class Settings_Page {
      */
     private function render_tabs(): void {
         $tabs = array(
-            'general'     => __( 'General', 'reactions-indieweb' ),
-            'content'     => __( 'Content', 'reactions-indieweb' ),
-            'listen'      => __( 'Listen', 'reactions-indieweb' ),
-            'watch'       => __( 'Watch', 'reactions-indieweb' ),
-            'read'        => __( 'Read', 'reactions-indieweb' ),
-            'checkin'     => __( 'Checkin', 'reactions-indieweb' ),
-            'performance' => __( 'Performance', 'reactions-indieweb' ),
-            'tools'       => __( 'Tools', 'reactions-indieweb' ),
+            'general'     => __( 'General', 'reactions-for-indieweb' ),
+            'content'     => __( 'Content', 'reactions-for-indieweb' ),
+            'listen'      => __( 'Listen', 'reactions-for-indieweb' ),
+            'watch'       => __( 'Watch', 'reactions-for-indieweb' ),
+            'read'        => __( 'Read', 'reactions-for-indieweb' ),
+            'checkin'     => __( 'Checkin', 'reactions-for-indieweb' ),
+            'performance' => __( 'Performance', 'reactions-for-indieweb' ),
+            'tools'       => __( 'Tools', 'reactions-for-indieweb' ),
         );
 
         foreach ( $tabs as $slug => $label ) {
@@ -733,7 +757,7 @@ class Settings_Page {
      * @return void
      */
     public function render_general_section(): void {
-        echo '<p>' . esc_html__( 'Configure general plugin behavior and defaults.', 'reactions-indieweb' ) . '</p>';
+        echo '<p>' . esc_html__( 'Configure general plugin behavior and defaults.', 'reactions-for-indieweb' ) . '</p>';
     }
 
     /**
@@ -742,7 +766,7 @@ class Settings_Page {
      * @return void
      */
     public function render_content_section(): void {
-        echo '<p>' . esc_html__( 'Configure how content and metadata is handled.', 'reactions-indieweb' ) . '</p>';
+        echo '<p>' . esc_html__( 'Configure how content and metadata is handled.', 'reactions-for-indieweb' ) . '</p>';
     }
 
     /**
@@ -751,7 +775,7 @@ class Settings_Page {
      * @return void
      */
     public function render_listen_section(): void {
-        echo '<p>' . esc_html__( 'Configure settings for listen/scrobble posts.', 'reactions-indieweb' ) . '</p>';
+        echo '<p>' . esc_html__( 'Configure settings for listen/scrobble posts.', 'reactions-for-indieweb' ) . '</p>';
     }
 
     /**
@@ -760,7 +784,7 @@ class Settings_Page {
      * @return void
      */
     public function render_watch_section(): void {
-        echo '<p>' . esc_html__( 'Configure settings for watch posts (movies and TV shows).', 'reactions-indieweb' ) . '</p>';
+        echo '<p>' . esc_html__( 'Configure settings for watch posts (movies and TV shows).', 'reactions-for-indieweb' ) . '</p>';
     }
 
     /**
@@ -769,7 +793,7 @@ class Settings_Page {
      * @return void
      */
     public function render_read_section(): void {
-        echo '<p>' . esc_html__( 'Configure settings for read/book posts.', 'reactions-indieweb' ) . '</p>';
+        echo '<p>' . esc_html__( 'Configure settings for read/book posts.', 'reactions-for-indieweb' ) . '</p>';
     }
 
     /**
@@ -778,7 +802,7 @@ class Settings_Page {
      * @return void
      */
     public function render_checkin_section(): void {
-        echo '<p>' . esc_html__( 'Configure settings for location checkin posts.', 'reactions-indieweb' ) . '</p>';
+        echo '<p>' . esc_html__( 'Configure settings for location checkin posts.', 'reactions-for-indieweb' ) . '</p>';
     }
 
     /**
@@ -787,7 +811,7 @@ class Settings_Page {
      * @return void
      */
     public function render_performance_section(): void {
-        echo '<p>' . esc_html__( 'Configure performance and rate limiting settings.', 'reactions-indieweb' ) . '</p>';
+        echo '<p>' . esc_html__( 'Configure performance and rate limiting settings.', 'reactions-for-indieweb' ) . '</p>';
     }
 
     /**
@@ -861,40 +885,40 @@ class Settings_Page {
     private function render_tools_tab(): void {
         ?>
         <div class="reactions-indieweb-tools">
-            <h2><?php esc_html_e( 'Cache Management', 'reactions-indieweb' ); ?></h2>
-            <p><?php esc_html_e( 'Clear cached API responses and metadata.', 'reactions-indieweb' ); ?></p>
+            <h2><?php esc_html_e( 'Cache Management', 'reactions-for-indieweb' ); ?></h2>
+            <p><?php esc_html_e( 'Clear cached API responses and metadata.', 'reactions-for-indieweb' ); ?></p>
 
             <table class="form-table">
                 <tr>
-                    <th scope="row"><?php esc_html_e( 'Clear API Cache', 'reactions-indieweb' ); ?></th>
+                    <th scope="row"><?php esc_html_e( 'Clear API Cache', 'reactions-for-indieweb' ); ?></th>
                     <td>
                         <button type="button" class="button reactions-clear-cache" data-type="api">
-                            <?php esc_html_e( 'Clear API Cache', 'reactions-indieweb' ); ?>
+                            <?php esc_html_e( 'Clear API Cache', 'reactions-for-indieweb' ); ?>
                         </button>
                         <p class="description">
-                            <?php esc_html_e( 'Clear cached responses from external APIs.', 'reactions-indieweb' ); ?>
+                            <?php esc_html_e( 'Clear cached responses from external APIs.', 'reactions-for-indieweb' ); ?>
                         </p>
                     </td>
                 </tr>
                 <tr>
-                    <th scope="row"><?php esc_html_e( 'Clear Metadata Cache', 'reactions-indieweb' ); ?></th>
+                    <th scope="row"><?php esc_html_e( 'Clear Metadata Cache', 'reactions-for-indieweb' ); ?></th>
                     <td>
                         <button type="button" class="button reactions-clear-cache" data-type="metadata">
-                            <?php esc_html_e( 'Clear Metadata Cache', 'reactions-indieweb' ); ?>
+                            <?php esc_html_e( 'Clear Metadata Cache', 'reactions-for-indieweb' ); ?>
                         </button>
                         <p class="description">
-                            <?php esc_html_e( 'Clear cached media metadata.', 'reactions-indieweb' ); ?>
+                            <?php esc_html_e( 'Clear cached media metadata.', 'reactions-for-indieweb' ); ?>
                         </p>
                     </td>
                 </tr>
                 <tr>
-                    <th scope="row"><?php esc_html_e( 'Clear All Caches', 'reactions-indieweb' ); ?></th>
+                    <th scope="row"><?php esc_html_e( 'Clear All Caches', 'reactions-for-indieweb' ); ?></th>
                     <td>
                         <button type="button" class="button button-secondary reactions-clear-cache" data-type="all">
-                            <?php esc_html_e( 'Clear All Caches', 'reactions-indieweb' ); ?>
+                            <?php esc_html_e( 'Clear All Caches', 'reactions-for-indieweb' ); ?>
                         </button>
                         <p class="description">
-                            <?php esc_html_e( 'Clear all cached data.', 'reactions-indieweb' ); ?>
+                            <?php esc_html_e( 'Clear all cached data.', 'reactions-for-indieweb' ); ?>
                         </p>
                     </td>
                 </tr>
@@ -902,30 +926,30 @@ class Settings_Page {
 
             <hr>
 
-            <h2><?php esc_html_e( 'Export / Import Settings', 'reactions-indieweb' ); ?></h2>
-            <p><?php esc_html_e( 'Export or import plugin settings.', 'reactions-indieweb' ); ?></p>
+            <h2><?php esc_html_e( 'Export / Import Settings', 'reactions-for-indieweb' ); ?></h2>
+            <p><?php esc_html_e( 'Export or import plugin settings.', 'reactions-for-indieweb' ); ?></p>
 
             <table class="form-table">
                 <tr>
-                    <th scope="row"><?php esc_html_e( 'Export Settings', 'reactions-indieweb' ); ?></th>
+                    <th scope="row"><?php esc_html_e( 'Export Settings', 'reactions-for-indieweb' ); ?></th>
                     <td>
                         <button type="button" class="button reactions-export-settings">
-                            <?php esc_html_e( 'Export Settings', 'reactions-indieweb' ); ?>
+                            <?php esc_html_e( 'Export Settings', 'reactions-for-indieweb' ); ?>
                         </button>
                         <p class="description">
-                            <?php esc_html_e( 'Download settings as a JSON file (API keys excluded).', 'reactions-indieweb' ); ?>
+                            <?php esc_html_e( 'Download settings as a JSON file (API keys excluded).', 'reactions-for-indieweb' ); ?>
                         </p>
                     </td>
                 </tr>
                 <tr>
-                    <th scope="row"><?php esc_html_e( 'Import Settings', 'reactions-indieweb' ); ?></th>
+                    <th scope="row"><?php esc_html_e( 'Import Settings', 'reactions-for-indieweb' ); ?></th>
                     <td>
                         <input type="file" id="reactions-import-file" accept=".json">
                         <button type="button" class="button reactions-import-settings" disabled>
-                            <?php esc_html_e( 'Import Settings', 'reactions-indieweb' ); ?>
+                            <?php esc_html_e( 'Import Settings', 'reactions-for-indieweb' ); ?>
                         </button>
                         <p class="description">
-                            <?php esc_html_e( 'Import settings from a previously exported JSON file.', 'reactions-indieweb' ); ?>
+                            <?php esc_html_e( 'Import settings from a previously exported JSON file.', 'reactions-for-indieweb' ); ?>
                         </p>
                     </td>
                 </tr>
@@ -933,24 +957,24 @@ class Settings_Page {
 
             <hr>
 
-            <h2><?php esc_html_e( 'Debug Information', 'reactions-indieweb' ); ?></h2>
-            <p><?php esc_html_e( 'Technical information for troubleshooting.', 'reactions-indieweb' ); ?></p>
+            <h2><?php esc_html_e( 'Debug Information', 'reactions-for-indieweb' ); ?></h2>
+            <p><?php esc_html_e( 'Technical information for troubleshooting.', 'reactions-for-indieweb' ); ?></p>
 
             <table class="form-table">
                 <tr>
-                    <th scope="row"><?php esc_html_e( 'Plugin Version', 'reactions-indieweb' ); ?></th>
+                    <th scope="row"><?php esc_html_e( 'Plugin Version', 'reactions-for-indieweb' ); ?></th>
                     <td><code><?php echo esc_html( \REACTIONS_INDIEWEB_VERSION ); ?></code></td>
                 </tr>
                 <tr>
-                    <th scope="row"><?php esc_html_e( 'WordPress Version', 'reactions-indieweb' ); ?></th>
+                    <th scope="row"><?php esc_html_e( 'WordPress Version', 'reactions-for-indieweb' ); ?></th>
                     <td><code><?php echo esc_html( get_bloginfo( 'version' ) ); ?></code></td>
                 </tr>
                 <tr>
-                    <th scope="row"><?php esc_html_e( 'PHP Version', 'reactions-indieweb' ); ?></th>
+                    <th scope="row"><?php esc_html_e( 'PHP Version', 'reactions-for-indieweb' ); ?></th>
                     <td><code><?php echo esc_html( PHP_VERSION ); ?></code></td>
                 </tr>
                 <tr>
-                    <th scope="row"><?php esc_html_e( 'IndieBlocks', 'reactions-indieweb' ); ?></th>
+                    <th scope="row"><?php esc_html_e( 'IndieBlocks', 'reactions-for-indieweb' ); ?></th>
                     <td>
                         <?php
                         // Check multiple ways IndieBlocks might be detected.
@@ -962,15 +986,15 @@ class Settings_Page {
                         ?>
                         <?php if ( $indieblocks_active ) : ?>
                             <span class="dashicons dashicons-yes-alt" style="color: #46b450;"></span>
-                            <?php esc_html_e( 'Installed', 'reactions-indieweb' ); ?>
+                            <?php esc_html_e( 'Installed', 'reactions-for-indieweb' ); ?>
                         <?php else : ?>
                             <span class="dashicons dashicons-warning" style="color: #dc3232;"></span>
-                            <?php esc_html_e( 'Not installed', 'reactions-indieweb' ); ?>
+                            <?php esc_html_e( 'Not installed', 'reactions-for-indieweb' ); ?>
                         <?php endif; ?>
                     </td>
                 </tr>
                 <tr>
-                    <th scope="row"><?php esc_html_e( 'Active Imports', 'reactions-indieweb' ); ?></th>
+                    <th scope="row"><?php esc_html_e( 'Active Imports', 'reactions-for-indieweb' ); ?></th>
                     <td>
                         <?php
                         $active_imports = get_option( 'reactions_indieweb_active_imports', array() );
@@ -1097,36 +1121,36 @@ class Settings_Page {
 
         // WordPress Post Formats.
         $post_formats = array(
-            'standard' => __( 'Standard', 'reactions-indieweb' ),
-            'aside'    => __( 'Aside', 'reactions-indieweb' ),
-            'audio'    => __( 'Audio', 'reactions-indieweb' ),
-            'chat'     => __( 'Chat', 'reactions-indieweb' ),
-            'gallery'  => __( 'Gallery', 'reactions-indieweb' ),
-            'image'    => __( 'Image', 'reactions-indieweb' ),
-            'link'     => __( 'Link', 'reactions-indieweb' ),
-            'quote'    => __( 'Quote', 'reactions-indieweb' ),
-            'status'   => __( 'Status', 'reactions-indieweb' ),
-            'video'    => __( 'Video', 'reactions-indieweb' ),
+            'standard' => __( 'Standard', 'reactions-for-indieweb' ),
+            'aside'    => __( 'Aside', 'reactions-for-indieweb' ),
+            'audio'    => __( 'Audio', 'reactions-for-indieweb' ),
+            'chat'     => __( 'Chat', 'reactions-for-indieweb' ),
+            'gallery'  => __( 'Gallery', 'reactions-for-indieweb' ),
+            'image'    => __( 'Image', 'reactions-for-indieweb' ),
+            'link'     => __( 'Link', 'reactions-for-indieweb' ),
+            'quote'    => __( 'Quote', 'reactions-for-indieweb' ),
+            'status'   => __( 'Status', 'reactions-for-indieweb' ),
+            'video'    => __( 'Video', 'reactions-for-indieweb' ),
         );
 
         // Reaction Kinds.
         $kinds = array(
-            ''         => __( '— No mapping —', 'reactions-indieweb' ),
-            'note'     => __( 'Note', 'reactions-indieweb' ),
-            'article'  => __( 'Article', 'reactions-indieweb' ),
-            'reply'    => __( 'Reply', 'reactions-indieweb' ),
-            'like'     => __( 'Like', 'reactions-indieweb' ),
-            'repost'   => __( 'Repost', 'reactions-indieweb' ),
-            'bookmark' => __( 'Bookmark', 'reactions-indieweb' ),
-            'rsvp'     => __( 'RSVP', 'reactions-indieweb' ),
-            'checkin'  => __( 'Check-in', 'reactions-indieweb' ),
-            'listen'   => __( 'Listen', 'reactions-indieweb' ),
-            'watch'    => __( 'Watch', 'reactions-indieweb' ),
-            'read'     => __( 'Read', 'reactions-indieweb' ),
-            'event'    => __( 'Event', 'reactions-indieweb' ),
-            'photo'    => __( 'Photo', 'reactions-indieweb' ),
-            'video'    => __( 'Video', 'reactions-indieweb' ),
-            'review'   => __( 'Review', 'reactions-indieweb' ),
+            ''         => __( '— No mapping —', 'reactions-for-indieweb' ),
+            'note'     => __( 'Note', 'reactions-for-indieweb' ),
+            'article'  => __( 'Article', 'reactions-for-indieweb' ),
+            'reply'    => __( 'Reply', 'reactions-for-indieweb' ),
+            'like'     => __( 'Like', 'reactions-for-indieweb' ),
+            'repost'   => __( 'Repost', 'reactions-for-indieweb' ),
+            'bookmark' => __( 'Bookmark', 'reactions-for-indieweb' ),
+            'rsvp'     => __( 'RSVP', 'reactions-for-indieweb' ),
+            'checkin'  => __( 'Check-in', 'reactions-for-indieweb' ),
+            'listen'   => __( 'Listen', 'reactions-for-indieweb' ),
+            'watch'    => __( 'Watch', 'reactions-for-indieweb' ),
+            'read'     => __( 'Read', 'reactions-for-indieweb' ),
+            'event'    => __( 'Event', 'reactions-for-indieweb' ),
+            'photo'    => __( 'Photo', 'reactions-for-indieweb' ),
+            'video'    => __( 'Video', 'reactions-for-indieweb' ),
+            'review'   => __( 'Review', 'reactions-for-indieweb' ),
         );
 
         if ( ! empty( $args['desc'] ) ) {
@@ -1200,78 +1224,78 @@ class Settings_Page {
         // All available kinds with descriptions.
         $all_kinds = array(
             'note'     => array(
-                'label' => __( 'Note', 'reactions-indieweb' ),
-                'desc'  => __( 'Short posts, similar to tweets or status updates', 'reactions-indieweb' ),
+                'label' => __( 'Note', 'reactions-for-indieweb' ),
+                'desc'  => __( 'Short posts, similar to tweets or status updates', 'reactions-for-indieweb' ),
                 'icon'  => 'format-status',
             ),
             'article'  => array(
-                'label' => __( 'Article', 'reactions-indieweb' ),
-                'desc'  => __( 'Long-form content with a title', 'reactions-indieweb' ),
+                'label' => __( 'Article', 'reactions-for-indieweb' ),
+                'desc'  => __( 'Long-form content with a title', 'reactions-for-indieweb' ),
                 'icon'  => 'media-document',
             ),
             'reply'    => array(
-                'label' => __( 'Reply', 'reactions-indieweb' ),
-                'desc'  => __( 'Response to someone else\'s content', 'reactions-indieweb' ),
+                'label' => __( 'Reply', 'reactions-for-indieweb' ),
+                'desc'  => __( 'Response to someone else\'s content', 'reactions-for-indieweb' ),
                 'icon'  => 'format-chat',
             ),
             'like'     => array(
-                'label' => __( 'Like', 'reactions-indieweb' ),
-                'desc'  => __( 'Indicate appreciation for external content', 'reactions-indieweb' ),
+                'label' => __( 'Like', 'reactions-for-indieweb' ),
+                'desc'  => __( 'Indicate appreciation for external content', 'reactions-for-indieweb' ),
                 'icon'  => 'heart',
             ),
             'repost'   => array(
-                'label' => __( 'Repost', 'reactions-indieweb' ),
-                'desc'  => __( 'Share someone else\'s content on your site', 'reactions-indieweb' ),
+                'label' => __( 'Repost', 'reactions-for-indieweb' ),
+                'desc'  => __( 'Share someone else\'s content on your site', 'reactions-for-indieweb' ),
                 'icon'  => 'controls-repeat',
             ),
             'bookmark' => array(
-                'label' => __( 'Bookmark', 'reactions-indieweb' ),
-                'desc'  => __( 'Save and share links to interesting content', 'reactions-indieweb' ),
+                'label' => __( 'Bookmark', 'reactions-for-indieweb' ),
+                'desc'  => __( 'Save and share links to interesting content', 'reactions-for-indieweb' ),
                 'icon'  => 'bookmark',
             ),
             'rsvp'     => array(
-                'label' => __( 'RSVP', 'reactions-indieweb' ),
-                'desc'  => __( 'Respond to event invitations', 'reactions-indieweb' ),
+                'label' => __( 'RSVP', 'reactions-for-indieweb' ),
+                'desc'  => __( 'Respond to event invitations', 'reactions-for-indieweb' ),
                 'icon'  => 'calendar-alt',
             ),
             'checkin'  => array(
-                'label' => __( 'Check-in', 'reactions-indieweb' ),
-                'desc'  => __( 'Share your location at a venue or place', 'reactions-indieweb' ),
+                'label' => __( 'Check-in', 'reactions-for-indieweb' ),
+                'desc'  => __( 'Share your location at a venue or place', 'reactions-for-indieweb' ),
                 'icon'  => 'location-alt',
             ),
             'listen'   => array(
-                'label' => __( 'Listen', 'reactions-indieweb' ),
-                'desc'  => __( 'Music scrobbles, podcasts, audio content', 'reactions-indieweb' ),
+                'label' => __( 'Listen', 'reactions-for-indieweb' ),
+                'desc'  => __( 'Music scrobbles, podcasts, audio content', 'reactions-for-indieweb' ),
                 'icon'  => 'format-audio',
             ),
             'watch'    => array(
-                'label' => __( 'Watch', 'reactions-indieweb' ),
-                'desc'  => __( 'Movies, TV shows, videos you\'ve watched', 'reactions-indieweb' ),
+                'label' => __( 'Watch', 'reactions-for-indieweb' ),
+                'desc'  => __( 'Movies, TV shows, videos you\'ve watched', 'reactions-for-indieweb' ),
                 'icon'  => 'video-alt3',
             ),
             'read'     => array(
-                'label' => __( 'Read', 'reactions-indieweb' ),
-                'desc'  => __( 'Books, articles, and reading progress', 'reactions-indieweb' ),
+                'label' => __( 'Read', 'reactions-for-indieweb' ),
+                'desc'  => __( 'Books, articles, and reading progress', 'reactions-for-indieweb' ),
                 'icon'  => 'book',
             ),
             'event'    => array(
-                'label' => __( 'Event', 'reactions-indieweb' ),
-                'desc'  => __( 'Create and share events', 'reactions-indieweb' ),
+                'label' => __( 'Event', 'reactions-for-indieweb' ),
+                'desc'  => __( 'Create and share events', 'reactions-for-indieweb' ),
                 'icon'  => 'calendar',
             ),
             'photo'    => array(
-                'label' => __( 'Photo', 'reactions-indieweb' ),
-                'desc'  => __( 'Image-focused posts', 'reactions-indieweb' ),
+                'label' => __( 'Photo', 'reactions-for-indieweb' ),
+                'desc'  => __( 'Image-focused posts', 'reactions-for-indieweb' ),
                 'icon'  => 'format-image',
             ),
             'video'    => array(
-                'label' => __( 'Video', 'reactions-indieweb' ),
-                'desc'  => __( 'Video posts you create', 'reactions-indieweb' ),
+                'label' => __( 'Video', 'reactions-for-indieweb' ),
+                'desc'  => __( 'Video posts you create', 'reactions-for-indieweb' ),
                 'icon'  => 'format-video',
             ),
             'review'   => array(
-                'label' => __( 'Review', 'reactions-indieweb' ),
-                'desc'  => __( 'Reviews with ratings', 'reactions-indieweb' ),
+                'label' => __( 'Review', 'reactions-for-indieweb' ),
+                'desc'  => __( 'Reviews with ratings', 'reactions-for-indieweb' ),
                 'icon'  => 'star-filled',
             ),
         );
@@ -1302,8 +1326,8 @@ class Settings_Page {
         echo '</div>';
 
         echo '<div style="margin-top: 16px;">';
-        echo '<button type="button" class="button" id="enable-all-kinds">' . esc_html__( 'Enable All', 'reactions-indieweb' ) . '</button> ';
-        echo '<button type="button" class="button" id="disable-all-kinds">' . esc_html__( 'Disable All', 'reactions-indieweb' ) . '</button>';
+        echo '<button type="button" class="button" id="enable-all-kinds">' . esc_html__( 'Enable All', 'reactions-for-indieweb' ) . '</button> ';
+        echo '<button type="button" class="button" id="disable-all-kinds">' . esc_html__( 'Disable All', 'reactions-for-indieweb' ) . '</button>';
         echo '</div>';
 
         // JavaScript for enable/disable all buttons.
@@ -1344,16 +1368,16 @@ class Settings_Page {
 
         $options = array(
             'public'      => array(
-                'label' => __( 'Public (exact location)', 'reactions-indieweb' ),
-                'desc'  => __( 'Shows full address, venue name, and precise coordinates. Best for public venues like restaurants or parks where you want others to find the same place.', 'reactions-indieweb' ),
+                'label' => __( 'Public (exact location)', 'reactions-for-indieweb' ),
+                'desc'  => __( 'Shows full address, venue name, and precise coordinates. Best for public venues like restaurants or parks where you want others to find the same place.', 'reactions-for-indieweb' ),
             ),
             'approximate' => array(
-                'label' => __( 'Approximate (city level)', 'reactions-indieweb' ),
-                'desc'  => __( 'Shows city/region but hides street address and exact coordinates. Good balance of sharing where you are without revealing precise location.', 'reactions-indieweb' ),
+                'label' => __( 'Approximate (city level)', 'reactions-for-indieweb' ),
+                'desc'  => __( 'Shows city/region but hides street address and exact coordinates. Good balance of sharing where you are without revealing precise location.', 'reactions-for-indieweb' ),
             ),
             'private'     => array(
-                'label' => __( 'Private (hidden)', 'reactions-indieweb' ),
-                'desc'  => __( 'Location is stored but never displayed publicly. Use this for home, work, or other private locations you want to log but not share.', 'reactions-indieweb' ),
+                'label' => __( 'Private (hidden)', 'reactions-for-indieweb' ),
+                'desc'  => __( 'Location is stored but never displayed publicly. Use this for home, work, or other private locations you want to log but not share.', 'reactions-for-indieweb' ),
             ),
         );
 
@@ -1374,7 +1398,7 @@ class Settings_Page {
         }
         echo '</fieldset>';
         echo '<p class="description" style="margin-top: 16px; padding: 12px; background: #f0f0f1; border-left: 4px solid #2271b1;">';
-        esc_html_e( 'This setting determines the default for new checkins. You can override it per-post in the block editor.', 'reactions-indieweb' );
+        esc_html_e( 'This setting determines the default for new checkins. You can override it per-post in the block editor.', 'reactions-for-indieweb' );
         echo '</p>';
     }
 
@@ -1390,20 +1414,20 @@ class Settings_Page {
 
         $options = array(
             'store_hide'  => array(
-                'label' => __( 'Store but hide coordinates', 'reactions-indieweb' ),
-                'desc'  => __( 'Exact coordinates are saved in the database (for your records, maps, or future use) but never shown publicly. This lets you keep a precise location history while protecting privacy.', 'reactions-indieweb' ),
+                'label' => __( 'Store but hide coordinates', 'reactions-for-indieweb' ),
+                'desc'  => __( 'Exact coordinates are saved in the database (for your records, maps, or future use) but never shown publicly. This lets you keep a precise location history while protecting privacy.', 'reactions-for-indieweb' ),
             ),
             'round'       => array(
-                'label' => __( 'Round coordinates (reduce precision)', 'reactions-indieweb' ),
-                'desc'  => __( 'Coordinates are rounded to ~1km precision before storing. This provides approximate mapping while making it impossible to pinpoint exact locations. Good if you want some geographic context without precision.', 'reactions-indieweb' ),
+                'label' => __( 'Round coordinates (reduce precision)', 'reactions-for-indieweb' ),
+                'desc'  => __( 'Coordinates are rounded to ~1km precision before storing. This provides approximate mapping while making it impossible to pinpoint exact locations. Good if you want some geographic context without precision.', 'reactions-for-indieweb' ),
             ),
             'discard'     => array(
-                'label' => __( 'Discard coordinates entirely', 'reactions-indieweb' ),
-                'desc'  => __( 'Coordinates are never saved. Only venue name and address text are stored. Use this for maximum privacy, but note that coordinates cannot be recovered later.', 'reactions-indieweb' ),
+                'label' => __( 'Discard coordinates entirely', 'reactions-for-indieweb' ),
+                'desc'  => __( 'Coordinates are never saved. Only venue name and address text are stored. Use this for maximum privacy, but note that coordinates cannot be recovered later.', 'reactions-for-indieweb' ),
             ),
             'store_show'  => array(
-                'label' => __( 'Store and show coordinates', 'reactions-indieweb' ),
-                'desc'  => __( 'Exact coordinates are saved and displayed publicly (when privacy is set to Public). Enables precise mapping and IndieWeb geo microformats.', 'reactions-indieweb' ),
+                'label' => __( 'Store and show coordinates', 'reactions-for-indieweb' ),
+                'desc'  => __( 'Exact coordinates are saved and displayed publicly (when privacy is set to Public). Enables precise mapping and IndieWeb geo microformats.', 'reactions-for-indieweb' ),
             ),
         );
 
@@ -1425,9 +1449,9 @@ class Settings_Page {
         echo '</fieldset>';
 
         echo '<div style="margin-top: 16px; padding: 12px; background: #fff8e5; border-left: 4px solid #dba617;">';
-        echo '<strong>' . esc_html__( 'Why does this matter?', 'reactions-indieweb' ) . '</strong>';
+        echo '<strong>' . esc_html__( 'Why does this matter?', 'reactions-for-indieweb' ) . '</strong>';
         echo '<p class="description" style="margin-top: 8px;">';
-        esc_html_e( 'Precise coordinates can reveal patterns about where you live, work, or spend time. Even if you hide your home address, checking in at nearby cafes regularly can expose your neighborhood. Consider your threat model when choosing.', 'reactions-indieweb' );
+        esc_html_e( 'Precise coordinates can reveal patterns about where you live, work, or spend time. Even if you hide your home address, checking in at nearby cafes regularly can expose your neighborhood. Consider your threat model when choosing.', 'reactions-for-indieweb' );
         echo '</p>';
         echo '</div>';
     }
@@ -1451,22 +1475,22 @@ class Settings_Page {
         // Check which auto-imports are enabled.
         $auto_imports_enabled = array();
         if ( ! empty( $settings['listen_auto_import'] ) ) {
-            $auto_imports_enabled[] = __( 'Music', 'reactions-indieweb' );
+            $auto_imports_enabled[] = __( 'Music', 'reactions-for-indieweb' );
         }
         if ( ! empty( $settings['listen_podcast_auto_import'] ) ) {
-            $auto_imports_enabled[] = __( 'Podcasts', 'reactions-indieweb' );
+            $auto_imports_enabled[] = __( 'Podcasts', 'reactions-for-indieweb' );
         }
         if ( ! empty( $settings['watch_auto_import'] ) ) {
-            $auto_imports_enabled[] = __( 'Movies & TV', 'reactions-indieweb' );
+            $auto_imports_enabled[] = __( 'Movies & TV', 'reactions-for-indieweb' );
         }
         if ( ! empty( $settings['read_auto_import'] ) ) {
-            $auto_imports_enabled[] = __( 'Books', 'reactions-indieweb' );
+            $auto_imports_enabled[] = __( 'Books', 'reactions-for-indieweb' );
         }
         if ( ! empty( $settings['read_articles_auto_import'] ) ) {
-            $auto_imports_enabled[] = __( 'Articles', 'reactions-indieweb' );
+            $auto_imports_enabled[] = __( 'Articles', 'reactions-for-indieweb' );
         }
         if ( ! empty( $settings['checkin_auto_import'] ) ) {
-            $auto_imports_enabled[] = __( 'Checkins', 'reactions-indieweb' );
+            $auto_imports_enabled[] = __( 'Checkins', 'reactions-for-indieweb' );
         }
 
         ?>
@@ -1483,51 +1507,51 @@ class Settings_Page {
                         style="width: 20px; height: 20px;"
                     >
                     <span style="font-size: 16px; font-weight: 600;">
-                        <?php esc_html_e( 'Enable Automatic Sync', 'reactions-indieweb' ); ?>
+                        <?php esc_html_e( 'Enable Automatic Sync', 'reactions-for-indieweb' ); ?>
                     </span>
                 </label>
                 <span style="padding: 4px 12px; border-radius: 4px; font-size: 12px; font-weight: 500; background: <?php echo $enabled ? '#2271b1' : '#ddd'; ?>; color: <?php echo $enabled ? '#fff' : '#666'; ?>;">
-                    <?php echo $enabled ? esc_html__( 'ON', 'reactions-indieweb' ) : esc_html__( 'OFF', 'reactions-indieweb' ); ?>
+                    <?php echo $enabled ? esc_html__( 'ON', 'reactions-for-indieweb' ) : esc_html__( 'OFF', 'reactions-for-indieweb' ); ?>
                 </span>
             </div>
 
             <!-- Description -->
             <p class="description" style="margin-bottom: 16px;">
-                <?php esc_html_e( 'When enabled, the plugin will automatically import new content from your connected services every hour using WordPress cron.', 'reactions-indieweb' ); ?>
+                <?php esc_html_e( 'When enabled, the plugin will automatically import new content from your connected services every hour using WordPress cron.', 'reactions-for-indieweb' ); ?>
             </p>
 
             <?php if ( $enabled ) : ?>
                 <!-- Status Info -->
                 <div style="background: #fff; border: 1px solid #ddd; border-radius: 4px; padding: 12px; margin-bottom: 16px;">
                     <h4 style="margin: 0 0 8px 0; font-size: 13px; color: #1d2327;">
-                        <?php esc_html_e( 'Sync Status', 'reactions-indieweb' ); ?>
+                        <?php esc_html_e( 'Sync Status', 'reactions-for-indieweb' ); ?>
                     </h4>
                     <dl style="margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; font-size: 13px;">
-                        <dt style="color: #646970;"><?php esc_html_e( 'Last sync:', 'reactions-indieweb' ); ?></dt>
+                        <dt style="color: #646970;"><?php esc_html_e( 'Last sync:', 'reactions-for-indieweb' ); ?></dt>
                         <dd style="margin: 0;">
                             <?php
                             if ( $last_sync ) {
-                                echo esc_html( human_time_diff( $last_sync ) . ' ' . __( 'ago', 'reactions-indieweb' ) );
+                                echo esc_html( human_time_diff( $last_sync ) . ' ' . __( 'ago', 'reactions-for-indieweb' ) );
                             } else {
-                                esc_html_e( 'Never', 'reactions-indieweb' );
+                                esc_html_e( 'Never', 'reactions-for-indieweb' );
                             }
                             ?>
                         </dd>
-                        <dt style="color: #646970;"><?php esc_html_e( 'Next sync:', 'reactions-indieweb' ); ?></dt>
+                        <dt style="color: #646970;"><?php esc_html_e( 'Next sync:', 'reactions-for-indieweb' ); ?></dt>
                         <dd style="margin: 0;">
                             <?php
                             if ( $next_sync ) {
                                 if ( $next_sync <= time() ) {
-                                    esc_html_e( 'Pending (waiting for cron)', 'reactions-indieweb' );
+                                    esc_html_e( 'Pending (waiting for cron)', 'reactions-for-indieweb' );
                                 } else {
                                     echo esc_html( sprintf(
                                         /* translators: %s: human time diff */
-                                        __( 'in %s', 'reactions-indieweb' ),
+                                        __( 'in %s', 'reactions-for-indieweb' ),
                                         human_time_diff( time(), $next_sync )
                                     ) );
                                 }
                             } else {
-                                esc_html_e( 'Not scheduled', 'reactions-indieweb' );
+                                esc_html_e( 'Not scheduled', 'reactions-for-indieweb' );
                             }
                             ?>
                         </dd>
@@ -1538,20 +1562,20 @@ class Settings_Page {
                 <?php if ( ! empty( $auto_imports_enabled ) ) : ?>
                     <div style="background: #fff; border: 1px solid #ddd; border-radius: 4px; padding: 12px;">
                         <h4 style="margin: 0 0 8px 0; font-size: 13px; color: #1d2327;">
-                            <?php esc_html_e( 'Active Auto-Imports', 'reactions-indieweb' ); ?>
+                            <?php esc_html_e( 'Active Auto-Imports', 'reactions-for-indieweb' ); ?>
                         </h4>
                         <p style="margin: 0; font-size: 13px;">
                             <?php echo esc_html( implode( ', ', $auto_imports_enabled ) ); ?>
                         </p>
                         <p class="description" style="margin: 8px 0 0 0; font-size: 12px;">
-                            <?php esc_html_e( 'Configure individual auto-imports in their respective tabs above.', 'reactions-indieweb' ); ?>
+                            <?php esc_html_e( 'Configure individual auto-imports in their respective tabs above.', 'reactions-for-indieweb' ); ?>
                         </p>
                     </div>
                 <?php else : ?>
                     <div style="background: #fff8e5; border: 1px solid #dba617; border-radius: 4px; padding: 12px;">
                         <p style="margin: 0; font-size: 13px; color: #614b00;">
                             <span class="dashicons dashicons-warning" style="font-size: 16px; vertical-align: text-bottom;"></span>
-                            <?php esc_html_e( 'No auto-imports are enabled. Enable auto-import in the Listen, Watch, Read, or Checkin tabs for automatic sync to work.', 'reactions-indieweb' ); ?>
+                            <?php esc_html_e( 'No auto-imports are enabled. Enable auto-import in the Listen, Watch, Read, or Checkin tabs for automatic sync to work.', 'reactions-for-indieweb' ); ?>
                         </p>
                     </div>
                 <?php endif; ?>
@@ -1559,7 +1583,7 @@ class Settings_Page {
                 <!-- Disabled Info -->
                 <div style="background: #f0f0f1; border: 1px solid #ddd; border-radius: 4px; padding: 12px; color: #646970;">
                     <p style="margin: 0; font-size: 13px;">
-                        <?php esc_html_e( 'Automatic sync is disabled. Imports will only run when you manually trigger them from the Import page.', 'reactions-indieweb' ); ?>
+                        <?php esc_html_e( 'Automatic sync is disabled. Imports will only run when you manually trigger them from the Import page.', 'reactions-for-indieweb' ); ?>
                     </p>
                 </div>
             <?php endif; ?>
@@ -1591,10 +1615,10 @@ class Settings_Page {
 
         if ( 'Readwise' === $source_name ) {
             $is_configured = ! empty( $credentials['readwise']['access_token'] );
-            $config_message = __( 'Requires Readwise API token', 'reactions-indieweb' );
+            $config_message = __( 'Requires Readwise API token', 'reactions-for-indieweb' );
         } elseif ( 'Foursquare' === $source_name ) {
             $is_configured = ! empty( $credentials['foursquare']['access_token'] );
-            $config_message = __( 'Requires Foursquare connection', 'reactions-indieweb' );
+            $config_message = __( 'Requires Foursquare connection', 'reactions-for-indieweb' );
         }
 
         ?>
@@ -1613,7 +1637,7 @@ class Settings_Page {
                         style="width: 18px; height: 18px;"
                     >
                     <span style="font-weight: 500;">
-                        <?php esc_html_e( 'Enable Auto-Sync', 'reactions-indieweb' ); ?>
+                        <?php esc_html_e( 'Enable Auto-Sync', 'reactions-for-indieweb' ); ?>
                         <?php if ( $source_name ) : ?>
                             <span style="font-weight: 400; color: #646970;">(<?php echo esc_html( $source_name ); ?>)</span>
                         <?php endif; ?>
@@ -1621,7 +1645,7 @@ class Settings_Page {
                 </label>
 
                 <span style="padding: 3px 10px; border-radius: 3px; font-size: 11px; font-weight: 600; text-transform: uppercase; background: <?php echo $enabled ? '#2271b1' : '#ddd'; ?>; color: <?php echo $enabled ? '#fff' : '#666'; ?>;">
-                    <?php echo $enabled ? esc_html__( 'ON', 'reactions-indieweb' ) : esc_html__( 'OFF', 'reactions-indieweb' ); ?>
+                    <?php echo $enabled ? esc_html__( 'ON', 'reactions-for-indieweb' ) : esc_html__( 'OFF', 'reactions-for-indieweb' ); ?>
                 </span>
             </div>
 
@@ -1635,13 +1659,13 @@ class Settings_Page {
                 <p style="margin-top: 8px; margin-left: 4px; color: #d63638; font-size: 13px;">
                     <span class="dashicons dashicons-warning" style="font-size: 14px; vertical-align: text-bottom;"></span>
                     <?php echo esc_html( $config_message ); ?>.
-                    <a href="<?php echo esc_url( admin_url( 'admin.php?page=reactions-indieweb-apis' ) ); ?>"><?php esc_html_e( 'Configure API', 'reactions-indieweb' ); ?></a>
+                    <a href="<?php echo esc_url( admin_url( 'admin.php?page=reactions-indieweb-apis' ) ); ?>"><?php esc_html_e( 'Configure API', 'reactions-for-indieweb' ); ?></a>
                 </p>
             <?php elseif ( $enabled && ! $background_sync_enabled ) : ?>
                 <p style="margin-top: 8px; margin-left: 4px; color: #dba617; font-size: 13px;">
                     <span class="dashicons dashicons-info" style="font-size: 14px; vertical-align: text-bottom;"></span>
-                    <?php esc_html_e( 'Note: Main background sync is off.', 'reactions-indieweb' ); ?>
-                    <a href="<?php echo esc_url( admin_url( 'admin.php?page=reactions-indieweb&tab=performance' ) ); ?>"><?php esc_html_e( 'Enable in Performance tab', 'reactions-indieweb' ); ?></a>
+                    <?php esc_html_e( 'Note: Main background sync is off.', 'reactions-for-indieweb' ); ?>
+                    <a href="<?php echo esc_url( admin_url( 'admin.php?page=reactions-indieweb&tab=performance' ) ); ?>"><?php esc_html_e( 'Enable in Performance tab', 'reactions-for-indieweb' ); ?></a>
                 </p>
             <?php endif; ?>
 
@@ -1656,7 +1680,7 @@ class Settings_Page {
             ?>
                 <div class="sync-start-date-field" style="margin-top: 12px; padding: 12px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 4px;">
                     <label for="sync_start_date_<?php echo esc_attr( $sync_source_key ); ?>" style="display: block; font-weight: 500; margin-bottom: 6px;">
-                        <?php esc_html_e( 'Sync Start Date', 'reactions-indieweb' ); ?>
+                        <?php esc_html_e( 'Sync Start Date', 'reactions-for-indieweb' ); ?>
                     </label>
                     <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
                         <input
@@ -1668,14 +1692,14 @@ class Settings_Page {
                             style="width: auto;"
                         >
                         <button type="button" class="button button-small set-today-btn" data-target="sync_start_date_<?php echo esc_attr( $sync_source_key ); ?>">
-                            <?php esc_html_e( 'Set to Today', 'reactions-indieweb' ); ?>
+                            <?php esc_html_e( 'Set to Today', 'reactions-for-indieweb' ); ?>
                         </button>
                         <button type="button" class="button button-small clear-date-btn" data-target="sync_start_date_<?php echo esc_attr( $sync_source_key ); ?>">
-                            <?php esc_html_e( 'Clear', 'reactions-indieweb' ); ?>
+                            <?php esc_html_e( 'Clear', 'reactions-for-indieweb' ); ?>
                         </button>
                     </div>
                     <p class="description" style="margin-top: 6px;">
-                        <?php esc_html_e( 'Only auto-sync items from this date forward. Leave empty to import all history.', 'reactions-indieweb' ); ?>
+                        <?php esc_html_e( 'Only auto-sync items from this date forward. Leave empty to import all history.', 'reactions-for-indieweb' ); ?>
                     </p>
                 </div>
                 <script>
@@ -1738,7 +1762,7 @@ class Settings_Page {
         if ( $is_connected ) {
             echo '<div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">';
             echo '<span class="dashicons dashicons-yes-alt" style="color: #46b450; font-size: 20px;"></span>';
-            echo '<span style="font-weight: 500;">' . esc_html__( 'Connected to Foursquare', 'reactions-indieweb' ) . '</span>';
+            echo '<span style="font-weight: 500;">' . esc_html__( 'Connected to Foursquare', 'reactions-for-indieweb' ) . '</span>';
             if ( $username ) {
                 echo '<span style="color: #646970;">(' . esc_html( $username ) . ')</span>';
             }
@@ -1749,70 +1773,70 @@ class Settings_Page {
             // Import button.
             echo '<button type="button" class="button" id="foursquare-import-checkins">';
             echo '<span class="dashicons dashicons-download" style="margin-top: 4px;"></span> ';
-            esc_html_e( 'Import Checkins from Foursquare', 'reactions-indieweb' );
+            esc_html_e( 'Import Checkins from Foursquare', 'reactions-for-indieweb' );
             echo '</button>';
 
             // Disconnect button.
             echo '<button type="button" class="button" id="foursquare-disconnect" style="color: #d63638;">';
             echo '<span class="dashicons dashicons-no" style="margin-top: 4px;"></span> ';
-            esc_html_e( 'Disconnect', 'reactions-indieweb' );
+            esc_html_e( 'Disconnect', 'reactions-for-indieweb' );
             echo '</button>';
 
             echo '</div>';
 
             echo '<p class="description" style="margin-top: 12px;">';
-            esc_html_e( 'With Foursquare connected, you can:', 'reactions-indieweb' );
+            esc_html_e( 'With Foursquare connected, you can:', 'reactions-for-indieweb' );
             echo '</p>';
             echo '<ul style="margin: 8px 0 0 24px; list-style: disc;">';
-            echo '<li>' . esc_html__( 'POSSE: Publish checkins on your site first, automatically sync to Foursquare', 'reactions-indieweb' ) . '</li>';
-            echo '<li>' . esc_html__( 'PESOS: Import existing Foursquare checkins to your site', 'reactions-indieweb' ) . '</li>';
+            echo '<li>' . esc_html__( 'POSSE: Publish checkins on your site first, automatically sync to Foursquare', 'reactions-for-indieweb' ) . '</li>';
+            echo '<li>' . esc_html__( 'PESOS: Import existing Foursquare checkins to your site', 'reactions-for-indieweb' ) . '</li>';
             echo '</ul>';
 
         } elseif ( $has_client_id ) {
             echo '<div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">';
             echo '<span class="dashicons dashicons-warning" style="color: #dba617; font-size: 20px;"></span>';
-            echo '<span>' . esc_html__( 'Foursquare app configured but not connected', 'reactions-indieweb' ) . '</span>';
+            echo '<span>' . esc_html__( 'Foursquare app configured but not connected', 'reactions-for-indieweb' ) . '</span>';
             echo '</div>';
 
             echo '<p>';
             echo '<a href="' . esc_url( admin_url( 'admin.php?page=reactions-indieweb-apis' ) ) . '" class="button button-primary">';
-            esc_html_e( 'Connect to Foursquare', 'reactions-indieweb' );
+            esc_html_e( 'Connect to Foursquare', 'reactions-for-indieweb' );
             echo '</a>';
             echo '</p>';
 
         } else {
             echo '<div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">';
             echo '<span class="dashicons dashicons-info" style="color: #72aee6; font-size: 20px;"></span>';
-            echo '<span>' . esc_html__( 'Foursquare not configured', 'reactions-indieweb' ) . '</span>';
+            echo '<span>' . esc_html__( 'Foursquare not configured', 'reactions-for-indieweb' ) . '</span>';
             echo '</div>';
 
             echo '<p class="description">';
-            esc_html_e( 'To enable bidirectional checkin sync with Foursquare:', 'reactions-indieweb' );
+            esc_html_e( 'To enable bidirectional checkin sync with Foursquare:', 'reactions-for-indieweb' );
             echo '</p>';
             echo '<ol style="margin: 8px 0 12px 24px;">';
             echo '<li>' . wp_kses(
                 sprintf(
                     /* translators: %s: URL to Foursquare developers */
-                    __( 'Create an app at <a href="%s" target="_blank" rel="noopener">foursquare.com/developers/apps</a>', 'reactions-indieweb' ),
+                    __( 'Create an app at <a href="%s" target="_blank" rel="noopener">foursquare.com/developers/apps</a>', 'reactions-for-indieweb' ),
                     'https://foursquare.com/developers/apps'
                 ),
                 array( 'a' => array( 'href' => array(), 'target' => array(), 'rel' => array() ) )
             ) . '</li>';
-            echo '<li>' . esc_html__( 'Copy the Client ID and Client Secret', 'reactions-indieweb' ) . '</li>';
+            echo '<li>' . esc_html__( 'Copy the Client ID and Client Secret', 'reactions-for-indieweb' ) . '</li>';
             echo '<li>' . wp_kses(
                 sprintf(
                     /* translators: %s: URL to API settings page */
-                    __( 'Enter them in the <a href="%s">API Settings</a> page', 'reactions-indieweb' ),
+                    __( 'Enter them in the <a href="%s">API Settings</a> page', 'reactions-for-indieweb' ),
                     admin_url( 'admin.php?page=reactions-indieweb-apis' )
                 ),
                 array( 'a' => array( 'href' => array() ) )
             ) . '</li>';
-            echo '<li>' . esc_html__( 'Click "Connect to Foursquare" to authorize', 'reactions-indieweb' ) . '</li>';
+            echo '<li>' . esc_html__( 'Click "Connect to Foursquare" to authorize', 'reactions-for-indieweb' ) . '</li>';
             echo '</ol>';
 
             echo '<p>';
             echo '<a href="' . esc_url( admin_url( 'admin.php?page=reactions-indieweb-apis' ) ) . '" class="button">';
-            esc_html_e( 'Go to API Settings', 'reactions-indieweb' );
+            esc_html_e( 'Go to API Settings', 'reactions-for-indieweb' );
             echo '</a>';
             echo '</p>';
         }
@@ -1827,7 +1851,7 @@ class Settings_Page {
                 const btn = this;
                 const originalText = btn.innerHTML;
                 btn.disabled = true;
-                btn.innerHTML = '<span class="dashicons dashicons-update" style="margin-top: 4px; animation: rotation 1s linear infinite;"></span> <?php echo esc_js( __( 'Importing...', 'reactions-indieweb' ) ); ?>';
+                btn.innerHTML = '<span class="dashicons dashicons-update" style="margin-top: 4px; animation: rotation 1s linear infinite;"></span> <?php echo esc_js( __( 'Importing...', 'reactions-for-indieweb' ) ); ?>';
 
                 fetch(ajaxurl, {
                     method: 'POST',
@@ -1842,20 +1866,20 @@ class Settings_Page {
                     btn.disabled = false;
                     btn.innerHTML = originalText;
                     if (data.success) {
-                        alert('<?php echo esc_js( __( 'Import complete!', 'reactions-indieweb' ) ); ?> ' + data.data.message);
+                        alert('<?php echo esc_js( __( 'Import complete!', 'reactions-for-indieweb' ) ); ?> ' + data.data.message);
                     } else {
-                        alert('<?php echo esc_js( __( 'Import failed:', 'reactions-indieweb' ) ); ?> ' + data.data.message);
+                        alert('<?php echo esc_js( __( 'Import failed:', 'reactions-for-indieweb' ) ); ?> ' + data.data.message);
                     }
                 })
                 .catch(error => {
                     btn.disabled = false;
                     btn.innerHTML = originalText;
-                    alert('<?php echo esc_js( __( 'Import failed:', 'reactions-indieweb' ) ); ?> ' + error.message);
+                    alert('<?php echo esc_js( __( 'Import failed:', 'reactions-for-indieweb' ) ); ?> ' + error.message);
                 });
             });
 
             document.getElementById('foursquare-disconnect')?.addEventListener('click', function() {
-                if (!confirm('<?php echo esc_js( __( 'Are you sure you want to disconnect from Foursquare? You can reconnect later.', 'reactions-indieweb' ) ); ?>')) {
+                if (!confirm('<?php echo esc_js( __( 'Are you sure you want to disconnect from Foursquare? You can reconnect later.', 'reactions-for-indieweb' ) ); ?>')) {
                     return;
                 }
 
@@ -1876,12 +1900,12 @@ class Settings_Page {
                         location.reload();
                     } else {
                         btn.disabled = false;
-                        alert('<?php echo esc_js( __( 'Disconnect failed:', 'reactions-indieweb' ) ); ?> ' + data.data.message);
+                        alert('<?php echo esc_js( __( 'Disconnect failed:', 'reactions-for-indieweb' ) ); ?> ' + data.data.message);
                     }
                 })
                 .catch(error => {
                     btn.disabled = false;
-                    alert('<?php echo esc_js( __( 'Disconnect failed:', 'reactions-indieweb' ) ); ?> ' + error.message);
+                    alert('<?php echo esc_js( __( 'Disconnect failed:', 'reactions-for-indieweb' ) ); ?> ' + error.message);
                 });
             });
             </script>

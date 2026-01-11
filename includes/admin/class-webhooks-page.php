@@ -64,77 +64,77 @@ class Webhooks_Page {
         return array(
             'plex' => array(
                 'name'        => 'Plex',
-                'description' => __( 'Receive play notifications from Plex Media Server.', 'reactions-indieweb' ),
+                'description' => __( 'Receive play notifications from Plex Media Server.', 'reactions-for-indieweb' ),
                 'icon'        => 'dashicons-video-alt3',
                 'post_kind'   => 'watch',
                 'docs_url'    => 'https://support.plex.tv/articles/115002267687-webhooks/',
                 'fields'      => array(
                     'min_watch_percent' => array(
-                        'label'   => __( 'Minimum Watch Percentage', 'reactions-indieweb' ),
+                        'label'   => __( 'Minimum Watch Percentage', 'reactions-for-indieweb' ),
                         'type'    => 'number',
                         'min'     => 0,
                         'max'     => 100,
                         'default' => 80,
-                        'help'    => __( 'Only create posts when watched at least this percentage.', 'reactions-indieweb' ),
+                        'help'    => __( 'Only create posts when watched at least this percentage.', 'reactions-for-indieweb' ),
                     ),
                     'player_filter' => array(
-                        'label'       => __( 'Player Filter', 'reactions-indieweb' ),
+                        'label'       => __( 'Player Filter', 'reactions-for-indieweb' ),
                         'type'        => 'text',
-                        'placeholder' => __( 'Leave empty to accept all players', 'reactions-indieweb' ),
-                        'help'        => __( 'Comma-separated list of player names to accept.', 'reactions-indieweb' ),
+                        'placeholder' => __( 'Leave empty to accept all players', 'reactions-for-indieweb' ),
+                        'help'        => __( 'Comma-separated list of player names to accept.', 'reactions-for-indieweb' ),
                     ),
                 ),
             ),
             'jellyfin' => array(
                 'name'        => 'Jellyfin',
-                'description' => __( 'Receive play notifications from Jellyfin.', 'reactions-indieweb' ),
+                'description' => __( 'Receive play notifications from Jellyfin.', 'reactions-for-indieweb' ),
                 'icon'        => 'dashicons-video-alt3',
                 'post_kind'   => 'watch',
                 'docs_url'    => 'https://jellyfin.org/docs/general/server/plugins/webhooks/',
                 'fields'      => array(
                     'min_watch_percent' => array(
-                        'label'   => __( 'Minimum Watch Percentage', 'reactions-indieweb' ),
+                        'label'   => __( 'Minimum Watch Percentage', 'reactions-for-indieweb' ),
                         'type'    => 'number',
                         'min'     => 0,
                         'max'     => 100,
                         'default' => 80,
                     ),
                     'user_filter' => array(
-                        'label'       => __( 'User Filter', 'reactions-indieweb' ),
+                        'label'       => __( 'User Filter', 'reactions-for-indieweb' ),
                         'type'        => 'text',
-                        'placeholder' => __( 'Leave empty to accept all users', 'reactions-indieweb' ),
-                        'help'        => __( 'Comma-separated list of usernames to accept.', 'reactions-indieweb' ),
+                        'placeholder' => __( 'Leave empty to accept all users', 'reactions-for-indieweb' ),
+                        'help'        => __( 'Comma-separated list of usernames to accept.', 'reactions-for-indieweb' ),
                     ),
                 ),
             ),
             'trakt' => array(
                 'name'        => 'Trakt',
-                'description' => __( 'Receive scrobble notifications from Trakt (requires VIP).', 'reactions-indieweb' ),
+                'description' => __( 'Receive scrobble notifications from Trakt (requires VIP).', 'reactions-for-indieweb' ),
                 'icon'        => 'dashicons-video-alt2',
                 'post_kind'   => 'watch',
                 'docs_url'    => 'https://trakt.docs.apiary.io/#reference/webhooks',
             ),
             'listenbrainz' => array(
                 'name'        => 'ListenBrainz',
-                'description' => __( 'Receive listen notifications from ListenBrainz.', 'reactions-indieweb' ),
+                'description' => __( 'Receive listen notifications from ListenBrainz.', 'reactions-for-indieweb' ),
                 'icon'        => 'dashicons-format-audio',
                 'post_kind'   => 'listen',
                 'docs_url'    => 'https://listenbrainz.readthedocs.io/',
             ),
             'generic' => array(
                 'name'        => 'Generic Webhook',
-                'description' => __( 'Accept custom webhook payloads in a standard format.', 'reactions-indieweb' ),
+                'description' => __( 'Accept custom webhook payloads in a standard format.', 'reactions-for-indieweb' ),
                 'icon'        => 'dashicons-rest-api',
                 'post_kind'   => 'any',
                 'fields'      => array(
                     'auth_method' => array(
-                        'label'   => __( 'Authentication', 'reactions-indieweb' ),
+                        'label'   => __( 'Authentication', 'reactions-for-indieweb' ),
                         'type'    => 'select',
                         'options' => array(
-                            'token' => __( 'Bearer Token', 'reactions-indieweb' ),
-                            'hmac'  => __( 'HMAC Signature', 'reactions-indieweb' ),
-                            'basic' => __( 'Basic Auth', 'reactions-indieweb' ),
-                            'none'  => __( 'None', 'reactions-indieweb' ),
+                            'token' => __( 'Bearer Token', 'reactions-for-indieweb' ),
+                            'hmac'  => __( 'HMAC Signature', 'reactions-for-indieweb' ),
+                            'basic' => __( 'Basic Auth', 'reactions-for-indieweb' ),
+                            'none'  => __( 'None', 'reactions-for-indieweb' ),
                         ),
                         'default' => 'token',
                     ),
@@ -161,13 +161,13 @@ class Webhooks_Page {
             <h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 
             <p class="description">
-                <?php esc_html_e( 'Configure webhooks to automatically create posts when you watch, listen, or check in using external apps.', 'reactions-indieweb' ); ?>
+                <?php esc_html_e( 'Configure webhooks to automatically create posts when you watch, listen, or check in using external apps.', 'reactions-for-indieweb' ); ?>
             </p>
 
             <?php if ( ! empty( $pending ) ) : ?>
                 <div class="pending-scrobbles-section">
                     <h2>
-                        <?php esc_html_e( 'Pending Scrobbles', 'reactions-indieweb' ); ?>
+                        <?php esc_html_e( 'Pending Scrobbles', 'reactions-for-indieweb' ); ?>
                         <span class="count">(<?php echo count( $pending ); ?>)</span>
                     </h2>
                     <?php $this->render_pending_scrobbles( $pending ); ?>
@@ -189,7 +189,7 @@ class Webhooks_Page {
 
             <hr>
 
-            <h2><?php esc_html_e( 'Webhook Log', 'reactions-indieweb' ); ?></h2>
+            <h2><?php esc_html_e( 'Webhook Log', 'reactions-for-indieweb' ); ?></h2>
             <?php $this->render_webhook_log(); ?>
         </div>
         <?php
@@ -230,22 +230,22 @@ class Webhooks_Page {
             <div class="webhook-body" <?php echo $is_enabled ? '' : 'style="display: none;"'; ?>>
                 <!-- Webhook URL -->
                 <div class="webhook-url-section">
-                    <label><?php esc_html_e( 'Webhook URL', 'reactions-indieweb' ); ?></label>
+                    <label><?php esc_html_e( 'Webhook URL', 'reactions-for-indieweb' ); ?></label>
                     <div class="webhook-url-field">
                         <input type="text" value="<?php echo esc_url( $webhook_url ); ?>" readonly class="webhook-url-input">
                         <button type="button" class="button copy-webhook-url" data-url="<?php echo esc_url( $webhook_url ); ?>">
                             <span class="dashicons dashicons-clipboard"></span>
-                            <?php esc_html_e( 'Copy', 'reactions-indieweb' ); ?>
+                            <?php esc_html_e( 'Copy', 'reactions-for-indieweb' ); ?>
                         </button>
                     </div>
                     <p class="description">
-                        <?php esc_html_e( 'Use this URL in your external service to send webhook notifications.', 'reactions-indieweb' ); ?>
+                        <?php esc_html_e( 'Use this URL in your external service to send webhook notifications.', 'reactions-for-indieweb' ); ?>
                     </p>
                 </div>
 
                 <!-- Secret Key -->
                 <div class="webhook-secret-section">
-                    <label><?php esc_html_e( 'Secret Key', 'reactions-indieweb' ); ?></label>
+                    <label><?php esc_html_e( 'Secret Key', 'reactions-for-indieweb' ); ?></label>
                     <div class="webhook-secret-field">
                         <input type="password"
                                name="reactions_indieweb_webhook_settings[<?php echo esc_attr( $webhook_id ); ?>][secret]"
@@ -257,41 +257,41 @@ class Webhooks_Page {
                         </button>
                         <button type="button" class="button regenerate-secret" data-webhook="<?php echo esc_attr( $webhook_id ); ?>">
                             <span class="dashicons dashicons-update"></span>
-                            <?php esc_html_e( 'Generate', 'reactions-indieweb' ); ?>
+                            <?php esc_html_e( 'Generate', 'reactions-for-indieweb' ); ?>
                         </button>
                     </div>
                     <p class="description">
-                        <?php esc_html_e( 'Secret key for authenticating webhook requests.', 'reactions-indieweb' ); ?>
+                        <?php esc_html_e( 'Secret key for authenticating webhook requests.', 'reactions-for-indieweb' ); ?>
                     </p>
                 </div>
 
                 <!-- Common Settings -->
                 <table class="form-table webhook-settings">
                     <tr>
-                        <th scope="row"><?php esc_html_e( 'Auto-create Posts', 'reactions-indieweb' ); ?></th>
+                        <th scope="row"><?php esc_html_e( 'Auto-create Posts', 'reactions-for-indieweb' ); ?></th>
                         <td>
                             <label>
                                 <input type="checkbox"
                                        name="reactions_indieweb_webhook_settings[<?php echo esc_attr( $webhook_id ); ?>][auto_post]"
                                        value="1"
                                        <?php checked( ! empty( $settings['auto_post'] ) ); ?>>
-                                <?php esc_html_e( 'Automatically create posts from webhook data', 'reactions-indieweb' ); ?>
+                                <?php esc_html_e( 'Automatically create posts from webhook data', 'reactions-for-indieweb' ); ?>
                             </label>
                             <p class="description">
-                                <?php esc_html_e( 'If disabled, incoming scrobbles will be queued for manual review.', 'reactions-indieweb' ); ?>
+                                <?php esc_html_e( 'If disabled, incoming scrobbles will be queued for manual review.', 'reactions-for-indieweb' ); ?>
                             </p>
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row"><?php esc_html_e( 'Post Status', 'reactions-indieweb' ); ?></th>
+                        <th scope="row"><?php esc_html_e( 'Post Status', 'reactions-for-indieweb' ); ?></th>
                         <td>
                             <select name="reactions_indieweb_webhook_settings[<?php echo esc_attr( $webhook_id ); ?>][post_status]">
                                 <?php
                                 $statuses = array(
-                                    'publish' => __( 'Published', 'reactions-indieweb' ),
-                                    'draft'   => __( 'Draft', 'reactions-indieweb' ),
-                                    'pending' => __( 'Pending Review', 'reactions-indieweb' ),
-                                    'private' => __( 'Private', 'reactions-indieweb' ),
+                                    'publish' => __( 'Published', 'reactions-for-indieweb' ),
+                                    'draft'   => __( 'Draft', 'reactions-for-indieweb' ),
+                                    'pending' => __( 'Pending Review', 'reactions-for-indieweb' ),
+                                    'private' => __( 'Private', 'reactions-for-indieweb' ),
                                 );
                                 $current_status = $settings['post_status'] ?? 'draft';
                                 foreach ( $statuses as $value => $label ) {
@@ -373,7 +373,7 @@ class Webhooks_Page {
             <div class="webhook-footer">
                 <?php if ( ! empty( $config['docs_url'] ) ) : ?>
                     <a href="<?php echo esc_url( $config['docs_url'] ); ?>" target="_blank" rel="noopener noreferrer">
-                        <?php esc_html_e( 'Documentation', 'reactions-indieweb' ); ?>
+                        <?php esc_html_e( 'Documentation', 'reactions-for-indieweb' ); ?>
                         <span class="dashicons dashicons-external"></span>
                     </a>
                 <?php endif; ?>
@@ -403,10 +403,10 @@ class Webhooks_Page {
         <div class="pending-scrobbles">
             <div class="pending-actions">
                 <button type="button" class="button approve-all-scrobbles">
-                    <?php esc_html_e( 'Approve All', 'reactions-indieweb' ); ?>
+                    <?php esc_html_e( 'Approve All', 'reactions-for-indieweb' ); ?>
                 </button>
                 <button type="button" class="button reject-all-scrobbles">
-                    <?php esc_html_e( 'Reject All', 'reactions-indieweb' ); ?>
+                    <?php esc_html_e( 'Reject All', 'reactions-for-indieweb' ); ?>
                 </button>
             </div>
 
@@ -414,11 +414,11 @@ class Webhooks_Page {
                 <thead>
                     <tr>
                         <th class="column-cb"><input type="checkbox" class="select-all-scrobbles"></th>
-                        <th><?php esc_html_e( 'Source', 'reactions-indieweb' ); ?></th>
-                        <th><?php esc_html_e( 'Type', 'reactions-indieweb' ); ?></th>
-                        <th><?php esc_html_e( 'Content', 'reactions-indieweb' ); ?></th>
-                        <th><?php esc_html_e( 'Received', 'reactions-indieweb' ); ?></th>
-                        <th><?php esc_html_e( 'Actions', 'reactions-indieweb' ); ?></th>
+                        <th><?php esc_html_e( 'Source', 'reactions-for-indieweb' ); ?></th>
+                        <th><?php esc_html_e( 'Type', 'reactions-for-indieweb' ); ?></th>
+                        <th><?php esc_html_e( 'Content', 'reactions-for-indieweb' ); ?></th>
+                        <th><?php esc_html_e( 'Received', 'reactions-for-indieweb' ); ?></th>
+                        <th><?php esc_html_e( 'Actions', 'reactions-for-indieweb' ); ?></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -438,7 +438,7 @@ class Webhooks_Page {
                             <td>
                                 <?php
                                 if ( ! empty( $scrobble['received_at'] ) ) {
-                                    echo esc_html( human_time_diff( $scrobble['received_at'], time() ) . ' ' . __( 'ago', 'reactions-indieweb' ) );
+                                    echo esc_html( human_time_diff( $scrobble['received_at'], time() ) . ' ' . __( 'ago', 'reactions-for-indieweb' ) );
                                 }
                                 ?>
                             </td>
@@ -470,7 +470,7 @@ class Webhooks_Page {
         $log = get_option( 'reactions_indieweb_webhook_log', array() );
 
         if ( empty( $log ) ) {
-            echo '<p class="description">' . esc_html__( 'No webhook requests received yet.', 'reactions-indieweb' ) . '</p>';
+            echo '<p class="description">' . esc_html__( 'No webhook requests received yet.', 'reactions-for-indieweb' ) . '</p>';
             return;
         }
 
@@ -486,11 +486,11 @@ class Webhooks_Page {
         <table class="wp-list-table widefat fixed striped">
             <thead>
                 <tr>
-                    <th><?php esc_html_e( 'Time', 'reactions-indieweb' ); ?></th>
-                    <th><?php esc_html_e( 'Source', 'reactions-indieweb' ); ?></th>
-                    <th><?php esc_html_e( 'Status', 'reactions-indieweb' ); ?></th>
-                    <th><?php esc_html_e( 'Message', 'reactions-indieweb' ); ?></th>
-                    <th><?php esc_html_e( 'IP Address', 'reactions-indieweb' ); ?></th>
+                    <th><?php esc_html_e( 'Time', 'reactions-for-indieweb' ); ?></th>
+                    <th><?php esc_html_e( 'Source', 'reactions-for-indieweb' ); ?></th>
+                    <th><?php esc_html_e( 'Status', 'reactions-for-indieweb' ); ?></th>
+                    <th><?php esc_html_e( 'Message', 'reactions-for-indieweb' ); ?></th>
+                    <th><?php esc_html_e( 'IP Address', 'reactions-for-indieweb' ); ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -522,7 +522,7 @@ class Webhooks_Page {
 
         <p>
             <button type="button" class="button clear-webhook-log">
-                <?php esc_html_e( 'Clear Log', 'reactions-indieweb' ); ?>
+                <?php esc_html_e( 'Clear Log', 'reactions-for-indieweb' ); ?>
             </button>
         </p>
         <?php
@@ -537,13 +537,13 @@ class Webhooks_Page {
         check_ajax_referer( 'reactions_indieweb_admin', 'nonce' );
 
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'reactions-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'reactions-for-indieweb' ) ) );
         }
 
         $webhook = isset( $_POST['webhook'] ) ? sanitize_text_field( wp_unslash( $_POST['webhook'] ) ) : '';
 
         if ( empty( $webhook ) || ! isset( $this->webhook_configs[ $webhook ] ) ) {
-            wp_send_json_error( array( 'message' => __( 'Invalid webhook.', 'reactions-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Invalid webhook.', 'reactions-for-indieweb' ) ) );
         }
 
         // Generate new secret.
@@ -569,12 +569,12 @@ class Webhooks_Page {
         check_ajax_referer( 'reactions_indieweb_admin', 'nonce' );
 
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'reactions-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'reactions-for-indieweb' ) ) );
         }
 
         delete_option( 'reactions_indieweb_pending_scrobbles' );
 
-        wp_send_json_success( array( 'message' => __( 'Pending scrobbles cleared.', 'reactions-indieweb' ) ) );
+        wp_send_json_success( array( 'message' => __( 'Pending scrobbles cleared.', 'reactions-for-indieweb' ) ) );
     }
 
     /**
@@ -586,7 +586,7 @@ class Webhooks_Page {
         check_ajax_referer( 'reactions_indieweb_admin', 'nonce' );
 
         if ( ! current_user_can( 'edit_posts' ) ) {
-            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'reactions-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'reactions-for-indieweb' ) ) );
         }
 
         $index = isset( $_POST['index'] ) ? absint( $_POST['index'] ) : -1;
@@ -594,7 +594,7 @@ class Webhooks_Page {
         $pending = get_option( 'reactions_indieweb_pending_scrobbles', array() );
 
         if ( ! isset( $pending[ $index ] ) ) {
-            wp_send_json_error( array( 'message' => __( 'Scrobble not found.', 'reactions-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Scrobble not found.', 'reactions-for-indieweb' ) ) );
         }
 
         $scrobble = $pending[ $index ];
@@ -614,7 +614,7 @@ class Webhooks_Page {
         wp_send_json_success( array(
             'post_id'  => $post_id,
             'edit_url' => get_edit_post_link( $post_id, 'raw' ),
-            'message'  => __( 'Post created successfully.', 'reactions-indieweb' ),
+            'message'  => __( 'Post created successfully.', 'reactions-for-indieweb' ),
         ) );
     }
 
@@ -627,7 +627,7 @@ class Webhooks_Page {
         check_ajax_referer( 'reactions_indieweb_admin', 'nonce' );
 
         if ( ! current_user_can( 'edit_posts' ) ) {
-            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'reactions-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'reactions-for-indieweb' ) ) );
         }
 
         $index = isset( $_POST['index'] ) ? absint( $_POST['index'] ) : -1;
@@ -635,7 +635,7 @@ class Webhooks_Page {
         $pending = get_option( 'reactions_indieweb_pending_scrobbles', array() );
 
         if ( ! isset( $pending[ $index ] ) ) {
-            wp_send_json_error( array( 'message' => __( 'Scrobble not found.', 'reactions-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Scrobble not found.', 'reactions-for-indieweb' ) ) );
         }
 
         // Remove from pending.
@@ -643,7 +643,7 @@ class Webhooks_Page {
         $pending = array_values( $pending ); // Re-index.
         update_option( 'reactions_indieweb_pending_scrobbles', $pending );
 
-        wp_send_json_success( array( 'message' => __( 'Scrobble rejected.', 'reactions-indieweb' ) ) );
+        wp_send_json_success( array( 'message' => __( 'Scrobble rejected.', 'reactions-for-indieweb' ) ) );
     }
 
     /**

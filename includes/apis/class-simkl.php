@@ -182,7 +182,7 @@ class Simkl extends API_Base {
 			);
 
 			if ( is_wp_error( $response ) ) {
-				throw new \Exception( $response->get_error_message() );
+				throw new \Exception( esc_html( $response->get_error_message() ) );
 			}
 
 			$body = json_decode( wp_remote_retrieve_body( $response ), true );

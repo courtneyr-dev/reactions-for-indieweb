@@ -31,6 +31,7 @@ import { search as searchIcon } from '@wordpress/icons';
  * Internal dependencies
  */
 import { STORE_NAME } from '../../stores/post-kinds';
+import SyndicationControls from './SyndicationControls';
 
 /**
  * Kind Fields Component
@@ -90,24 +91,24 @@ function CitationFields() {
 	return (
 		<VStack spacing={ 4 } className="reactions-indieweb-kind-fields">
 			<TextControl
-				label={ __( 'URL', 'reactions-indieweb' ) }
+				label={ __( 'URL', 'reactions-for-indieweb' ) }
 				value={ citeUrl }
 				onChange={ ( value ) => updateKindMeta( 'cite_url', value ) }
 				type="url"
 				placeholder="https://"
 			/>
 			<TextControl
-				label={ __( 'Title', 'reactions-indieweb' ) }
+				label={ __( 'Title', 'reactions-for-indieweb' ) }
 				value={ citeName }
 				onChange={ ( value ) => updateKindMeta( 'cite_name', value ) }
 			/>
 			<TextControl
-				label={ __( 'Author', 'reactions-indieweb' ) }
+				label={ __( 'Author', 'reactions-for-indieweb' ) }
 				value={ citeAuthor }
 				onChange={ ( value ) => updateKindMeta( 'cite_author', value ) }
 			/>
 			<TextareaControl
-				label={ __( 'Summary', 'reactions-indieweb' ) }
+				label={ __( 'Summary', 'reactions-for-indieweb' ) }
 				value={ citeSummary }
 				onChange={ ( value ) => updateKindMeta( 'cite_summary', value ) }
 				rows={ 3 }
@@ -136,27 +137,27 @@ function RSVPFields() {
 	return (
 		<VStack spacing={ 4 } className="reactions-indieweb-kind-fields">
 			<TextControl
-				label={ __( 'Event URL', 'reactions-indieweb' ) }
+				label={ __( 'Event URL', 'reactions-for-indieweb' ) }
 				value={ citeUrl }
 				onChange={ ( value ) => updateKindMeta( 'cite_url', value ) }
 				type="url"
 				placeholder="https://"
 			/>
 			<TextControl
-				label={ __( 'Event Name', 'reactions-indieweb' ) }
+				label={ __( 'Event Name', 'reactions-for-indieweb' ) }
 				value={ citeName }
 				onChange={ ( value ) => updateKindMeta( 'cite_name', value ) }
 			/>
 			<SelectControl
-				label={ __( 'RSVP Status', 'reactions-indieweb' ) }
+				label={ __( 'RSVP Status', 'reactions-for-indieweb' ) }
 				value={ rsvpStatus }
 				onChange={ ( value ) => updateKindMeta( 'rsvp_status', value ) }
 				options={ [
-					{ label: __( 'Select status…', 'reactions-indieweb' ), value: '' },
-					{ label: __( '✅ Yes, attending', 'reactions-indieweb' ), value: 'yes' },
-					{ label: __( '❌ No, can\'t make it', 'reactions-indieweb' ), value: 'no' },
-					{ label: __( '🤔 Maybe', 'reactions-indieweb' ), value: 'maybe' },
-					{ label: __( '👀 Interested', 'reactions-indieweb' ), value: 'interested' },
+					{ label: __( 'Select status…', 'reactions-for-indieweb' ), value: '' },
+					{ label: __( '✅ Yes, attending', 'reactions-for-indieweb' ), value: 'yes' },
+					{ label: __( '❌ No, can\'t make it', 'reactions-for-indieweb' ), value: 'no' },
+					{ label: __( '🤔 Maybe', 'reactions-for-indieweb' ), value: 'maybe' },
+					{ label: __( '👀 Interested', 'reactions-for-indieweb' ), value: 'interested' },
 				] }
 			/>
 		</VStack>
@@ -195,42 +196,42 @@ function CheckinFields() {
 	return (
 		<VStack spacing={ 4 } className="reactions-indieweb-kind-fields">
 			<TextControl
-				label={ __( 'Venue Name', 'reactions-indieweb' ) }
+				label={ __( 'Venue Name', 'reactions-for-indieweb' ) }
 				value={ checkinName }
 				onChange={ ( value ) => updateKindMeta( 'checkin_name', value ) }
 			/>
 			<TextControl
-				label={ __( 'Address', 'reactions-indieweb' ) }
+				label={ __( 'Address', 'reactions-for-indieweb' ) }
 				value={ checkinAddress }
 				onChange={ ( value ) => updateKindMeta( 'checkin_address', value ) }
 			/>
 			<HStack>
 				<TextControl
-					label={ __( 'City', 'reactions-indieweb' ) }
+					label={ __( 'City', 'reactions-for-indieweb' ) }
 					value={ checkinLocality }
 					onChange={ ( value ) => updateKindMeta( 'checkin_locality', value ) }
 				/>
 				<TextControl
-					label={ __( 'State/Region', 'reactions-indieweb' ) }
+					label={ __( 'State/Region', 'reactions-for-indieweb' ) }
 					value={ checkinRegion }
 					onChange={ ( value ) => updateKindMeta( 'checkin_region', value ) }
 				/>
 			</HStack>
 			<TextControl
-				label={ __( 'Country', 'reactions-indieweb' ) }
+				label={ __( 'Country', 'reactions-for-indieweb' ) }
 				value={ checkinCountry }
 				onChange={ ( value ) => updateKindMeta( 'checkin_country', value ) }
 			/>
 			<HStack>
 				<TextControl
-					label={ __( 'Latitude', 'reactions-indieweb' ) }
+					label={ __( 'Latitude', 'reactions-for-indieweb' ) }
 					value={ geoLatitude }
 					onChange={ ( value ) => updateKindMeta( 'geo_latitude', parseFloat( value ) || 0 ) }
 					type="number"
 					step="0.0000001"
 				/>
 				<TextControl
-					label={ __( 'Longitude', 'reactions-indieweb' ) }
+					label={ __( 'Longitude', 'reactions-for-indieweb' ) }
 					value={ geoLongitude }
 					onChange={ ( value ) => updateKindMeta( 'geo_longitude', parseFloat( value ) || 0 ) }
 					type="number"
@@ -289,19 +290,19 @@ function ListenFields() {
 
 	return (
 		<VStack spacing={ 4 } className="reactions-indieweb-kind-fields">
-			<BaseControl label={ __( 'Search Music', 'reactions-indieweb' ) }>
+			<BaseControl label={ __( 'Search Music', 'reactions-for-indieweb' ) }>
 				<HStack>
 					<TextControl
 						value={ searchQuery }
 						onChange={ setSearchQuery }
-						placeholder={ __( 'Track name or artist…', 'reactions-indieweb' ) }
+						placeholder={ __( 'Track name or artist…', 'reactions-for-indieweb' ) }
 						onKeyDown={ ( e ) => e.key === 'Enter' && handleSearch() }
 					/>
 					<Button
 						icon={ searchIcon }
 						onClick={ handleSearch }
 						disabled={ isLoading }
-						label={ __( 'Search', 'reactions-indieweb' ) }
+						label={ __( 'Search', 'reactions-for-indieweb' ) }
 					/>
 				</HStack>
 			</BaseControl>
@@ -330,26 +331,27 @@ function ListenFields() {
 			) }
 
 			<TextControl
-				label={ __( 'Track', 'reactions-indieweb' ) }
+				label={ __( 'Track', 'reactions-for-indieweb' ) }
 				value={ listenTrack }
 				onChange={ ( value ) => updateKindMeta( 'listen_track', value ) }
 			/>
 			<TextControl
-				label={ __( 'Artist', 'reactions-indieweb' ) }
+				label={ __( 'Artist', 'reactions-for-indieweb' ) }
 				value={ listenArtist }
 				onChange={ ( value ) => updateKindMeta( 'listen_artist', value ) }
 			/>
 			<TextControl
-				label={ __( 'Album', 'reactions-indieweb' ) }
+				label={ __( 'Album', 'reactions-for-indieweb' ) }
 				value={ listenAlbum }
 				onChange={ ( value ) => updateKindMeta( 'listen_album', value ) }
 			/>
 			<TextControl
-				label={ __( 'Album Art URL', 'reactions-indieweb' ) }
+				label={ __( 'Album Art URL', 'reactions-for-indieweb' ) }
 				value={ listenCover }
 				onChange={ ( value ) => updateKindMeta( 'listen_cover', value ) }
 				type="url"
 			/>
+			<SyndicationControls kind="listen" />
 		</VStack>
 	);
 }
@@ -403,19 +405,19 @@ function WatchFields() {
 
 	return (
 		<VStack spacing={ 4 } className="reactions-indieweb-kind-fields">
-			<BaseControl label={ __( 'Search Movies/TV', 'reactions-indieweb' ) }>
+			<BaseControl label={ __( 'Search Movies/TV', 'reactions-for-indieweb' ) }>
 				<HStack>
 					<TextControl
 						value={ searchQuery }
 						onChange={ setSearchQuery }
-						placeholder={ __( 'Title…', 'reactions-indieweb' ) }
+						placeholder={ __( 'Title…', 'reactions-for-indieweb' ) }
 						onKeyDown={ ( e ) => e.key === 'Enter' && handleSearch() }
 					/>
 					<Button
 						icon={ searchIcon }
 						onClick={ handleSearch }
 						disabled={ isLoading }
-						label={ __( 'Search', 'reactions-indieweb' ) }
+						label={ __( 'Search', 'reactions-for-indieweb' ) }
 					/>
 				</HStack>
 			</BaseControl>
@@ -442,36 +444,37 @@ function WatchFields() {
 			) }
 
 			<TextControl
-				label={ __( 'Title', 'reactions-indieweb' ) }
+				label={ __( 'Title', 'reactions-for-indieweb' ) }
 				value={ watchTitle }
 				onChange={ ( value ) => updateKindMeta( 'watch_title', value ) }
 			/>
 			<TextControl
-				label={ __( 'Year', 'reactions-indieweb' ) }
+				label={ __( 'Year', 'reactions-for-indieweb' ) }
 				value={ watchYear }
 				onChange={ ( value ) => updateKindMeta( 'watch_year', value ) }
 			/>
 			<SelectControl
-				label={ __( 'Status', 'reactions-indieweb' ) }
+				label={ __( 'Status', 'reactions-for-indieweb' ) }
 				value={ watchStatus }
 				onChange={ ( value ) => updateKindMeta( 'watch_status', value ) }
 				options={ [
-					{ label: __( 'Watched', 'reactions-indieweb' ), value: 'watched' },
-					{ label: __( 'Currently Watching', 'reactions-indieweb' ), value: 'watching' },
-					{ label: __( 'Abandoned', 'reactions-indieweb' ), value: 'abandoned' },
+					{ label: __( 'Watched', 'reactions-for-indieweb' ), value: 'watched' },
+					{ label: __( 'Currently Watching', 'reactions-for-indieweb' ), value: 'watching' },
+					{ label: __( 'Abandoned', 'reactions-for-indieweb' ), value: 'abandoned' },
 				] }
 			/>
 			<ToggleControl
-				label={ __( 'Contains spoilers', 'reactions-indieweb' ) }
+				label={ __( 'Contains spoilers', 'reactions-for-indieweb' ) }
 				checked={ watchSpoilers }
 				onChange={ ( value ) => updateKindMeta( 'watch_spoilers', value ) }
 			/>
 			<TextControl
-				label={ __( 'Poster URL', 'reactions-indieweb' ) }
+				label={ __( 'Poster URL', 'reactions-for-indieweb' ) }
 				value={ watchPoster }
 				onChange={ ( value ) => updateKindMeta( 'watch_poster', value ) }
 				type="url"
 			/>
+			<SyndicationControls kind="watch" />
 		</VStack>
 	);
 }
@@ -530,19 +533,19 @@ function ReadFields() {
 
 	return (
 		<VStack spacing={ 4 } className="reactions-indieweb-kind-fields">
-			<BaseControl label={ __( 'Search Books', 'reactions-indieweb' ) }>
+			<BaseControl label={ __( 'Search Books', 'reactions-for-indieweb' ) }>
 				<HStack>
 					<TextControl
 						value={ searchQuery }
 						onChange={ setSearchQuery }
-						placeholder={ __( 'Title or ISBN…', 'reactions-indieweb' ) }
+						placeholder={ __( 'Title or ISBN…', 'reactions-for-indieweb' ) }
 						onKeyDown={ ( e ) => e.key === 'Enter' && handleSearch() }
 					/>
 					<Button
 						icon={ searchIcon }
 						onClick={ handleSearch }
 						disabled={ isLoading }
-						label={ __( 'Search', 'reactions-indieweb' ) }
+						label={ __( 'Search', 'reactions-for-indieweb' ) }
 					/>
 				</HStack>
 			</BaseControl>
@@ -571,41 +574,41 @@ function ReadFields() {
 			) }
 
 			<TextControl
-				label={ __( 'Title', 'reactions-indieweb' ) }
+				label={ __( 'Title', 'reactions-for-indieweb' ) }
 				value={ readTitle }
 				onChange={ ( value ) => updateKindMeta( 'read_title', value ) }
 			/>
 			<TextControl
-				label={ __( 'Author', 'reactions-indieweb' ) }
+				label={ __( 'Author', 'reactions-for-indieweb' ) }
 				value={ readAuthor }
 				onChange={ ( value ) => updateKindMeta( 'read_author', value ) }
 			/>
 			<TextControl
-				label={ __( 'ISBN', 'reactions-indieweb' ) }
+				label={ __( 'ISBN', 'reactions-for-indieweb' ) }
 				value={ readIsbn }
 				onChange={ ( value ) => updateKindMeta( 'read_isbn', value ) }
 			/>
 			<SelectControl
-				label={ __( 'Status', 'reactions-indieweb' ) }
+				label={ __( 'Status', 'reactions-for-indieweb' ) }
 				value={ readStatus }
 				onChange={ ( value ) => updateKindMeta( 'read_status', value ) }
 				options={ [
-					{ label: __( 'To Read', 'reactions-indieweb' ), value: 'to-read' },
-					{ label: __( 'Currently Reading', 'reactions-indieweb' ), value: 'reading' },
-					{ label: __( 'Finished', 'reactions-indieweb' ), value: 'finished' },
-					{ label: __( 'Abandoned', 'reactions-indieweb' ), value: 'abandoned' },
+					{ label: __( 'To Read', 'reactions-for-indieweb' ), value: 'to-read' },
+					{ label: __( 'Currently Reading', 'reactions-for-indieweb' ), value: 'reading' },
+					{ label: __( 'Finished', 'reactions-for-indieweb' ), value: 'finished' },
+					{ label: __( 'Abandoned', 'reactions-for-indieweb' ), value: 'abandoned' },
 				] }
 			/>
 			<HStack>
 				<TextControl
-					label={ __( 'Current Page', 'reactions-indieweb' ) }
+					label={ __( 'Current Page', 'reactions-for-indieweb' ) }
 					value={ readProgress }
 					onChange={ ( value ) => updateKindMeta( 'read_progress', parseInt( value, 10 ) || 0 ) }
 					type="number"
 					min="0"
 				/>
 				<TextControl
-					label={ __( 'Total Pages', 'reactions-indieweb' ) }
+					label={ __( 'Total Pages', 'reactions-for-indieweb' ) }
 					value={ readPages }
 					onChange={ ( value ) => updateKindMeta( 'read_pages', parseInt( value, 10 ) || 0 ) }
 					type="number"
@@ -613,7 +616,7 @@ function ReadFields() {
 				/>
 			</HStack>
 			<TextControl
-				label={ __( 'Cover URL', 'reactions-indieweb' ) }
+				label={ __( 'Cover URL', 'reactions-for-indieweb' ) }
 				value={ readCover }
 				onChange={ ( value ) => updateKindMeta( 'read_cover', value ) }
 				type="url"
@@ -643,24 +646,24 @@ function EventFields() {
 	return (
 		<VStack spacing={ 4 } className="reactions-indieweb-kind-fields">
 			<TextControl
-				label={ __( 'Start Date/Time', 'reactions-indieweb' ) }
+				label={ __( 'Start Date/Time', 'reactions-for-indieweb' ) }
 				value={ eventStart }
 				onChange={ ( value ) => updateKindMeta( 'event_start', value ) }
 				type="datetime-local"
 			/>
 			<TextControl
-				label={ __( 'End Date/Time', 'reactions-indieweb' ) }
+				label={ __( 'End Date/Time', 'reactions-for-indieweb' ) }
 				value={ eventEnd }
 				onChange={ ( value ) => updateKindMeta( 'event_end', value ) }
 				type="datetime-local"
 			/>
 			<TextControl
-				label={ __( 'Location', 'reactions-indieweb' ) }
+				label={ __( 'Location', 'reactions-for-indieweb' ) }
 				value={ eventLocation }
 				onChange={ ( value ) => updateKindMeta( 'event_location', value ) }
 			/>
 			<TextControl
-				label={ __( 'Event URL', 'reactions-indieweb' ) }
+				label={ __( 'Event URL', 'reactions-for-indieweb' ) }
 				value={ eventUrl }
 				onChange={ ( value ) => updateKindMeta( 'event_url', value ) }
 				type="url"
@@ -705,18 +708,18 @@ function ReviewFields() {
 	return (
 		<VStack spacing={ 4 } className="reactions-indieweb-kind-fields">
 			<TextControl
-				label={ __( 'Item Name', 'reactions-indieweb' ) }
+				label={ __( 'Item Name', 'reactions-for-indieweb' ) }
 				value={ reviewItemName }
 				onChange={ ( value ) => updateKindMeta( 'review_item_name', value ) }
 			/>
 			<TextControl
-				label={ __( 'Item URL', 'reactions-indieweb' ) }
+				label={ __( 'Item URL', 'reactions-for-indieweb' ) }
 				value={ reviewItemUrl }
 				onChange={ ( value ) => updateKindMeta( 'review_item_url', value ) }
 				type="url"
 				placeholder="https://"
 			/>
-			<BaseControl label={ __( 'Rating', 'reactions-indieweb' ) }>
+			<BaseControl label={ __( 'Rating', 'reactions-for-indieweb' ) }>
 				<div className="reactions-indieweb-star-rating">
 					<span className="reactions-indieweb-stars" aria-hidden="true">
 						{ stars.join( '' ) }
@@ -732,7 +735,7 @@ function ReviewFields() {
 				</div>
 			</BaseControl>
 			<TextControl
-				label={ __( 'Maximum Rating', 'reactions-indieweb' ) }
+				label={ __( 'Maximum Rating', 'reactions-for-indieweb' ) }
 				value={ reviewBest }
 				onChange={ ( value ) => updateKindMeta( 'review_best', parseInt( value, 10 ) || 5 ) }
 				type="number"

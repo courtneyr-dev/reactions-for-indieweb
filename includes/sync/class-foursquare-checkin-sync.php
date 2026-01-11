@@ -285,7 +285,7 @@ class Foursquare_Checkin_Sync extends Checkin_Sync_Base {
 		if ( ! $this->is_connected() ) {
 			return new \WP_Error(
 				'not_connected',
-				__( 'Foursquare is not connected. Please authorize first.', 'reactions-indieweb' ),
+				__( 'Foursquare is not connected. Please authorize first.', 'reactions-for-indieweb' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -315,7 +315,7 @@ class Foursquare_Checkin_Sync extends Checkin_Sync_Base {
 
 		return rest_ensure_response( array(
 			'success' => true,
-			'message' => __( 'Foursquare disconnected.', 'reactions-indieweb' ),
+			'message' => __( 'Foursquare disconnected.', 'reactions-for-indieweb' ),
 		) );
 	}
 
@@ -451,8 +451,8 @@ class Foursquare_Checkin_Sync extends Checkin_Sync_Base {
 			'post_content' => $external_checkin['shout'] ?? '',
 			'post_title'   => sprintf(
 				/* translators: %s: venue name */
-				__( 'Checked in at %s', 'reactions-indieweb' ),
-				$venue['name'] ?? __( 'Unknown venue', 'reactions-indieweb' )
+				__( 'Checked in at %s', 'reactions-for-indieweb' ),
+				$venue['name'] ?? __( 'Unknown venue', 'reactions-for-indieweb' )
 			),
 		);
 
@@ -572,7 +572,7 @@ class Foursquare_Checkin_Sync extends Checkin_Sync_Base {
 	 */
 	private function handle_response( $response ): array {
 		if ( is_wp_error( $response ) ) {
-			throw new \Exception( $response->get_error_message() );
+			throw new \Exception( esc_html( $response->get_error_message() ) );
 		}
 
 		$code = wp_remote_retrieve_response_code( $response );
@@ -580,7 +580,7 @@ class Foursquare_Checkin_Sync extends Checkin_Sync_Base {
 
 		if ( $code >= 400 ) {
 			$error_msg = $body['meta']['errorDetail'] ?? $body['meta']['errorType'] ?? 'API error';
-			throw new \Exception( $error_msg, $code );
+			throw new \Exception( esc_html( $error_msg ), (int) $code );
 		}
 
 		return $body ?? array();

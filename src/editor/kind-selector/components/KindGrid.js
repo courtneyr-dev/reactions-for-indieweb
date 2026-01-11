@@ -3,7 +3,7 @@
  *
  * A visual grid for selecting post kinds with icons and keyboard navigation.
  *
- * @package ReactionsForIndieWeb
+ * @package
  * @since   1.0.0
  */
 
@@ -99,7 +99,7 @@ export default function KindGrid( { kinds, selectedKind, onSelect } ) {
 			ref={ gridRef }
 			className="reactions-indieweb-kind-grid"
 			role="radiogroup"
-			aria-label={ __( 'Select post kind', 'reactions-indieweb' ) }
+			aria-label={ __( 'Select post kind', 'reactions-for-indieweb' ) }
 		>
 			{ sortedKinds.map( ( kind, index ) => {
 				const Icon = kindIcons[ kind.slug ] || kindIcons.note;
@@ -126,7 +126,7 @@ export default function KindGrid( { kinds, selectedKind, onSelect } ) {
 							</span>
 							{ isSelected && (
 								<VisuallyHidden>
-									{ __( '(selected)', 'reactions-indieweb' ) }
+									{ __( '(selected)', 'reactions-for-indieweb' ) }
 								</VisuallyHidden>
 							) }
 						</Button>

@@ -105,7 +105,7 @@ class Foursquare extends API_Base {
 		);
 
 		if ( is_wp_error( $response ) ) {
-			throw new \Exception( $response->get_error_message() );
+			throw new \Exception( esc_html( $response->get_error_message() ) );
 		}
 
 		$code = wp_remote_retrieve_response_code( $response );
@@ -114,7 +114,7 @@ class Foursquare extends API_Base {
 
 		if ( $code >= 400 ) {
 			$message = $data['message'] ?? 'API error';
-			throw new \Exception( $message, $code );
+			throw new \Exception( esc_html( $message ), (int) $code );
 		}
 
 		return $data ?? array();

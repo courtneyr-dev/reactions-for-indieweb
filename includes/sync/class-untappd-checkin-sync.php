@@ -417,7 +417,7 @@ class Untappd_Checkin_Sync extends Checkin_Sync_Base {
         $token = $access_token ?? ( $credentials['access_token'] ?? '' );
 
         if ( empty( $token ) ) {
-            return new \WP_Error( 'no_token', __( 'No access token available.', 'reactions-indieweb' ) );
+            return new \WP_Error( 'no_token', __( 'No access token available.', 'reactions-for-indieweb' ) );
         }
 
         $params['access_token'] = $token;
@@ -448,7 +448,7 @@ class Untappd_Checkin_Sync extends Checkin_Sync_Base {
         $body = json_decode( wp_remote_retrieve_body( $response ), true );
 
         if ( $code >= 400 ) {
-            $error_message = $body['meta']['error_detail'] ?? __( 'API request failed.', 'reactions-indieweb' );
+            $error_message = $body['meta']['error_detail'] ?? __( 'API request failed.', 'reactions-for-indieweb' );
             return new \WP_Error( 'api_error', $error_message );
         }
 

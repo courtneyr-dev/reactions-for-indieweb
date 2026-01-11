@@ -2,28 +2,27 @@
 /**
  * Reactions for IndieWeb
  *
- * Extends IndieBlocks with comprehensive IndieWeb Post Kinds support including
- * RSVP, check-in, listen, watch, read, event, review, and recipe post types.
+ * Post Kinds successor for the block editor. Extends IndieBlocks with reaction
+ * posts (listen, watch, read, checkin, RSVP) and media import/syndication.
  *
  * @package     ReactionsForIndieWeb
  * @author      Courtney Robertson
  * @copyright   2024 Courtney Robertson
- * @license     GPL-3.0-or-later
+ * @license     GPL-2.0-or-later
  *
  * @wordpress-plugin
  * Plugin Name:       Reactions for IndieWeb
- * Plugin URI:        https://github.com/developer/reactions-for-indieweb
- * Description:       Extends IndieBlocks with comprehensive IndieWeb Post Kinds support using Block Patterns and Block Bindings API.
+ * Plugin URI:        https://github.com/developer-advocacy/reactions-for-indieweb
+ * Description:       Post Kinds successor for the block editor. Extends IndieBlocks with reaction posts (listen, watch, read, checkin, RSVP) and media import/syndication.
  * Version:           1.0.0
  * Requires at least: 6.5
  * Requires PHP:      8.0
  * Author:            Courtney Robertson
- * Author URI:        https://developer.example.com
- * Text Domain:       reactions-indieweb
+ * Author URI:        https://developer.wordpress.org/news/author/developer-advocacy
+ * Text Domain:       reactions-for-indieweb
  * Domain Path:       /languages
- * License:           GPL-3.0-or-later
- * License URI:       https://www.gnu.org/licenses/gpl-3.0.html
- * Update URI:        false
+ * License:           GPL-2.0-or-later
+ * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  */
 
 declare(strict_types=1);
@@ -120,7 +119,7 @@ function php_version_notice(): void {
 		/* translators: 1: Required PHP version, 2: Current PHP version */
 		esc_html__(
 			'Reactions for IndieWeb requires PHP %1$s or higher. You are running PHP %2$s. Please upgrade PHP to activate this plugin.',
-			'reactions-indieweb'
+			'reactions-for-indieweb'
 		),
 		REACTIONS_INDIEWEB_MIN_PHP,
 		PHP_VERSION
@@ -144,7 +143,7 @@ function wp_version_notice(): void {
 		/* translators: 1: Required WordPress version, 2: Current WordPress version */
 		esc_html__(
 			'Reactions for IndieWeb requires WordPress %1$s or higher. You are running WordPress %2$s. Please upgrade WordPress to activate this plugin.',
-			'reactions-indieweb'
+			'reactions-for-indieweb'
 		),
 		REACTIONS_INDIEWEB_MIN_WP,
 		$wp_version
@@ -208,10 +207,10 @@ function activate(): void {
 		wp_die(
 			sprintf(
 				/* translators: %s: Required PHP version */
-				esc_html__( 'Reactions for IndieWeb requires PHP %s or higher.', 'reactions-indieweb' ),
+				esc_html__( 'Reactions for IndieWeb requires PHP %s or higher.', 'reactions-for-indieweb' ),
 				esc_html( REACTIONS_INDIEWEB_MIN_PHP )
 			),
-			esc_html__( 'Plugin Activation Error', 'reactions-indieweb' ),
+			esc_html__( 'Plugin Activation Error', 'reactions-for-indieweb' ),
 			array( 'back_link' => true )
 		);
 	}
@@ -222,10 +221,10 @@ function activate(): void {
 		wp_die(
 			sprintf(
 				/* translators: %s: Required WordPress version */
-				esc_html__( 'Reactions for IndieWeb requires WordPress %s or higher.', 'reactions-indieweb' ),
+				esc_html__( 'Reactions for IndieWeb requires WordPress %s or higher.', 'reactions-for-indieweb' ),
 				esc_html( REACTIONS_INDIEWEB_MIN_WP )
 			),
-			esc_html__( 'Plugin Activation Error', 'reactions-indieweb' ),
+			esc_html__( 'Plugin Activation Error', 'reactions-for-indieweb' ),
 			array( 'back_link' => true )
 		);
 	}
@@ -274,21 +273,5 @@ function init(): void {
 	$plugin->init();
 }
 
-/**
- * Load text domain for translations.
- *
- * @return void
- */
-function load_textdomain(): void {
-	load_plugin_textdomain(
-		'reactions-indieweb',
-		false,
-		dirname( REACTIONS_INDIEWEB_BASENAME ) . '/languages'
-	);
-}
-
 // Hook into WordPress init.
 add_action( 'plugins_loaded', __NAMESPACE__ . '\\init' );
-
-// Load translations at init (required since WordPress 6.7).
-add_action( 'init', __NAMESPACE__ . '\\load_textdomain' );

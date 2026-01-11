@@ -58,11 +58,11 @@ export default function Edit({ attributes, setAttributes }) {
 
     // RSVP status options
     const rsvpStatuses = [
-        { label: __('Yes', 'reactions-indieweb'), value: 'yes' },
-        { label: __('No', 'reactions-indieweb'), value: 'no' },
-        { label: __('Maybe', 'reactions-indieweb'), value: 'maybe' },
-        { label: __('Interested', 'reactions-indieweb'), value: 'interested' },
-        { label: __('Remote', 'reactions-indieweb'), value: 'remote' },
+        { label: __('Yes', 'reactions-for-indieweb'), value: 'yes' },
+        { label: __('No', 'reactions-for-indieweb'), value: 'no' },
+        { label: __('Maybe', 'reactions-for-indieweb'), value: 'maybe' },
+        { label: __('Interested', 'reactions-for-indieweb'), value: 'interested' },
+        { label: __('Remote', 'reactions-for-indieweb'), value: 'remote' },
     ];
 
     /**
@@ -94,11 +94,11 @@ export default function Edit({ attributes, setAttributes }) {
      */
     const getStatusLabel = () => {
         const labels = {
-            yes: __('Going', 'reactions-indieweb'),
-            no: __('Not Going', 'reactions-indieweb'),
-            maybe: __('Maybe', 'reactions-indieweb'),
-            interested: __('Interested', 'reactions-indieweb'),
-            remote: __('Attending Remotely', 'reactions-indieweb'),
+            yes: __('Going', 'reactions-for-indieweb'),
+            no: __('Not Going', 'reactions-for-indieweb'),
+            maybe: __('Maybe', 'reactions-for-indieweb'),
+            interested: __('Interested', 'reactions-for-indieweb'),
+            remote: __('Attending Remotely', 'reactions-for-indieweb'),
         };
         return labels[rsvpStatus] || labels.yes;
     };
@@ -148,12 +148,12 @@ export default function Edit({ attributes, setAttributes }) {
             <div {...blockProps}>
                 <BlockPlaceholder
                     icon={rsvpIcon}
-                    label={__('RSVP Card', 'reactions-indieweb')}
-                    instructions={__('Respond to an event with your RSVP status.', 'reactions-indieweb')}
+                    label={__('RSVP Card', 'reactions-for-indieweb')}
+                    instructions={__('Respond to an event with your RSVP status.', 'reactions-for-indieweb')}
                 >
                     <div className="placeholder-actions">
                         <TextControl
-                            label={__('Event URL', 'reactions-indieweb')}
+                            label={__('Event URL', 'reactions-for-indieweb')}
                             value={eventUrl || ''}
                             onChange={(value) => setAttributes({ eventUrl: value })}
                             type="url"
@@ -163,7 +163,7 @@ export default function Edit({ attributes, setAttributes }) {
                             variant="primary"
                             onClick={() => setAttributes({ eventName: '' })}
                         >
-                            {__('Add RSVP', 'reactions-indieweb')}
+                            {__('Add RSVP', 'reactions-for-indieweb')}
                         </Button>
                     </div>
                 </BlockPlaceholder>
@@ -174,35 +174,35 @@ export default function Edit({ attributes, setAttributes }) {
     return (
         <>
             <InspectorControls>
-                <PanelBody title={__('Event Details', 'reactions-indieweb')}>
+                <PanelBody title={__('Event Details', 'reactions-for-indieweb')}>
                     <TextControl
-                        label={__('Event Name', 'reactions-indieweb')}
+                        label={__('Event Name', 'reactions-for-indieweb')}
                         value={eventName || ''}
                         onChange={(value) => setAttributes({ eventName: value })}
                     />
                     <TextControl
-                        label={__('Event URL', 'reactions-indieweb')}
+                        label={__('Event URL', 'reactions-for-indieweb')}
                         value={eventUrl || ''}
                         onChange={(value) => setAttributes({ eventUrl: value })}
                         type="url"
                     />
                     <TextControl
-                        label={__('Location', 'reactions-indieweb')}
+                        label={__('Location', 'reactions-for-indieweb')}
                         value={eventLocation || ''}
                         onChange={(value) => setAttributes({ eventLocation: value })}
                     />
                     <TextareaControl
-                        label={__('Description', 'reactions-indieweb')}
+                        label={__('Description', 'reactions-for-indieweb')}
                         value={eventDescription || ''}
                         onChange={(value) => setAttributes({ eventDescription: value })}
                         rows={3}
                     />
                 </PanelBody>
 
-                <PanelBody title={__('Event Date & Time', 'reactions-indieweb')}>
+                <PanelBody title={__('Event Date & Time', 'reactions-for-indieweb')}>
                     <div className="components-base-control">
                         <label className="components-base-control__label">
-                            {__('Start', 'reactions-indieweb')}
+                            {__('Start', 'reactions-for-indieweb')}
                         </label>
                         <Button
                             variant="secondary"
@@ -210,7 +210,7 @@ export default function Edit({ attributes, setAttributes }) {
                         >
                             {eventStart
                                 ? new Date(eventStart).toLocaleString()
-                                : __('Set start time', 'reactions-indieweb')
+                                : __('Set start time', 'reactions-for-indieweb')
                             }
                         </Button>
                         {showStartPicker && (
@@ -228,7 +228,7 @@ export default function Edit({ attributes, setAttributes }) {
 
                     <div className="components-base-control">
                         <label className="components-base-control__label">
-                            {__('End', 'reactions-indieweb')}
+                            {__('End', 'reactions-for-indieweb')}
                         </label>
                         <Button
                             variant="secondary"
@@ -236,7 +236,7 @@ export default function Edit({ attributes, setAttributes }) {
                         >
                             {eventEnd
                                 ? new Date(eventEnd).toLocaleString()
-                                : __('Set end time', 'reactions-indieweb')
+                                : __('Set end time', 'reactions-for-indieweb')
                             }
                         </Button>
                         {showEndPicker && (
@@ -253,9 +253,9 @@ export default function Edit({ attributes, setAttributes }) {
                     </div>
                 </PanelBody>
 
-                <PanelBody title={__('Your RSVP', 'reactions-indieweb')}>
+                <PanelBody title={__('Your RSVP', 'reactions-for-indieweb')}>
                     <SelectControl
-                        label={__('Response', 'reactions-indieweb')}
+                        label={__('Response', 'reactions-for-indieweb')}
                         value={rsvpStatus}
                         options={rsvpStatuses}
                         onChange={(value) => setAttributes({ rsvpStatus: value })}
@@ -263,7 +263,7 @@ export default function Edit({ attributes, setAttributes }) {
 
                     <div className="components-base-control">
                         <label className="components-base-control__label">
-                            {__('RSVP Time', 'reactions-indieweb')}
+                            {__('RSVP Time', 'reactions-for-indieweb')}
                         </label>
                         <Button
                             variant="secondary"
@@ -271,7 +271,7 @@ export default function Edit({ attributes, setAttributes }) {
                         >
                             {rsvpAt
                                 ? new Date(rsvpAt).toLocaleString()
-                                : __('Set time', 'reactions-indieweb')
+                                : __('Set time', 'reactions-for-indieweb')
                             }
                         </Button>
                         {showRsvpPicker && (
@@ -288,14 +288,14 @@ export default function Edit({ attributes, setAttributes }) {
                     </div>
                 </PanelBody>
 
-                <PanelBody title={__('Layout', 'reactions-indieweb')}>
+                <PanelBody title={__('Layout', 'reactions-for-indieweb')}>
                     <SelectControl
-                        label={__('Layout Style', 'reactions-indieweb')}
+                        label={__('Layout Style', 'reactions-for-indieweb')}
                         value={layout}
                         options={[
-                            { label: __('Horizontal', 'reactions-indieweb'), value: 'horizontal' },
-                            { label: __('Vertical', 'reactions-indieweb'), value: 'vertical' },
-                            { label: __('Compact', 'reactions-indieweb'), value: 'compact' },
+                            { label: __('Horizontal', 'reactions-for-indieweb'), value: 'horizontal' },
+                            { label: __('Vertical', 'reactions-for-indieweb'), value: 'vertical' },
+                            { label: __('Compact', 'reactions-for-indieweb'), value: 'compact' },
                         ]}
                         onChange={(value) => setAttributes({ layout: value })}
                     />
@@ -321,7 +321,7 @@ export default function Edit({ attributes, setAttributes }) {
                                         ) : (
                                             <div className="image-placeholder">
                                                 <span className="rsvp-icon">{getStatusIcon()}</span>
-                                                <span>{__('Add event image', 'reactions-indieweb')}</span>
+                                                <span>{__('Add event image', 'reactions-for-indieweb')}</span>
                                             </div>
                                         )}
                                     </div>
@@ -359,7 +359,7 @@ export default function Edit({ attributes, setAttributes }) {
                             className="event-name p-name"
                             value={eventName}
                             onChange={(value) => setAttributes({ eventName: value })}
-                            placeholder={__('Event name', 'reactions-indieweb')}
+                            placeholder={__('Event name', 'reactions-for-indieweb')}
                         />
 
                         {/* Event date/time */}
@@ -386,7 +386,7 @@ export default function Edit({ attributes, setAttributes }) {
                             className="rsvp-note p-content"
                             value={rsvpNote}
                             onChange={(value) => setAttributes({ rsvpNote: value })}
-                            placeholder={__('Add a note about your RSVP...', 'reactions-indieweb')}
+                            placeholder={__('Add a note about your RSVP...', 'reactions-for-indieweb')}
                         />
                     </div>
                 </div>

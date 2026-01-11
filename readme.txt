@@ -2,17 +2,19 @@
 Contributors: courtneyr-dev
 Tags: indieweb, reactions, scrobbling, microformats, post-kinds
 Requires at least: 6.5
-Tested up to: 6.7
+Tested up to: 6.9
 Requires PHP: 8.0
 Stable tag: 1.0.0
-License: GPL-2.0-or-later
+License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Extend IndieBlocks with additional post kinds, media reactions, and external API integrations for the IndieWeb.
+Post Kinds successor for the block editor. Extends IndieBlocks with reaction posts (listen, watch, read, checkin, RSVP) and media import/syndication.
 
 == Description ==
 
-Reactions for IndieWeb extends the IndieBlocks plugin with additional "post kinds" for sharing your media consumption and experiences. Track what you're listening to, watching, reading, and where you've been—all on your own website.
+Reactions for IndieWeb is the **block editor successor to the Post Kinds plugin**. It brings the same post kinds functionality to the modern WordPress block editor, with enhanced media import and syndication capabilities.
+
+Track what you're listening to, watching, reading, and where you've been—all on your own website.
 
 = Features =
 
@@ -44,6 +46,22 @@ Reactions for IndieWeb extends the IndieBlocks plugin with additional "post kind
 * Compatible with Webmention plugins
 * Supports POSSE workflows
 * Works with IndieBlocks blocks
+
+= Related Plugins =
+
+**Recommended:**
+
+* [IndieBlocks](https://wordpress.org/plugins/indieblocks/) - Core IndieWeb blocks for bookmarks, likes, replies, reposts, and context
+* [Syndication Links](https://wordpress.org/plugins/syndication-links/) - Stores and displays syndication URLs for POSSE workflows
+* [Webmention](https://wordpress.org/plugins/webmention/) - Cross-site conversations and notifications
+
+**Optional:**
+
+* [ActivityPub](https://wordpress.org/plugins/activitypub/) - Federation with Mastodon and the Fediverse
+
+**Conflicts:**
+
+* [Post Kinds](https://wordpress.org/plugins/indieweb-post-kinds/) - This plugin is the block editor successor to Post Kinds. Use one or the other, not both.
 
 = Requirements =
 
