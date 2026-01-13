@@ -35,8 +35,11 @@ Thumbs.db
 *.swp
 *~
 
-# Development/build files (not needed in production)
+# Development cache files
 .phpcs.cache
-.phpcs.xml.dist
+coverage/
+
+# Local config overrides (*.dist files are tracked)
 phpcs.xml
 phpunit.xml
+.wp-env.override.json

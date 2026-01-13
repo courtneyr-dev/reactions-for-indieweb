@@ -7,18 +7,35 @@
 	"main": "build/index.js",
 	"scripts": {
 		"build": "wp-scripts build",
+		"build:prod": "wp-scripts build --mode=production",
 		"start": "wp-scripts start",
-		"lint:js": "wp-scripts lint-js",
-		"lint:js:fix": "wp-scripts lint-js --fix",
-		"lint:css": "wp-scripts lint-style",
-		"lint:css:fix": "wp-scripts lint-style --fix",
+		"lint": "npm run lint:js && npm run lint:css && npm run lint:pkg-json",
+		"lint:js": "wp-scripts lint-js src/",
+		"lint:js:fix": "wp-scripts lint-js src/ --fix",
+		"lint:css": "wp-scripts lint-style 'src/**/*.{css,scss}'",
+		"lint:css:fix": "wp-scripts lint-style 'src/**/*.{css,scss}' --fix",
 		"lint:pkg-json": "wp-scripts lint-pkg-json",
 		"format": "wp-scripts format",
+		"test": "npm run test:unit",
+		"test:unit": "wp-scripts test-unit-js",
+		"test:unit:watch": "wp-scripts test-unit-js --watch",
+		"test:unit:coverage": "wp-scripts test-unit-js --coverage",
+		"test:e2e": "wp-scripts test-playwright",
+		"test:e2e:debug": "wp-scripts test-playwright --debug",
+		"env:start": "wp-env start",
+		"env:stop": "wp-env stop",
+		"env:clean": "wp-env clean",
+		"env:cli": "wp-env run cli wp",
+		"env:logs": "wp-env logs",
 		"packages-update": "wp-scripts packages-update",
-		"plugin-zip": "wp-scripts plugin-zip"
+		"plugin-zip": "wp-scripts plugin-zip",
+		"prepare": "husky"
 	},
 	"devDependencies": {
-		"@wordpress/scripts": "^28.0.0"
+		"@wordpress/env": "^10.0.0",
+		"@wordpress/scripts": "^28.0.0",
+		"husky": "^9.0.0",
+		"lint-staged": "^15.0.0"
 	},
 	"dependencies": {
 		"@wordpress/api-fetch": "^7.0.0",

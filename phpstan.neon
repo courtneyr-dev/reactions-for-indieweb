@@ -1,0 +1,22 @@
+includes:
+	- vendor/szepeviktor/phpstan-wordpress/extension.neon
+
+parameters:
+	level: 5
+	paths:
+		- includes/
+		- post-kinds-for-indieweb.php
+	excludePaths:
+		- vendor/
+		- node_modules/
+		- build/
+		- tests/
+	bootstrapFiles:
+		- vendor/autoload.php
+	parallel:
+		processTimeout: 300.0
+	ignoreErrors:
+		# Allow dynamic method calls on WordPress objects
+		- '#Call to an undefined method [a-zA-Z0-9\\_]+::[a-zA-Z0-9\\_]+\(\)#'
+		# Ignore undefined WordPress functions that may not be stubbed
+		- '#Function [a-z_]+ not found\.#'

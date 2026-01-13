@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<phpunit
+	bootstrap="tests/phpunit/bootstrap.php"
+	backupGlobals="false"
+	colors="true"
+	convertErrorsToExceptions="true"
+	convertNoticesToExceptions="true"
+	convertWarningsToExceptions="true"
+	>
+	<testsuites>
+		<testsuite name="unit">
+			<directory suffix="Test.php">./tests/phpunit/unit</directory>
+		</testsuite>
+		<testsuite name="integration">
+			<directory suffix="Test.php">./tests/phpunit/integration</directory>
+		</testsuite>
+	</testsuites>
+	<coverage>
+		<include>
+			<directory suffix=".php">./includes</directory>
+		</include>
+		<exclude>
+			<directory suffix=".php">./vendor</directory>
+			<directory suffix=".php">./node_modules</directory>
+		</exclude>
+		<report>
+			<clover outputFile="coverage/clover.xml"/>
+			<html outputDirectory="coverage/html"/>
+		</report>
+	</coverage>
+	<php>
+		<const name="PHPUNIT_RUNNING" value="1"/>
+	</php>
+</phpunit>

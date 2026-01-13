@@ -1,0 +1,55 @@
+version: 2
+updates:
+  # PHP dependencies (Composer)
+  - package-ecosystem: "composer"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    groups:
+      php-dev-dependencies:
+        patterns:
+          - "*"
+        dependency-type: "development"
+    labels:
+      - "dependencies"
+      - "php"
+    commit-message:
+      prefix: "chore(deps)"
+
+  # JavaScript dependencies (npm)
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    groups:
+      wordpress-packages:
+        patterns:
+          - "@wordpress/*"
+      js-dev-dependencies:
+        patterns:
+          - "*"
+        dependency-type: "development"
+        exclude-patterns:
+          - "@wordpress/*"
+    labels:
+      - "dependencies"
+      - "javascript"
+    commit-message:
+      prefix: "chore(deps)"
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "chore(deps)"
