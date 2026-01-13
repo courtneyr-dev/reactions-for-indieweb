@@ -1,5 +1,5 @@
 /**
- * Reactions for IndieWeb - Webpack Configuration
+ * Post Kinds for IndieWeb - Webpack Configuration
  *
  * Extends the default @wordpress/scripts webpack config.
  *

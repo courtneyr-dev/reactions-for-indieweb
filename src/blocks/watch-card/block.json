@@ -1,13 +1,13 @@
 {
     "$schema": "https://schemas.wp.org/trunk/block.json",
     "apiVersion": 3,
-    "name": "reactions-indieweb/watch-card",
+    "name": "post-kinds-indieweb/watch-card",
     "version": "1.0.0",
     "title": "Watch Card",
-    "category": "reactions-indieweb",
+    "category": "post-kinds-indieweb",
     "description": "Display a movie or TV show you watched with poster, rating, and details.",
     "keywords": ["watch", "movie", "tv", "film", "show", "episode", "video"],
-    "textdomain": "reactions-indieweb",
+    "textdomain": "post-kinds-indieweb",
     "attributes": {
         "mediaTitle": {
             "type": "string",

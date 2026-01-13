@@ -4,13 +4,13 @@
  *
  * A block pattern for tracking book reading progress.
  *
- * @package ReactionsForIndieWeb
+ * @package PostKindsForIndieWeb
  * @since   1.0.0
  */
 
 declare(strict_types=1);
 
-namespace ReactionsForIndieWeb\Patterns;
+namespace PostKindsForIndieWeb\Patterns;
 
 // Prevent direct access.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Register the Read Progress pattern.
  */
 register_block_pattern(
-	'reactions-indieweb/read-progress',
+	'post-kinds-indieweb/read-progress',
 	array(
 		'title'       => __( 'Read Progress', 'reactions-for-indieweb' ),
 		'description' => __( 'Track your reading progress on a book.', 'reactions-for-indieweb' ),
@@ -38,7 +38,7 @@ register_block_pattern(
 		<!-- wp:column {"width":"120px"} -->
 		<div class="wp-block-column" style="flex-basis:120px">
 
-			<!-- wp:image {"className":"u-photo reactions-read-cover","width":"120px","height":"180px","scale":"cover","metadata":{"bindings":{"url":{"source":"reactions-indieweb/kind-meta","args":{"key":"read_cover"}},"alt":{"source":"reactions-indieweb/kind-meta","args":{"key":"read_title"}}}}} -->
+			<!-- wp:image {"className":"u-photo reactions-read-cover","width":"120px","height":"180px","scale":"cover","metadata":{"bindings":{"url":{"source":"post-kinds-indieweb/kind-meta","args":{"key":"read_cover"}},"alt":{"source":"post-kinds-indieweb/kind-meta","args":{"key":"read_title"}}}}} -->
 			<figure class="wp-block-image is-resized u-photo reactions-read-cover"><img src="" alt="" style="object-fit:cover;width:120px;height:180px"/></figure>
 			<!-- /wp:image -->
 
@@ -48,11 +48,11 @@ register_block_pattern(
 		<!-- wp:column -->
 		<div class="wp-block-column">
 
-			<!-- wp:heading {"level":2,"className":"p-name","metadata":{"bindings":{"content":{"source":"reactions-indieweb/kind-meta","args":{"key":"read_title"}}}}} -->
+			<!-- wp:heading {"level":2,"className":"p-name","metadata":{"bindings":{"content":{"source":"post-kinds-indieweb/kind-meta","args":{"key":"read_title"}}}}} -->
 			<h2 class="wp-block-heading p-name"></h2>
 			<!-- /wp:heading -->
 
-			<!-- wp:paragraph {"className":"p-author","fontSize":"medium","metadata":{"bindings":{"content":{"source":"reactions-indieweb/kind-meta","args":{"key":"read_author"}}}}} -->
+			<!-- wp:paragraph {"className":"p-author","fontSize":"medium","metadata":{"bindings":{"content":{"source":"post-kinds-indieweb/kind-meta","args":{"key":"read_author"}}}}} -->
 			<p class="p-author has-medium-font-size"></p>
 			<!-- /wp:paragraph -->
 
@@ -63,7 +63,7 @@ register_block_pattern(
 			<!-- wp:group {"className":"reactions-read-status-badge","style":{"spacing":{"padding":{"top":"4px","bottom":"4px","left":"12px","right":"12px"}},"border":{"radius":"4px"}},"backgroundColor":"tertiary","layout":{"type":"flex","flexWrap":"nowrap"}} -->
 			<div class="wp-block-group reactions-read-status-badge has-tertiary-background-color has-background" style="border-radius:4px;padding-top:4px;padding-right:12px;padding-bottom:4px;padding-left:12px">
 
-				<!-- wp:paragraph {"fontSize":"small","metadata":{"bindings":{"content":{"source":"reactions-indieweb/kind-meta","args":{"key":"read_status"}}}}} -->
+				<!-- wp:paragraph {"fontSize":"small","metadata":{"bindings":{"content":{"source":"post-kinds-indieweb/kind-meta","args":{"key":"read_status"}}}}} -->
 				<p class="has-small-font-size"></p>
 				<!-- /wp:paragraph -->
 
@@ -86,7 +86,7 @@ register_block_pattern(
 			<p class="has-small-font-size"><strong>Progress:</strong></p>
 			<!-- /wp:paragraph -->
 
-			<!-- wp:paragraph {"className":"p-reading-progress","fontSize":"small","metadata":{"bindings":{"content":{"source":"reactions-indieweb/kind-meta","args":{"key":"read_progress_display"}}}}} -->
+			<!-- wp:paragraph {"className":"p-reading-progress","fontSize":"small","metadata":{"bindings":{"content":{"source":"post-kinds-indieweb/kind-meta","args":{"key":"read_progress_display"}}}}} -->
 			<p class="p-reading-progress has-small-font-size"></p>
 			<!-- /wp:paragraph -->
 

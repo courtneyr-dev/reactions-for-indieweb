@@ -95,33 +95,33 @@ export default function Edit({ attributes, setAttributes }) {
 
     // Venue type options
     const venueTypes = [
-        { label: __('Place', 'reactions-for-indieweb'), value: 'place' },
-        { label: __('Restaurant', 'reactions-for-indieweb'), value: 'restaurant' },
-        { label: __('Cafe', 'reactions-for-indieweb'), value: 'cafe' },
-        { label: __('Bar', 'reactions-for-indieweb'), value: 'bar' },
-        { label: __('Hotel', 'reactions-for-indieweb'), value: 'hotel' },
-        { label: __('Airport', 'reactions-for-indieweb'), value: 'airport' },
-        { label: __('Park', 'reactions-for-indieweb'), value: 'park' },
-        { label: __('Museum', 'reactions-for-indieweb'), value: 'museum' },
-        { label: __('Theater', 'reactions-for-indieweb'), value: 'theater' },
-        { label: __('Store', 'reactions-for-indieweb'), value: 'store' },
-        { label: __('Office', 'reactions-for-indieweb'), value: 'office' },
-        { label: __('Home', 'reactions-for-indieweb'), value: 'home' },
-        { label: __('Other', 'reactions-for-indieweb'), value: 'other' },
+        { label: __('Place', 'post-kinds-for-indieweb'), value: 'place' },
+        { label: __('Restaurant', 'post-kinds-for-indieweb'), value: 'restaurant' },
+        { label: __('Cafe', 'post-kinds-for-indieweb'), value: 'cafe' },
+        { label: __('Bar', 'post-kinds-for-indieweb'), value: 'bar' },
+        { label: __('Hotel', 'post-kinds-for-indieweb'), value: 'hotel' },
+        { label: __('Airport', 'post-kinds-for-indieweb'), value: 'airport' },
+        { label: __('Park', 'post-kinds-for-indieweb'), value: 'park' },
+        { label: __('Museum', 'post-kinds-for-indieweb'), value: 'museum' },
+        { label: __('Theater', 'post-kinds-for-indieweb'), value: 'theater' },
+        { label: __('Store', 'post-kinds-for-indieweb'), value: 'store' },
+        { label: __('Office', 'post-kinds-for-indieweb'), value: 'office' },
+        { label: __('Home', 'post-kinds-for-indieweb'), value: 'home' },
+        { label: __('Other', 'post-kinds-for-indieweb'), value: 'other' },
     ];
 
     // Privacy options
     const privacyOptions = [
         {
-            label: __('Public (exact location)', 'reactions-for-indieweb'),
+            label: __('Public (exact location)', 'post-kinds-for-indieweb'),
             value: 'public',
         },
         {
-            label: __('Approximate (city level)', 'reactions-for-indieweb'),
+            label: __('Approximate (city level)', 'post-kinds-for-indieweb'),
             value: 'approximate',
         },
         {
-            label: __('Private (hidden)', 'reactions-for-indieweb'),
+            label: __('Private (hidden)', 'post-kinds-for-indieweb'),
             value: 'private',
         },
     ];
@@ -141,12 +141,12 @@ export default function Edit({ attributes, setAttributes }) {
 
             try {
                 const results = await apiFetch({
-                    path: `/reactions-indieweb/v1/location/search?query=${encodeURIComponent(query)}`,
+                    path: `/post-kinds-indieweb/v1/location/search?query=${encodeURIComponent(query)}`,
                 });
 
                 setSearchResults(results || []);
             } catch (err) {
-                setError(err.message || __('Search failed. Please try again.', 'reactions-for-indieweb'));
+                setError(err.message || __('Search failed. Please try again.', 'post-kinds-for-indieweb'));
                 setSearchResults([]);
             } finally {
                 setIsSearching(false);
@@ -168,7 +168,7 @@ export default function Edit({ attributes, setAttributes }) {
      */
     const useCurrentLocation = async () => {
         if (!navigator.geolocation) {
-            setError(__('Geolocation is not supported by your browser.', 'reactions-for-indieweb'));
+            setError(__('Geolocation is not supported by your browser.', 'post-kinds-for-indieweb'));
             return;
         }
 
@@ -183,7 +183,7 @@ export default function Edit({ attributes, setAttributes }) {
                 try {
                     // Reverse geocode via REST API proxy
                     const result = await apiFetch({
-                        path: `/reactions-indieweb/v1/location/reverse?lat=${lat}&lon=${lng}`,
+                        path: `/post-kinds-indieweb/v1/location/reverse?lat=${lat}&lon=${lng}`,
                     });
 
                     if (result) {
@@ -193,7 +193,7 @@ export default function Edit({ attributes, setAttributes }) {
                         setAttributes({
                             latitude: lat,
                             longitude: lng,
-                            venueName: __('Current Location', 'reactions-for-indieweb'),
+                            venueName: __('Current Location', 'post-kinds-for-indieweb'),
                         });
                     }
                 } catch (err) {
@@ -201,7 +201,7 @@ export default function Edit({ attributes, setAttributes }) {
                     setAttributes({
                         latitude: lat,
                         longitude: lng,
-                        venueName: __('Current Location', 'reactions-for-indieweb'),
+                        venueName: __('Current Location', 'post-kinds-for-indieweb'),
                     });
                 } finally {
                     setIsLocating(false);
@@ -212,16 +212,16 @@ export default function Edit({ attributes, setAttributes }) {
                 setIsLocating(false);
                 switch (err.code) {
                     case err.PERMISSION_DENIED:
-                        setError(__('Location access was denied.', 'reactions-for-indieweb'));
+                        setError(__('Location access was denied.', 'post-kinds-for-indieweb'));
                         break;
                     case err.POSITION_UNAVAILABLE:
-                        setError(__('Location information is unavailable.', 'reactions-for-indieweb'));
+                        setError(__('Location information is unavailable.', 'post-kinds-for-indieweb'));
                         break;
                     case err.TIMEOUT:
-                        setError(__('Location request timed out.', 'reactions-for-indieweb'));
+                        setError(__('Location request timed out.', 'post-kinds-for-indieweb'));
                         break;
                     default:
-                        setError(__('Could not detect your location.', 'reactions-for-indieweb'));
+                        setError(__('Could not detect your location.', 'post-kinds-for-indieweb'));
                 }
             },
             { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 }
@@ -260,7 +260,7 @@ export default function Edit({ attributes, setAttributes }) {
         if (newPrivacy === 'public' && locationPrivacy !== 'public') {
             // eslint-disable-next-line no-alert
             const confirmed = window.confirm(
-                __('You are about to make your precise location public. Are you sure?', 'reactions-for-indieweb')
+                __('You are about to make your precise location public. Are you sure?', 'post-kinds-for-indieweb')
             );
             if (!confirmed) {
                 return;
@@ -346,8 +346,8 @@ export default function Edit({ attributes, setAttributes }) {
             <div {...blockProps}>
                 <BlockPlaceholder
                     icon={checkinIcon}
-                    label={__('Checkin Card', 'reactions-for-indieweb')}
-                    instructions={__('Check in to a location. Use your current location or search for a venue.', 'reactions-for-indieweb')}
+                    label={__('Checkin Card', 'post-kinds-for-indieweb')}
+                    instructions={__('Check in to a location. Use your current location or search for a venue.', 'post-kinds-for-indieweb')}
                 >
                     {error && (
                         <Notice status="error" isDismissible onDismiss={() => setError(null)}>
@@ -365,10 +365,10 @@ export default function Edit({ attributes, setAttributes }) {
                             {isLocating ? (
                                 <>
                                     <Spinner />
-                                    {__('Detecting...', 'reactions-for-indieweb')}
+                                    {__('Detecting...', 'post-kinds-for-indieweb')}
                                 </>
                             ) : (
-                                __('Use Current Location', 'reactions-for-indieweb')
+                                __('Use Current Location', 'post-kinds-for-indieweb')
                             )}
                         </Button>
 
@@ -377,14 +377,14 @@ export default function Edit({ attributes, setAttributes }) {
                             onClick={() => setShowSearch(true)}
                             icon="search"
                         >
-                            {__('Search for Venue', 'reactions-for-indieweb')}
+                            {__('Search for Venue', 'post-kinds-for-indieweb')}
                         </Button>
 
                         <Button
                             variant="tertiary"
                             onClick={() => setAttributes({ venueName: '' })}
                         >
-                            {__('Enter Manually', 'reactions-for-indieweb')}
+                            {__('Enter Manually', 'post-kinds-for-indieweb')}
                         </Button>
                     </div>
                 </BlockPlaceholder>
@@ -397,7 +397,7 @@ export default function Edit({ attributes, setAttributes }) {
         return (
             <div {...blockProps}>
                 <div className="checkin-search-state">
-                    <h3>{__('Search for a location', 'reactions-for-indieweb')}</h3>
+                    <h3>{__('Search for a location', 'post-kinds-for-indieweb')}</h3>
 
                     {error && (
                         <Notice status="error" isDismissible onDismiss={() => setError(null)}>
@@ -410,7 +410,7 @@ export default function Edit({ attributes, setAttributes }) {
                             ref={searchInputRef}
                             value={searchQuery}
                             onChange={handleSearchChange}
-                            placeholder={__('Search for a venue or address...', 'reactions-for-indieweb')}
+                            placeholder={__('Search for a venue or address...', 'post-kinds-for-indieweb')}
                             autoFocus
                         />
 
@@ -447,7 +447,7 @@ export default function Edit({ attributes, setAttributes }) {
                             onClick={useCurrentLocation}
                             disabled={isLocating}
                         >
-                            {isLocating ? __('Detecting...', 'reactions-for-indieweb') : __('Use Current Location', 'reactions-for-indieweb')}
+                            {isLocating ? __('Detecting...', 'post-kinds-for-indieweb') : __('Use Current Location', 'post-kinds-for-indieweb')}
                         </Button>
 
                         <Button
@@ -457,14 +457,14 @@ export default function Edit({ attributes, setAttributes }) {
                                 setAttributes({ venueName: '' });
                             }}
                         >
-                            {__('Enter Manually', 'reactions-for-indieweb')}
+                            {__('Enter Manually', 'post-kinds-for-indieweb')}
                         </Button>
 
                         <Button
                             variant="link"
                             onClick={() => setShowSearch(false)}
                         >
-                            {__('Cancel', 'reactions-for-indieweb')}
+                            {__('Cancel', 'post-kinds-for-indieweb')}
                         </Button>
                     </div>
                 </div>
@@ -475,10 +475,10 @@ export default function Edit({ attributes, setAttributes }) {
     return (
         <>
             <InspectorControls>
-                <PanelBody title={__('Privacy Settings', 'reactions-for-indieweb')}>
+                <PanelBody title={__('Privacy Settings', 'post-kinds-for-indieweb')}>
                     <RadioControl
-                        label={__('Location Privacy', 'reactions-for-indieweb')}
-                        help={__('Control how much location detail is shown publicly.', 'reactions-for-indieweb')}
+                        label={__('Location Privacy', 'post-kinds-for-indieweb')}
+                        help={__('Control how much location detail is shown publicly.', 'post-kinds-for-indieweb')}
                         selected={locationPrivacy || 'approximate'}
                         options={privacyOptions}
                         onChange={handlePrivacyChange}
@@ -487,56 +487,56 @@ export default function Edit({ attributes, setAttributes }) {
                     <div className="privacy-explanations">
                         {locationPrivacy === 'public' && (
                             <Notice status="warning" isDismissible={false}>
-                                {__('Your exact coordinates will be visible to everyone.', 'reactions-for-indieweb')}
+                                {__('Your exact coordinates will be visible to everyone.', 'post-kinds-for-indieweb')}
                             </Notice>
                         )}
                         {locationPrivacy === 'approximate' && (
                             <p className="description">
-                                {__('Only city/region will be shown. Coordinates are stored but not displayed.', 'reactions-for-indieweb')}
+                                {__('Only city/region will be shown. Coordinates are stored but not displayed.', 'post-kinds-for-indieweb')}
                             </p>
                         )}
                         {locationPrivacy === 'private' && (
                             <p className="description">
-                                {__('Location is saved for your records but not shown publicly.', 'reactions-for-indieweb')}
+                                {__('Location is saved for your records but not shown publicly.', 'post-kinds-for-indieweb')}
                             </p>
                         )}
                     </div>
                 </PanelBody>
 
-                <PanelBody title={__('Venue Details', 'reactions-for-indieweb')}>
+                <PanelBody title={__('Venue Details', 'post-kinds-for-indieweb')}>
                     <TextControl
-                        label={__('Venue Name', 'reactions-for-indieweb')}
+                        label={__('Venue Name', 'post-kinds-for-indieweb')}
                         value={venueName || ''}
                         onChange={(value) => setAttributes({ venueName: value })}
                     />
                     <SelectControl
-                        label={__('Venue Type', 'reactions-for-indieweb')}
+                        label={__('Venue Type', 'post-kinds-for-indieweb')}
                         value={venueType}
                         options={venueTypes}
                         onChange={(value) => setAttributes({ venueType: value })}
                     />
                     <TextControl
-                        label={__('Street Address', 'reactions-for-indieweb')}
+                        label={__('Street Address', 'post-kinds-for-indieweb')}
                         value={address || ''}
                         onChange={(value) => setAttributes({ address: value })}
                     />
                     <TextControl
-                        label={__('City/Locality', 'reactions-for-indieweb')}
+                        label={__('City/Locality', 'post-kinds-for-indieweb')}
                         value={locality || ''}
                         onChange={(value) => setAttributes({ locality: value })}
                     />
                     <TextControl
-                        label={__('State/Region', 'reactions-for-indieweb')}
+                        label={__('State/Region', 'post-kinds-for-indieweb')}
                         value={region || ''}
                         onChange={(value) => setAttributes({ region: value })}
                     />
                     <TextControl
-                        label={__('Country', 'reactions-for-indieweb')}
+                        label={__('Country', 'post-kinds-for-indieweb')}
                         value={country || ''}
                         onChange={(value) => setAttributes({ country: value })}
                     />
                     <TextControl
-                        label={__('Postal Code', 'reactions-for-indieweb')}
+                        label={__('Postal Code', 'post-kinds-for-indieweb')}
                         value={postalCode || ''}
                         onChange={(value) => setAttributes({ postalCode: value })}
                     />
@@ -546,41 +546,41 @@ export default function Edit({ attributes, setAttributes }) {
                         onClick={() => setShowSearch(true)}
                         style={{ marginTop: '12px' }}
                     >
-                        {__('Search Different Location', 'reactions-for-indieweb')}
+                        {__('Search Different Location', 'post-kinds-for-indieweb')}
                     </Button>
                 </PanelBody>
 
-                <PanelBody title={__('Coordinates', 'reactions-for-indieweb')} initialOpen={false}>
+                <PanelBody title={__('Coordinates', 'post-kinds-for-indieweb')} initialOpen={false}>
                     <TextControl
-                        label={__('Latitude', 'reactions-for-indieweb')}
+                        label={__('Latitude', 'post-kinds-for-indieweb')}
                         value={latitude || ''}
                         onChange={(value) => setAttributes({ latitude: parseFloat(value) || null })}
                         type="number"
                         step="any"
                     />
                     <TextControl
-                        label={__('Longitude', 'reactions-for-indieweb')}
+                        label={__('Longitude', 'post-kinds-for-indieweb')}
                         value={longitude || ''}
                         onChange={(value) => setAttributes({ longitude: parseFloat(value) || null })}
                         type="number"
                         step="any"
                     />
                     <ToggleControl
-                        label={__('Show Map', 'reactions-for-indieweb')}
+                        label={__('Show Map', 'post-kinds-for-indieweb')}
                         checked={showMap}
                         onChange={(value) => setAttributes({ showMap: value })}
                         help={locationPrivacy === 'private'
-                            ? __('Map is hidden when privacy is set to private.', 'reactions-for-indieweb')
-                            : __('Display an embedded OpenStreetMap.', 'reactions-for-indieweb')
+                            ? __('Map is hidden when privacy is set to private.', 'post-kinds-for-indieweb')
+                            : __('Display an embedded OpenStreetMap.', 'post-kinds-for-indieweb')
                         }
                         disabled={locationPrivacy === 'private'}
                     />
                 </PanelBody>
 
-                <PanelBody title={__('Checkin Details', 'reactions-for-indieweb')}>
+                <PanelBody title={__('Checkin Details', 'post-kinds-for-indieweb')}>
                     <div className="components-base-control">
                         <label className="components-base-control__label">
-                            {__('Checkin Time', 'reactions-for-indieweb')}
+                            {__('Checkin Time', 'post-kinds-for-indieweb')}
                         </label>
                         <Button
                             variant="secondary"
@@ -588,7 +588,7 @@ export default function Edit({ attributes, setAttributes }) {
                         >
                             {checkinAt
                                 ? new Date(checkinAt).toLocaleString()
-                                : __('Set time', 'reactions-for-indieweb')
+                                : __('Set time', 'post-kinds-for-indieweb')
                             }
                         </Button>
                         {showDatePicker && (
@@ -605,35 +605,35 @@ export default function Edit({ attributes, setAttributes }) {
                     </div>
                 </PanelBody>
 
-                <PanelBody title={__('Layout', 'reactions-for-indieweb')}>
+                <PanelBody title={__('Layout', 'post-kinds-for-indieweb')}>
                     <SelectControl
-                        label={__('Layout Style', 'reactions-for-indieweb')}
+                        label={__('Layout Style', 'post-kinds-for-indieweb')}
                         value={layout}
                         options={[
-                            { label: __('Horizontal', 'reactions-for-indieweb'), value: 'horizontal' },
-                            { label: __('Vertical', 'reactions-for-indieweb'), value: 'vertical' },
-                            { label: __('Map Focus', 'reactions-for-indieweb'), value: 'map' },
-                            { label: __('Compact', 'reactions-for-indieweb'), value: 'compact' },
+                            { label: __('Horizontal', 'post-kinds-for-indieweb'), value: 'horizontal' },
+                            { label: __('Vertical', 'post-kinds-for-indieweb'), value: 'vertical' },
+                            { label: __('Map Focus', 'post-kinds-for-indieweb'), value: 'map' },
+                            { label: __('Compact', 'post-kinds-for-indieweb'), value: 'compact' },
                         ]}
                         onChange={(value) => setAttributes({ layout: value })}
                     />
                 </PanelBody>
 
-                <PanelBody title={__('Links', 'reactions-for-indieweb')} initialOpen={false}>
+                <PanelBody title={__('Links', 'post-kinds-for-indieweb')} initialOpen={false}>
                     <TextControl
-                        label={__('Venue URL', 'reactions-for-indieweb')}
+                        label={__('Venue URL', 'post-kinds-for-indieweb')}
                         value={venueUrl || ''}
                         onChange={(value) => setAttributes({ venueUrl: value })}
                         type="url"
                     />
                     <TextControl
-                        label={__('Foursquare ID', 'reactions-for-indieweb')}
+                        label={__('Foursquare ID', 'post-kinds-for-indieweb')}
                         value={foursquareId || ''}
                         onChange={(value) => setAttributes({ foursquareId: value })}
                     />
                     {osmId && (
                         <p className="description">
-                            {__('OSM ID:', 'reactions-for-indieweb')} {osmId}
+                            {__('OSM ID:', 'post-kinds-for-indieweb')} {osmId}
                         </p>
                     )}
                 </PanelBody>
@@ -658,7 +658,7 @@ export default function Edit({ attributes, setAttributes }) {
                                         ) : (
                                             <div className="photo-placeholder">
                                                 <span className="venue-icon">{getVenueIcon()}</span>
-                                                <span>{__('Add photo', 'reactions-for-indieweb')}</span>
+                                                <span>{__('Add photo', 'post-kinds-for-indieweb')}</span>
                                             </div>
                                         )}
                                     </div>
@@ -676,12 +676,12 @@ export default function Edit({ attributes, setAttributes }) {
 
                             {locationPrivacy === 'private' && (
                                 <span className="privacy-badge private">
-                                    🔒 {__('Private', 'reactions-for-indieweb')}
+                                    🔒 {__('Private', 'post-kinds-for-indieweb')}
                                 </span>
                             )}
                             {locationPrivacy === 'approximate' && (
                                 <span className="privacy-badge approximate">
-                                    📍 {__('Approximate', 'reactions-for-indieweb')}
+                                    📍 {__('Approximate', 'post-kinds-for-indieweb')}
                                 </span>
                             )}
                         </div>
@@ -691,7 +691,7 @@ export default function Edit({ attributes, setAttributes }) {
                             className="venue-name p-name"
                             value={venueName}
                             onChange={(value) => setAttributes({ venueName: value })}
-                            placeholder={__('Venue name', 'reactions-for-indieweb')}
+                            placeholder={__('Venue name', 'post-kinds-for-indieweb')}
                         />
 
                         <div className="venue-location p-location h-card">
@@ -717,7 +717,7 @@ export default function Edit({ attributes, setAttributes }) {
                             className="checkin-note p-content"
                             value={note}
                             onChange={(value) => setAttributes({ note: value })}
-                            placeholder={__('Add a note about this checkin...', 'reactions-for-indieweb')}
+                            placeholder={__('Add a note about this checkin...', 'post-kinds-for-indieweb')}
                         />
 
                         <Button
@@ -726,7 +726,7 @@ export default function Edit({ attributes, setAttributes }) {
                             onClick={clearVenue}
                             className="change-venue-button"
                         >
-                            {__('Change venue', 'reactions-for-indieweb')}
+                            {__('Change venue', 'post-kinds-for-indieweb')}
                         </Button>
                     </div>
 
@@ -734,7 +734,7 @@ export default function Edit({ attributes, setAttributes }) {
                     {showMap && latitude && longitude && locationPrivacy !== 'private' && (
                         <div className="checkin-map">
                             <iframe
-                                title={__('Location map', 'reactions-for-indieweb')}
+                                title={__('Location map', 'post-kinds-for-indieweb')}
                                 width="100%"
                                 height="200"
                                 frameBorder="0"
@@ -745,7 +745,7 @@ export default function Edit({ attributes, setAttributes }) {
                             />
                             {locationPrivacy === 'approximate' && (
                                 <p className="map-note">
-                                    {__('Showing approximate area. Exact location hidden.', 'reactions-for-indieweb')}
+                                    {__('Showing approximate area. Exact location hidden.', 'post-kinds-for-indieweb')}
                                 </p>
                             )}
                         </div>
@@ -754,7 +754,7 @@ export default function Edit({ attributes, setAttributes }) {
                     {locationPrivacy === 'private' && latitude && longitude && (
                         <div className="checkin-private-notice">
                             <span className="dashicons dashicons-lock"></span>
-                            {__('Location saved privately', 'reactions-for-indieweb')}
+                            {__('Location saved privately', 'post-kinds-for-indieweb')}
                         </div>
                     )}
                 </div>

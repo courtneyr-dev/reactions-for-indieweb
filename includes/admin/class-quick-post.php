@@ -2,13 +2,13 @@
 /**
  * Quick Post
  *
- * Quick post creation interface for reactions.
+ * Quick post creation interface for post kinds.
  *
- * @package Reactions_For_IndieWeb
+ * @package PostKindsForIndieWeb
  * @since 1.0.0
  */
 
-namespace ReactionsForIndieWeb\Admin;
+namespace PostKindsForIndieWeb\Admin;
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
@@ -41,8 +41,8 @@ class Quick_Post {
      * @return void
      */
     public function init(): void {
-        add_action( 'wp_ajax_reactions_indieweb_quick_post', array( $this, 'ajax_create_post' ) );
-        add_action( 'wp_ajax_reactions_indieweb_quick_lookup', array( $this, 'ajax_quick_lookup' ) );
+        add_action( 'wp_ajax_postkind_indieweb_quick_post', array( $this, 'ajax_create_post' ) );
+        add_action( 'wp_ajax_postkind_indieweb_quick_lookup', array( $this, 'ajax_quick_lookup' ) );
     }
 
     /**
@@ -58,11 +58,11 @@ class Quick_Post {
         $post_kinds = $this->admin->get_post_kinds();
 
         ?>
-        <div class="wrap reactions-indieweb-quick-post">
+        <div class="wrap post-kinds-indieweb-quick-post">
             <h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 
             <p class="description">
-                <?php esc_html_e( 'Quickly create reaction posts by searching for media or entering details.', 'reactions-for-indieweb' ); ?>
+                <?php esc_html_e( 'Quickly create reaction posts by searching for media or entering details.', 'post-kinds-for-indieweb' ); ?>
             </p>
 
             <div class="quick-post-container">
@@ -112,7 +112,7 @@ class Quick_Post {
 
                 <!-- Recent Posts -->
                 <div class="recent-posts-section">
-                    <h2><?php esc_html_e( 'Recent Reactions', 'reactions-for-indieweb' ); ?></h2>
+                    <h2><?php esc_html_e( 'Recent Reactions', 'post-kinds-for-indieweb' ); ?></h2>
                     <?php $this->render_recent_posts(); ?>
                 </div>
             </div>
@@ -128,11 +128,11 @@ class Quick_Post {
     private function render_listen_form(): void {
         ?>
         <div class="quick-form" data-kind="listen" style="display: none;">
-            <h2><span class="dashicons dashicons-format-audio"></span> <?php esc_html_e( 'Quick Listen', 'reactions-for-indieweb' ); ?></h2>
+            <h2><span class="dashicons dashicons-format-audio"></span> <?php esc_html_e( 'Quick Listen', 'post-kinds-for-indieweb' ); ?></h2>
 
             <div class="search-section">
                 <div class="search-input-group">
-                    <input type="text" id="listen-search" class="widefat" placeholder="<?php esc_attr_e( 'Search for a song or album...', 'reactions-for-indieweb' ); ?>">
+                    <input type="text" id="listen-search" class="widefat" placeholder="<?php esc_attr_e( 'Search for a song or album...', 'post-kinds-for-indieweb' ); ?>">
                     <button type="button" class="button search-button" data-type="music">
                         <span class="dashicons dashicons-search"></span>
                     </button>
@@ -140,34 +140,34 @@ class Quick_Post {
                 <div class="search-results" id="listen-results"></div>
             </div>
 
-            <div class="or-divider"><span><?php esc_html_e( 'or enter manually', 'reactions-for-indieweb' ); ?></span></div>
+            <div class="or-divider"><span><?php esc_html_e( 'or enter manually', 'post-kinds-for-indieweb' ); ?></span></div>
 
             <form class="quick-post-form" data-kind="listen">
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="listen-track"><?php esc_html_e( 'Track Title', 'reactions-for-indieweb' ); ?> <span class="required">*</span></label>
+                        <label for="listen-track"><?php esc_html_e( 'Track Title', 'post-kinds-for-indieweb' ); ?> <span class="required">*</span></label>
                         <input type="text" name="track_title" id="listen-track" class="widefat" required>
                     </div>
                     <div class="form-group">
-                        <label for="listen-artist"><?php esc_html_e( 'Artist', 'reactions-for-indieweb' ); ?> <span class="required">*</span></label>
+                        <label for="listen-artist"><?php esc_html_e( 'Artist', 'post-kinds-for-indieweb' ); ?> <span class="required">*</span></label>
                         <input type="text" name="artist_name" id="listen-artist" class="widefat" required>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="listen-album"><?php esc_html_e( 'Album', 'reactions-for-indieweb' ); ?></label>
+                        <label for="listen-album"><?php esc_html_e( 'Album', 'post-kinds-for-indieweb' ); ?></label>
                         <input type="text" name="album_title" id="listen-album" class="widefat">
                     </div>
                     <div class="form-group">
-                        <label for="listen-rating"><?php esc_html_e( 'Rating', 'reactions-for-indieweb' ); ?></label>
+                        <label for="listen-rating"><?php esc_html_e( 'Rating', 'post-kinds-for-indieweb' ); ?></label>
                         <?php $this->render_rating_input( 'listen-rating' ); ?>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group full-width">
-                        <label for="listen-content"><?php esc_html_e( 'Notes', 'reactions-for-indieweb' ); ?></label>
+                        <label for="listen-content"><?php esc_html_e( 'Notes', 'post-kinds-for-indieweb' ); ?></label>
                         <textarea name="content" id="listen-content" rows="3" class="widefat"></textarea>
                     </div>
                 </div>
@@ -189,20 +189,20 @@ class Quick_Post {
     private function render_watch_form(): void {
         ?>
         <div class="quick-form" data-kind="watch" style="display: none;">
-            <h2><span class="dashicons dashicons-video-alt2"></span> <?php esc_html_e( 'Quick Watch', 'reactions-for-indieweb' ); ?></h2>
+            <h2><span class="dashicons dashicons-video-alt2"></span> <?php esc_html_e( 'Quick Watch', 'post-kinds-for-indieweb' ); ?></h2>
 
             <div class="media-type-toggle">
                 <button type="button" class="toggle-button active" data-subtype="movie">
-                    <?php esc_html_e( 'Movie', 'reactions-for-indieweb' ); ?>
+                    <?php esc_html_e( 'Movie', 'post-kinds-for-indieweb' ); ?>
                 </button>
                 <button type="button" class="toggle-button" data-subtype="tv">
-                    <?php esc_html_e( 'TV Show', 'reactions-for-indieweb' ); ?>
+                    <?php esc_html_e( 'TV Show', 'post-kinds-for-indieweb' ); ?>
                 </button>
             </div>
 
             <div class="search-section">
                 <div class="search-input-group">
-                    <input type="text" id="watch-search" class="widefat" placeholder="<?php esc_attr_e( 'Search for a movie or TV show...', 'reactions-for-indieweb' ); ?>">
+                    <input type="text" id="watch-search" class="widefat" placeholder="<?php esc_attr_e( 'Search for a movie or TV show...', 'post-kinds-for-indieweb' ); ?>">
                     <button type="button" class="button search-button" data-type="movie">
                         <span class="dashicons dashicons-search"></span>
                     </button>
@@ -210,53 +210,53 @@ class Quick_Post {
                 <div class="search-results" id="watch-results"></div>
             </div>
 
-            <div class="or-divider"><span><?php esc_html_e( 'or enter manually', 'reactions-for-indieweb' ); ?></span></div>
+            <div class="or-divider"><span><?php esc_html_e( 'or enter manually', 'post-kinds-for-indieweb' ); ?></span></div>
 
             <form class="quick-post-form" data-kind="watch">
                 <input type="hidden" name="media_type" value="movie">
 
                 <div class="form-row">
                     <div class="form-group flex-2">
-                        <label for="watch-title"><?php esc_html_e( 'Title', 'reactions-for-indieweb' ); ?> <span class="required">*</span></label>
+                        <label for="watch-title"><?php esc_html_e( 'Title', 'post-kinds-for-indieweb' ); ?> <span class="required">*</span></label>
                         <input type="text" name="media_title" id="watch-title" class="widefat" required>
                     </div>
                     <div class="form-group">
-                        <label for="watch-year"><?php esc_html_e( 'Year', 'reactions-for-indieweb' ); ?></label>
+                        <label for="watch-year"><?php esc_html_e( 'Year', 'post-kinds-for-indieweb' ); ?></label>
                         <input type="number" name="release_year" id="watch-year" class="small-text" min="1900" max="2100">
                     </div>
                 </div>
 
                 <div class="form-row tv-fields" style="display: none;">
                     <div class="form-group">
-                        <label for="watch-season"><?php esc_html_e( 'Season', 'reactions-for-indieweb' ); ?></label>
+                        <label for="watch-season"><?php esc_html_e( 'Season', 'post-kinds-for-indieweb' ); ?></label>
                         <input type="number" name="season_number" id="watch-season" class="small-text" min="1">
                     </div>
                     <div class="form-group">
-                        <label for="watch-episode"><?php esc_html_e( 'Episode', 'reactions-for-indieweb' ); ?></label>
+                        <label for="watch-episode"><?php esc_html_e( 'Episode', 'post-kinds-for-indieweb' ); ?></label>
                         <input type="number" name="episode_number" id="watch-episode" class="small-text" min="1">
                     </div>
                     <div class="form-group">
-                        <label for="watch-episode-title"><?php esc_html_e( 'Episode Title', 'reactions-for-indieweb' ); ?></label>
+                        <label for="watch-episode-title"><?php esc_html_e( 'Episode Title', 'post-kinds-for-indieweb' ); ?></label>
                         <input type="text" name="episode_title" id="watch-episode-title" class="widefat">
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="watch-rating"><?php esc_html_e( 'Rating', 'reactions-for-indieweb' ); ?></label>
+                        <label for="watch-rating"><?php esc_html_e( 'Rating', 'post-kinds-for-indieweb' ); ?></label>
                         <?php $this->render_rating_input( 'watch-rating' ); ?>
                     </div>
                     <div class="form-group">
                         <label>
                             <input type="checkbox" name="rewatch" value="1">
-                            <?php esc_html_e( 'Rewatch', 'reactions-for-indieweb' ); ?>
+                            <?php esc_html_e( 'Rewatch', 'post-kinds-for-indieweb' ); ?>
                         </label>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group full-width">
-                        <label for="watch-content"><?php esc_html_e( 'Notes / Review', 'reactions-for-indieweb' ); ?></label>
+                        <label for="watch-content"><?php esc_html_e( 'Notes / Review', 'post-kinds-for-indieweb' ); ?></label>
                         <textarea name="content" id="watch-content" rows="3" class="widefat"></textarea>
                     </div>
                 </div>
@@ -279,11 +279,11 @@ class Quick_Post {
     private function render_read_form(): void {
         ?>
         <div class="quick-form" data-kind="read" style="display: none;">
-            <h2><span class="dashicons dashicons-book"></span> <?php esc_html_e( 'Quick Read', 'reactions-for-indieweb' ); ?></h2>
+            <h2><span class="dashicons dashicons-book"></span> <?php esc_html_e( 'Quick Read', 'post-kinds-for-indieweb' ); ?></h2>
 
             <div class="search-section">
                 <div class="search-input-group">
-                    <input type="text" id="read-search" class="widefat" placeholder="<?php esc_attr_e( 'Search by title, author, or ISBN...', 'reactions-for-indieweb' ); ?>">
+                    <input type="text" id="read-search" class="widefat" placeholder="<?php esc_attr_e( 'Search by title, author, or ISBN...', 'post-kinds-for-indieweb' ); ?>">
                     <button type="button" class="button search-button" data-type="book">
                         <span class="dashicons dashicons-search"></span>
                     </button>
@@ -291,43 +291,43 @@ class Quick_Post {
                 <div class="search-results" id="read-results"></div>
             </div>
 
-            <div class="or-divider"><span><?php esc_html_e( 'or enter manually', 'reactions-for-indieweb' ); ?></span></div>
+            <div class="or-divider"><span><?php esc_html_e( 'or enter manually', 'post-kinds-for-indieweb' ); ?></span></div>
 
             <form class="quick-post-form" data-kind="read">
                 <div class="form-row">
                     <div class="form-group flex-2">
-                        <label for="read-title"><?php esc_html_e( 'Book Title', 'reactions-for-indieweb' ); ?> <span class="required">*</span></label>
+                        <label for="read-title"><?php esc_html_e( 'Book Title', 'post-kinds-for-indieweb' ); ?> <span class="required">*</span></label>
                         <input type="text" name="book_title" id="read-title" class="widefat" required>
                     </div>
                     <div class="form-group">
-                        <label for="read-author"><?php esc_html_e( 'Author', 'reactions-for-indieweb' ); ?> <span class="required">*</span></label>
+                        <label for="read-author"><?php esc_html_e( 'Author', 'post-kinds-for-indieweb' ); ?> <span class="required">*</span></label>
                         <input type="text" name="author_name" id="read-author" class="widefat" required>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="read-status"><?php esc_html_e( 'Status', 'reactions-for-indieweb' ); ?></label>
+                        <label for="read-status"><?php esc_html_e( 'Status', 'post-kinds-for-indieweb' ); ?></label>
                         <select name="read_status" id="read-status" class="widefat">
-                            <option value="reading"><?php esc_html_e( 'Currently Reading', 'reactions-for-indieweb' ); ?></option>
-                            <option value="finished"><?php esc_html_e( 'Finished', 'reactions-for-indieweb' ); ?></option>
-                            <option value="to-read"><?php esc_html_e( 'To Read', 'reactions-for-indieweb' ); ?></option>
-                            <option value="abandoned"><?php esc_html_e( 'Abandoned', 'reactions-for-indieweb' ); ?></option>
+                            <option value="reading"><?php esc_html_e( 'Currently Reading', 'post-kinds-for-indieweb' ); ?></option>
+                            <option value="finished"><?php esc_html_e( 'Finished', 'post-kinds-for-indieweb' ); ?></option>
+                            <option value="to-read"><?php esc_html_e( 'To Read', 'post-kinds-for-indieweb' ); ?></option>
+                            <option value="abandoned"><?php esc_html_e( 'Abandoned', 'post-kinds-for-indieweb' ); ?></option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="read-progress"><?php esc_html_e( 'Progress', 'reactions-for-indieweb' ); ?></label>
+                        <label for="read-progress"><?php esc_html_e( 'Progress', 'post-kinds-for-indieweb' ); ?></label>
                         <input type="number" name="progress_percent" id="read-progress" class="small-text" min="0" max="100" placeholder="%">
                     </div>
                     <div class="form-group">
-                        <label for="read-rating"><?php esc_html_e( 'Rating', 'reactions-for-indieweb' ); ?></label>
+                        <label for="read-rating"><?php esc_html_e( 'Rating', 'post-kinds-for-indieweb' ); ?></label>
                         <?php $this->render_rating_input( 'read-rating' ); ?>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group full-width">
-                        <label for="read-content"><?php esc_html_e( 'Notes / Review', 'reactions-for-indieweb' ); ?></label>
+                        <label for="read-content"><?php esc_html_e( 'Notes / Review', 'post-kinds-for-indieweb' ); ?></label>
                         <textarea name="content" id="read-content" rows="3" class="widefat"></textarea>
                     </div>
                 </div>
@@ -350,14 +350,14 @@ class Quick_Post {
     private function render_checkin_form(): void {
         ?>
         <div class="quick-form" data-kind="checkin" style="display: none;">
-            <h2><span class="dashicons dashicons-location"></span> <?php esc_html_e( 'Quick Checkin', 'reactions-for-indieweb' ); ?></h2>
+            <h2><span class="dashicons dashicons-location"></span> <?php esc_html_e( 'Quick Checkin', 'post-kinds-for-indieweb' ); ?></h2>
 
             <div class="search-section">
                 <div class="search-input-group">
-                    <input type="text" id="checkin-search" class="widefat" placeholder="<?php esc_attr_e( 'Search for a venue...', 'reactions-for-indieweb' ); ?>">
+                    <input type="text" id="checkin-search" class="widefat" placeholder="<?php esc_attr_e( 'Search for a venue...', 'post-kinds-for-indieweb' ); ?>">
                     <button type="button" class="button use-location-button">
                         <span class="dashicons dashicons-location-alt"></span>
-                        <?php esc_html_e( 'Use My Location', 'reactions-for-indieweb' ); ?>
+                        <?php esc_html_e( 'Use My Location', 'post-kinds-for-indieweb' ); ?>
                     </button>
                     <button type="button" class="button search-button" data-type="venue">
                         <span class="dashicons dashicons-search"></span>
@@ -366,37 +366,37 @@ class Quick_Post {
                 <div class="search-results" id="checkin-results"></div>
             </div>
 
-            <div class="or-divider"><span><?php esc_html_e( 'or enter manually', 'reactions-for-indieweb' ); ?></span></div>
+            <div class="or-divider"><span><?php esc_html_e( 'or enter manually', 'post-kinds-for-indieweb' ); ?></span></div>
 
             <form class="quick-post-form" data-kind="checkin">
                 <div class="form-row">
                     <div class="form-group full-width">
-                        <label for="checkin-venue"><?php esc_html_e( 'Venue Name', 'reactions-for-indieweb' ); ?> <span class="required">*</span></label>
+                        <label for="checkin-venue"><?php esc_html_e( 'Venue Name', 'post-kinds-for-indieweb' ); ?> <span class="required">*</span></label>
                         <input type="text" name="venue_name" id="checkin-venue" class="widefat" required>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group full-width">
-                        <label for="checkin-address"><?php esc_html_e( 'Address', 'reactions-for-indieweb' ); ?></label>
+                        <label for="checkin-address"><?php esc_html_e( 'Address', 'post-kinds-for-indieweb' ); ?></label>
                         <input type="text" name="venue_address" id="checkin-address" class="widefat">
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="checkin-city"><?php esc_html_e( 'City', 'reactions-for-indieweb' ); ?></label>
+                        <label for="checkin-city"><?php esc_html_e( 'City', 'post-kinds-for-indieweb' ); ?></label>
                         <input type="text" name="venue_city" id="checkin-city" class="widefat">
                     </div>
                     <div class="form-group">
-                        <label for="checkin-country"><?php esc_html_e( 'Country', 'reactions-for-indieweb' ); ?></label>
+                        <label for="checkin-country"><?php esc_html_e( 'Country', 'post-kinds-for-indieweb' ); ?></label>
                         <input type="text" name="venue_country" id="checkin-country" class="widefat">
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group full-width">
-                        <label for="checkin-content"><?php esc_html_e( 'Notes', 'reactions-for-indieweb' ); ?></label>
+                        <label for="checkin-content"><?php esc_html_e( 'Notes', 'post-kinds-for-indieweb' ); ?></label>
                         <textarea name="content" id="checkin-content" rows="3" class="widefat"></textarea>
                     </div>
                 </div>
@@ -419,41 +419,41 @@ class Quick_Post {
     private function render_bookmark_form(): void {
         ?>
         <div class="quick-form" data-kind="bookmark" style="display: none;">
-            <h2><span class="dashicons dashicons-bookmark"></span> <?php esc_html_e( 'Quick Bookmark', 'reactions-for-indieweb' ); ?></h2>
+            <h2><span class="dashicons dashicons-bookmark"></span> <?php esc_html_e( 'Quick Bookmark', 'post-kinds-for-indieweb' ); ?></h2>
 
             <form class="quick-post-form" data-kind="bookmark">
                 <div class="form-row">
                     <div class="form-group full-width">
-                        <label for="bookmark-url"><?php esc_html_e( 'URL', 'reactions-for-indieweb' ); ?> <span class="required">*</span></label>
+                        <label for="bookmark-url"><?php esc_html_e( 'URL', 'post-kinds-for-indieweb' ); ?> <span class="required">*</span></label>
                         <input type="url" name="bookmark_of" id="bookmark-url" class="widefat" required placeholder="https://...">
                         <button type="button" class="button fetch-metadata-button">
                             <span class="dashicons dashicons-download"></span>
-                            <?php esc_html_e( 'Fetch Metadata', 'reactions-for-indieweb' ); ?>
+                            <?php esc_html_e( 'Fetch Metadata', 'post-kinds-for-indieweb' ); ?>
                         </button>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group flex-2">
-                        <label for="bookmark-title"><?php esc_html_e( 'Title', 'reactions-for-indieweb' ); ?></label>
+                        <label for="bookmark-title"><?php esc_html_e( 'Title', 'post-kinds-for-indieweb' ); ?></label>
                         <input type="text" name="cite_name" id="bookmark-title" class="widefat">
                     </div>
                     <div class="form-group">
-                        <label for="bookmark-author"><?php esc_html_e( 'Author', 'reactions-for-indieweb' ); ?></label>
+                        <label for="bookmark-author"><?php esc_html_e( 'Author', 'post-kinds-for-indieweb' ); ?></label>
                         <input type="text" name="cite_author" id="bookmark-author" class="widefat">
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group full-width">
-                        <label for="bookmark-summary"><?php esc_html_e( 'Summary / Quote', 'reactions-for-indieweb' ); ?></label>
+                        <label for="bookmark-summary"><?php esc_html_e( 'Summary / Quote', 'post-kinds-for-indieweb' ); ?></label>
                         <textarea name="cite_summary" id="bookmark-summary" rows="3" class="widefat"></textarea>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group full-width">
-                        <label for="bookmark-content"><?php esc_html_e( 'Your Notes', 'reactions-for-indieweb' ); ?></label>
+                        <label for="bookmark-content"><?php esc_html_e( 'Your Notes', 'post-kinds-for-indieweb' ); ?></label>
                         <textarea name="content" id="bookmark-content" rows="3" class="widefat"></textarea>
                     </div>
                 </div>
@@ -472,34 +472,34 @@ class Quick_Post {
     private function render_like_form(): void {
         ?>
         <div class="quick-form" data-kind="like" style="display: none;">
-            <h2><span class="dashicons dashicons-heart"></span> <?php esc_html_e( 'Quick Like', 'reactions-for-indieweb' ); ?></h2>
+            <h2><span class="dashicons dashicons-heart"></span> <?php esc_html_e( 'Quick Like', 'post-kinds-for-indieweb' ); ?></h2>
 
             <form class="quick-post-form" data-kind="like">
                 <div class="form-row">
                     <div class="form-group full-width">
-                        <label for="like-url"><?php esc_html_e( 'URL of Content You Like', 'reactions-for-indieweb' ); ?> <span class="required">*</span></label>
+                        <label for="like-url"><?php esc_html_e( 'URL of Content You Like', 'post-kinds-for-indieweb' ); ?> <span class="required">*</span></label>
                         <input type="url" name="like_of" id="like-url" class="widefat" required placeholder="https://...">
                         <button type="button" class="button fetch-metadata-button">
                             <span class="dashicons dashicons-download"></span>
-                            <?php esc_html_e( 'Fetch Metadata', 'reactions-for-indieweb' ); ?>
+                            <?php esc_html_e( 'Fetch Metadata', 'post-kinds-for-indieweb' ); ?>
                         </button>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group flex-2">
-                        <label for="like-title"><?php esc_html_e( 'Content Title', 'reactions-for-indieweb' ); ?></label>
+                        <label for="like-title"><?php esc_html_e( 'Content Title', 'post-kinds-for-indieweb' ); ?></label>
                         <input type="text" name="cite_name" id="like-title" class="widefat">
                     </div>
                     <div class="form-group">
-                        <label for="like-author"><?php esc_html_e( 'Author', 'reactions-for-indieweb' ); ?></label>
+                        <label for="like-author"><?php esc_html_e( 'Author', 'post-kinds-for-indieweb' ); ?></label>
                         <input type="text" name="cite_author" id="like-author" class="widefat">
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group full-width">
-                        <label for="like-content"><?php esc_html_e( 'Your Notes', 'reactions-for-indieweb' ); ?></label>
+                        <label for="like-content"><?php esc_html_e( 'Your Notes', 'post-kinds-for-indieweb' ); ?></label>
                         <textarea name="content" id="like-content" rows="2" class="widefat"></textarea>
                     </div>
                 </div>
@@ -518,34 +518,34 @@ class Quick_Post {
     private function render_reply_form(): void {
         ?>
         <div class="quick-form" data-kind="reply" style="display: none;">
-            <h2><span class="dashicons dashicons-format-chat"></span> <?php esc_html_e( 'Quick Reply', 'reactions-for-indieweb' ); ?></h2>
+            <h2><span class="dashicons dashicons-format-chat"></span> <?php esc_html_e( 'Quick Reply', 'post-kinds-for-indieweb' ); ?></h2>
 
             <form class="quick-post-form" data-kind="reply">
                 <div class="form-row">
                     <div class="form-group full-width">
-                        <label for="reply-url"><?php esc_html_e( 'URL You Are Replying To', 'reactions-for-indieweb' ); ?> <span class="required">*</span></label>
+                        <label for="reply-url"><?php esc_html_e( 'URL You Are Replying To', 'post-kinds-for-indieweb' ); ?> <span class="required">*</span></label>
                         <input type="url" name="in_reply_to" id="reply-url" class="widefat" required placeholder="https://...">
                         <button type="button" class="button fetch-metadata-button">
                             <span class="dashicons dashicons-download"></span>
-                            <?php esc_html_e( 'Fetch Metadata', 'reactions-for-indieweb' ); ?>
+                            <?php esc_html_e( 'Fetch Metadata', 'post-kinds-for-indieweb' ); ?>
                         </button>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group flex-2">
-                        <label for="reply-title"><?php esc_html_e( 'Original Title', 'reactions-for-indieweb' ); ?></label>
+                        <label for="reply-title"><?php esc_html_e( 'Original Title', 'post-kinds-for-indieweb' ); ?></label>
                         <input type="text" name="cite_name" id="reply-title" class="widefat">
                     </div>
                     <div class="form-group">
-                        <label for="reply-author"><?php esc_html_e( 'Author', 'reactions-for-indieweb' ); ?></label>
+                        <label for="reply-author"><?php esc_html_e( 'Author', 'post-kinds-for-indieweb' ); ?></label>
                         <input type="text" name="cite_author" id="reply-author" class="widefat">
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group full-width">
-                        <label for="reply-content"><?php esc_html_e( 'Your Reply', 'reactions-for-indieweb' ); ?> <span class="required">*</span></label>
+                        <label for="reply-content"><?php esc_html_e( 'Your Reply', 'post-kinds-for-indieweb' ); ?> <span class="required">*</span></label>
                         <textarea name="content" id="reply-content" rows="5" class="widefat" required></textarea>
                     </div>
                 </div>
@@ -564,46 +564,46 @@ class Quick_Post {
     private function render_rsvp_form(): void {
         ?>
         <div class="quick-form" data-kind="rsvp" style="display: none;">
-            <h2><span class="dashicons dashicons-calendar-alt"></span> <?php esc_html_e( 'Quick RSVP', 'reactions-for-indieweb' ); ?></h2>
+            <h2><span class="dashicons dashicons-calendar-alt"></span> <?php esc_html_e( 'Quick RSVP', 'post-kinds-for-indieweb' ); ?></h2>
 
             <form class="quick-post-form" data-kind="rsvp">
                 <div class="form-row">
                     <div class="form-group full-width">
-                        <label for="rsvp-url"><?php esc_html_e( 'Event URL', 'reactions-for-indieweb' ); ?> <span class="required">*</span></label>
+                        <label for="rsvp-url"><?php esc_html_e( 'Event URL', 'post-kinds-for-indieweb' ); ?> <span class="required">*</span></label>
                         <input type="url" name="event_url" id="rsvp-url" class="widefat" required placeholder="https://...">
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group flex-2">
-                        <label for="rsvp-event"><?php esc_html_e( 'Event Name', 'reactions-for-indieweb' ); ?> <span class="required">*</span></label>
+                        <label for="rsvp-event"><?php esc_html_e( 'Event Name', 'post-kinds-for-indieweb' ); ?> <span class="required">*</span></label>
                         <input type="text" name="event_name" id="rsvp-event" class="widefat" required>
                     </div>
                     <div class="form-group">
-                        <label for="rsvp-value"><?php esc_html_e( 'Your RSVP', 'reactions-for-indieweb' ); ?></label>
+                        <label for="rsvp-value"><?php esc_html_e( 'Your RSVP', 'post-kinds-for-indieweb' ); ?></label>
                         <select name="rsvp_value" id="rsvp-value" class="widefat">
-                            <option value="yes"><?php esc_html_e( 'Yes, attending', 'reactions-for-indieweb' ); ?></option>
-                            <option value="maybe"><?php esc_html_e( 'Maybe', 'reactions-for-indieweb' ); ?></option>
-                            <option value="interested"><?php esc_html_e( 'Interested', 'reactions-for-indieweb' ); ?></option>
-                            <option value="no"><?php esc_html_e( 'No, not attending', 'reactions-for-indieweb' ); ?></option>
+                            <option value="yes"><?php esc_html_e( 'Yes, attending', 'post-kinds-for-indieweb' ); ?></option>
+                            <option value="maybe"><?php esc_html_e( 'Maybe', 'post-kinds-for-indieweb' ); ?></option>
+                            <option value="interested"><?php esc_html_e( 'Interested', 'post-kinds-for-indieweb' ); ?></option>
+                            <option value="no"><?php esc_html_e( 'No, not attending', 'post-kinds-for-indieweb' ); ?></option>
                         </select>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="rsvp-start"><?php esc_html_e( 'Start Date/Time', 'reactions-for-indieweb' ); ?></label>
+                        <label for="rsvp-start"><?php esc_html_e( 'Start Date/Time', 'post-kinds-for-indieweb' ); ?></label>
                         <input type="datetime-local" name="event_start" id="rsvp-start" class="widefat">
                     </div>
                     <div class="form-group">
-                        <label for="rsvp-location"><?php esc_html_e( 'Location', 'reactions-for-indieweb' ); ?></label>
+                        <label for="rsvp-location"><?php esc_html_e( 'Location', 'post-kinds-for-indieweb' ); ?></label>
                         <input type="text" name="event_location" id="rsvp-location" class="widefat">
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group full-width">
-                        <label for="rsvp-content"><?php esc_html_e( 'Notes', 'reactions-for-indieweb' ); ?></label>
+                        <label for="rsvp-content"><?php esc_html_e( 'Notes', 'post-kinds-for-indieweb' ); ?></label>
                         <textarea name="content" id="rsvp-content" rows="2" class="widefat"></textarea>
                     </div>
                 </div>
@@ -622,18 +622,18 @@ class Quick_Post {
     private function render_play_form(): void {
         ?>
         <div class="quick-form" data-kind="play" style="display: none;">
-            <h2><span class="dashicons dashicons-games"></span> <?php esc_html_e( 'Quick Play', 'reactions-for-indieweb' ); ?></h2>
+            <h2><span class="dashicons dashicons-games"></span> <?php esc_html_e( 'Quick Play', 'post-kinds-for-indieweb' ); ?></h2>
 
             <form class="quick-post-form" data-kind="play">
                 <div class="form-row">
                     <div class="form-group flex-2">
-                        <label for="play-title"><?php esc_html_e( 'Game Title', 'reactions-for-indieweb' ); ?> <span class="required">*</span></label>
+                        <label for="play-title"><?php esc_html_e( 'Game Title', 'post-kinds-for-indieweb' ); ?> <span class="required">*</span></label>
                         <input type="text" name="play_title" id="play-title" class="widefat" required>
                     </div>
                     <div class="form-group">
-                        <label for="play-platform"><?php esc_html_e( 'Platform', 'reactions-for-indieweb' ); ?></label>
+                        <label for="play-platform"><?php esc_html_e( 'Platform', 'post-kinds-for-indieweb' ); ?></label>
                         <select name="play_platform" id="play-platform" class="widefat">
-                            <option value=""><?php esc_html_e( 'Select...', 'reactions-for-indieweb' ); ?></option>
+                            <option value=""><?php esc_html_e( 'Select...', 'post-kinds-for-indieweb' ); ?></option>
                             <option value="PC">PC</option>
                             <option value="PlayStation 5">PlayStation 5</option>
                             <option value="PlayStation 4">PlayStation 4</option>
@@ -642,36 +642,36 @@ class Quick_Post {
                             <option value="Nintendo Switch">Nintendo Switch</option>
                             <option value="iOS">iOS</option>
                             <option value="Android">Android</option>
-                            <option value="Board Game"><?php esc_html_e( 'Board Game', 'reactions-for-indieweb' ); ?></option>
-                            <option value="Card Game"><?php esc_html_e( 'Card Game', 'reactions-for-indieweb' ); ?></option>
-                            <option value="Tabletop RPG"><?php esc_html_e( 'Tabletop RPG', 'reactions-for-indieweb' ); ?></option>
+                            <option value="Board Game"><?php esc_html_e( 'Board Game', 'post-kinds-for-indieweb' ); ?></option>
+                            <option value="Card Game"><?php esc_html_e( 'Card Game', 'post-kinds-for-indieweb' ); ?></option>
+                            <option value="Tabletop RPG"><?php esc_html_e( 'Tabletop RPG', 'post-kinds-for-indieweb' ); ?></option>
                         </select>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="play-status"><?php esc_html_e( 'Status', 'reactions-for-indieweb' ); ?></label>
+                        <label for="play-status"><?php esc_html_e( 'Status', 'post-kinds-for-indieweb' ); ?></label>
                         <select name="play_status" id="play-status" class="widefat">
-                            <option value="playing"><?php esc_html_e( 'Playing', 'reactions-for-indieweb' ); ?></option>
-                            <option value="completed"><?php esc_html_e( 'Completed', 'reactions-for-indieweb' ); ?></option>
-                            <option value="abandoned"><?php esc_html_e( 'Abandoned', 'reactions-for-indieweb' ); ?></option>
-                            <option value="backlog"><?php esc_html_e( 'Backlog', 'reactions-for-indieweb' ); ?></option>
+                            <option value="playing"><?php esc_html_e( 'Playing', 'post-kinds-for-indieweb' ); ?></option>
+                            <option value="completed"><?php esc_html_e( 'Completed', 'post-kinds-for-indieweb' ); ?></option>
+                            <option value="abandoned"><?php esc_html_e( 'Abandoned', 'post-kinds-for-indieweb' ); ?></option>
+                            <option value="backlog"><?php esc_html_e( 'Backlog', 'post-kinds-for-indieweb' ); ?></option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="play-hours"><?php esc_html_e( 'Hours Played', 'reactions-for-indieweb' ); ?></label>
+                        <label for="play-hours"><?php esc_html_e( 'Hours Played', 'post-kinds-for-indieweb' ); ?></label>
                         <input type="number" name="play_hours" id="play-hours" class="widefat" min="0" step="0.5">
                     </div>
                     <div class="form-group">
-                        <label><?php esc_html_e( 'Rating', 'reactions-for-indieweb' ); ?></label>
+                        <label><?php esc_html_e( 'Rating', 'post-kinds-for-indieweb' ); ?></label>
                         <?php $this->render_rating_input( 'play-rating' ); ?>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group full-width">
-                        <label for="play-content"><?php esc_html_e( 'Notes', 'reactions-for-indieweb' ); ?></label>
+                        <label for="play-content"><?php esc_html_e( 'Notes', 'post-kinds-for-indieweb' ); ?></label>
                         <textarea name="content" id="play-content" rows="2" class="widefat"></textarea>
                     </div>
                 </div>
@@ -690,41 +690,41 @@ class Quick_Post {
     private function render_eat_form(): void {
         ?>
         <div class="quick-form" data-kind="eat" style="display: none;">
-            <h2><span class="dashicons dashicons-carrot"></span> <?php esc_html_e( 'Quick Eat', 'reactions-for-indieweb' ); ?></h2>
+            <h2><span class="dashicons dashicons-carrot"></span> <?php esc_html_e( 'Quick Eat', 'post-kinds-for-indieweb' ); ?></h2>
 
             <form class="quick-post-form" data-kind="eat">
                 <div class="form-row">
                     <div class="form-group flex-2">
-                        <label for="eat-name"><?php esc_html_e( 'Food/Meal', 'reactions-for-indieweb' ); ?> <span class="required">*</span></label>
-                        <input type="text" name="eat_name" id="eat-name" class="widefat" required placeholder="<?php esc_attr_e( 'What did you eat?', 'reactions-for-indieweb' ); ?>">
+                        <label for="eat-name"><?php esc_html_e( 'Food/Meal', 'post-kinds-for-indieweb' ); ?> <span class="required">*</span></label>
+                        <input type="text" name="eat_name" id="eat-name" class="widefat" required placeholder="<?php esc_attr_e( 'What did you eat?', 'post-kinds-for-indieweb' ); ?>">
                     </div>
                     <div class="form-group">
-                        <label for="eat-type"><?php esc_html_e( 'Meal Type', 'reactions-for-indieweb' ); ?></label>
+                        <label for="eat-type"><?php esc_html_e( 'Meal Type', 'post-kinds-for-indieweb' ); ?></label>
                         <select name="eat_type" id="eat-type" class="widefat">
-                            <option value=""><?php esc_html_e( 'Select...', 'reactions-for-indieweb' ); ?></option>
-                            <option value="breakfast"><?php esc_html_e( 'Breakfast', 'reactions-for-indieweb' ); ?></option>
-                            <option value="lunch"><?php esc_html_e( 'Lunch', 'reactions-for-indieweb' ); ?></option>
-                            <option value="dinner"><?php esc_html_e( 'Dinner', 'reactions-for-indieweb' ); ?></option>
-                            <option value="snack"><?php esc_html_e( 'Snack', 'reactions-for-indieweb' ); ?></option>
-                            <option value="dessert"><?php esc_html_e( 'Dessert', 'reactions-for-indieweb' ); ?></option>
+                            <option value=""><?php esc_html_e( 'Select...', 'post-kinds-for-indieweb' ); ?></option>
+                            <option value="breakfast"><?php esc_html_e( 'Breakfast', 'post-kinds-for-indieweb' ); ?></option>
+                            <option value="lunch"><?php esc_html_e( 'Lunch', 'post-kinds-for-indieweb' ); ?></option>
+                            <option value="dinner"><?php esc_html_e( 'Dinner', 'post-kinds-for-indieweb' ); ?></option>
+                            <option value="snack"><?php esc_html_e( 'Snack', 'post-kinds-for-indieweb' ); ?></option>
+                            <option value="dessert"><?php esc_html_e( 'Dessert', 'post-kinds-for-indieweb' ); ?></option>
                         </select>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group flex-2">
-                        <label for="eat-restaurant"><?php esc_html_e( 'Restaurant/Location', 'reactions-for-indieweb' ); ?></label>
+                        <label for="eat-restaurant"><?php esc_html_e( 'Restaurant/Location', 'post-kinds-for-indieweb' ); ?></label>
                         <input type="text" name="eat_restaurant" id="eat-restaurant" class="widefat">
                     </div>
                     <div class="form-group">
-                        <label><?php esc_html_e( 'Rating', 'reactions-for-indieweb' ); ?></label>
+                        <label><?php esc_html_e( 'Rating', 'post-kinds-for-indieweb' ); ?></label>
                         <?php $this->render_rating_input( 'eat-rating' ); ?>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group full-width">
-                        <label for="eat-content"><?php esc_html_e( 'Notes', 'reactions-for-indieweb' ); ?></label>
+                        <label for="eat-content"><?php esc_html_e( 'Notes', 'post-kinds-for-indieweb' ); ?></label>
                         <textarea name="content" id="eat-content" rows="2" class="widefat"></textarea>
                     </div>
                 </div>
@@ -743,46 +743,46 @@ class Quick_Post {
     private function render_drink_form(): void {
         ?>
         <div class="quick-form" data-kind="drink" style="display: none;">
-            <h2><span class="dashicons dashicons-coffee"></span> <?php esc_html_e( 'Quick Drink', 'reactions-for-indieweb' ); ?></h2>
+            <h2><span class="dashicons dashicons-coffee"></span> <?php esc_html_e( 'Quick Drink', 'post-kinds-for-indieweb' ); ?></h2>
 
             <form class="quick-post-form" data-kind="drink">
                 <div class="form-row">
                     <div class="form-group flex-2">
-                        <label for="drink-name"><?php esc_html_e( 'Drink Name', 'reactions-for-indieweb' ); ?> <span class="required">*</span></label>
-                        <input type="text" name="drink_name" id="drink-name" class="widefat" required placeholder="<?php esc_attr_e( 'What are you drinking?', 'reactions-for-indieweb' ); ?>">
+                        <label for="drink-name"><?php esc_html_e( 'Drink Name', 'post-kinds-for-indieweb' ); ?> <span class="required">*</span></label>
+                        <input type="text" name="drink_name" id="drink-name" class="widefat" required placeholder="<?php esc_attr_e( 'What are you drinking?', 'post-kinds-for-indieweb' ); ?>">
                     </div>
                     <div class="form-group">
-                        <label for="drink-type"><?php esc_html_e( 'Type', 'reactions-for-indieweb' ); ?></label>
+                        <label for="drink-type"><?php esc_html_e( 'Type', 'post-kinds-for-indieweb' ); ?></label>
                         <select name="drink_type" id="drink-type" class="widefat">
-                            <option value=""><?php esc_html_e( 'Select...', 'reactions-for-indieweb' ); ?></option>
-                            <option value="coffee"><?php esc_html_e( 'Coffee', 'reactions-for-indieweb' ); ?></option>
-                            <option value="tea"><?php esc_html_e( 'Tea', 'reactions-for-indieweb' ); ?></option>
-                            <option value="beer"><?php esc_html_e( 'Beer', 'reactions-for-indieweb' ); ?></option>
-                            <option value="wine"><?php esc_html_e( 'Wine', 'reactions-for-indieweb' ); ?></option>
-                            <option value="cocktail"><?php esc_html_e( 'Cocktail', 'reactions-for-indieweb' ); ?></option>
-                            <option value="spirit"><?php esc_html_e( 'Spirit', 'reactions-for-indieweb' ); ?></option>
-                            <option value="soda"><?php esc_html_e( 'Soda', 'reactions-for-indieweb' ); ?></option>
-                            <option value="juice"><?php esc_html_e( 'Juice', 'reactions-for-indieweb' ); ?></option>
-                            <option value="water"><?php esc_html_e( 'Water', 'reactions-for-indieweb' ); ?></option>
-                            <option value="other"><?php esc_html_e( 'Other', 'reactions-for-indieweb' ); ?></option>
+                            <option value=""><?php esc_html_e( 'Select...', 'post-kinds-for-indieweb' ); ?></option>
+                            <option value="coffee"><?php esc_html_e( 'Coffee', 'post-kinds-for-indieweb' ); ?></option>
+                            <option value="tea"><?php esc_html_e( 'Tea', 'post-kinds-for-indieweb' ); ?></option>
+                            <option value="beer"><?php esc_html_e( 'Beer', 'post-kinds-for-indieweb' ); ?></option>
+                            <option value="wine"><?php esc_html_e( 'Wine', 'post-kinds-for-indieweb' ); ?></option>
+                            <option value="cocktail"><?php esc_html_e( 'Cocktail', 'post-kinds-for-indieweb' ); ?></option>
+                            <option value="spirit"><?php esc_html_e( 'Spirit', 'post-kinds-for-indieweb' ); ?></option>
+                            <option value="soda"><?php esc_html_e( 'Soda', 'post-kinds-for-indieweb' ); ?></option>
+                            <option value="juice"><?php esc_html_e( 'Juice', 'post-kinds-for-indieweb' ); ?></option>
+                            <option value="water"><?php esc_html_e( 'Water', 'post-kinds-for-indieweb' ); ?></option>
+                            <option value="other"><?php esc_html_e( 'Other', 'post-kinds-for-indieweb' ); ?></option>
                         </select>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group flex-2">
-                        <label for="drink-brewery"><?php esc_html_e( 'Brewery/Brand', 'reactions-for-indieweb' ); ?></label>
+                        <label for="drink-brewery"><?php esc_html_e( 'Brewery/Brand', 'post-kinds-for-indieweb' ); ?></label>
                         <input type="text" name="drink_brewery" id="drink-brewery" class="widefat">
                     </div>
                     <div class="form-group">
-                        <label><?php esc_html_e( 'Rating', 'reactions-for-indieweb' ); ?></label>
+                        <label><?php esc_html_e( 'Rating', 'post-kinds-for-indieweb' ); ?></label>
                         <?php $this->render_rating_input( 'drink-rating' ); ?>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group full-width">
-                        <label for="drink-content"><?php esc_html_e( 'Notes', 'reactions-for-indieweb' ); ?></label>
+                        <label for="drink-content"><?php esc_html_e( 'Notes', 'post-kinds-for-indieweb' ); ?></label>
                         <textarea name="content" id="drink-content" rows="2" class="widefat"></textarea>
                     </div>
                 </div>
@@ -801,34 +801,34 @@ class Quick_Post {
     private function render_favorite_form(): void {
         ?>
         <div class="quick-form" data-kind="favorite" style="display: none;">
-            <h2><span class="dashicons dashicons-star-filled"></span> <?php esc_html_e( 'Quick Favorite', 'reactions-for-indieweb' ); ?></h2>
+            <h2><span class="dashicons dashicons-star-filled"></span> <?php esc_html_e( 'Quick Favorite', 'post-kinds-for-indieweb' ); ?></h2>
 
             <form class="quick-post-form" data-kind="favorite">
                 <div class="form-row">
                     <div class="form-group full-width">
-                        <label for="favorite-url"><?php esc_html_e( 'URL', 'reactions-for-indieweb' ); ?></label>
+                        <label for="favorite-url"><?php esc_html_e( 'URL', 'post-kinds-for-indieweb' ); ?></label>
                         <input type="url" name="favorite_url" id="favorite-url" class="widefat" placeholder="https://...">
                         <button type="button" class="button fetch-metadata-button">
                             <span class="dashicons dashicons-download"></span>
-                            <?php esc_html_e( 'Fetch Metadata', 'reactions-for-indieweb' ); ?>
+                            <?php esc_html_e( 'Fetch Metadata', 'post-kinds-for-indieweb' ); ?>
                         </button>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group flex-2">
-                        <label for="favorite-name"><?php esc_html_e( 'Name/Title', 'reactions-for-indieweb' ); ?> <span class="required">*</span></label>
+                        <label for="favorite-name"><?php esc_html_e( 'Name/Title', 'post-kinds-for-indieweb' ); ?> <span class="required">*</span></label>
                         <input type="text" name="favorite_name" id="favorite-name" class="widefat" required>
                     </div>
                     <div class="form-group">
-                        <label><?php esc_html_e( 'Rating', 'reactions-for-indieweb' ); ?></label>
+                        <label><?php esc_html_e( 'Rating', 'post-kinds-for-indieweb' ); ?></label>
                         <?php $this->render_rating_input( 'favorite-rating' ); ?>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group full-width">
-                        <label for="favorite-content"><?php esc_html_e( 'Why is this a favorite?', 'reactions-for-indieweb' ); ?></label>
+                        <label for="favorite-content"><?php esc_html_e( 'Why is this a favorite?', 'post-kinds-for-indieweb' ); ?></label>
                         <textarea name="content" id="favorite-content" rows="3" class="widefat"></textarea>
                     </div>
                 </div>
@@ -847,34 +847,34 @@ class Quick_Post {
     private function render_jam_form(): void {
         ?>
         <div class="quick-form" data-kind="jam" style="display: none;">
-            <h2><span class="dashicons dashicons-playlist-audio"></span> <?php esc_html_e( 'Quick Jam', 'reactions-for-indieweb' ); ?></h2>
+            <h2><span class="dashicons dashicons-playlist-audio"></span> <?php esc_html_e( 'Quick Jam', 'post-kinds-for-indieweb' ); ?></h2>
 
             <form class="quick-post-form" data-kind="jam">
                 <div class="form-row">
                     <div class="form-group flex-2">
-                        <label for="jam-track"><?php esc_html_e( 'Track', 'reactions-for-indieweb' ); ?> <span class="required">*</span></label>
+                        <label for="jam-track"><?php esc_html_e( 'Track', 'post-kinds-for-indieweb' ); ?> <span class="required">*</span></label>
                         <input type="text" name="jam_track" id="jam-track" class="widefat" required>
                     </div>
                     <div class="form-group">
-                        <label for="jam-artist"><?php esc_html_e( 'Artist', 'reactions-for-indieweb' ); ?></label>
+                        <label for="jam-artist"><?php esc_html_e( 'Artist', 'post-kinds-for-indieweb' ); ?></label>
                         <input type="text" name="jam_artist" id="jam-artist" class="widefat">
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group flex-2">
-                        <label for="jam-album"><?php esc_html_e( 'Album', 'reactions-for-indieweb' ); ?></label>
+                        <label for="jam-album"><?php esc_html_e( 'Album', 'post-kinds-for-indieweb' ); ?></label>
                         <input type="text" name="jam_album" id="jam-album" class="widefat">
                     </div>
                     <div class="form-group">
-                        <label for="jam-url"><?php esc_html_e( 'Link', 'reactions-for-indieweb' ); ?></label>
+                        <label for="jam-url"><?php esc_html_e( 'Link', 'post-kinds-for-indieweb' ); ?></label>
                         <input type="url" name="jam_url" id="jam-url" class="widefat" placeholder="https://...">
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group full-width">
-                        <label for="jam-content"><?php esc_html_e( 'Why is this your jam?', 'reactions-for-indieweb' ); ?></label>
+                        <label for="jam-content"><?php esc_html_e( 'Why is this your jam?', 'post-kinds-for-indieweb' ); ?></label>
                         <textarea name="content" id="jam-content" rows="2" class="widefat"></textarea>
                     </div>
                 </div>
@@ -893,47 +893,47 @@ class Quick_Post {
     private function render_wish_form(): void {
         ?>
         <div class="quick-form" data-kind="wish" style="display: none;">
-            <h2><span class="dashicons dashicons-pressthis"></span> <?php esc_html_e( 'Quick Wish', 'reactions-for-indieweb' ); ?></h2>
+            <h2><span class="dashicons dashicons-pressthis"></span> <?php esc_html_e( 'Quick Wish', 'post-kinds-for-indieweb' ); ?></h2>
 
             <form class="quick-post-form" data-kind="wish">
                 <div class="form-row">
                     <div class="form-group flex-2">
-                        <label for="wish-name"><?php esc_html_e( 'Item Name', 'reactions-for-indieweb' ); ?> <span class="required">*</span></label>
-                        <input type="text" name="wish_name" id="wish-name" class="widefat" required placeholder="<?php esc_attr_e( 'What do you wish for?', 'reactions-for-indieweb' ); ?>">
+                        <label for="wish-name"><?php esc_html_e( 'Item Name', 'post-kinds-for-indieweb' ); ?> <span class="required">*</span></label>
+                        <input type="text" name="wish_name" id="wish-name" class="widefat" required placeholder="<?php esc_attr_e( 'What do you wish for?', 'post-kinds-for-indieweb' ); ?>">
                     </div>
                     <div class="form-group">
-                        <label for="wish-type"><?php esc_html_e( 'Type', 'reactions-for-indieweb' ); ?></label>
+                        <label for="wish-type"><?php esc_html_e( 'Type', 'post-kinds-for-indieweb' ); ?></label>
                         <select name="wish_type" id="wish-type" class="widefat">
-                            <option value=""><?php esc_html_e( 'Select...', 'reactions-for-indieweb' ); ?></option>
-                            <option value="book"><?php esc_html_e( 'Book', 'reactions-for-indieweb' ); ?></option>
-                            <option value="movie"><?php esc_html_e( 'Movie/Show', 'reactions-for-indieweb' ); ?></option>
-                            <option value="game"><?php esc_html_e( 'Game', 'reactions-for-indieweb' ); ?></option>
-                            <option value="music"><?php esc_html_e( 'Music', 'reactions-for-indieweb' ); ?></option>
-                            <option value="product"><?php esc_html_e( 'Product', 'reactions-for-indieweb' ); ?></option>
-                            <option value="experience"><?php esc_html_e( 'Experience', 'reactions-for-indieweb' ); ?></option>
-                            <option value="other"><?php esc_html_e( 'Other', 'reactions-for-indieweb' ); ?></option>
+                            <option value=""><?php esc_html_e( 'Select...', 'post-kinds-for-indieweb' ); ?></option>
+                            <option value="book"><?php esc_html_e( 'Book', 'post-kinds-for-indieweb' ); ?></option>
+                            <option value="movie"><?php esc_html_e( 'Movie/Show', 'post-kinds-for-indieweb' ); ?></option>
+                            <option value="game"><?php esc_html_e( 'Game', 'post-kinds-for-indieweb' ); ?></option>
+                            <option value="music"><?php esc_html_e( 'Music', 'post-kinds-for-indieweb' ); ?></option>
+                            <option value="product"><?php esc_html_e( 'Product', 'post-kinds-for-indieweb' ); ?></option>
+                            <option value="experience"><?php esc_html_e( 'Experience', 'post-kinds-for-indieweb' ); ?></option>
+                            <option value="other"><?php esc_html_e( 'Other', 'post-kinds-for-indieweb' ); ?></option>
                         </select>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group flex-2">
-                        <label for="wish-url"><?php esc_html_e( 'URL', 'reactions-for-indieweb' ); ?></label>
+                        <label for="wish-url"><?php esc_html_e( 'URL', 'post-kinds-for-indieweb' ); ?></label>
                         <input type="url" name="wish_url" id="wish-url" class="widefat" placeholder="https://...">
                     </div>
                     <div class="form-group">
-                        <label for="wish-priority"><?php esc_html_e( 'Priority', 'reactions-for-indieweb' ); ?></label>
+                        <label for="wish-priority"><?php esc_html_e( 'Priority', 'post-kinds-for-indieweb' ); ?></label>
                         <select name="wish_priority" id="wish-priority" class="widefat">
-                            <option value="medium"><?php esc_html_e( 'Medium', 'reactions-for-indieweb' ); ?></option>
-                            <option value="high"><?php esc_html_e( 'High', 'reactions-for-indieweb' ); ?></option>
-                            <option value="low"><?php esc_html_e( 'Low', 'reactions-for-indieweb' ); ?></option>
+                            <option value="medium"><?php esc_html_e( 'Medium', 'post-kinds-for-indieweb' ); ?></option>
+                            <option value="high"><?php esc_html_e( 'High', 'post-kinds-for-indieweb' ); ?></option>
+                            <option value="low"><?php esc_html_e( 'Low', 'post-kinds-for-indieweb' ); ?></option>
                         </select>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group full-width">
-                        <label for="wish-content"><?php esc_html_e( 'Notes', 'reactions-for-indieweb' ); ?></label>
+                        <label for="wish-content"><?php esc_html_e( 'Notes', 'post-kinds-for-indieweb' ); ?></label>
                         <textarea name="content" id="wish-content" rows="2" class="widefat"></textarea>
                     </div>
                 </div>
@@ -952,34 +952,34 @@ class Quick_Post {
     private function render_mood_form(): void {
         ?>
         <div class="quick-form" data-kind="mood" style="display: none;">
-            <h2><span class="dashicons dashicons-smiley"></span> <?php esc_html_e( 'Quick Mood', 'reactions-for-indieweb' ); ?></h2>
+            <h2><span class="dashicons dashicons-smiley"></span> <?php esc_html_e( 'Quick Mood', 'post-kinds-for-indieweb' ); ?></h2>
 
             <form class="quick-post-form" data-kind="mood">
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="mood-emoji"><?php esc_html_e( 'Mood Emoji', 'reactions-for-indieweb' ); ?></label>
+                        <label for="mood-emoji"><?php esc_html_e( 'Mood Emoji', 'post-kinds-for-indieweb' ); ?></label>
                         <input type="text" name="mood_emoji" id="mood-emoji" class="widefat" maxlength="10" placeholder="😊">
                     </div>
                     <div class="form-group flex-2">
-                        <label for="mood-label"><?php esc_html_e( 'Mood Label', 'reactions-for-indieweb' ); ?> <span class="required">*</span></label>
-                        <input type="text" name="mood_label" id="mood-label" class="widefat" required placeholder="<?php esc_attr_e( 'How are you feeling?', 'reactions-for-indieweb' ); ?>">
+                        <label for="mood-label"><?php esc_html_e( 'Mood Label', 'post-kinds-for-indieweb' ); ?> <span class="required">*</span></label>
+                        <input type="text" name="mood_label" id="mood-label" class="widefat" required placeholder="<?php esc_attr_e( 'How are you feeling?', 'post-kinds-for-indieweb' ); ?>">
                     </div>
                     <div class="form-group">
-                        <label for="mood-rating"><?php esc_html_e( 'Level (1-5)', 'reactions-for-indieweb' ); ?></label>
+                        <label for="mood-rating"><?php esc_html_e( 'Level (1-5)', 'post-kinds-for-indieweb' ); ?></label>
                         <select name="mood_rating" id="mood-rating" class="widefat">
-                            <option value=""><?php esc_html_e( 'Select...', 'reactions-for-indieweb' ); ?></option>
-                            <option value="1">1 - <?php esc_html_e( 'Low', 'reactions-for-indieweb' ); ?></option>
+                            <option value=""><?php esc_html_e( 'Select...', 'post-kinds-for-indieweb' ); ?></option>
+                            <option value="1">1 - <?php esc_html_e( 'Low', 'post-kinds-for-indieweb' ); ?></option>
                             <option value="2">2</option>
-                            <option value="3">3 - <?php esc_html_e( 'Neutral', 'reactions-for-indieweb' ); ?></option>
+                            <option value="3">3 - <?php esc_html_e( 'Neutral', 'post-kinds-for-indieweb' ); ?></option>
                             <option value="4">4</option>
-                            <option value="5">5 - <?php esc_html_e( 'High', 'reactions-for-indieweb' ); ?></option>
+                            <option value="5">5 - <?php esc_html_e( 'High', 'post-kinds-for-indieweb' ); ?></option>
                         </select>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group full-width">
-                        <label for="mood-content"><?php esc_html_e( 'What\'s on your mind?', 'reactions-for-indieweb' ); ?></label>
+                        <label for="mood-content"><?php esc_html_e( 'What\'s on your mind?', 'post-kinds-for-indieweb' ); ?></label>
                         <textarea name="content" id="mood-content" rows="3" class="widefat"></textarea>
                     </div>
                 </div>
@@ -998,38 +998,38 @@ class Quick_Post {
     private function render_acquisition_form(): void {
         ?>
         <div class="quick-form" data-kind="acquisition" style="display: none;">
-            <h2><span class="dashicons dashicons-cart"></span> <?php esc_html_e( 'Quick Acquisition', 'reactions-for-indieweb' ); ?></h2>
+            <h2><span class="dashicons dashicons-cart"></span> <?php esc_html_e( 'Quick Acquisition', 'post-kinds-for-indieweb' ); ?></h2>
 
             <form class="quick-post-form" data-kind="acquisition">
                 <div class="form-row">
                     <div class="form-group full-width">
-                        <label for="acquisition-url"><?php esc_html_e( 'URL', 'reactions-for-indieweb' ); ?></label>
+                        <label for="acquisition-url"><?php esc_html_e( 'URL', 'post-kinds-for-indieweb' ); ?></label>
                         <input type="url" name="acquisition_url" id="acquisition-url" class="widefat" placeholder="https://...">
                         <button type="button" class="button fetch-metadata-button">
                             <span class="dashicons dashicons-download"></span>
-                            <?php esc_html_e( 'Fetch Metadata', 'reactions-for-indieweb' ); ?>
+                            <?php esc_html_e( 'Fetch Metadata', 'post-kinds-for-indieweb' ); ?>
                         </button>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group flex-2">
-                        <label for="acquisition-name"><?php esc_html_e( 'Item Name', 'reactions-for-indieweb' ); ?> <span class="required">*</span></label>
-                        <input type="text" name="acquisition_name" id="acquisition-name" class="widefat" required placeholder="<?php esc_attr_e( 'What did you get?', 'reactions-for-indieweb' ); ?>">
+                        <label for="acquisition-name"><?php esc_html_e( 'Item Name', 'post-kinds-for-indieweb' ); ?> <span class="required">*</span></label>
+                        <input type="text" name="acquisition_name" id="acquisition-name" class="widefat" required placeholder="<?php esc_attr_e( 'What did you get?', 'post-kinds-for-indieweb' ); ?>">
                     </div>
                     <div class="form-group">
-                        <label for="acquisition-price"><?php esc_html_e( 'Price', 'reactions-for-indieweb' ); ?></label>
+                        <label for="acquisition-price"><?php esc_html_e( 'Price', 'post-kinds-for-indieweb' ); ?></label>
                         <input type="text" name="acquisition_price" id="acquisition-price" class="widefat" placeholder="$0.00">
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group flex-2">
-                        <label for="acquisition-content"><?php esc_html_e( 'Notes', 'reactions-for-indieweb' ); ?></label>
+                        <label for="acquisition-content"><?php esc_html_e( 'Notes', 'post-kinds-for-indieweb' ); ?></label>
                         <textarea name="content" id="acquisition-content" rows="2" class="widefat"></textarea>
                     </div>
                     <div class="form-group">
-                        <label><?php esc_html_e( 'Rating', 'reactions-for-indieweb' ); ?></label>
+                        <label><?php esc_html_e( 'Rating', 'post-kinds-for-indieweb' ); ?></label>
                         <?php $this->render_rating_input( 'acquisition-rating' ); ?>
                     </div>
                 </div>
@@ -1048,35 +1048,35 @@ class Quick_Post {
     private function render_recipe_form(): void {
         ?>
         <div class="quick-form" data-kind="recipe" style="display: none;">
-            <h2><span class="dashicons dashicons-clipboard"></span> <?php esc_html_e( 'Quick Recipe', 'reactions-for-indieweb' ); ?></h2>
+            <h2><span class="dashicons dashicons-clipboard"></span> <?php esc_html_e( 'Quick Recipe', 'post-kinds-for-indieweb' ); ?></h2>
 
             <form class="quick-post-form" data-kind="recipe">
                 <p class="description">
-                    <?php esc_html_e( 'For full recipe features, use the block editor with WP Recipe Maker.', 'reactions-for-indieweb' ); ?>
+                    <?php esc_html_e( 'For full recipe features, use the block editor with WP Recipe Maker.', 'post-kinds-for-indieweb' ); ?>
                 </p>
 
                 <div class="form-row">
                     <div class="form-group flex-2">
-                        <label for="recipe-name"><?php esc_html_e( 'Recipe Name', 'reactions-for-indieweb' ); ?> <span class="required">*</span></label>
+                        <label for="recipe-name"><?php esc_html_e( 'Recipe Name', 'post-kinds-for-indieweb' ); ?> <span class="required">*</span></label>
                         <input type="text" name="recipe_name" id="recipe-name" class="widefat" required>
                     </div>
                     <div class="form-group">
-                        <label for="recipe-yield"><?php esc_html_e( 'Yield/Servings', 'reactions-for-indieweb' ); ?></label>
-                        <input type="text" name="recipe_yield" id="recipe-yield" class="widefat" placeholder="<?php esc_attr_e( '4 servings', 'reactions-for-indieweb' ); ?>">
+                        <label for="recipe-yield"><?php esc_html_e( 'Yield/Servings', 'post-kinds-for-indieweb' ); ?></label>
+                        <input type="text" name="recipe_yield" id="recipe-yield" class="widefat" placeholder="<?php esc_attr_e( '4 servings', 'post-kinds-for-indieweb' ); ?>">
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group full-width">
-                        <label for="recipe-url"><?php esc_html_e( 'Recipe Source URL', 'reactions-for-indieweb' ); ?></label>
+                        <label for="recipe-url"><?php esc_html_e( 'Recipe Source URL', 'post-kinds-for-indieweb' ); ?></label>
                         <input type="url" name="recipe_url" id="recipe-url" class="widefat" placeholder="https://...">
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group full-width">
-                        <label for="recipe-content"><?php esc_html_e( 'Brief Description', 'reactions-for-indieweb' ); ?></label>
-                        <textarea name="content" id="recipe-content" rows="3" class="widefat" placeholder="<?php esc_attr_e( 'Add ingredients and instructions in the full post editor...', 'reactions-for-indieweb' ); ?>"></textarea>
+                        <label for="recipe-content"><?php esc_html_e( 'Brief Description', 'post-kinds-for-indieweb' ); ?></label>
+                        <textarea name="content" id="recipe-content" rows="3" class="widefat" placeholder="<?php esc_attr_e( 'Add ingredients and instructions in the full post editor...', 'post-kinds-for-indieweb' ); ?>"></textarea>
                     </div>
                 </div>
 
@@ -1099,7 +1099,7 @@ class Quick_Post {
             <?php for ( $i = 1; $i <= 5; $i++ ) : ?>
                 <span class="star" data-value="<?php echo esc_attr( $i ); ?>">&#9733;</span>
             <?php endfor; ?>
-            <button type="button" class="button button-small clear-rating"><?php esc_html_e( 'Clear', 'reactions-for-indieweb' ); ?></button>
+            <button type="button" class="button button-small clear-rating"><?php esc_html_e( 'Clear', 'post-kinds-for-indieweb' ); ?></button>
         </div>
         <?php
     }
@@ -1115,19 +1115,19 @@ class Quick_Post {
             <div class="post-options">
                 <label>
                     <select name="post_status" class="post-status-select">
-                        <option value="publish"><?php esc_html_e( 'Publish', 'reactions-for-indieweb' ); ?></option>
-                        <option value="draft"><?php esc_html_e( 'Draft', 'reactions-for-indieweb' ); ?></option>
-                        <option value="private"><?php esc_html_e( 'Private', 'reactions-for-indieweb' ); ?></option>
+                        <option value="publish"><?php esc_html_e( 'Publish', 'post-kinds-for-indieweb' ); ?></option>
+                        <option value="draft"><?php esc_html_e( 'Draft', 'post-kinds-for-indieweb' ); ?></option>
+                        <option value="private"><?php esc_html_e( 'Private', 'post-kinds-for-indieweb' ); ?></option>
                     </select>
                 </label>
             </div>
             <div class="submit-actions">
                 <button type="button" class="button clear-form-button">
-                    <?php esc_html_e( 'Clear', 'reactions-for-indieweb' ); ?>
+                    <?php esc_html_e( 'Clear', 'post-kinds-for-indieweb' ); ?>
                 </button>
                 <button type="submit" class="button button-primary submit-quick-post">
                     <span class="dashicons dashicons-edit"></span>
-                    <?php esc_html_e( 'Create Post', 'reactions-for-indieweb' ); ?>
+                    <?php esc_html_e( 'Create Post', 'post-kinds-for-indieweb' ); ?>
                 </button>
             </div>
         </div>
@@ -1153,12 +1153,12 @@ class Quick_Post {
         ) );
 
         if ( empty( $recent ) ) {
-            echo '<p class="description">' . esc_html__( 'No reaction posts yet.', 'reactions-for-indieweb' ) . '</p>';
+            echo '<p class="description">' . esc_html__( 'No reaction posts yet.', 'post-kinds-for-indieweb' ) . '</p>';
             return;
         }
 
         ?>
-        <ul class="recent-reactions-list">
+        <ul class="recent-post-kinds-list">
             <?php foreach ( $recent as $post ) : ?>
                 <?php
                 $kinds = wp_get_object_terms( $post->ID, 'kind', array( 'fields' => 'slugs' ) );
@@ -1171,7 +1171,7 @@ class Quick_Post {
                         <?php echo esc_html( $post->post_title ); ?>
                     </a>
                     <span class="post-date">
-                        <?php echo esc_html( human_time_diff( get_post_time( 'U', false, $post ), time() ) . ' ' . __( 'ago', 'reactions-for-indieweb' ) ); ?>
+                        <?php echo esc_html( human_time_diff( get_post_time( 'U', false, $post ), time() ) . ' ' . __( 'ago', 'post-kinds-for-indieweb' ) ); ?>
                     </span>
                 </li>
             <?php endforeach; ?>
@@ -1185,10 +1185,10 @@ class Quick_Post {
      * @return void
      */
     public function ajax_create_post(): void {
-        check_ajax_referer( 'reactions_indieweb_admin', 'nonce' );
+        check_ajax_referer( 'post_kinds_indieweb_admin', 'nonce' );
 
         if ( ! current_user_can( 'edit_posts' ) ) {
-            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'reactions-for-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'post-kinds-for-indieweb' ) ) );
         }
 
         $kind = isset( $_POST['kind'] ) ? sanitize_text_field( wp_unslash( $_POST['kind'] ) ) : '';
@@ -1196,7 +1196,7 @@ class Quick_Post {
         $data = isset( $_POST['data'] ) ? $this->sanitize_post_data( wp_unslash( $_POST['data'] ) ) : array();
 
         if ( empty( $kind ) ) {
-            wp_send_json_error( array( 'message' => __( 'Post kind is required.', 'reactions-for-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Post kind is required.', 'post-kinds-for-indieweb' ) ) );
         }
 
         $result = $this->create_reaction_post( $kind, $data );
@@ -1209,7 +1209,7 @@ class Quick_Post {
             'post_id'  => $result,
             'edit_url' => get_edit_post_link( $result, 'raw' ),
             'view_url' => get_permalink( $result ),
-            'message'  => __( 'Post created successfully!', 'reactions-for-indieweb' ),
+            'message'  => __( 'Post created successfully!', 'post-kinds-for-indieweb' ),
         ) );
     }
 
@@ -1221,7 +1221,7 @@ class Quick_Post {
      * @return int|\WP_Error Post ID or error.
      */
     private function create_reaction_post( string $kind, array $data ) {
-        $settings = get_option( 'reactions_indieweb_settings', array() );
+        $settings = get_option( 'post_kinds_indieweb_settings', array() );
         $post_status = $data['post_status'] ?? ( $settings['default_post_status'] ?? 'publish' );
 
         // Build title based on kind.
@@ -1252,7 +1252,7 @@ class Quick_Post {
         $meta_fields = $this->get_meta_fields_for_kind( $kind );
         foreach ( $meta_fields as $field ) {
             if ( isset( $data[ $field ] ) && '' !== $data[ $field ] ) {
-                update_post_meta( $post_id, "_reactions_indieweb_{$field}", $data[ $field ] );
+                update_post_meta( $post_id, "_postkind_indieweb_{$field}", $data[ $field ] );
             }
         }
 
@@ -1449,17 +1449,17 @@ class Quick_Post {
      * @return void
      */
     public function ajax_quick_lookup(): void {
-        check_ajax_referer( 'reactions_indieweb_admin', 'nonce' );
+        check_ajax_referer( 'post_kinds_indieweb_admin', 'nonce' );
 
         if ( ! current_user_can( 'edit_posts' ) ) {
-            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'reactions-for-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'post-kinds-for-indieweb' ) ) );
         }
 
         $type  = isset( $_POST['type'] ) ? sanitize_text_field( wp_unslash( $_POST['type'] ) ) : '';
         $query = isset( $_POST['query'] ) ? sanitize_text_field( wp_unslash( $_POST['query'] ) ) : '';
 
         if ( empty( $type ) || empty( $query ) ) {
-            wp_send_json_error( array( 'message' => __( 'Type and query are required.', 'reactions-for-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Type and query are required.', 'post-kinds-for-indieweb' ) ) );
         }
 
         // Use the admin lookup method.

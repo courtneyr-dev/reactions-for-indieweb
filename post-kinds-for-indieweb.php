@@ -1,25 +1,25 @@
 <?php
 /**
- * Reactions for IndieWeb
+ * Post Kinds for IndieWeb and Block Themes
  *
- * Post Kinds successor for the block editor. Extends IndieBlocks with reaction
- * posts (listen, watch, read, checkin, RSVP) and media import/syndication.
+ * Modern block editor support for IndieWeb post kinds and microformats.
+ * A successor to the classic IndieWeb Post Kinds plugin by David Shanske.
  *
- * @package     ReactionsForIndieWeb
+ * @package     PostKindsForIndieWeb
  * @author      Courtney Robertson
  * @copyright   2024 Courtney Robertson
  * @license     GPL-2.0-or-later
  *
  * @wordpress-plugin
- * Plugin Name:       Reactions for IndieWeb
- * Plugin URI:        https://github.com/developer-advocacy/reactions-for-indieweb
- * Description:       Post Kinds successor for the block editor. Extends IndieBlocks with reaction posts (listen, watch, read, checkin, RSVP) and media import/syndication.
+ * Plugin Name:       Post Kinds for IndieWeb and Block Themes
+ * Plugin URI:        https://github.com/developer-advocacy/post-kinds-for-indieweb
+ * Description:       Modern block editor support for IndieWeb post kinds and microformats. A successor to the classic IndieWeb Post Kinds plugin.
  * Version:           1.0.0
  * Requires at least: 6.5
  * Requires PHP:      8.0
  * Author:            Courtney Robertson
- * Author URI:        https://developer.wordpress.org/news/author/developer-advocacy
- * Text Domain:       reactions-for-indieweb
+ * Author URI:        https://courtneyr.dev
+ * Text Domain:       post-kinds-for-indieweb
  * Domain Path:       /languages
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -27,7 +27,7 @@
 
 declare(strict_types=1);
 
-namespace ReactionsForIndieWeb;
+namespace PostKindsForIndieWeb;
 
 // Prevent direct access.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -39,56 +39,56 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @var string
  */
-define( 'REACTIONS_INDIEWEB_VERSION', '1.0.0' );
+define( 'POST_KINDS_INDIEWEB_VERSION', '1.0.0' );
 
 /**
  * Plugin directory path constant.
  *
  * @var string
  */
-define( 'REACTIONS_INDIEWEB_PATH', plugin_dir_path( __FILE__ ) );
+define( 'POST_KINDS_INDIEWEB_PATH', plugin_dir_path( __FILE__ ) );
 
 /**
  * Plugin directory URL constant.
  *
  * @var string
  */
-define( 'REACTIONS_INDIEWEB_URL', plugin_dir_url( __FILE__ ) );
+define( 'POST_KINDS_INDIEWEB_URL', plugin_dir_url( __FILE__ ) );
 
 /**
  * Plugin basename constant.
  *
  * @var string
  */
-define( 'REACTIONS_INDIEWEB_BASENAME', plugin_basename( __FILE__ ) );
+define( 'POST_KINDS_INDIEWEB_BASENAME', plugin_basename( __FILE__ ) );
 
 /**
  * Plugin file constant.
  *
  * @var string
  */
-define( 'REACTIONS_INDIEWEB_PLUGIN_FILE', __FILE__ );
+define( 'POST_KINDS_INDIEWEB_PLUGIN_FILE', __FILE__ );
 
 /**
  * Plugin URL constant (alias for compatibility).
  *
  * @var string
  */
-define( 'REACTIONS_INDIEWEB_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+define( 'POST_KINDS_INDIEWEB_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
 /**
  * Minimum required PHP version.
  *
  * @var string
  */
-define( 'REACTIONS_INDIEWEB_MIN_PHP', '8.0' );
+define( 'POST_KINDS_INDIEWEB_MIN_PHP', '8.0' );
 
 /**
  * Minimum required WordPress version.
  *
  * @var string
  */
-define( 'REACTIONS_INDIEWEB_MIN_WP', '6.5' );
+define( 'POST_KINDS_INDIEWEB_MIN_WP', '6.5' );
 
 /**
  * Check PHP version requirement.
@@ -96,7 +96,7 @@ define( 'REACTIONS_INDIEWEB_MIN_WP', '6.5' );
  * @return bool True if PHP version meets requirement, false otherwise.
  */
 function check_php_version(): bool {
-	return version_compare( PHP_VERSION, REACTIONS_INDIEWEB_MIN_PHP, '>=' );
+	return version_compare( PHP_VERSION, POST_KINDS_INDIEWEB_MIN_PHP, '>=' );
 }
 
 /**
@@ -106,7 +106,7 @@ function check_php_version(): bool {
  */
 function check_wp_version(): bool {
 	global $wp_version;
-	return version_compare( $wp_version, REACTIONS_INDIEWEB_MIN_WP, '>=' );
+	return version_compare( $wp_version, POST_KINDS_INDIEWEB_MIN_WP, '>=' );
 }
 
 /**
@@ -118,10 +118,10 @@ function php_version_notice(): void {
 	$message = sprintf(
 		/* translators: 1: Required PHP version, 2: Current PHP version */
 		esc_html__(
-			'Reactions for IndieWeb requires PHP %1$s or higher. You are running PHP %2$s. Please upgrade PHP to activate this plugin.',
-			'reactions-for-indieweb'
+			'Post Kinds for IndieWeb requires PHP %1$s or higher. You are running PHP %2$s. Please upgrade PHP to activate this plugin.',
+			'post-kinds-for-indieweb'
 		),
-		REACTIONS_INDIEWEB_MIN_PHP,
+		POST_KINDS_INDIEWEB_MIN_PHP,
 		PHP_VERSION
 	);
 
@@ -142,10 +142,10 @@ function wp_version_notice(): void {
 	$message = sprintf(
 		/* translators: 1: Required WordPress version, 2: Current WordPress version */
 		esc_html__(
-			'Reactions for IndieWeb requires WordPress %1$s or higher. You are running WordPress %2$s. Please upgrade WordPress to activate this plugin.',
-			'reactions-for-indieweb'
+			'Post Kinds for IndieWeb requires WordPress %1$s or higher. You are running WordPress %2$s. Please upgrade WordPress to activate this plugin.',
+			'post-kinds-for-indieweb'
 		),
-		REACTIONS_INDIEWEB_MIN_WP,
+		POST_KINDS_INDIEWEB_MIN_WP,
 		$wp_version
 	);
 
@@ -162,7 +162,7 @@ function wp_version_notice(): void {
  * @return void
  */
 function autoloader( string $class_name ): void {
-	$namespace = 'ReactionsForIndieWeb\\';
+	$namespace = 'PostKindsForIndieWeb\\';
 
 	// Check if the class belongs to our namespace.
 	if ( strpos( $class_name, $namespace ) !== 0 ) {
@@ -181,9 +181,9 @@ function autoloader( string $class_name ): void {
 
 	// Build the file path.
 	if ( ! empty( $file_parts ) ) {
-		$file_path = REACTIONS_INDIEWEB_PATH . 'includes/' . strtolower( implode( DIRECTORY_SEPARATOR, $file_parts ) ) . DIRECTORY_SEPARATOR . $class_file;
+		$file_path = POST_KINDS_INDIEWEB_PATH . 'includes/' . strtolower( implode( DIRECTORY_SEPARATOR, $file_parts ) ) . DIRECTORY_SEPARATOR . $class_file;
 	} else {
-		$file_path = REACTIONS_INDIEWEB_PATH . 'includes/' . $class_file;
+		$file_path = POST_KINDS_INDIEWEB_PATH . 'includes/' . $class_file;
 	}
 
 	// Load the file if it exists.
@@ -203,34 +203,34 @@ spl_autoload_register( __NAMESPACE__ . '\\autoloader' );
 function activate(): void {
 	// Check PHP version.
 	if ( ! check_php_version() ) {
-		deactivate_plugins( REACTIONS_INDIEWEB_BASENAME );
+		deactivate_plugins( POST_KINDS_INDIEWEB_BASENAME );
 		wp_die(
 			sprintf(
 				/* translators: %s: Required PHP version */
-				esc_html__( 'Reactions for IndieWeb requires PHP %s or higher.', 'reactions-for-indieweb' ),
-				esc_html( REACTIONS_INDIEWEB_MIN_PHP )
+				esc_html__( 'Post Kinds for IndieWeb requires PHP %s or higher.', 'post-kinds-for-indieweb' ),
+				esc_html( POST_KINDS_INDIEWEB_MIN_PHP )
 			),
-			esc_html__( 'Plugin Activation Error', 'reactions-for-indieweb' ),
+			esc_html__( 'Plugin Activation Error', 'post-kinds-for-indieweb' ),
 			array( 'back_link' => true )
 		);
 	}
 
 	// Check WordPress version.
 	if ( ! check_wp_version() ) {
-		deactivate_plugins( REACTIONS_INDIEWEB_BASENAME );
+		deactivate_plugins( POST_KINDS_INDIEWEB_BASENAME );
 		wp_die(
 			sprintf(
 				/* translators: %s: Required WordPress version */
-				esc_html__( 'Reactions for IndieWeb requires WordPress %s or higher.', 'reactions-for-indieweb' ),
-				esc_html( REACTIONS_INDIEWEB_MIN_WP )
+				esc_html__( 'Post Kinds for IndieWeb requires WordPress %s or higher.', 'post-kinds-for-indieweb' ),
+				esc_html( POST_KINDS_INDIEWEB_MIN_WP )
 			),
-			esc_html__( 'Plugin Activation Error', 'reactions-for-indieweb' ),
+			esc_html__( 'Plugin Activation Error', 'post-kinds-for-indieweb' ),
 			array( 'back_link' => true )
 		);
 	}
 
 	// Store activation timestamp for future reference.
-	add_option( 'reactions_indieweb_activated', time() );
+	add_option( 'post_kinds_indieweb_activated', time() );
 
 	// Flush rewrite rules on activation for taxonomy archives.
 	flush_rewrite_rules();

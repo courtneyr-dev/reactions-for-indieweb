@@ -4,13 +4,13 @@
  *
  * Provides scrobble import and listening history from ListenBrainz.
  *
- * @package ReactionsForIndieWeb
+ * @package PostKindsForIndieWeb
  * @since   1.0.0
  */
 
 declare(strict_types=1);
 
-namespace ReactionsForIndieWeb\APIs;
+namespace PostKindsForIndieWeb\APIs;
 
 // Prevent direct access.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -64,7 +64,7 @@ class ListenBrainz extends API_Base {
 	 */
 	public function __construct() {
 		parent::__construct();
-		$credentials      = get_option( 'reactions_indieweb_api_credentials', array() );
+		$credentials      = get_option( 'post_kinds_indieweb_api_credentials', array() );
 		$lb_creds         = $credentials['listenbrainz'] ?? array();
 		$this->user_token = $lb_creds['token'] ?? '';
 	}

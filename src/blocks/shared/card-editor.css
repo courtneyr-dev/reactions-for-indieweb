@@ -2,14 +2,14 @@
  * Shared Card Block Editor Styles
  *
  * Uses WordPress theme color palette variables for consistent styling.
- * These styles apply to all Reactions card blocks in the editor and frontend.
+ * These styles apply to all Post Kinds card blocks in the editor and frontend.
  *
  * Color strategy:
  * - Background: uses theme's secondary background with dark slate fallback
  * - Text: uses inherit/currentColor to respect block support overrides
  * - When no override is set, falls back to light text for dark backgrounds
  *
- * @package Reactions_For_IndieWeb
+ * @package PostKindsForIndieWeb
  */
 
 /* Base card container - theme-aware styling */
@@ -25,35 +25,35 @@
 }
 
 /* Default styling when no block support colors are set */
-.wp-block-reactions-indieweb-mood-card:not(.has-background) .reactions-card,
-.wp-block-reactions-indieweb-listen-card:not(.has-background) .reactions-card,
-.wp-block-reactions-indieweb-watch-card:not(.has-background) .reactions-card,
-.wp-block-reactions-indieweb-read-card:not(.has-background) .reactions-card,
-.wp-block-reactions-indieweb-play-card:not(.has-background) .reactions-card,
-.wp-block-reactions-indieweb-checkin-card:not(.has-background) .reactions-card,
-.wp-block-reactions-indieweb-rsvp-card:not(.has-background) .reactions-card,
-.wp-block-reactions-indieweb-eat-card:not(.has-background) .reactions-card,
-.wp-block-reactions-indieweb-drink-card:not(.has-background) .reactions-card,
-.wp-block-reactions-indieweb-favorite-card:not(.has-background) .reactions-card,
-.wp-block-reactions-indieweb-jam-card:not(.has-background) .reactions-card,
-.wp-block-reactions-indieweb-wish-card:not(.has-background) .reactions-card,
-.wp-block-reactions-indieweb-acquisition-card:not(.has-background) .reactions-card {
+.wp-block-post-kinds-indieweb-mood-card:not(.has-background) .reactions-card,
+.wp-block-post-kinds-indieweb-listen-card:not(.has-background) .reactions-card,
+.wp-block-post-kinds-indieweb-watch-card:not(.has-background) .reactions-card,
+.wp-block-post-kinds-indieweb-read-card:not(.has-background) .reactions-card,
+.wp-block-post-kinds-indieweb-play-card:not(.has-background) .reactions-card,
+.wp-block-post-kinds-indieweb-checkin-card:not(.has-background) .reactions-card,
+.wp-block-post-kinds-indieweb-rsvp-card:not(.has-background) .reactions-card,
+.wp-block-post-kinds-indieweb-eat-card:not(.has-background) .reactions-card,
+.wp-block-post-kinds-indieweb-drink-card:not(.has-background) .reactions-card,
+.wp-block-post-kinds-indieweb-favorite-card:not(.has-background) .reactions-card,
+.wp-block-post-kinds-indieweb-jam-card:not(.has-background) .reactions-card,
+.wp-block-post-kinds-indieweb-wish-card:not(.has-background) .reactions-card,
+.wp-block-post-kinds-indieweb-acquisition-card:not(.has-background) .reactions-card {
 	background: var(--wp--preset--color--base-2, var(--wp--preset--color--tertiary, #1e293b));
 }
 
-.wp-block-reactions-indieweb-mood-card:not(.has-text-color) .reactions-card,
-.wp-block-reactions-indieweb-listen-card:not(.has-text-color) .reactions-card,
-.wp-block-reactions-indieweb-watch-card:not(.has-text-color) .reactions-card,
-.wp-block-reactions-indieweb-read-card:not(.has-text-color) .reactions-card,
-.wp-block-reactions-indieweb-play-card:not(.has-text-color) .reactions-card,
-.wp-block-reactions-indieweb-checkin-card:not(.has-text-color) .reactions-card,
-.wp-block-reactions-indieweb-rsvp-card:not(.has-text-color) .reactions-card,
-.wp-block-reactions-indieweb-eat-card:not(.has-text-color) .reactions-card,
-.wp-block-reactions-indieweb-drink-card:not(.has-text-color) .reactions-card,
-.wp-block-reactions-indieweb-favorite-card:not(.has-text-color) .reactions-card,
-.wp-block-reactions-indieweb-jam-card:not(.has-text-color) .reactions-card,
-.wp-block-reactions-indieweb-wish-card:not(.has-text-color) .reactions-card,
-.wp-block-reactions-indieweb-acquisition-card:not(.has-text-color) .reactions-card {
+.wp-block-post-kinds-indieweb-mood-card:not(.has-text-color) .reactions-card,
+.wp-block-post-kinds-indieweb-listen-card:not(.has-text-color) .reactions-card,
+.wp-block-post-kinds-indieweb-watch-card:not(.has-text-color) .reactions-card,
+.wp-block-post-kinds-indieweb-read-card:not(.has-text-color) .reactions-card,
+.wp-block-post-kinds-indieweb-play-card:not(.has-text-color) .reactions-card,
+.wp-block-post-kinds-indieweb-checkin-card:not(.has-text-color) .reactions-card,
+.wp-block-post-kinds-indieweb-rsvp-card:not(.has-text-color) .reactions-card,
+.wp-block-post-kinds-indieweb-eat-card:not(.has-text-color) .reactions-card,
+.wp-block-post-kinds-indieweb-drink-card:not(.has-text-color) .reactions-card,
+.wp-block-post-kinds-indieweb-favorite-card:not(.has-text-color) .reactions-card,
+.wp-block-post-kinds-indieweb-jam-card:not(.has-text-color) .reactions-card,
+.wp-block-post-kinds-indieweb-wish-card:not(.has-text-color) .reactions-card,
+.wp-block-post-kinds-indieweb-acquisition-card:not(.has-text-color) .reactions-card {
 	color: #f1f5f9;
 }
 
@@ -450,11 +450,11 @@
 }
 
 /* Default styling for wrapper when no block support colors are set */
-[class*="wp-block-reactions-indieweb"]:not(.has-background) .reactions-card-wrapper {
+[class*="wp-block-post-kinds-indieweb"]:not(.has-background) .reactions-card-wrapper {
 	background: var(--wp--preset--color--base-2, var(--wp--preset--color--tertiary, #1e293b));
 }
 
-[class*="wp-block-reactions-indieweb"]:not(.has-text-color) .reactions-card-wrapper {
+[class*="wp-block-post-kinds-indieweb"]:not(.has-text-color) .reactions-card-wrapper {
 	color: #f1f5f9;
 }
 
@@ -556,6 +556,34 @@
 	display: flex;
 	gap: 12px;
 	margin-top: 8px;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+.reactions-card__link {
+	font-size: 12px;
+	color: var(--wp--preset--color--primary, #60a5fa);
+	text-decoration: none;
+}
+
+.reactions-card__link:hover {
+	text-decoration: underline;
+}
+
+.reactions-card__link--buy {
+	display: inline-flex;
+	align-items: center;
+	padding: 4px 12px;
+	background: #10b981;
+	color: #fff;
+	border-radius: 16px;
+	font-weight: 600;
+	text-decoration: none;
+}
+
+.reactions-card__link--buy:hover {
+	background: #059669;
+	text-decoration: none;
 }
 
 .reactions-card__links a {

@@ -1,5 +1,5 @@
 /**
- * Reactions for IndieWeb - Admin Styles
+ * Post Kinds for IndieWeb - Admin Styles
  *
  * @package Reactions_For_IndieWeb
  * @since 1.0.0
@@ -28,11 +28,11 @@
    Common Elements
    ========================================================================== */
 
-.reactions-indieweb-settings,
-.reactions-indieweb-api-settings,
-.reactions-indieweb-import,
-.reactions-indieweb-webhooks,
-.reactions-indieweb-quick-post {
+.post-kinds-indieweb-settings,
+.post-kinds-indieweb-api-settings,
+.post-kinds-indieweb-import,
+.post-kinds-indieweb-webhooks,
+.post-kinds-indieweb-quick-post {
     max-width: 1200px;
 }
 
@@ -125,19 +125,19 @@ input:checked + .toggle-slider:before {
    Settings Page
    ========================================================================== */
 
-.reactions-indieweb-settings .nav-tab-wrapper {
+.post-kinds-indieweb-settings .nav-tab-wrapper {
     margin-bottom: 20px;
 }
 
-.reactions-indieweb-settings .form-table th {
+.post-kinds-indieweb-settings .form-table th {
     width: 220px;
 }
 
-.reactions-indieweb-tools h2 {
+.post-kinds-indieweb-tools h2 {
     margin-top: 30px;
 }
 
-.reactions-indieweb-tools h2:first-child {
+.post-kinds-indieweb-tools h2:first-child {
     margin-top: 0;
 }
 

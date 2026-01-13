@@ -9,7 +9,6 @@ import { useBlockProps } from '@wordpress/block-editor';
 export default function Save( { attributes } ) {
 	const {
 		name,
-		restaurant,
 		cuisine,
 		photo,
 		photoAlt,
@@ -17,7 +16,13 @@ export default function Save( { attributes } ) {
 		ateAt,
 		notes,
 		restaurantUrl,
-		locality,
+		locationName,
+		locationAddress,
+		locationLocality,
+		locationRegion,
+		locationCountry,
+		geoLatitude,
+		geoLongitude,
 		layout,
 	} = attributes;
 
@@ -52,22 +57,43 @@ export default function Save( { attributes } ) {
 					{ cuisine && <span className="reactions-card__badge">{ cuisine }</span> }
 
 					{ name && (
-						<h3 className="reactions-card__title p-name">
-							{ restaurantUrl ? (
-								<a href={ restaurantUrl } className="u-url" target="_blank" rel="noopener noreferrer">
-									{ name }
-								</a>
-							) : (
-								name
-							) }
-						</h3>
+						<h3 className="reactions-card__title p-name">{ name }</h3>
 					) }
 
-					{ restaurant && (
-						<p className="reactions-card__subtitle p-location h-card">
-							<span className="p-name">{ restaurant }</span>
-							{ locality && <span className="p-locality">, { locality }</span> }
-						</p>
+					{ locationName && (
+						<div className="reactions-card__location p-location h-card">
+							<p className="reactions-card__venue">
+								{ restaurantUrl ? (
+									<a href={ restaurantUrl } className="p-name u-url" target="_blank" rel="noopener noreferrer">
+										{ locationName }
+									</a>
+								) : (
+									<span className="p-name">{ locationName }</span>
+								) }
+							</p>
+							{ locationAddress && (
+								<p className="reactions-card__address p-street-address">{ locationAddress }</p>
+							) }
+							{ ( locationLocality || locationRegion || locationCountry ) && (
+								<p className="reactions-card__city">
+									{ locationLocality && <span className="p-locality">{ locationLocality }</span> }
+									{ locationLocality && locationRegion && ', ' }
+									{ locationRegion && <span className="p-region">{ locationRegion }</span> }
+									{ ( locationLocality || locationRegion ) && locationCountry && ', ' }
+									{ locationCountry && <span className="p-country-name">{ locationCountry }</span> }
+								</p>
+							) }
+							{ ( geoLatitude !== 0 || geoLongitude !== 0 ) && (
+								<data
+									className="p-geo h-geo"
+									value={ `${ geoLatitude },${ geoLongitude }` }
+									hidden
+								>
+									<span className="p-latitude">{ geoLatitude }</span>
+									<span className="p-longitude">{ geoLongitude }</span>
+								</data>
+							) }
+						</div>
 					) }
 
 					{ renderStars() }

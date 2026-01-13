@@ -1,13 +1,22 @@
-# Reactions for IndieWeb
+# Post Kinds for IndieWeb and Block Themes
 
 [![WordPress](https://img.shields.io/badge/WordPress-6.5%2B-blue.svg)](https://wordpress.org/)
 [![PHP](https://img.shields.io/badge/PHP-8.0%2B-purple.svg)](https://php.net/)
 [![License](https://img.shields.io/badge/License-GPL--2.0--or--later-green.svg)](LICENSE)
 [![IndieWeb](https://img.shields.io/badge/IndieWeb-compatible-orange.svg)](https://indieweb.org/)
 
-**Post Kinds successor for the block editor.** Extends IndieBlocks with reaction posts (listen, watch, read, checkin, RSVP) and media import/syndication.
+**Modern block editor support for IndieWeb post kinds and microformats.** A successor to the classic [IndieWeb Post Kinds](https://wordpress.org/plugins/indieweb-post-kinds/) plugin by David Shanske.
 
-Share what you're listening to, watching, reading, and experiencing—all on your own website.
+Share what you're listening to, watching, reading, and experiencing—all on your own website with full Gutenberg support.
+
+## About This Plugin
+
+This plugin is a modern, block-editor compatible successor to David Shanske's [IndieWeb Post Kinds](https://wordpress.org/plugins/indieweb-post-kinds/) plugin. It maintains compatibility with the same post kind concepts and IndieWeb microformats while adding full Gutenberg support.
+
+**Why a new plugin?**
+- The original Post Kinds plugin is incompatible with the Block Editor
+- WordPress has evolved—block themes and the Block Bindings API offer new possibilities
+- Modern APIs and import capabilities enhance the experience
 
 ## Features
 
@@ -16,12 +25,15 @@ Share what you're listening to, watching, reading, and experiencing—all on you
 - **Watch** - Log movies and TV shows with TMDB/Trakt/Simkl support
 - **Read** - Track books with Open Library/Hardcover/Google Books integration
 - **Checkin** - Location check-ins with Foursquare/Nominatim geocoding
+- **Play** - Game tracking with RAWG and BoardGameGeek integration
+- **Eat/Drink** - Food and beverage logging
 - **Like, Reply, Repost, Bookmark, RSVP** - Full IndieWeb interaction support
 
 ### External API Integrations
 - **Music**: MusicBrainz, ListenBrainz, Last.fm
 - **Movies/TV**: TMDB, Trakt, Simkl, TVmaze
 - **Books**: Open Library, Hardcover, Google Books
+- **Games**: RAWG, BoardGameGeek
 - **Podcasts**: Podcast Index
 - **Location**: Foursquare, Nominatim (OpenStreetMap)
 
@@ -31,10 +43,11 @@ Share what you're listening to, watching, reading, and experiencing—all on you
 - Background processing with WP-Cron
 
 ### Block Editor Integration
-- Custom blocks for each post kind
+- Custom card blocks for each post kind
 - Media search/lookup in editor
 - Star rating component
 - Microformats2 output for IndieWeb compatibility
+- Block Bindings API for dynamic content
 
 ## Requirements
 
@@ -50,6 +63,7 @@ Share what you're listening to, watching, reading, and experiencing—all on you
 
 **Optional:**
 - [ActivityPub](https://wordpress.org/plugins/activitypub/) - Fediverse federation
+- [Bookmark Card](https://wordpress.org/plugins/developer/mamaduka/bookmark-card/) - Enhanced bookmark previews
 
 **Conflicts:**
 - [Post Kinds](https://wordpress.org/plugins/indieweb-post-kinds/) - Use one or the other (this plugin is the block editor successor)
@@ -63,7 +77,7 @@ Share what you're listening to, watching, reading, and experiencing—all on you
 
 ## Configuration
 
-1. Navigate to **Reactions** in the WordPress admin menu
+1. Navigate to **Post Kinds** in the WordPress admin menu
 2. Configure API connections under **API Connections**
 3. Set up webhooks under **Webhooks** for automatic scrobbling
 4. Use **Quick Post** for rapid content creation
@@ -101,7 +115,7 @@ The plugin includes several block patterns:
 
 ```php
 // Modify post kinds
-add_filter('reactions_indieweb_post_kinds', function($kinds) {
+add_filter('post_kinds_indieweb_post_kinds', function($kinds) {
     // Add custom kind
     $kinds['custom'] = [
         'label' => 'Custom',
@@ -111,7 +125,7 @@ add_filter('reactions_indieweb_post_kinds', function($kinds) {
 });
 
 // Modify API response caching
-add_filter('reactions_indieweb_cache_duration', function($duration, $api) {
+add_filter('post_kinds_indieweb_cache_duration', function($duration, $api) {
     return 3600; // 1 hour
 }, 10, 2);
 ```
@@ -119,13 +133,13 @@ add_filter('reactions_indieweb_cache_duration', function($duration, $api) {
 ### Actions
 
 ```php
-// After a reaction post is created
-add_action('reactions_indieweb_post_created', function($post_id, $kind, $data) {
+// After a post kind is created
+add_action('post_kinds_indieweb_post_created', function($post_id, $kind, $data) {
     // Custom logic
 }, 10, 3);
 
 // After import completes
-add_action('reactions_indieweb_import_complete', function($import_id, $stats) {
+add_action('post_kinds_indieweb_import_complete', function($import_id, $stats) {
     // Send notification, etc.
 }, 10, 2);
 ```
@@ -142,7 +156,7 @@ All output includes proper microformats2 markup for IndieWeb compatibility:
 
 ## Custom Blocks
 
-The plugin includes 7 custom Gutenberg blocks:
+The plugin includes 16 custom Gutenberg blocks:
 
 | Block | Description |
 |-------|-------------|
@@ -151,8 +165,17 @@ The plugin includes 7 custom Gutenberg blocks:
 | **Read Card** | Book with cover, author, reading progress |
 | **Checkin Card** | Location with venue details and map embed |
 | **RSVP Card** | Event response (yes/no/maybe/interested/remote) |
+| **Play Card** | Games with cover art and platform info |
+| **Eat Card** | Food with restaurant and cuisine details |
+| **Drink Card** | Beverages with venue and type info |
+| **Jam Card** | Personally meaningful music |
+| **Favorite Card** | Favorited content |
+| **Wish Card** | Wishlist items |
+| **Mood Card** | Current mood/feeling |
+| **Acquisition Card** | Items acquired |
 | **Star Rating** | Standalone rating component |
 | **Media Lookup** | Universal media search and embed |
+| **Checkin Dashboard** | Overview of recent checkins |
 
 ## Contributing
 
@@ -161,8 +184,8 @@ Contributions are welcome! Please read our [Contributing Guidelines](CONTRIBUTIN
 ### Quick Start
 
 ```bash
-git clone https://github.com/courtneyr-dev/reactions-for-indieweb.git
-cd reactions-for-indieweb
+git clone https://github.com/developer-advocacy/post-kinds-for-indieweb.git
+cd post-kinds-for-indieweb
 composer install
 npm install
 npm run build
@@ -170,8 +193,8 @@ npm run build
 
 ## Support
 
-- [GitHub Issues](https://github.com/courtneyr-dev/reactions-for-indieweb/issues) - Bug reports and feature requests
-- [GitHub Discussions](https://github.com/courtneyr-dev/reactions-for-indieweb/discussions) - Questions and ideas
+- [GitHub Issues](https://github.com/developer-advocacy/post-kinds-for-indieweb/issues) - Bug reports and feature requests
+- [GitHub Discussions](https://github.com/developer-advocacy/post-kinds-for-indieweb/discussions) - Questions and ideas
 - [IndieWeb Chat](https://chat.indieweb.org/) - Real-time community help
 - [SUPPORT.md](SUPPORT.md) - FAQ and troubleshooting
 
@@ -189,7 +212,8 @@ GPL v2 or later. See [LICENSE](LICENSE) for details.
 
 ## Credits
 
-- Built to extend [IndieBlocks](https://developer.wordpress.org/plugins/indieblocks/)
-- Inspired by [Post Kinds](https://developer.wordpress.org/plugins/indieweb-post-kinds/)
-- Uses data from MusicBrainz, TMDB, Open Library, and other open APIs
+- **Author**: [Courtney Robertson](https://courtneyr.dev)
+- **Original Plugin**: [IndieWeb Post Kinds](https://wordpress.org/plugins/indieweb-post-kinds/) by David Shanske
+- Built to extend [IndieBlocks](https://wordpress.org/plugins/indieblocks/)
+- Uses data from MusicBrainz, TMDB, Open Library, RAWG, and other open APIs
 - Made with love for the IndieWeb community

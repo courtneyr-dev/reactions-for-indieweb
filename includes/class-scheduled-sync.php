@@ -4,13 +4,13 @@
  *
  * Handles automatic/scheduled imports from external services using WP-Cron.
  *
- * @package ReactionsForIndieWeb
+ * @package PostKindsForIndieWeb
  * @since   1.0.0
  */
 
 declare(strict_types=1);
 
-namespace ReactionsForIndieWeb;
+namespace PostKindsForIndieWeb;
 
 // Prevent direct access.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -29,7 +29,7 @@ class Scheduled_Sync {
 	 *
 	 * @var string
 	 */
-	private const CRON_HOOK = 'reactions_indieweb_scheduled_sync';
+	private const CRON_HOOK = 'post_kinds_indieweb_scheduled_sync';
 
 	/**
 	 * Import manager instance.
@@ -57,13 +57,13 @@ class Scheduled_Sync {
 		add_action( self::CRON_HOOK, array( $this, 'run_scheduled_sync' ) );
 
 		// Schedule cron on settings save.
-		add_action( 'update_option_reactions_indieweb_settings', array( $this, 'maybe_schedule_cron' ), 10, 2 );
+		add_action( 'update_option_postkind_indieweb_settings', array( $this, 'maybe_schedule_cron' ), 10, 2 );
 
 		// Schedule on plugin activation.
-		add_action( 'reactions_indieweb_activate', array( $this, 'schedule_cron' ) );
+		add_action( 'post_kinds_indieweb_activate', array( $this, 'schedule_cron' ) );
 
 		// Unschedule on plugin deactivation.
-		add_action( 'reactions_indieweb_deactivate', array( $this, 'unschedule_cron' ) );
+		add_action( 'post_kinds_indieweb_deactivate', array( $this, 'unschedule_cron' ) );
 
 		// Check and schedule if needed on admin init.
 		add_action( 'admin_init', array( $this, 'ensure_scheduled' ) );
@@ -86,7 +86,7 @@ class Scheduled_Sync {
 	 * @return bool
 	 */
 	private function is_auto_sync_enabled(): bool {
-		$settings = get_option( 'reactions_indieweb_settings', array() );
+		$settings = get_option( 'post_kinds_indieweb_settings', array() );
 
 		// Check if background sync is enabled.
 		if ( empty( $settings['enable_background_sync'] ) ) {
@@ -157,7 +157,7 @@ class Scheduled_Sync {
 	 * @return void
 	 */
 	public function run_scheduled_sync(): void {
-		$settings = get_option( 'reactions_indieweb_settings', array() );
+		$settings = get_option( 'post_kinds_indieweb_settings', array() );
 
 		// Check if background sync is enabled.
 		if ( empty( $settings['enable_background_sync'] ) ) {
@@ -192,7 +192,7 @@ class Scheduled_Sync {
 		}
 
 		// Update last sync time.
-		update_option( 'reactions_indieweb_last_sync', time() );
+		update_option( 'post_kinds_indieweb_last_sync', time() );
 
 		$this->log( 'Scheduled sync completed' );
 	}
@@ -223,7 +223,7 @@ class Scheduled_Sync {
 	 * @return void
 	 */
 	private function sync_listen_podcasts(): void {
-		$credentials = get_option( 'reactions_indieweb_api_credentials', array() );
+		$credentials = get_option( 'post_kinds_indieweb_api_credentials', array() );
 		if ( ! empty( $credentials['readwise']['access_token'] ) ) {
 			// Enable update_existing to fill in metadata on previously imported posts.
 			// Use smaller limit - each episode requires API calls for highlights.
@@ -263,7 +263,7 @@ class Scheduled_Sync {
 	 */
 	private function sync_read_books( array $settings ): void {
 		$source = $settings['read_import_source'] ?? 'hardcover';
-		$credentials = get_option( 'reactions_indieweb_api_credentials', array() );
+		$credentials = get_option( 'post_kinds_indieweb_api_credentials', array() );
 
 		if ( 'readwise_books' === $source ) {
 			// Use smaller limit - each book requires API calls for highlights.
@@ -283,7 +283,7 @@ class Scheduled_Sync {
 	 * @return void
 	 */
 	private function sync_read_articles(): void {
-		$credentials = get_option( 'reactions_indieweb_api_credentials', array() );
+		$credentials = get_option( 'post_kinds_indieweb_api_credentials', array() );
 		if ( ! empty( $credentials['readwise']['access_token'] ) ) {
 			$this->run_import( 'readwise_articles', array( 'limit' => 30 ) );
 		}
@@ -296,7 +296,7 @@ class Scheduled_Sync {
 	 * @return void
 	 */
 	private function sync_checkin( array $settings ): void {
-		$credentials = get_option( 'reactions_indieweb_api_credentials', array() );
+		$credentials = get_option( 'post_kinds_indieweb_api_credentials', array() );
 
 		// Sync Foursquare if connected.
 		if ( ! empty( $credentials['foursquare']['access_token'] ) ) {
@@ -352,7 +352,7 @@ class Scheduled_Sync {
 	 * @return int|null Unix timestamp or null if never synced.
 	 */
 	public function get_last_sync_time(): ?int {
-		$time = get_option( 'reactions_indieweb_last_sync' );
+		$time = get_option( 'post_kinds_indieweb_last_sync' );
 		return $time ? (int) $time : null;
 	}
 

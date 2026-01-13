@@ -1,10 +1,10 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
-  "name": "reactions-indieweb/star-rating",
+  "name": "post-kinds-indieweb/star-rating",
   "version": "1.0.0",
   "title": "Star Rating",
-  "category": "reactions-indieweb",
+  "category": "post-kinds-indieweb",
   "description": "Add an interactive star rating to any content with customizable scale and style.",
   "keywords": [
     "rating",
@@ -13,7 +13,7 @@
     "score",
     "feedback"
   ],
-  "textdomain": "reactions-indieweb",
+  "textdomain": "post-kinds-indieweb",
   "attributes": {
     "rating": {
       "type": "number",

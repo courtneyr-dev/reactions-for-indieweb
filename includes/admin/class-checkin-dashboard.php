@@ -4,11 +4,11 @@
  *
  * Admin page for viewing all check-ins in a Foursquare-like interface.
  *
- * @package Reactions_For_IndieWeb
+ * @package PostKindsForIndieWeb
  * @since   1.1.0
  */
 
-namespace ReactionsForIndieWeb\Admin;
+namespace PostKindsForIndieWeb\Admin;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -51,7 +51,7 @@ class Checkin_Dashboard {
 	 * @return void
 	 */
 	public function enqueue_assets( string $hook ): void {
-		if ( 'reactions_page_reactions-indieweb-checkins' !== $hook ) {
+		if ( 'post_kinds_page_post-kinds-indieweb-checkins' !== $hook ) {
 			return;
 		}
 
@@ -96,38 +96,38 @@ class Checkin_Dashboard {
 
 		// Enqueue dashboard styles.
 		wp_enqueue_style(
-			'reactions-checkin-dashboard',
-			REACTIONS_INDIEWEB_URL . 'assets/css/checkin-dashboard.css',
+			'post-kinds-checkin-dashboard',
+			POST_KINDS_INDIEWEB_URL . 'assets/css/checkin-dashboard.css',
 			array( 'leaflet', 'leaflet-markercluster' ),
-			REACTIONS_INDIEWEB_VERSION
+			POST_KINDS_INDIEWEB_VERSION
 		);
 
 		// Enqueue dashboard script.
 		wp_enqueue_script(
-			'reactions-checkin-dashboard',
-			REACTIONS_INDIEWEB_URL . 'assets/js/checkin-dashboard.js',
+			'post-kinds-checkin-dashboard',
+			POST_KINDS_INDIEWEB_URL . 'assets/js/checkin-dashboard.js',
 			array( 'jquery', 'leaflet', 'leaflet-markercluster', 'wp-api-fetch' ),
-			REACTIONS_INDIEWEB_VERSION,
+			POST_KINDS_INDIEWEB_VERSION,
 			true
 		);
 
 		wp_localize_script(
-			'reactions-checkin-dashboard',
-			'reactionsCheckinDashboard',
+			'post-kinds-checkin-dashboard',
+			'postKindsCheckinDashboard',
 			array(
-				'restUrl'   => rest_url( 'reactions-indieweb/v1/' ),
+				'restUrl'   => rest_url( 'post-kinds-indieweb/v1/' ),
 				'nonce'     => wp_create_nonce( 'wp_rest' ),
 				'siteUrl'   => home_url(),
 				'i18n'      => array(
-					'loading'      => __( 'Loading check-ins...', 'reactions-for-indieweb' ),
-					'noCheckins'   => __( 'No check-ins found.', 'reactions-for-indieweb' ),
-					'viewOnMap'    => __( 'View on map', 'reactions-for-indieweb' ),
-					'editPost'     => __( 'Edit', 'reactions-for-indieweb' ),
-					'viewPost'     => __( 'View', 'reactions-for-indieweb' ),
-					'totalCheckins'=> __( 'Total Check-ins', 'reactions-for-indieweb' ),
-					'uniqueVenues' => __( 'Unique Venues', 'reactions-for-indieweb' ),
-					'countries'    => __( 'Countries', 'reactions-for-indieweb' ),
-					'cities'       => __( 'Cities', 'reactions-for-indieweb' ),
+					'loading'      => __( 'Loading check-ins...', 'post-kinds-for-indieweb' ),
+					'noCheckins'   => __( 'No check-ins found.', 'post-kinds-for-indieweb' ),
+					'viewOnMap'    => __( 'View on map', 'post-kinds-for-indieweb' ),
+					'editPost'     => __( 'Edit', 'post-kinds-for-indieweb' ),
+					'viewPost'     => __( 'View', 'post-kinds-for-indieweb' ),
+					'totalCheckins'=> __( 'Total Check-ins', 'post-kinds-for-indieweb' ),
+					'uniqueVenues' => __( 'Unique Venues', 'post-kinds-for-indieweb' ),
+					'countries'    => __( 'Countries', 'post-kinds-for-indieweb' ),
+					'cities'       => __( 'Cities', 'post-kinds-for-indieweb' ),
 				),
 			)
 		);
@@ -142,26 +142,26 @@ class Checkin_Dashboard {
 		?>
 		<div class="wrap checkin-dashboard-wrap">
 			<div class="checkin-dashboard-header">
-				<h1><?php esc_html_e( 'Check-in Dashboard', 'reactions-for-indieweb' ); ?></h1>
+				<h1><?php esc_html_e( 'Check-in Dashboard', 'post-kinds-for-indieweb' ); ?></h1>
 				<div class="checkin-view-toggles">
 					<button type="button" class="button active" data-view="grid">
 						<span class="dashicons dashicons-grid-view"></span>
-						<?php esc_html_e( 'Grid', 'reactions-for-indieweb' ); ?>
+						<?php esc_html_e( 'Grid', 'post-kinds-for-indieweb' ); ?>
 					</button>
 					<button type="button" class="button" data-view="map">
 						<span class="dashicons dashicons-location"></span>
-						<?php esc_html_e( 'Map', 'reactions-for-indieweb' ); ?>
+						<?php esc_html_e( 'Map', 'post-kinds-for-indieweb' ); ?>
 					</button>
 					<button type="button" class="button" data-view="timeline">
 						<span class="dashicons dashicons-list-view"></span>
-						<?php esc_html_e( 'Timeline', 'reactions-for-indieweb' ); ?>
+						<?php esc_html_e( 'Timeline', 'post-kinds-for-indieweb' ); ?>
 					</button>
 				</div>
 			</div>
 
 			<div class="checkin-filters">
 				<select id="checkin-year-filter">
-					<option value=""><?php esc_html_e( 'All Years', 'reactions-for-indieweb' ); ?></option>
+					<option value=""><?php esc_html_e( 'All Years', 'post-kinds-for-indieweb' ); ?></option>
 					<?php
 					$current_year = (int) gmdate( 'Y' );
 					for ( $year = $current_year; $year >= $current_year - 10; $year-- ) {
@@ -171,18 +171,18 @@ class Checkin_Dashboard {
 				</select>
 
 				<select id="checkin-type-filter">
-					<option value=""><?php esc_html_e( 'All Venue Types', 'reactions-for-indieweb' ); ?></option>
-					<option value="restaurant"><?php esc_html_e( 'Restaurants', 'reactions-for-indieweb' ); ?></option>
-					<option value="cafe"><?php esc_html_e( 'Cafes', 'reactions-for-indieweb' ); ?></option>
-					<option value="bar"><?php esc_html_e( 'Bars', 'reactions-for-indieweb' ); ?></option>
-					<option value="hotel"><?php esc_html_e( 'Hotels', 'reactions-for-indieweb' ); ?></option>
-					<option value="airport"><?php esc_html_e( 'Airports', 'reactions-for-indieweb' ); ?></option>
-					<option value="park"><?php esc_html_e( 'Parks', 'reactions-for-indieweb' ); ?></option>
-					<option value="museum"><?php esc_html_e( 'Museums', 'reactions-for-indieweb' ); ?></option>
-					<option value="store"><?php esc_html_e( 'Stores', 'reactions-for-indieweb' ); ?></option>
+					<option value=""><?php esc_html_e( 'All Venue Types', 'post-kinds-for-indieweb' ); ?></option>
+					<option value="restaurant"><?php esc_html_e( 'Restaurants', 'post-kinds-for-indieweb' ); ?></option>
+					<option value="cafe"><?php esc_html_e( 'Cafes', 'post-kinds-for-indieweb' ); ?></option>
+					<option value="bar"><?php esc_html_e( 'Bars', 'post-kinds-for-indieweb' ); ?></option>
+					<option value="hotel"><?php esc_html_e( 'Hotels', 'post-kinds-for-indieweb' ); ?></option>
+					<option value="airport"><?php esc_html_e( 'Airports', 'post-kinds-for-indieweb' ); ?></option>
+					<option value="park"><?php esc_html_e( 'Parks', 'post-kinds-for-indieweb' ); ?></option>
+					<option value="museum"><?php esc_html_e( 'Museums', 'post-kinds-for-indieweb' ); ?></option>
+					<option value="store"><?php esc_html_e( 'Stores', 'post-kinds-for-indieweb' ); ?></option>
 				</select>
 
-				<input type="search" id="checkin-search" placeholder="<?php esc_attr_e( 'Search venues...', 'reactions-for-indieweb' ); ?>">
+				<input type="search" id="checkin-search" placeholder="<?php esc_attr_e( 'Search venues...', 'post-kinds-for-indieweb' ); ?>">
 			</div>
 
 			<div class="checkin-dashboard-content">
@@ -191,7 +191,7 @@ class Checkin_Dashboard {
 					<div class="checkin-grid-view active">
 						<div class="checkin-loading">
 							<span class="spinner is-active"></span>
-							<?php esc_html_e( 'Loading check-ins...', 'reactions-for-indieweb' ); ?>
+							<?php esc_html_e( 'Loading check-ins...', 'post-kinds-for-indieweb' ); ?>
 						</div>
 					</div>
 
@@ -207,48 +207,48 @@ class Checkin_Dashboard {
 				<div class="checkin-stats-sidebar">
 					<!-- Overview Stats -->
 					<div class="stats-card">
-						<h3><span class="dashicons dashicons-chart-bar"></span> <?php esc_html_e( 'Overview', 'reactions-for-indieweb' ); ?></h3>
+						<h3><span class="dashicons dashicons-chart-bar"></span> <?php esc_html_e( 'Overview', 'post-kinds-for-indieweb' ); ?></h3>
 						<div class="stats-numbers">
 							<div class="stat-item">
 								<span class="stat-value" id="stat-total-checkins">-</span>
-								<span class="stat-label"><?php esc_html_e( 'Check-ins', 'reactions-for-indieweb' ); ?></span>
+								<span class="stat-label"><?php esc_html_e( 'Check-ins', 'post-kinds-for-indieweb' ); ?></span>
 							</div>
 							<div class="stat-item">
 								<span class="stat-value" id="stat-unique-venues">-</span>
-								<span class="stat-label"><?php esc_html_e( 'Venues', 'reactions-for-indieweb' ); ?></span>
+								<span class="stat-label"><?php esc_html_e( 'Venues', 'post-kinds-for-indieweb' ); ?></span>
 							</div>
 							<div class="stat-item">
 								<span class="stat-value" id="stat-countries">-</span>
-								<span class="stat-label"><?php esc_html_e( 'Countries', 'reactions-for-indieweb' ); ?></span>
+								<span class="stat-label"><?php esc_html_e( 'Countries', 'post-kinds-for-indieweb' ); ?></span>
 							</div>
 							<div class="stat-item">
 								<span class="stat-value" id="stat-cities">-</span>
-								<span class="stat-label"><?php esc_html_e( 'Cities', 'reactions-for-indieweb' ); ?></span>
+								<span class="stat-label"><?php esc_html_e( 'Cities', 'post-kinds-for-indieweb' ); ?></span>
 							</div>
 						</div>
 					</div>
 
 					<!-- Top Venues -->
 					<div class="stats-card">
-						<h3><span class="dashicons dashicons-star-filled"></span> <?php esc_html_e( 'Most Visited', 'reactions-for-indieweb' ); ?></h3>
+						<h3><span class="dashicons dashicons-star-filled"></span> <?php esc_html_e( 'Most Visited', 'post-kinds-for-indieweb' ); ?></h3>
 						<ul class="top-venues-list" id="top-venues-list">
-							<li><?php esc_html_e( 'Loading...', 'reactions-for-indieweb' ); ?></li>
+							<li><?php esc_html_e( 'Loading...', 'post-kinds-for-indieweb' ); ?></li>
 						</ul>
 					</div>
 
 					<!-- Countries Visited -->
 					<div class="stats-card">
-						<h3><span class="dashicons dashicons-admin-site"></span> <?php esc_html_e( 'Countries', 'reactions-for-indieweb' ); ?></h3>
+						<h3><span class="dashicons dashicons-admin-site"></span> <?php esc_html_e( 'Countries', 'post-kinds-for-indieweb' ); ?></h3>
 						<div class="places-list" id="countries-list">
-							<span class="place-tag"><?php esc_html_e( 'Loading...', 'reactions-for-indieweb' ); ?></span>
+							<span class="place-tag"><?php esc_html_e( 'Loading...', 'post-kinds-for-indieweb' ); ?></span>
 						</div>
 					</div>
 
 					<!-- Cities Visited -->
 					<div class="stats-card">
-						<h3><span class="dashicons dashicons-location"></span> <?php esc_html_e( 'Cities', 'reactions-for-indieweb' ); ?></h3>
+						<h3><span class="dashicons dashicons-location"></span> <?php esc_html_e( 'Cities', 'post-kinds-for-indieweb' ); ?></h3>
 						<div class="places-list" id="cities-list">
-							<span class="place-tag"><?php esc_html_e( 'Loading...', 'reactions-for-indieweb' ); ?></span>
+							<span class="place-tag"><?php esc_html_e( 'Loading...', 'post-kinds-for-indieweb' ); ?></span>
 						</div>
 					</div>
 				</div>

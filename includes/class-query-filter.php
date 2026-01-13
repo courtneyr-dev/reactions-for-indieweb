@@ -4,13 +4,13 @@
  *
  * Filters imported posts from main blog queries when hidden mode is enabled.
  *
- * @package ReactionsForIndieWeb
+ * @package PostKindsForIndieWeb
  * @since   1.1.0
  */
 
 declare(strict_types=1);
 
-namespace ReactionsForIndieWeb;
+namespace PostKindsForIndieWeb;
 
 // Prevent direct access.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -63,7 +63,7 @@ class Query_Filter {
 		}
 
 		// Allow explicit inclusion of imported posts via query var.
-		if ( $query->get( 'reactions_include_imported' ) ) {
+		if ( $query->get( 'post_kinds_include_imported' ) ) {
 			return;
 		}
 
@@ -107,11 +107,11 @@ class Query_Filter {
 		$meta_query[] = array(
 			'relation' => 'OR',
 			array(
-				'key'     => '_reactions_imported_from',
+				'key'     => '_postkind_imported_from',
 				'compare' => 'NOT EXISTS',
 			),
 			array(
-				'key'     => '_reactions_imported_from',
+				'key'     => '_postkind_imported_from',
 				'value'   => '',
 				'compare' => '=',
 			),
@@ -127,7 +127,7 @@ class Query_Filter {
 	 * @return bool
 	 */
 	public static function is_imported_post( int $post_id ): bool {
-		$imported_from = get_post_meta( $post_id, '_reactions_imported_from', true );
+		$imported_from = get_post_meta( $post_id, '_postkind_imported_from', true );
 		return ! empty( $imported_from );
 	}
 }

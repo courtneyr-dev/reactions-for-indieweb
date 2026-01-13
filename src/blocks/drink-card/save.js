@@ -13,7 +13,25 @@ const DRINK_LABELS = {
 };
 
 export default function Save( { attributes } ) {
-	const { name, drinkType, brand, photo, photoAlt, rating, drankAt, notes, venue, venueUrl, layout } = attributes;
+	const {
+		name,
+		drinkType,
+		brand,
+		photo,
+		photoAlt,
+		rating,
+		drankAt,
+		notes,
+		venueUrl,
+		locationName,
+		locationAddress,
+		locationLocality,
+		locationRegion,
+		locationCountry,
+		geoLatitude,
+		geoLongitude,
+		layout,
+	} = attributes;
 	const blockProps = useBlockProps.save( { className: `drink-card layout-${ layout }` } );
 
 	const renderStars = () => {
@@ -47,15 +65,7 @@ export default function Save( { attributes } ) {
 					</span>
 
 					{ name && (
-						<h3 className="reactions-card__title p-name">
-							{ venueUrl ? (
-								<a href={ venueUrl } className="u-url" target="_blank" rel="noopener noreferrer">
-									{ name }
-								</a>
-							) : (
-								name
-							) }
-						</h3>
+						<h3 className="reactions-card__title p-name">{ name }</h3>
 					) }
 
 					{ brand && (
@@ -64,7 +74,41 @@ export default function Save( { attributes } ) {
 						</p>
 					) }
 
-					{ venue && <p className="reactions-card__meta p-location">{ venue }</p> }
+					{ locationName && (
+						<div className="reactions-card__location p-location h-card">
+							<p className="reactions-card__venue">
+								{ venueUrl ? (
+									<a href={ venueUrl } className="p-name u-url" target="_blank" rel="noopener noreferrer">
+										{ locationName }
+									</a>
+								) : (
+									<span className="p-name">{ locationName }</span>
+								) }
+							</p>
+							{ locationAddress && (
+								<p className="reactions-card__address p-street-address">{ locationAddress }</p>
+							) }
+							{ ( locationLocality || locationRegion || locationCountry ) && (
+								<p className="reactions-card__city">
+									{ locationLocality && <span className="p-locality">{ locationLocality }</span> }
+									{ locationLocality && locationRegion && ', ' }
+									{ locationRegion && <span className="p-region">{ locationRegion }</span> }
+									{ ( locationLocality || locationRegion ) && locationCountry && ', ' }
+									{ locationCountry && <span className="p-country-name">{ locationCountry }</span> }
+								</p>
+							) }
+							{ ( geoLatitude !== 0 || geoLongitude !== 0 ) && (
+								<data
+									className="p-geo h-geo"
+									value={ `${ geoLatitude },${ geoLongitude }` }
+									hidden
+								>
+									<span className="p-latitude">{ geoLatitude }</span>
+									<span className="p-longitude">{ geoLongitude }</span>
+								</data>
+							) }
+						</div>
+					) }
 
 					{ renderStars() }
 

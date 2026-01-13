@@ -1,5 +1,5 @@
 /**
- * Reactions for IndieWeb - Kind Grid Component
+ * Post Kinds for IndieWeb - Kind Grid Component
  *
  * A visual grid for selecting post kinds with icons and keyboard navigation.
  *
@@ -98,9 +98,9 @@ export default function KindGrid( { kinds, selectedKind, onSelect } ) {
 	return (
 		<div
 			ref={ gridRef }
-			className="reactions-indieweb-kind-grid"
+			className="post-kinds-indieweb-kind-grid"
 			role="radiogroup"
-			aria-label={ __( 'Select post kind', 'reactions-for-indieweb' ) }
+			aria-label={ __( 'Select post kind', 'post-kinds-for-indieweb' ) }
 		>
 			{ sortedKinds.map( ( kind, index ) => {
 				const Icon = kindIcons[ kind.slug ] || kindIcons.note;
@@ -113,7 +113,7 @@ export default function KindGrid( { kinds, selectedKind, onSelect } ) {
 						position="bottom center"
 					>
 						<Button
-							className={ `reactions-indieweb-kind-button ${
+							className={ `post-kinds-indieweb-kind-button ${
 								isSelected ? 'is-selected' : ''
 							}` }
 							onClick={ () => onSelect( kind.slug ) }
@@ -122,12 +122,12 @@ export default function KindGrid( { kinds, selectedKind, onSelect } ) {
 							aria-label={ kind.name }
 						>
 							<Icon />
-							<span className="reactions-indieweb-kind-label">
+							<span className="post-kinds-indieweb-kind-label">
 								{ kind.name }
 							</span>
 							{ isSelected && (
 								<VisuallyHidden>
-									{ __( '(selected)', 'reactions-for-indieweb' ) }
+									{ __( '(selected)', 'post-kinds-for-indieweb' ) }
 								</VisuallyHidden>
 							) }
 						</Button>
@@ -136,14 +136,14 @@ export default function KindGrid( { kinds, selectedKind, onSelect } ) {
 			} ) }
 
 			<style>{ `
-				.reactions-indieweb-kind-grid {
+				.post-kinds-indieweb-kind-grid {
 					display: grid;
 					grid-template-columns: repeat(3, 1fr);
 					gap: 8px;
 					margin-bottom: 16px;
 				}
 
-				.reactions-indieweb-kind-button {
+				.post-kinds-indieweb-kind-button {
 					display: flex;
 					flex-direction: column;
 					align-items: center;
@@ -157,37 +157,37 @@ export default function KindGrid( { kinds, selectedKind, onSelect } ) {
 					min-height: 70px;
 				}
 
-				.reactions-indieweb-kind-button:hover {
+				.post-kinds-indieweb-kind-button:hover {
 					border-color: #007cba;
 					background: #f0f7fc;
 				}
 
-				.reactions-indieweb-kind-button:focus {
+				.post-kinds-indieweb-kind-button:focus {
 					outline: 2px solid #007cba;
 					outline-offset: 2px;
 				}
 
-				.reactions-indieweb-kind-button.is-selected {
+				.post-kinds-indieweb-kind-button.is-selected {
 					border-color: #007cba;
 					background: #007cba;
 					color: #fff;
 				}
 
-				.reactions-indieweb-kind-button.is-selected:hover {
+				.post-kinds-indieweb-kind-button.is-selected:hover {
 					background: #005a8c;
 				}
 
-				.reactions-indieweb-kind-button svg {
+				.post-kinds-indieweb-kind-button svg {
 					width: 24px;
 					height: 24px;
 					margin-bottom: 4px;
 				}
 
-				.reactions-indieweb-kind-button.is-selected svg {
+				.post-kinds-indieweb-kind-button.is-selected svg {
 					fill: #fff;
 				}
 
-				.reactions-indieweb-kind-label {
+				.post-kinds-indieweb-kind-label {
 					font-size: 11px;
 					text-align: center;
 					line-height: 1.2;

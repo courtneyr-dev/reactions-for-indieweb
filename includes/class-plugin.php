@@ -4,13 +4,13 @@
  *
  * Initializes all plugin components and manages the plugin lifecycle.
  *
- * @package ReactionsForIndieWeb
+ * @package PostKindsForIndieWeb
  * @since   1.0.0
  */
 
 declare(strict_types=1);
 
-namespace ReactionsForIndieWeb;
+namespace PostKindsForIndieWeb;
 
 // Prevent direct access.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -47,6 +47,13 @@ final class Plugin {
 	 * @var bool
 	 */
 	private bool $post_kinds_conflict = false;
+
+	/**
+	 * Whether Bookmark Card plugin is active.
+	 *
+	 * @var bool
+	 */
+	private bool $bookmark_card_active = false;
 
 	/**
 	 * Taxonomy component instance.
@@ -209,6 +216,9 @@ final class Plugin {
 		// Detect IndieBlocks presence.
 		$this->detect_indieblocks();
 
+		// Detect Bookmark Card plugin.
+		$this->detect_bookmark_card();
+
 		// Initialize components.
 		$this->init_components();
 
@@ -219,7 +229,7 @@ final class Plugin {
 	/**
 	 * Detect if Post Kinds plugin is active (conflict).
 	 *
-	 * Post Kinds and Reactions for IndieWeb both use the 'kind' taxonomy
+	 * Post Kinds and Post Kinds for IndieWeb both use the 'kind' taxonomy
 	 * and provide similar functionality. Only one should be active.
 	 *
 	 * @return bool True if Post Kinds is active (conflict detected).
@@ -290,6 +300,52 @@ final class Plugin {
 			},
 			20
 		);
+	}
+
+	/**
+	 * Detect if Bookmark Card plugin is active.
+	 *
+	 * Checks for the Bookmark Card plugin (mamaduka/bookmark-card) to enable
+	 * integration with the bookmark post kind.
+	 *
+	 * @return void
+	 */
+	private function detect_bookmark_card(): void {
+		// Check using active_plugins option directly.
+		$active_plugins = (array) get_option( 'active_plugins', array() );
+		if ( in_array( 'bookmark-card/bookmark-card.php', $active_plugins, true ) ) {
+			$this->bookmark_card_active = true;
+			return;
+		}
+
+		// Check network-activated plugins for multisite.
+		if ( is_multisite() ) {
+			$network_plugins = (array) get_site_option( 'active_sitewide_plugins', array() );
+			if ( isset( $network_plugins['bookmark-card/bookmark-card.php'] ) ) {
+				$this->bookmark_card_active = true;
+				return;
+			}
+		}
+
+		// Alternative check: see if Bookmark Card block is registered (runs later).
+		add_action(
+			'init',
+			function (): void {
+				if ( \WP_Block_Type_Registry::get_instance()->is_registered( 'mamaduka/bookmark-card' ) ) {
+					$this->bookmark_card_active = true;
+				}
+			},
+			20
+		);
+	}
+
+	/**
+	 * Check if Bookmark Card plugin is active.
+	 *
+	 * @return bool True if Bookmark Card is active.
+	 */
+	public function is_bookmark_card_active(): bool {
+		return $this->bookmark_card_active;
 	}
 
 	/**
@@ -380,7 +436,7 @@ final class Plugin {
 		 *
 		 * @param Plugin $plugin Plugin instance.
 		 */
-		do_action( 'reactions_indieweb_integrations_init', $this );
+		do_action( 'post_kinds_indieweb_integrations_init', $this );
 	}
 
 	/**
@@ -420,7 +476,7 @@ final class Plugin {
 		 * @param array<Sync\Checkin_Sync_Base> $services Checkin sync services.
 		 */
 		$this->checkin_sync_services = apply_filters(
-			'reactions_indieweb_checkin_sync_services',
+			'post_kinds_indieweb_checkin_sync_services',
 			$this->checkin_sync_services
 		);
 	}
@@ -467,7 +523,7 @@ final class Plugin {
 		 * @param array<Sync\Listen_Sync_Base> $services Listen sync services.
 		 */
 		$this->listen_sync_services = apply_filters(
-			'reactions_indieweb_listen_sync_services',
+			'post_kinds_indieweb_listen_sync_services',
 			$this->listen_sync_services
 		);
 	}
@@ -514,7 +570,7 @@ final class Plugin {
 		 * @param array<Sync\Watch_Sync_Base> $services Watch sync services.
 		 */
 		$this->watch_sync_services = apply_filters(
-			'reactions_indieweb_watch_sync_services',
+			'post_kinds_indieweb_watch_sync_services',
 			$this->watch_sync_services
 		);
 	}
@@ -562,7 +618,7 @@ final class Plugin {
 		add_action( 'init', array( $this, 'register_block_patterns' ) );
 
 		// Add plugin action links.
-		add_filter( 'plugin_action_links_' . \REACTIONS_INDIEWEB_BASENAME, array( $this, 'add_action_links' ) );
+		add_filter( 'plugin_action_links_' . \POST_KINDS_INDIEWEB_BASENAME, array( $this, 'add_action_links' ) );
 
 		// Display admin notice if IndieBlocks is not active (check deferred to admin_notices time).
 		add_action( 'admin_notices', array( $this, 'indieblocks_notice' ) );
@@ -583,8 +639,8 @@ final class Plugin {
 				return array_merge(
 					array(
 						array(
-							'slug'  => 'reactions-for-indieweb',
-							'title' => __( 'Reactions for IndieWeb', 'reactions-for-indieweb' ),
+							'slug'  => 'post-kinds-for-indieweb',
+							'title' => __( 'Post Kinds for IndieWeb', 'post-kinds-for-indieweb' ),
 							'icon'  => 'heart',
 						),
 					),
@@ -614,33 +670,33 @@ final class Plugin {
 		);
 
 		// Enqueue blocks script first so it's available for registration.
-		$blocks_asset_file = \REACTIONS_INDIEWEB_PATH . 'build/blocks.asset.php';
+		$blocks_asset_file = \POST_KINDS_INDIEWEB_PATH . 'build/blocks.asset.php';
 
 		if ( file_exists( $blocks_asset_file ) ) {
 			$blocks_asset = require $blocks_asset_file;
 
 			wp_register_script(
-				'reactions-indieweb-blocks',
-				\REACTIONS_INDIEWEB_URL . 'build/blocks.js',
+				'post-kinds-indieweb-blocks',
+				\POST_KINDS_INDIEWEB_URL . 'build/blocks.js',
 				$blocks_asset['dependencies'],
 				$blocks_asset['version'],
 				true
 			);
 
 			wp_set_script_translations(
-				'reactions-indieweb-blocks',
-				'reactions-for-indieweb',
-				\REACTIONS_INDIEWEB_PATH . 'languages'
+				'post-kinds-indieweb-blocks',
+				'post-kinds-for-indieweb',
+				\POST_KINDS_INDIEWEB_PATH . 'languages'
 			);
 		}
 
 		// Register shared block styles for editor and frontend.
-		$blocks_style_file = \REACTIONS_INDIEWEB_PATH . 'build/blocks.css';
+		$blocks_style_file = \POST_KINDS_INDIEWEB_PATH . 'build/blocks.css';
 
 		if ( file_exists( $blocks_style_file ) ) {
 			wp_register_style(
-				'reactions-indieweb-blocks',
-				\REACTIONS_INDIEWEB_URL . 'build/blocks.css',
+				'post-kinds-indieweb-blocks',
+				\POST_KINDS_INDIEWEB_URL . 'build/blocks.css',
 				array(),
 				filemtime( $blocks_style_file )
 			);
@@ -648,15 +704,15 @@ final class Plugin {
 
 		// Register each block with the shared editor script and styles.
 		foreach ( $blocks as $block ) {
-			$block_dir = \REACTIONS_INDIEWEB_PATH . 'src/blocks/' . $block;
+			$block_dir = \POST_KINDS_INDIEWEB_PATH . 'src/blocks/' . $block;
 
 			if ( file_exists( $block_dir . '/block.json' ) ) {
 				register_block_type(
 					$block_dir,
 					array(
-						'editor_script' => 'reactions-indieweb-blocks',
-						'editor_style'  => 'reactions-indieweb-blocks',
-						'style'         => 'reactions-indieweb-blocks',
+						'editor_script' => 'post-kinds-indieweb-blocks',
+						'editor_style'  => 'post-kinds-indieweb-blocks',
+						'style'         => 'post-kinds-indieweb-blocks',
 					)
 				);
 			}
@@ -674,8 +730,8 @@ final class Plugin {
 	 */
 	public function enqueue_block_styles(): void {
 		// Enqueue the already-registered block styles for the frontend.
-		if ( wp_style_is( 'reactions-indieweb-blocks', 'registered' ) ) {
-			wp_enqueue_style( 'reactions-indieweb-blocks' );
+		if ( wp_style_is( 'post-kinds-indieweb-blocks', 'registered' ) ) {
+			wp_enqueue_style( 'post-kinds-indieweb-blocks' );
 		}
 	}
 
@@ -687,7 +743,7 @@ final class Plugin {
 	 * @return void
 	 */
 	public function enqueue_editor_assets(): void {
-		$asset_file = \REACTIONS_INDIEWEB_PATH . 'build/index.asset.php';
+		$asset_file = \POST_KINDS_INDIEWEB_PATH . 'build/index.asset.php';
 
 		if ( ! file_exists( $asset_file ) ) {
 			return;
@@ -696,17 +752,17 @@ final class Plugin {
 		$asset = require $asset_file;
 
 		wp_enqueue_script(
-			'reactions-indieweb-editor',
-			\REACTIONS_INDIEWEB_URL . 'build/index.js',
+			'post-kinds-indieweb-editor',
+			\POST_KINDS_INDIEWEB_URL . 'build/index.js',
 			$asset['dependencies'],
 			$asset['version'],
 			true
 		);
 
 		wp_set_script_translations(
-			'reactions-indieweb-editor',
-			'reactions-for-indieweb',
-			\REACTIONS_INDIEWEB_PATH . 'languages'
+			'post-kinds-indieweb-editor',
+			'post-kinds-for-indieweb',
+			\POST_KINDS_INDIEWEB_PATH . 'languages'
 		);
 
 		// Get syndication services data.
@@ -715,26 +771,27 @@ final class Plugin {
 		// Data to pass to JavaScript.
 		$localize_data = array(
 			'indieBlocksActive'   => $this->indieblocks_active,
-			'restUrl'             => rest_url( 'reactions-indieweb/v1/' ),
+			'bookmarkCardActive'  => $this->bookmark_card_active,
+			'restUrl'             => rest_url( 'post-kinds-indieweb/v1/' ),
 			'nonce'               => wp_create_nonce( 'wp_rest' ),
 			'syndicationServices' => $syndication_services,
 		);
 
 		// Pass data to JavaScript using wp_add_inline_script for more reliable delivery.
-		// Use a unique name to avoid conflicts with admin.js which also uses reactionsIndieWeb.
+		// Use a unique name to avoid conflicts with admin.js which also uses postKindsIndieWeb.
 		wp_add_inline_script(
-			'reactions-indieweb-editor',
-			'window.reactionsIndieWebEditor = ' . wp_json_encode( $localize_data ) . ';',
+			'post-kinds-indieweb-editor',
+			'window.postKindsIndieWebEditor = ' . wp_json_encode( $localize_data ) . ';',
 			'before'
 		);
 
 		// Enqueue editor styles if they exist.
-		$style_file = \REACTIONS_INDIEWEB_PATH . 'build/index.css';
+		$style_file = \POST_KINDS_INDIEWEB_PATH . 'build/index.css';
 
 		if ( file_exists( $style_file ) ) {
 			wp_enqueue_style(
-				'reactions-indieweb-editor',
-				\REACTIONS_INDIEWEB_URL . 'build/index.css',
+				'post-kinds-indieweb-editor',
+				\POST_KINDS_INDIEWEB_URL . 'build/index.css',
 				array(),
 				$asset['version']
 			);
@@ -743,8 +800,8 @@ final class Plugin {
 		// Enqueue block styles in the editor. The style is registered in register_blocks()
 		// and attached to blocks via editor_style, but we also enqueue it directly to ensure
 		// it's available before any block is inserted.
-		if ( wp_style_is( 'reactions-indieweb-blocks', 'registered' ) ) {
-			wp_enqueue_style( 'reactions-indieweb-blocks' );
+		if ( wp_style_is( 'post-kinds-indieweb-blocks', 'registered' ) ) {
+			wp_enqueue_style( 'post-kinds-indieweb-blocks' );
 		}
 	}
 
@@ -758,15 +815,15 @@ final class Plugin {
 	public function register_block_patterns(): void {
 		// Register pattern category.
 		register_block_pattern_category(
-			'reactions-for-indieweb',
+			'post-kinds-for-indieweb',
 			array(
-				'label'       => __( 'Reactions for IndieWeb', 'reactions-for-indieweb' ),
-				'description' => __( 'Patterns for IndieWeb post kinds and reactions.', 'reactions-for-indieweb' ),
+				'label'       => __( 'Post Kinds for IndieWeb', 'post-kinds-for-indieweb' ),
+				'description' => __( 'Patterns for IndieWeb post kinds and reactions.', 'post-kinds-for-indieweb' ),
 			)
 		);
 
 		// Load pattern files from patterns directory.
-		$patterns_dir = \REACTIONS_INDIEWEB_PATH . 'patterns/';
+		$patterns_dir = \POST_KINDS_INDIEWEB_PATH . 'patterns/';
 
 		if ( ! is_dir( $patterns_dir ) ) {
 			return;
@@ -796,8 +853,8 @@ final class Plugin {
 		$plugin_links = array(
 			sprintf(
 				'<a href="%s">%s</a>',
-				esc_url( admin_url( 'admin.php?page=reactions-indieweb' ) ),
-				esc_html__( 'Settings', 'reactions-for-indieweb' )
+				esc_url( admin_url( 'admin.php?page=post-kinds-indieweb' ) ),
+				esc_html__( 'Settings', 'post-kinds-for-indieweb' )
 			),
 		);
 
@@ -816,8 +873,8 @@ final class Plugin {
 		$message = sprintf(
 			/* translators: %s: Post Kinds plugin name */
 			esc_html__(
-				'Reactions for IndieWeb cannot run while %s is active. These plugins provide the same functionality - Reactions for IndieWeb is the block editor successor to Post Kinds. Please deactivate one of them.',
-				'reactions-for-indieweb'
+				'Post Kinds for IndieWeb cannot run while %s is active. These plugins provide the same functionality - Post Kinds for IndieWeb is the block editor successor to Post Kinds. Please deactivate one of them.',
+				'post-kinds-for-indieweb'
 			),
 			'<strong>Post Kinds</strong>'
 		);
@@ -867,8 +924,8 @@ final class Plugin {
 		$message = sprintf(
 			/* translators: %s: IndieBlocks plugin link */
 			esc_html__(
-				'Reactions for IndieWeb works best with %s installed. While not required, IndieBlocks provides essential blocks for bookmarks, likes, replies, and more.',
-				'reactions-for-indieweb'
+				'Post Kinds for IndieWeb works best with %s installed. While not required, IndieBlocks provides essential blocks for bookmarks, likes, replies, and more.',
+				'post-kinds-for-indieweb'
 			),
 			'<a href="https://wordpress.org/plugins/indieblocks/" target="_blank" rel="noopener noreferrer">IndieBlocks</a>'
 		);
@@ -1002,9 +1059,9 @@ final class Plugin {
 	 * @return void
 	 */
 	public function maybe_flush_rewrite_rules(): void {
-		if ( get_option( 'reactions_indieweb_flush_rewrite' ) ) {
+		if ( get_option( 'post_kinds_indieweb_flush_rewrite' ) ) {
 			flush_rewrite_rules();
-			delete_option( 'reactions_indieweb_flush_rewrite' );
+			delete_option( 'post_kinds_indieweb_flush_rewrite' );
 		}
 	}
 
@@ -1018,8 +1075,8 @@ final class Plugin {
 	 */
 	private function get_available_syndication_services(): array {
 		$services    = array();
-		$settings    = get_option( 'reactions_indieweb_settings', array() );
-		$credentials = get_option( 'reactions_indieweb_api_credentials', array() );
+		$settings    = get_option( 'post_kinds_indieweb_settings', array() );
+		$credentials = get_option( 'post_kinds_indieweb_api_credentials', array() );
 
 		// Check Last.fm for listen posts.
 		if ( ! empty( $settings['listen_sync_to_lastfm'] ) ) {
@@ -1030,7 +1087,7 @@ final class Plugin {
 			$services['lastfm'] = array(
 				'name'      => 'Last.fm',
 				'kind'      => 'listen',
-				'metaKey'   => '_reactions_syndicate_lastfm',
+				'metaKey'   => '_postkind_syndicate_lastfm',
 				'connected' => ! empty( $lastfm['session_key'] ),
 				'needsAuth' => empty( $lastfm['session_key'] ),
 			);
@@ -1043,7 +1100,7 @@ final class Plugin {
 			$services['trakt'] = array(
 				'name'      => 'Trakt',
 				'kind'      => 'watch',
-				'metaKey'   => '_reactions_syndicate_trakt',
+				'metaKey'   => '_postkind_syndicate_trakt',
 				'connected' => ! empty( $trakt['access_token'] ),
 				'needsAuth' => empty( $trakt['access_token'] ),
 			);
@@ -1056,7 +1113,7 @@ final class Plugin {
 			$services['foursquare'] = array(
 				'name'      => 'Foursquare',
 				'kind'      => 'checkin',
-				'metaKey'   => '_reactions_syndicate_foursquare',
+				'metaKey'   => '_postkind_syndicate_foursquare',
 				'connected' => ! empty( $foursquare['access_token'] ),
 				'needsAuth' => empty( $foursquare['access_token'] ),
 			);
@@ -1071,6 +1128,6 @@ final class Plugin {
 		 *
 		 * @param array $services Array of service configurations.
 		 */
-		return apply_filters( 'reactions_indieweb_syndication_services', $services );
+		return apply_filters( 'post_kinds_indieweb_syndication_services', $services );
 	}
 }

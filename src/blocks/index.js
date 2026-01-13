@@ -1,9 +1,9 @@
 /**
- * Reactions for IndieWeb - Block Registration
+ * Post Kinds for IndieWeb - Block Registration
  *
  * Entry point for all custom Gutenberg blocks.
  *
- * @package Reactions_For_IndieWeb
+ * @package PostKindsForIndieWeb
  */
 
 // WordPress dependencies
@@ -18,13 +18,13 @@ const heartIcon = (
 
 // Register our custom block category before importing blocks
 const categories = getCategories();
-const hasCategory = categories.some( ( cat ) => cat.slug === 'reactions-indieweb' );
+const hasCategory = categories.some( ( cat ) => cat.slug === 'post-kinds-indieweb' );
 
 if ( ! hasCategory ) {
 	setCategories( [
 		{
-			slug: 'reactions-indieweb',
-			title: 'Reactions for IndieWeb',
+			slug: 'post-kinds-indieweb',
+			title: 'Post Kinds for IndieWeb',
 			icon: heartIcon,
 		},
 		...categories,
@@ -32,8 +32,8 @@ if ( ! hasCategory ) {
 }
 
 // Register block collection for icon/branding in the inserter
-registerBlockCollection( 'reactions-indieweb', {
-	title: 'Reactions for IndieWeb',
+registerBlockCollection( 'post-kinds-indieweb', {
+	title: 'Post Kinds for IndieWeb',
 	icon: heartIcon,
 } );
 

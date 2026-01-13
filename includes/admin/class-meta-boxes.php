@@ -4,11 +4,11 @@
  *
  * Custom meta boxes for post editing screens.
  *
- * @package Reactions_For_IndieWeb
+ * @package PostKindsForIndieWeb
  * @since 1.0.0
  */
 
-namespace ReactionsForIndieWeb\Admin;
+namespace PostKindsForIndieWeb\Admin;
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
@@ -63,310 +63,310 @@ class Meta_Boxes {
         return array(
             'listen' => array(
                 'track_title' => array(
-                    'label'       => __( 'Track Title', 'reactions-for-indieweb' ),
+                    'label'       => __( 'Track Title', 'post-kinds-for-indieweb' ),
                     'type'        => 'text',
                     'required'    => true,
                 ),
                 'artist_name' => array(
-                    'label'       => __( 'Artist', 'reactions-for-indieweb' ),
+                    'label'       => __( 'Artist', 'post-kinds-for-indieweb' ),
                     'type'        => 'text',
                     'required'    => true,
                 ),
                 'album_title' => array(
-                    'label' => __( 'Album', 'reactions-for-indieweb' ),
+                    'label' => __( 'Album', 'post-kinds-for-indieweb' ),
                     'type'  => 'text',
                 ),
                 'release_date' => array(
-                    'label' => __( 'Release Date', 'reactions-for-indieweb' ),
+                    'label' => __( 'Release Date', 'post-kinds-for-indieweb' ),
                     'type'  => 'date',
                 ),
                 'musicbrainz_id' => array(
-                    'label' => __( 'MusicBrainz ID', 'reactions-for-indieweb' ),
+                    'label' => __( 'MusicBrainz ID', 'post-kinds-for-indieweb' ),
                     'type'  => 'text',
                     'class' => 'code',
                 ),
                 'listen_url' => array(
-                    'label'       => __( 'Listen URL', 'reactions-for-indieweb' ),
+                    'label'       => __( 'Listen URL', 'post-kinds-for-indieweb' ),
                     'type'        => 'url',
                     'placeholder' => 'https://...',
                 ),
                 'rating' => array(
-                    'label' => __( 'Rating', 'reactions-for-indieweb' ),
+                    'label' => __( 'Rating', 'post-kinds-for-indieweb' ),
                     'type'  => 'rating',
                     'max'   => 5,
                 ),
                 'cover_image' => array(
-                    'label' => __( 'Cover Image', 'reactions-for-indieweb' ),
+                    'label' => __( 'Cover Image', 'post-kinds-for-indieweb' ),
                     'type'  => 'image',
                 ),
             ),
             'watch' => array(
                 'media_title' => array(
-                    'label'    => __( 'Title', 'reactions-for-indieweb' ),
+                    'label'    => __( 'Title', 'post-kinds-for-indieweb' ),
                     'type'     => 'text',
                     'required' => true,
                 ),
                 'media_type' => array(
-                    'label'   => __( 'Type', 'reactions-for-indieweb' ),
+                    'label'   => __( 'Type', 'post-kinds-for-indieweb' ),
                     'type'    => 'select',
                     'options' => array(
-                        'movie'   => __( 'Movie', 'reactions-for-indieweb' ),
-                        'tv'      => __( 'TV Show', 'reactions-for-indieweb' ),
-                        'episode' => __( 'TV Episode', 'reactions-for-indieweb' ),
+                        'movie'   => __( 'Movie', 'post-kinds-for-indieweb' ),
+                        'tv'      => __( 'TV Show', 'post-kinds-for-indieweb' ),
+                        'episode' => __( 'TV Episode', 'post-kinds-for-indieweb' ),
                     ),
                 ),
                 'show_title' => array(
-                    'label'      => __( 'Show Title', 'reactions-for-indieweb' ),
+                    'label'      => __( 'Show Title', 'post-kinds-for-indieweb' ),
                     'type'       => 'text',
                     'depends_on' => 'media_type:episode',
                 ),
                 'season_number' => array(
-                    'label'      => __( 'Season', 'reactions-for-indieweb' ),
+                    'label'      => __( 'Season', 'post-kinds-for-indieweb' ),
                     'type'       => 'number',
                     'min'        => 1,
                     'depends_on' => 'media_type:episode',
                 ),
                 'episode_number' => array(
-                    'label'      => __( 'Episode', 'reactions-for-indieweb' ),
+                    'label'      => __( 'Episode', 'post-kinds-for-indieweb' ),
                     'type'       => 'number',
                     'min'        => 1,
                     'depends_on' => 'media_type:episode',
                 ),
                 'release_year' => array(
-                    'label' => __( 'Year', 'reactions-for-indieweb' ),
+                    'label' => __( 'Year', 'post-kinds-for-indieweb' ),
                     'type'  => 'number',
                     'min'   => 1900,
                     'max'   => 2100,
                 ),
                 'director' => array(
-                    'label' => __( 'Director', 'reactions-for-indieweb' ),
+                    'label' => __( 'Director', 'post-kinds-for-indieweb' ),
                     'type'  => 'text',
                 ),
                 'tmdb_id' => array(
-                    'label' => __( 'TMDB ID', 'reactions-for-indieweb' ),
+                    'label' => __( 'TMDB ID', 'post-kinds-for-indieweb' ),
                     'type'  => 'text',
                     'class' => 'code',
                 ),
                 'imdb_id' => array(
-                    'label' => __( 'IMDb ID', 'reactions-for-indieweb' ),
+                    'label' => __( 'IMDb ID', 'post-kinds-for-indieweb' ),
                     'type'  => 'text',
                     'class' => 'code',
                 ),
                 'watch_url' => array(
-                    'label'       => __( 'Watch URL', 'reactions-for-indieweb' ),
+                    'label'       => __( 'Watch URL', 'post-kinds-for-indieweb' ),
                     'type'        => 'url',
                     'placeholder' => 'https://...',
                 ),
                 'rating' => array(
-                    'label' => __( 'Rating', 'reactions-for-indieweb' ),
+                    'label' => __( 'Rating', 'post-kinds-for-indieweb' ),
                     'type'  => 'rating',
                     'max'   => 5,
                 ),
                 'rewatch' => array(
-                    'label' => __( 'Rewatch', 'reactions-for-indieweb' ),
+                    'label' => __( 'Rewatch', 'post-kinds-for-indieweb' ),
                     'type'  => 'checkbox',
                 ),
                 'poster_image' => array(
-                    'label' => __( 'Poster Image', 'reactions-for-indieweb' ),
+                    'label' => __( 'Poster Image', 'post-kinds-for-indieweb' ),
                     'type'  => 'image',
                 ),
             ),
             'read' => array(
                 'book_title' => array(
-                    'label'    => __( 'Book Title', 'reactions-for-indieweb' ),
+                    'label'    => __( 'Book Title', 'post-kinds-for-indieweb' ),
                     'type'     => 'text',
                     'required' => true,
                 ),
                 'author_name' => array(
-                    'label'    => __( 'Author', 'reactions-for-indieweb' ),
+                    'label'    => __( 'Author', 'post-kinds-for-indieweb' ),
                     'type'     => 'text',
                     'required' => true,
                 ),
                 'isbn' => array(
-                    'label' => __( 'ISBN', 'reactions-for-indieweb' ),
+                    'label' => __( 'ISBN', 'post-kinds-for-indieweb' ),
                     'type'  => 'text',
                     'class' => 'code',
                 ),
                 'publisher' => array(
-                    'label' => __( 'Publisher', 'reactions-for-indieweb' ),
+                    'label' => __( 'Publisher', 'post-kinds-for-indieweb' ),
                     'type'  => 'text',
                 ),
                 'publish_date' => array(
-                    'label' => __( 'Publication Date', 'reactions-for-indieweb' ),
+                    'label' => __( 'Publication Date', 'post-kinds-for-indieweb' ),
                     'type'  => 'date',
                 ),
                 'page_count' => array(
-                    'label' => __( 'Pages', 'reactions-for-indieweb' ),
+                    'label' => __( 'Pages', 'post-kinds-for-indieweb' ),
                     'type'  => 'number',
                     'min'   => 1,
                 ),
                 'read_status' => array(
-                    'label'   => __( 'Status', 'reactions-for-indieweb' ),
+                    'label'   => __( 'Status', 'post-kinds-for-indieweb' ),
                     'type'    => 'select',
                     'options' => array(
-                        'to-read'   => __( 'To Read', 'reactions-for-indieweb' ),
-                        'reading'   => __( 'Currently Reading', 'reactions-for-indieweb' ),
-                        'finished'  => __( 'Finished', 'reactions-for-indieweb' ),
-                        'abandoned' => __( 'Abandoned', 'reactions-for-indieweb' ),
+                        'to-read'   => __( 'To Read', 'post-kinds-for-indieweb' ),
+                        'reading'   => __( 'Currently Reading', 'post-kinds-for-indieweb' ),
+                        'finished'  => __( 'Finished', 'post-kinds-for-indieweb' ),
+                        'abandoned' => __( 'Abandoned', 'post-kinds-for-indieweb' ),
                     ),
                 ),
                 'progress_percent' => array(
-                    'label' => __( 'Progress (%)', 'reactions-for-indieweb' ),
+                    'label' => __( 'Progress (%)', 'post-kinds-for-indieweb' ),
                     'type'  => 'number',
                     'min'   => 0,
                     'max'   => 100,
                 ),
                 'openlibrary_id' => array(
-                    'label' => __( 'Open Library ID', 'reactions-for-indieweb' ),
+                    'label' => __( 'Open Library ID', 'post-kinds-for-indieweb' ),
                     'type'  => 'text',
                     'class' => 'code',
                 ),
                 'rating' => array(
-                    'label' => __( 'Rating', 'reactions-for-indieweb' ),
+                    'label' => __( 'Rating', 'post-kinds-for-indieweb' ),
                     'type'  => 'rating',
                     'max'   => 5,
                 ),
                 'cover_image' => array(
-                    'label' => __( 'Cover Image', 'reactions-for-indieweb' ),
+                    'label' => __( 'Cover Image', 'post-kinds-for-indieweb' ),
                     'type'  => 'image',
                 ),
             ),
             'checkin' => array(
                 'venue_name' => array(
-                    'label'    => __( 'Venue Name', 'reactions-for-indieweb' ),
+                    'label'    => __( 'Venue Name', 'post-kinds-for-indieweb' ),
                     'type'     => 'text',
                     'required' => true,
                 ),
                 'venue_address' => array(
-                    'label' => __( 'Address', 'reactions-for-indieweb' ),
+                    'label' => __( 'Address', 'post-kinds-for-indieweb' ),
                     'type'  => 'textarea',
                     'rows'  => 2,
                 ),
                 'venue_city' => array(
-                    'label' => __( 'City', 'reactions-for-indieweb' ),
+                    'label' => __( 'City', 'post-kinds-for-indieweb' ),
                     'type'  => 'text',
                 ),
                 'venue_country' => array(
-                    'label' => __( 'Country', 'reactions-for-indieweb' ),
+                    'label' => __( 'Country', 'post-kinds-for-indieweb' ),
                     'type'  => 'text',
                 ),
                 'latitude' => array(
-                    'label' => __( 'Latitude', 'reactions-for-indieweb' ),
+                    'label' => __( 'Latitude', 'post-kinds-for-indieweb' ),
                     'type'  => 'text',
                     'class' => 'code small-text',
                 ),
                 'longitude' => array(
-                    'label' => __( 'Longitude', 'reactions-for-indieweb' ),
+                    'label' => __( 'Longitude', 'post-kinds-for-indieweb' ),
                     'type'  => 'text',
                     'class' => 'code small-text',
                 ),
                 'foursquare_id' => array(
-                    'label' => __( 'Foursquare ID', 'reactions-for-indieweb' ),
+                    'label' => __( 'Foursquare ID', 'post-kinds-for-indieweb' ),
                     'type'  => 'text',
                     'class' => 'code',
                 ),
                 'venue_url' => array(
-                    'label'       => __( 'Venue URL', 'reactions-for-indieweb' ),
+                    'label'       => __( 'Venue URL', 'post-kinds-for-indieweb' ),
                     'type'        => 'url',
                     'placeholder' => 'https://...',
                 ),
             ),
             'rsvp' => array(
                 'event_name' => array(
-                    'label'    => __( 'Event Name', 'reactions-for-indieweb' ),
+                    'label'    => __( 'Event Name', 'post-kinds-for-indieweb' ),
                     'type'     => 'text',
                     'required' => true,
                 ),
                 'event_url' => array(
-                    'label'    => __( 'Event URL', 'reactions-for-indieweb' ),
+                    'label'    => __( 'Event URL', 'post-kinds-for-indieweb' ),
                     'type'     => 'url',
                     'required' => true,
                 ),
                 'rsvp_value' => array(
-                    'label'   => __( 'RSVP', 'reactions-for-indieweb' ),
+                    'label'   => __( 'RSVP', 'post-kinds-for-indieweb' ),
                     'type'    => 'select',
                     'options' => array(
-                        'yes'        => __( 'Yes', 'reactions-for-indieweb' ),
-                        'no'         => __( 'No', 'reactions-for-indieweb' ),
-                        'maybe'      => __( 'Maybe', 'reactions-for-indieweb' ),
-                        'interested' => __( 'Interested', 'reactions-for-indieweb' ),
+                        'yes'        => __( 'Yes', 'post-kinds-for-indieweb' ),
+                        'no'         => __( 'No', 'post-kinds-for-indieweb' ),
+                        'maybe'      => __( 'Maybe', 'post-kinds-for-indieweb' ),
+                        'interested' => __( 'Interested', 'post-kinds-for-indieweb' ),
                     ),
                 ),
                 'event_start' => array(
-                    'label' => __( 'Start Date/Time', 'reactions-for-indieweb' ),
+                    'label' => __( 'Start Date/Time', 'post-kinds-for-indieweb' ),
                     'type'  => 'datetime-local',
                 ),
                 'event_end' => array(
-                    'label' => __( 'End Date/Time', 'reactions-for-indieweb' ),
+                    'label' => __( 'End Date/Time', 'post-kinds-for-indieweb' ),
                     'type'  => 'datetime-local',
                 ),
                 'event_location' => array(
-                    'label' => __( 'Location', 'reactions-for-indieweb' ),
+                    'label' => __( 'Location', 'post-kinds-for-indieweb' ),
                     'type'  => 'text',
                 ),
             ),
             'like' => array(
                 'like_of' => array(
-                    'label'    => __( 'URL of Liked Content', 'reactions-for-indieweb' ),
+                    'label'    => __( 'URL of Liked Content', 'post-kinds-for-indieweb' ),
                     'type'     => 'url',
                     'required' => true,
                 ),
                 'cite_name' => array(
-                    'label' => __( 'Content Title', 'reactions-for-indieweb' ),
+                    'label' => __( 'Content Title', 'post-kinds-for-indieweb' ),
                     'type'  => 'text',
                 ),
                 'cite_author' => array(
-                    'label' => __( 'Author', 'reactions-for-indieweb' ),
+                    'label' => __( 'Author', 'post-kinds-for-indieweb' ),
                     'type'  => 'text',
                 ),
             ),
             'repost' => array(
                 'repost_of' => array(
-                    'label'    => __( 'URL of Original Content', 'reactions-for-indieweb' ),
+                    'label'    => __( 'URL of Original Content', 'post-kinds-for-indieweb' ),
                     'type'     => 'url',
                     'required' => true,
                 ),
                 'cite_name' => array(
-                    'label' => __( 'Content Title', 'reactions-for-indieweb' ),
+                    'label' => __( 'Content Title', 'post-kinds-for-indieweb' ),
                     'type'  => 'text',
                 ),
                 'cite_author' => array(
-                    'label' => __( 'Author', 'reactions-for-indieweb' ),
+                    'label' => __( 'Author', 'post-kinds-for-indieweb' ),
                     'type'  => 'text',
                 ),
             ),
             'bookmark' => array(
                 'bookmark_of' => array(
-                    'label'    => __( 'Bookmarked URL', 'reactions-for-indieweb' ),
+                    'label'    => __( 'Bookmarked URL', 'post-kinds-for-indieweb' ),
                     'type'     => 'url',
                     'required' => true,
                 ),
                 'cite_name' => array(
-                    'label' => __( 'Page Title', 'reactions-for-indieweb' ),
+                    'label' => __( 'Page Title', 'post-kinds-for-indieweb' ),
                     'type'  => 'text',
                 ),
                 'cite_author' => array(
-                    'label' => __( 'Author', 'reactions-for-indieweb' ),
+                    'label' => __( 'Author', 'post-kinds-for-indieweb' ),
                     'type'  => 'text',
                 ),
                 'cite_summary' => array(
-                    'label' => __( 'Summary', 'reactions-for-indieweb' ),
+                    'label' => __( 'Summary', 'post-kinds-for-indieweb' ),
                     'type'  => 'textarea',
                     'rows'  => 3,
                 ),
             ),
             'reply' => array(
                 'in_reply_to' => array(
-                    'label'    => __( 'URL Replying To', 'reactions-for-indieweb' ),
+                    'label'    => __( 'URL Replying To', 'post-kinds-for-indieweb' ),
                     'type'     => 'url',
                     'required' => true,
                 ),
                 'cite_name' => array(
-                    'label' => __( 'Original Title', 'reactions-for-indieweb' ),
+                    'label' => __( 'Original Title', 'post-kinds-for-indieweb' ),
                     'type'  => 'text',
                 ),
                 'cite_author' => array(
-                    'label' => __( 'Author', 'reactions-for-indieweb' ),
+                    'label' => __( 'Author', 'post-kinds-for-indieweb' ),
                     'type'  => 'text',
                 ),
             ),
@@ -391,8 +391,8 @@ class Meta_Boxes {
 
         // Main reaction details meta box.
         add_meta_box(
-            'reactions_indieweb_details',
-            __( 'Reaction Details', 'reactions-for-indieweb' ),
+            'post_kinds_indieweb_details',
+            __( 'Reaction Details', 'post-kinds-for-indieweb' ),
             array( $this, 'render_details_meta_box' ),
             'post',
             'normal',
@@ -401,8 +401,8 @@ class Meta_Boxes {
 
         // Media lookup sidebar.
         add_meta_box(
-            'reactions_indieweb_lookup',
-            __( 'Media Lookup', 'reactions-for-indieweb' ),
+            'post_kinds_indieweb_lookup',
+            __( 'Media Lookup', 'post-kinds-for-indieweb' ),
             array( $this, 'render_lookup_meta_box' ),
             'post',
             'side',
@@ -417,19 +417,19 @@ class Meta_Boxes {
      * @return void
      */
     public function render_details_meta_box( \WP_Post $post ): void {
-        wp_nonce_field( 'reactions_indieweb_meta', 'reactions_indieweb_meta_nonce' );
+        wp_nonce_field( 'post_kinds_indieweb_meta', 'post_kinds_indieweb_meta_nonce' );
 
         // Get current post kind.
         $kinds = wp_get_object_terms( $post->ID, 'kind', array( 'fields' => 'slugs' ) );
         $current_kind = ! empty( $kinds ) ? $kinds[0] : '';
 
         ?>
-        <div class="reactions-meta-box">
+        <div class="post-kinds-meta-box">
             <!-- Post kind selector -->
             <div class="meta-field kind-selector">
-                <label for="reactions_post_kind"><?php esc_html_e( 'Post Kind', 'reactions-for-indieweb' ); ?></label>
-                <select name="reactions_post_kind" id="reactions_post_kind" class="widefat">
-                    <option value=""><?php esc_html_e( 'Select a post kind...', 'reactions-for-indieweb' ); ?></option>
+                <label for="post_kinds_post_kind"><?php esc_html_e( 'Post Kind', 'post-kinds-for-indieweb' ); ?></label>
+                <select name="post_kinds_post_kind" id="post_kinds_post_kind" class="widefat">
+                    <option value=""><?php esc_html_e( 'Select a post kind...', 'post-kinds-for-indieweb' ); ?></option>
                     <?php foreach ( $this->meta_configs as $kind => $fields ) : ?>
                         <option value="<?php echo esc_attr( $kind ); ?>" <?php selected( $current_kind, $kind ); ?>>
                             <?php echo esc_html( ucfirst( $kind ) ); ?>
@@ -453,7 +453,7 @@ class Meta_Boxes {
 
             <div class="no-kind-selected" <?php echo ! empty( $current_kind ) ? 'style="display: none;"' : ''; ?>>
                 <p class="description">
-                    <?php esc_html_e( 'Select a post kind above to see the relevant fields.', 'reactions-for-indieweb' ); ?>
+                    <?php esc_html_e( 'Select a post kind above to see the relevant fields.', 'post-kinds-for-indieweb' ); ?>
                 </p>
             </div>
         </div>
@@ -470,10 +470,10 @@ class Meta_Boxes {
      * @return void
      */
     private function render_field( int $post_id, string $kind, string $field_id, array $field ): void {
-        $meta_key = "_reactions_indieweb_{$field_id}";
+        $meta_key = "_postkind_indieweb_{$field_id}";
         $value    = get_post_meta( $post_id, $meta_key, true );
-        $name     = "reactions_meta[{$kind}][{$field_id}]";
-        $id       = "reactions_{$kind}_{$field_id}";
+        $name     = "post_kinds_meta[{$kind}][{$field_id}]";
+        $id       = "post_kinds_{$kind}_{$field_id}";
         $class    = $field['class'] ?? 'widefat';
         $required = ! empty( $field['required'] ) ? 'required' : '';
 
@@ -481,7 +481,7 @@ class Meta_Boxes {
         $wrapper_style = '';
         if ( ! empty( $field['depends_on'] ) ) {
             list( $dep_field, $dep_value ) = explode( ':', $field['depends_on'] );
-            $dep_meta_key = "_reactions_indieweb_{$dep_field}";
+            $dep_meta_key = "_postkind_indieweb_{$dep_field}";
             $dep_current  = get_post_meta( $post_id, $dep_meta_key, true );
             if ( $dep_current !== $dep_value ) {
                 $wrapper_style = 'display: none;';
@@ -567,7 +567,7 @@ class Meta_Boxes {
 
                 case 'select':
                     printf( '<select name="%s" id="%s" class="%s" %s>', esc_attr( $name ), esc_attr( $id ), esc_attr( $class ), esc_attr( $required ) );
-                    echo '<option value="">' . esc_html__( 'Select...', 'reactions-for-indieweb' ) . '</option>';
+                    echo '<option value="">' . esc_html__( 'Select...', 'post-kinds-for-indieweb' ) . '</option>';
                     foreach ( $field['options'] as $opt_value => $opt_label ) {
                         printf(
                             '<option value="%s" %s>%s</option>',
@@ -601,7 +601,7 @@ class Meta_Boxes {
                         $filled = ( (int) $value >= $i ) ? 'filled' : '';
                         echo '<span class="star ' . esc_attr( $filled ) . '" data-value="' . esc_attr( $i ) . '">&#9733;</span>';
                     }
-                    echo '<button type="button" class="button button-small clear-rating">' . esc_html__( 'Clear', 'reactions-for-indieweb' ) . '</button>';
+                    echo '<button type="button" class="button button-small clear-rating">' . esc_html__( 'Clear', 'post-kinds-for-indieweb' ) . '</button>';
                     echo '</div>';
                     break;
 
@@ -621,10 +621,10 @@ class Meta_Boxes {
                         </div>
                         <input type="hidden" name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $id ); ?>" value="<?php echo esc_attr( $value ); ?>" class="image-value">
                         <button type="button" class="button select-image">
-                            <?php esc_html_e( 'Select Image', 'reactions-for-indieweb' ); ?>
+                            <?php esc_html_e( 'Select Image', 'post-kinds-for-indieweb' ); ?>
                         </button>
                         <button type="button" class="button remove-image" <?php echo $value ? '' : 'style="display: none;"'; ?>>
-                            <?php esc_html_e( 'Remove', 'reactions-for-indieweb' ); ?>
+                            <?php esc_html_e( 'Remove', 'post-kinds-for-indieweb' ); ?>
                         </button>
                     </div>
                     <?php
@@ -643,25 +643,25 @@ class Meta_Boxes {
      */
     public function render_lookup_meta_box( \WP_Post $post ): void {
         ?>
-        <div class="reactions-lookup-box">
+        <div class="post-kinds-lookup-box">
             <p class="description">
-                <?php esc_html_e( 'Search for media to auto-fill details.', 'reactions-for-indieweb' ); ?>
+                <?php esc_html_e( 'Search for media to auto-fill details.', 'post-kinds-for-indieweb' ); ?>
             </p>
 
             <div class="lookup-form">
                 <select id="lookup-type" class="widefat">
-                    <option value="music"><?php esc_html_e( 'Music', 'reactions-for-indieweb' ); ?></option>
-                    <option value="movie"><?php esc_html_e( 'Movie', 'reactions-for-indieweb' ); ?></option>
-                    <option value="tv"><?php esc_html_e( 'TV Show', 'reactions-for-indieweb' ); ?></option>
-                    <option value="book"><?php esc_html_e( 'Book', 'reactions-for-indieweb' ); ?></option>
-                    <option value="podcast"><?php esc_html_e( 'Podcast', 'reactions-for-indieweb' ); ?></option>
+                    <option value="music"><?php esc_html_e( 'Music', 'post-kinds-for-indieweb' ); ?></option>
+                    <option value="movie"><?php esc_html_e( 'Movie', 'post-kinds-for-indieweb' ); ?></option>
+                    <option value="tv"><?php esc_html_e( 'TV Show', 'post-kinds-for-indieweb' ); ?></option>
+                    <option value="book"><?php esc_html_e( 'Book', 'post-kinds-for-indieweb' ); ?></option>
+                    <option value="podcast"><?php esc_html_e( 'Podcast', 'post-kinds-for-indieweb' ); ?></option>
                 </select>
 
-                <input type="text" id="lookup-query" class="widefat" placeholder="<?php esc_attr_e( 'Search...', 'reactions-for-indieweb' ); ?>">
+                <input type="text" id="lookup-query" class="widefat" placeholder="<?php esc_attr_e( 'Search...', 'post-kinds-for-indieweb' ); ?>">
 
                 <button type="button" id="lookup-search" class="button widefat">
                     <span class="dashicons dashicons-search"></span>
-                    <?php esc_html_e( 'Search', 'reactions-for-indieweb' ); ?>
+                    <?php esc_html_e( 'Search', 'post-kinds-for-indieweb' ); ?>
                 </button>
             </div>
 
@@ -679,8 +679,8 @@ class Meta_Boxes {
      */
     public function save_meta_boxes( int $post_id, \WP_Post $post ): void {
         // Verify nonce.
-        if ( ! isset( $_POST['reactions_indieweb_meta_nonce'] ) ||
-             ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['reactions_indieweb_meta_nonce'] ) ), 'reactions_indieweb_meta' ) ) {
+        if ( ! isset( $_POST['post_kinds_indieweb_meta_nonce'] ) ||
+             ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['post_kinds_indieweb_meta_nonce'] ) ), 'post_kinds_indieweb_meta' ) ) {
             return;
         }
 
@@ -700,8 +700,8 @@ class Meta_Boxes {
         }
 
         // Save post kind.
-        if ( isset( $_POST['reactions_post_kind'] ) ) {
-            $kind = sanitize_text_field( wp_unslash( $_POST['reactions_post_kind'] ) );
+        if ( isset( $_POST['post_kinds_post_kind'] ) ) {
+            $kind = sanitize_text_field( wp_unslash( $_POST['post_kinds_post_kind'] ) );
             if ( ! empty( $kind ) && taxonomy_exists( 'kind' ) ) {
                 wp_set_object_terms( $post_id, $kind, 'kind' );
             }
@@ -709,7 +709,7 @@ class Meta_Boxes {
 
         // Save meta fields.
         // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-        $meta_data = isset( $_POST['reactions_meta'] ) ? wp_unslash( $_POST['reactions_meta'] ) : array();
+        $meta_data = isset( $_POST['post_kinds_meta'] ) ? wp_unslash( $_POST['post_kinds_meta'] ) : array();
 
         if ( ! is_array( $meta_data ) ) {
             return;
@@ -725,7 +725,7 @@ class Meta_Boxes {
                     continue;
                 }
 
-                $meta_key = "_reactions_indieweb_{$field_id}";
+                $meta_key = "_postkind_indieweb_{$field_id}";
                 $field    = $this->meta_configs[ $kind ][ $field_id ];
 
                 // Sanitize based on field type.

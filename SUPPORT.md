@@ -1,6 +1,6 @@
 # Getting Support
 
-Thank you for using Reactions for IndieWeb! This document explains how to get help.
+Thank you for using Post Kinds for IndieWeb! This document explains how to get help.
 
 ## Before Requesting Support
 
@@ -96,7 +96,7 @@ Help us help you by including:
 <details>
 <summary><strong>Do I need IndieBlocks installed?</strong></summary>
 
-No, but it's recommended. IndieBlocks provides the core blocks for bookmarks, likes, replies, and reposts. Reactions for IndieWeb extends these with additional post kinds (listen, watch, read, etc.) and enhanced features.
+No, but it's recommended. IndieBlocks provides the core blocks for bookmarks, likes, replies, and reposts. Post Kinds for IndieWeb extends these with additional post kinds (listen, watch, read, etc.) and enhanced features.
 
 Without IndieBlocks, you can still use the reaction post kinds and custom blocks.
 </details>
@@ -104,7 +104,7 @@ Without IndieBlocks, you can still use the reaction post kinds and custom blocks
 <details>
 <summary><strong>How do I set up API keys?</strong></summary>
 
-1. Go to Settings → Reactions for IndieWeb → API Settings
+1. Go to Settings → Post Kinds for IndieWeb → API Settings
 2. Enter your API keys for the services you want to use:
    - TMDB (for movies/TV): [Get key](https://www.themoviedb.org/settings/api)
    - Last.fm (for music): [Get key](https://www.last.fm/api/account/create)
@@ -142,7 +142,7 @@ Note: Initial imports may take time for large libraries.
 1. Check API key is entered (for TMDB, Last.fm)
 2. Verify the service isn't rate-limited
 3. Try different search terms
-4. Check Settings → Reactions for IndieWeb → Debug for API errors
+4. Check Settings → Post Kinds for IndieWeb → Debug for API errors
 </details>
 
 <details>
@@ -177,7 +177,7 @@ The custom blocks require the block editor (Gutenberg). However:
 <details>
 <summary><strong>How do I contribute translations?</strong></summary>
 
-1. Generate .pot file: `wp i18n make-pot . languages/reactions-indieweb.pot`
+1. Generate .pot file: `wp i18n make-pot . languages/post-kinds-indieweb.pot`
 2. Create translation using [Poedit](https://poedit.net/) or similar
 3. Submit via pull request or [translate.wordpress.org](https://translate.wordpress.org/)
 </details>
@@ -211,7 +211,7 @@ Also try: Deactivate/reactivate the plugin
 ```
 Solution: Check API keys are correct
 Also try: Verify server can make outbound HTTPS requests
-Check: Settings → Reactions for IndieWeb → Debug
+Check: Settings → Post Kinds for IndieWeb → Debug
 ```
 
 ### Styles not loading
@@ -239,7 +239,7 @@ Check: View source for correct HTML structure
 
 When reporting issues, you can gather debug info:
 
-1. Go to Settings → Reactions for IndieWeb → Debug
+1. Go to Settings → Post Kinds for IndieWeb → Debug
 2. Click "Copy Debug Info"
 3. Include in your support request
 

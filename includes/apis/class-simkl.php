@@ -4,13 +4,13 @@
  *
  * Provides watch history and tracking from Simkl.
  *
- * @package ReactionsForIndieWeb
+ * @package PostKindsForIndieWeb
  * @since   1.0.0
  */
 
 declare(strict_types=1);
 
-namespace ReactionsForIndieWeb\APIs;
+namespace PostKindsForIndieWeb\APIs;
 
 // Prevent direct access.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -78,7 +78,7 @@ class Simkl extends API_Base {
 	 */
 	public function __construct() {
 		parent::__construct();
-		$credentials         = get_option( 'reactions_indieweb_api_credentials', array() );
+		$credentials         = get_option( 'post_kinds_indieweb_api_credentials', array() );
 		$simkl_creds         = $credentials['simkl'] ?? array();
 		$this->client_id     = $simkl_creds['client_id'] ?? '';
 		$this->client_secret = $simkl_creds['client_secret'] ?? '';

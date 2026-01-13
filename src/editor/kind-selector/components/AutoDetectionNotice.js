@@ -1,9 +1,9 @@
 /**
- * Reactions for IndieWeb - Auto Detection Notice Component
+ * Post Kinds for IndieWeb - Auto Detection Notice Component
  *
  * Displays a notice when a post kind has been auto-detected from content.
  *
- * @package ReactionsForIndieWeb
+ * @package PostKindsForIndieWeb
  * @since   1.0.0
  */
 
@@ -36,23 +36,23 @@ export default function AutoDetectionNotice( {
 		<Notice
 			status="info"
 			isDismissible={ false }
-			className="reactions-indieweb-auto-detect-notice"
+			className="post-kinds-indieweb-auto-detect-notice"
 		>
 			<p>
 				{ __(
 					'Auto-detected as:',
-					'reactions-for-indieweb'
+					'post-kinds-for-indieweb'
 				) }{ ' ' }
 				<strong>{ kindLabel }</strong>
 			</p>
-			<div className="reactions-indieweb-auto-detect-actions">
+			<div className="post-kinds-indieweb-auto-detect-actions">
 				<Button
 					variant="primary"
 					size="small"
 					icon={ check }
 					onClick={ onAccept }
 				>
-					{ __( 'Use this', 'reactions-for-indieweb' ) }
+					{ __( 'Use this', 'post-kinds-for-indieweb' ) }
 				</Button>
 				<Button
 					variant="secondary"
@@ -60,25 +60,25 @@ export default function AutoDetectionNotice( {
 					icon={ closeSmall }
 					onClick={ onDismiss }
 				>
-					{ __( 'Choose different', 'reactions-for-indieweb' ) }
+					{ __( 'Choose different', 'post-kinds-for-indieweb' ) }
 				</Button>
 			</div>
 
 			<style>{ `
-				.reactions-indieweb-auto-detect-notice {
+				.post-kinds-indieweb-auto-detect-notice {
 					margin-bottom: 16px;
 				}
 
-				.reactions-indieweb-auto-detect-notice p {
+				.post-kinds-indieweb-auto-detect-notice p {
 					margin: 0 0 8px 0;
 				}
 
-				.reactions-indieweb-auto-detect-actions {
+				.post-kinds-indieweb-auto-detect-actions {
 					display: flex;
 					gap: 8px;
 				}
 
-				.reactions-indieweb-auto-detect-actions .components-button {
+				.post-kinds-indieweb-auto-detect-actions .components-button {
 					justify-content: center;
 				}
 			` }</style>

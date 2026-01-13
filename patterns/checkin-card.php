@@ -4,13 +4,13 @@
  *
  * A block pattern for location check-ins at venues.
  *
- * @package ReactionsForIndieWeb
+ * @package PostKindsForIndieWeb
  * @since   1.0.0
  */
 
 declare(strict_types=1);
 
-namespace ReactionsForIndieWeb\Patterns;
+namespace PostKindsForIndieWeb\Patterns;
 
 // Prevent direct access.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Register the Check-in Card pattern.
  */
 register_block_pattern(
-	'reactions-indieweb/checkin-card',
+	'post-kinds-indieweb/checkin-card',
 	array(
 		'title'       => __( 'Check-in Card', 'reactions-for-indieweb' ),
 		'description' => __( 'Check in at a location or venue.', 'reactions-for-indieweb' ),
@@ -42,7 +42,7 @@ register_block_pattern(
 			<p style="font-size:24px">📍</p>
 			<!-- /wp:paragraph -->
 
-			<!-- wp:heading {"level":2,"className":"p-name","metadata":{"bindings":{"content":{"source":"reactions-indieweb/kind-meta","args":{"key":"checkin_name"}}}}} -->
+			<!-- wp:heading {"level":2,"className":"p-name","metadata":{"bindings":{"content":{"source":"post-kinds-indieweb/kind-meta","args":{"key":"checkin_name"}}}}} -->
 			<h2 class="wp-block-heading p-name"></h2>
 			<!-- /wp:heading -->
 
@@ -52,11 +52,11 @@ register_block_pattern(
 		<!-- wp:group {"className":"p-adr h-adr","layout":{"type":"constrained"}} -->
 		<div class="wp-block-group p-adr h-adr">
 
-			<!-- wp:paragraph {"className":"p-street-address","textColor":"secondary","fontSize":"small","metadata":{"bindings":{"content":{"source":"reactions-indieweb/kind-meta","args":{"key":"checkin_address"}}}}} -->
+			<!-- wp:paragraph {"className":"p-street-address","textColor":"secondary","fontSize":"small","metadata":{"bindings":{"content":{"source":"post-kinds-indieweb/kind-meta","args":{"key":"checkin_address"}}}}} -->
 			<p class="p-street-address has-secondary-color has-text-color has-small-font-size"></p>
 			<!-- /wp:paragraph -->
 
-			<!-- wp:paragraph {"className":"reactions-checkin-locality","textColor":"secondary","fontSize":"small","metadata":{"bindings":{"content":{"source":"reactions-indieweb/kind-meta","args":{"key":"checkin_full_address"}}}}} -->
+			<!-- wp:paragraph {"className":"reactions-checkin-locality","textColor":"secondary","fontSize":"small","metadata":{"bindings":{"content":{"source":"post-kinds-indieweb/kind-meta","args":{"key":"checkin_full_address"}}}}} -->
 			<p class="reactions-checkin-locality has-secondary-color has-text-color has-small-font-size"></p>
 			<!-- /wp:paragraph -->
 

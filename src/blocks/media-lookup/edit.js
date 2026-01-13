@@ -47,16 +47,16 @@ export default function Edit({ attributes, setAttributes }) {
 
     // Media type options
     const mediaTypes = [
-        { label: __('Book', 'reactions-for-indieweb'), value: 'book' },
-        { label: __('Movie/TV', 'reactions-for-indieweb'), value: 'movie' },
-        { label: __('Music', 'reactions-for-indieweb'), value: 'music' },
+        { label: __('Book', 'post-kinds-for-indieweb'), value: 'book' },
+        { label: __('Movie/TV', 'post-kinds-for-indieweb'), value: 'movie' },
+        { label: __('Music', 'post-kinds-for-indieweb'), value: 'music' },
     ];
 
     // Display style options
     const displayStyles = [
-        { label: __('Card', 'reactions-for-indieweb'), value: 'card' },
-        { label: __('Inline', 'reactions-for-indieweb'), value: 'inline' },
-        { label: __('Compact', 'reactions-for-indieweb'), value: 'compact' },
+        { label: __('Card', 'post-kinds-for-indieweb'), value: 'card' },
+        { label: __('Inline', 'post-kinds-for-indieweb'), value: 'inline' },
+        { label: __('Compact', 'post-kinds-for-indieweb'), value: 'compact' },
     ];
 
     /**
@@ -76,11 +76,11 @@ export default function Edit({ attributes, setAttributes }) {
      */
     const getSearchPlaceholder = () => {
         const placeholders = {
-            book: __('Search by title, author, or ISBN...', 'reactions-for-indieweb'),
-            movie: __('Search by title, year, or actor...', 'reactions-for-indieweb'),
-            music: __('Search by song, artist, or album...', 'reactions-for-indieweb'),
+            book: __('Search by title, author, or ISBN...', 'post-kinds-for-indieweb'),
+            movie: __('Search by title, year, or actor...', 'post-kinds-for-indieweb'),
+            music: __('Search by song, artist, or album...', 'post-kinds-for-indieweb'),
         };
-        return placeholders[mediaType] || __('Search...', 'reactions-for-indieweb');
+        return placeholders[mediaType] || __('Search...', 'post-kinds-for-indieweb');
     };
 
     /**
@@ -171,7 +171,7 @@ export default function Edit({ attributes, setAttributes }) {
 
                     <div className="media-source">
                         <span className="source-label">
-                            {__('via', 'reactions-for-indieweb')} {getSourceLabel()}
+                            {__('via', 'post-kinds-for-indieweb')} {getSourceLabel()}
                         </span>
                     </div>
                 </div>
@@ -182,7 +182,7 @@ export default function Edit({ attributes, setAttributes }) {
                     className="clear-selection"
                     isSmall
                 >
-                    {__('Change', 'reactions-for-indieweb')}
+                    {__('Change', 'post-kinds-for-indieweb')}
                 </Button>
             </div>
         );
@@ -193,9 +193,9 @@ export default function Edit({ attributes, setAttributes }) {
         return (
             <div {...blockProps}>
                 <InspectorControls>
-                    <PanelBody title={__('Media Type', 'reactions-for-indieweb')}>
+                    <PanelBody title={__('Media Type', 'post-kinds-for-indieweb')}>
                         <SelectControl
-                            label={__('Type', 'reactions-for-indieweb')}
+                            label={__('Type', 'post-kinds-for-indieweb')}
                             value={mediaType}
                             options={mediaTypes}
                             onChange={(value) => setAttributes({ mediaType: value })}
@@ -205,8 +205,8 @@ export default function Edit({ attributes, setAttributes }) {
 
                 <BlockPlaceholder
                     icon={<span className="media-type-icon">{getMediaIcon()}</span>}
-                    label={__('Media Lookup', 'reactions-for-indieweb')}
-                    instructions={__('Search for media to embed information about a book, movie, or music.', 'reactions-for-indieweb')}
+                    label={__('Media Lookup', 'post-kinds-for-indieweb')}
+                    instructions={__('Search for media to embed information about a book, movie, or music.', 'post-kinds-for-indieweb')}
                 >
                     <div className="media-lookup-search">
                         <div className="media-type-selector">
@@ -236,39 +236,39 @@ export default function Edit({ attributes, setAttributes }) {
     return (
         <>
             <InspectorControls>
-                <PanelBody title={__('Display Settings', 'reactions-for-indieweb')}>
+                <PanelBody title={__('Display Settings', 'post-kinds-for-indieweb')}>
                     <SelectControl
-                        label={__('Display Style', 'reactions-for-indieweb')}
+                        label={__('Display Style', 'post-kinds-for-indieweb')}
                         value={displayStyle}
                         options={displayStyles}
                         onChange={(value) => setAttributes({ displayStyle: value })}
                     />
                     <ToggleControl
-                        label={__('Show Image', 'reactions-for-indieweb')}
+                        label={__('Show Image', 'post-kinds-for-indieweb')}
                         checked={showImage}
                         onChange={(value) => setAttributes({ showImage: value })}
                     />
                     <ToggleControl
-                        label={__('Show Description', 'reactions-for-indieweb')}
+                        label={__('Show Description', 'post-kinds-for-indieweb')}
                         checked={showDescription}
                         onChange={(value) => setAttributes({ showDescription: value })}
                     />
                     <ToggleControl
-                        label={__('Link to Source', 'reactions-for-indieweb')}
+                        label={__('Link to Source', 'post-kinds-for-indieweb')}
                         checked={linkToSource}
                         onChange={(value) => setAttributes({ linkToSource: value })}
                     />
                 </PanelBody>
 
-                <PanelBody title={__('Media Info', 'reactions-for-indieweb')} initialOpen={false}>
+                <PanelBody title={__('Media Info', 'post-kinds-for-indieweb')} initialOpen={false}>
                     <p className="components-base-control__help">
-                        {__('Data fetched from', 'reactions-for-indieweb')} {getSourceLabel()}
+                        {__('Data fetched from', 'post-kinds-for-indieweb')} {getSourceLabel()}
                     </p>
                     {selectedItem && (
                         <div className="selected-item-details">
-                            <p><strong>{__('Title:', 'reactions-for-indieweb')}</strong> {selectedItem.title || selectedItem.name}</p>
+                            <p><strong>{__('Title:', 'post-kinds-for-indieweb')}</strong> {selectedItem.title || selectedItem.name}</p>
                             {selectedItem.id && (
-                                <p><strong>{__('ID:', 'reactions-for-indieweb')}</strong> {selectedItem.id}</p>
+                                <p><strong>{__('ID:', 'post-kinds-for-indieweb')}</strong> {selectedItem.id}</p>
                             )}
                         </div>
                     )}
@@ -277,7 +277,7 @@ export default function Edit({ attributes, setAttributes }) {
                         onClick={clearSelection}
                         isDestructive
                     >
-                        {__('Remove & Search Again', 'reactions-for-indieweb')}
+                        {__('Remove & Search Again', 'post-kinds-for-indieweb')}
                     </Button>
                 </PanelBody>
             </InspectorControls>

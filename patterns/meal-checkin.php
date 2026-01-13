@@ -4,13 +4,13 @@
  *
  * A compound pattern combining food, drink, and venue for restaurant visits.
  *
- * @package ReactionsForIndieWeb
+ * @package PostKindsForIndieWeb
  * @since   1.0.0
  */
 
 declare(strict_types=1);
 
-namespace ReactionsForIndieWeb\Patterns;
+namespace PostKindsForIndieWeb\Patterns;
 
 // Prevent direct access.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Register the Meal Check-in pattern.
  */
 register_block_pattern(
-	'reactions-indieweb/meal-checkin',
+	'post-kinds-indieweb/meal-checkin',
 	array(
 		'title'       => __( 'Meal Check-in', 'reactions-for-indieweb' ),
 		'description' => __( 'Log a restaurant visit with food, drink, and location.', 'reactions-for-indieweb' ),
@@ -32,20 +32,20 @@ register_block_pattern(
 		'content'     => '<!-- wp:group {"className":"h-entry reactions-meal-checkin","layout":{"type":"constrained"}} -->
 <div class="wp-block-group h-entry reactions-meal-checkin">
 
-	<!-- wp:reactions-indieweb/checkin-card /-->
+	<!-- wp:post-kinds-indieweb/checkin-card /-->
 
 	<!-- wp:columns {"style":{"spacing":{"blockGap":{"left":"var:preset|spacing|20"}}}} -->
 	<div class="wp-block-columns">
 
 		<!-- wp:column -->
 		<div class="wp-block-column">
-			<!-- wp:reactions-indieweb/eat-card /-->
+			<!-- wp:post-kinds-indieweb/eat-card /-->
 		</div>
 		<!-- /wp:column -->
 
 		<!-- wp:column -->
 		<div class="wp-block-column">
-			<!-- wp:reactions-indieweb/drink-card /-->
+			<!-- wp:post-kinds-indieweb/drink-card /-->
 		</div>
 		<!-- /wp:column -->
 

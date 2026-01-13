@@ -1,12 +1,12 @@
 {
-	"name": "developer/reactions-for-indieweb",
-	"description": "Extends IndieBlocks with comprehensive IndieWeb Post Kinds support using Block Patterns and Block Bindings API.",
+	"name": "developer-advocacy/post-kinds-for-indieweb",
+	"description": "Modern block editor support for IndieWeb post kinds and microformats. A successor to the classic IndieWeb Post Kinds plugin.",
 	"type": "wordpress-plugin",
-	"license": "GPL-3.0-or-later",
+	"license": "GPL-2.0-or-later",
 	"authors": [
 		{
 			"name": "Courtney Robertson",
-			"homepage": "https://developer.example.com"
+			"homepage": "https://courtneyr.dev"
 		}
 	],
 	"require": {
@@ -21,12 +21,12 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"ReactionsForIndieWeb\\": "includes/"
+			"PostKindsForIndieWeb\\": "includes/"
 		}
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"ReactionsForIndieWeb\\Tests\\": "tests/phpunit/"
+			"PostKindsForIndieWeb\\Tests\\": "tests/phpunit/"
 		}
 	},
 	"scripts": {

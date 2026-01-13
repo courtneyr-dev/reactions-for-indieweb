@@ -4,13 +4,13 @@
  *
  * A block pattern for logging films or TV shows watched.
  *
- * @package ReactionsForIndieWeb
+ * @package PostKindsForIndieWeb
  * @since   1.0.0
  */
 
 declare(strict_types=1);
 
-namespace ReactionsForIndieWeb\Patterns;
+namespace PostKindsForIndieWeb\Patterns;
 
 // Prevent direct access.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Register the Watch Log pattern.
  */
 register_block_pattern(
-	'reactions-indieweb/watch-log',
+	'post-kinds-indieweb/watch-log',
 	array(
 		'title'       => __( 'Watch Log', 'reactions-for-indieweb' ),
 		'description' => __( 'Log a film or TV show you watched.', 'reactions-for-indieweb' ),
@@ -38,7 +38,7 @@ register_block_pattern(
 		<!-- wp:column {"width":"150px"} -->
 		<div class="wp-block-column" style="flex-basis:150px">
 
-			<!-- wp:image {"className":"u-photo reactions-watch-poster","width":"150px","height":"225px","scale":"cover","metadata":{"bindings":{"url":{"source":"reactions-indieweb/kind-meta","args":{"key":"watch_poster"}},"alt":{"source":"reactions-indieweb/kind-meta","args":{"key":"watch_title"}}}}} -->
+			<!-- wp:image {"className":"u-photo reactions-watch-poster","width":"150px","height":"225px","scale":"cover","metadata":{"bindings":{"url":{"source":"post-kinds-indieweb/kind-meta","args":{"key":"watch_poster"}},"alt":{"source":"post-kinds-indieweb/kind-meta","args":{"key":"watch_title"}}}}} -->
 			<figure class="wp-block-image is-resized u-photo reactions-watch-poster"><img src="" alt="" style="object-fit:cover;width:150px;height:225px"/></figure>
 			<!-- /wp:image -->
 
@@ -48,18 +48,18 @@ register_block_pattern(
 		<!-- wp:column -->
 		<div class="wp-block-column">
 
-			<!-- wp:heading {"level":2,"className":"p-name","metadata":{"bindings":{"content":{"source":"reactions-indieweb/kind-meta","args":{"key":"watch_title"}}}}} -->
+			<!-- wp:heading {"level":2,"className":"p-name","metadata":{"bindings":{"content":{"source":"post-kinds-indieweb/kind-meta","args":{"key":"watch_title"}}}}} -->
 			<h2 class="wp-block-heading p-name"></h2>
 			<!-- /wp:heading -->
 
-			<!-- wp:paragraph {"className":"dt-published reactions-watch-year","fontSize":"medium","metadata":{"bindings":{"content":{"source":"reactions-indieweb/kind-meta","args":{"key":"watch_year"}}}}} -->
+			<!-- wp:paragraph {"className":"dt-published reactions-watch-year","fontSize":"medium","metadata":{"bindings":{"content":{"source":"post-kinds-indieweb/kind-meta","args":{"key":"watch_year"}}}}} -->
 			<p class="dt-published reactions-watch-year has-medium-font-size"></p>
 			<!-- /wp:paragraph -->
 
 			<!-- wp:group {"className":"reactions-watch-status-badge","style":{"spacing":{"padding":{"top":"4px","bottom":"4px","left":"12px","right":"12px"}},"border":{"radius":"4px"}},"backgroundColor":"tertiary","layout":{"type":"flex","flexWrap":"nowrap"}} -->
 			<div class="wp-block-group reactions-watch-status-badge has-tertiary-background-color has-background" style="border-radius:4px;padding-top:4px;padding-right:12px;padding-bottom:4px;padding-left:12px">
 
-				<!-- wp:paragraph {"fontSize":"small","metadata":{"bindings":{"content":{"source":"reactions-indieweb/kind-meta","args":{"key":"watch_status"}}}}} -->
+				<!-- wp:paragraph {"fontSize":"small","metadata":{"bindings":{"content":{"source":"post-kinds-indieweb/kind-meta","args":{"key":"watch_status"}}}}} -->
 				<p class="has-small-font-size"></p>
 				<!-- /wp:paragraph -->
 

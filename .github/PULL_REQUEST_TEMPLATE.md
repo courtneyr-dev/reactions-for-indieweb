@@ -81,7 +81,7 @@ Fixes #
 
 ### Internationalization
 - [ ] All strings are translatable
-- [ ] Text domain is correct (`reactions-indieweb`)
+- [ ] Text domain is correct (`post-kinds-indieweb`)
 - [ ] No concatenated translation strings
 
 ## Breaking Changes

@@ -5,13 +5,13 @@
  * Provides book tracking and reading history from Hardcover.app.
  * Uses GraphQL API.
  *
- * @package ReactionsForIndieWeb
+ * @package PostKindsForIndieWeb
  * @since   1.0.0
  */
 
 declare(strict_types=1);
 
-namespace ReactionsForIndieWeb\APIs;
+namespace PostKindsForIndieWeb\APIs;
 
 // Prevent direct access.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -65,7 +65,7 @@ class Hardcover extends API_Base {
 	 */
 	public function __construct() {
 		parent::__construct();
-		$credentials     = get_option( 'reactions_indieweb_api_credentials', array() );
+		$credentials     = get_option( 'post_kinds_indieweb_api_credentials', array() );
 		$hc_creds        = $credentials['hardcover'] ?? array();
 		$this->api_token = $hc_creds['api_token'] ?? '';
 	}

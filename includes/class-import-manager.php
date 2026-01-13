@@ -4,13 +4,13 @@
  *
  * Handles bulk imports from external services (scrobbles, watch history, reading lists).
  *
- * @package ReactionsForIndieWeb
+ * @package PostKindsForIndieWeb
  * @since   1.0.0
  */
 
 declare(strict_types=1);
 
-namespace ReactionsForIndieWeb;
+namespace PostKindsForIndieWeb;
 
 // Prevent direct access.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -29,7 +29,7 @@ class Import_Manager {
 	 *
 	 * @var string
 	 */
-	private const JOB_PREFIX = 'reactions_import_job_';
+	private const JOB_PREFIX = 'post_kinds_import_job_';
 
 	/**
 	 * Supported import sources.
@@ -52,7 +52,7 @@ class Import_Manager {
 	 * @return void
 	 */
 	private function init_hooks(): void {
-		add_action( 'reactions_indieweb_process_import', array( $this, 'process_import_batch' ), 10, 2 );
+		add_action( 'post_kinds_indieweb_process_import', array( $this, 'process_import_batch' ), 10, 2 );
 		add_action( 'admin_init', array( $this, 'cleanup_old_jobs' ) );
 	}
 
@@ -182,7 +182,7 @@ class Import_Manager {
 		 *
 		 * @param array<string, array<string, mixed>> $sources Import sources.
 		 */
-		$this->sources = apply_filters( 'reactions_indieweb_import_sources', $this->sources );
+		$this->sources = apply_filters( 'post_kinds_indieweb_import_sources', $this->sources );
 	}
 
 	/**
@@ -254,7 +254,7 @@ class Import_Manager {
 		$this->save_job( $job_id, $job );
 
 		// Schedule first batch.
-		wp_schedule_single_event( time(), 'reactions_indieweb_process_import', array( $job_id, $source ) );
+		wp_schedule_single_event( time(), 'post_kinds_indieweb_process_import', array( $job_id, $source ) );
 
 		return array(
 			'success' => true,
@@ -357,7 +357,7 @@ class Import_Manager {
 
 			// Schedule next batch if more items.
 			if ( $batch['has_more'] ?? false ) {
-				wp_schedule_single_event( time() + 2, 'reactions_indieweb_process_import', array( $job_id, $source ) );
+				wp_schedule_single_event( time() + 2, 'post_kinds_indieweb_process_import', array( $job_id, $source ) );
 			} else {
 				$this->update_job(
 					$job_id,
@@ -382,7 +382,7 @@ class Import_Manager {
 	 * @return string|null ISO 8601 date string or null if no cutoff.
 	 */
 	private function get_sync_start_date( string $source ): ?string {
-		$settings = get_option( 'reactions_indieweb_settings', array() );
+		$settings = get_option( 'post_kinds_indieweb_settings', array() );
 		$sync_start_dates = $settings['sync_start_dates'] ?? array();
 		$date = $sync_start_dates[ $source ] ?? '';
 		return ! empty( $date ) ? $date : null;
@@ -404,7 +404,7 @@ class Import_Manager {
 		$source = $job['source'] ?? '';
 
 		// Calculate batch size respecting import limit and global settings.
-		$settings = get_option( 'reactions_indieweb_settings', array() );
+		$settings = get_option( 'post_kinds_indieweb_settings', array() );
 		$global_batch_size = (int) ( $settings['batch_size'] ?? 0 );
 		$source_batch_size = $source_config['batch_size'];
 
@@ -615,7 +615,7 @@ class Import_Manager {
 		// Use cite_name as primary key since it's populated for all kinds.
 		switch ( $kind ) {
 			case 'listen':
-				$meta_key = '_reactions_cite_name';
+				$meta_key = '_postkind_cite_name';
 				// Handle both music tracks and podcast episodes.
 				// Use array_key_exists because isset() returns false for null values.
 				if ( array_key_exists( 'episode_title', $item ) ) {
@@ -629,31 +629,31 @@ class Import_Manager {
 				break;
 
 			case 'watch':
-				$meta_key   = '_reactions_cite_name';
+				$meta_key   = '_postkind_cite_name';
 				$meta_value = $item['title'] ?? '';
 				$date       = isset( $item['watched_at'] ) ? gmdate( 'Y-m-d', strtotime( $item['watched_at'] ) ) : '';
 				break;
 
 			case 'read':
-				$meta_key   = '_reactions_cite_name';
+				$meta_key   = '_postkind_cite_name';
 				$meta_value = $item['title'] ?? '';
 				$date       = '';
 				break;
 
 			case 'checkin':
-				$meta_key   = '_reactions_checkin_name';
+				$meta_key   = '_postkind_checkin_name';
 				$meta_value = $item['venue_name'] ?? '';
 				$date       = isset( $item['timestamp'] ) ? gmdate( 'Y-m-d', $item['timestamp'] ) : '';
 				break;
 
 			case 'bookmark':
-				$meta_key   = '_reactions_cite_url';
+				$meta_key   = '_postkind_cite_url';
 				$meta_value = $item['source_url'] ?? '';
 				$date       = '';
 				break;
 
 			case 'note':
-				$meta_key   = '_reactions_cite_name';
+				$meta_key   = '_postkind_cite_name';
 				$meta_value = $item['title'] ?? '';
 				$date       = '';
 				break;
@@ -707,7 +707,7 @@ class Import_Manager {
 		$post_title = '';
 		switch ( $kind ) {
 			case 'listen':
-				$meta_key = '_reactions_cite_name';
+				$meta_key = '_postkind_cite_name';
 				if ( array_key_exists( 'episode_title', $item ) ) {
 					$meta_value = $item['episode_title'] ?? $item['title'] ?? '';
 					$post_title = sprintf( 'Listened to %s', $meta_value );
@@ -728,14 +728,14 @@ class Import_Manager {
 				break;
 
 			case 'watch':
-				$meta_key   = '_reactions_cite_name';
+				$meta_key   = '_postkind_cite_name';
 				$meta_value = $item['title'] ?? '';
 				$post_title = sprintf( 'Watched %s', $meta_value );
 				$date       = isset( $item['watched_at'] ) ? gmdate( 'Y-m-d', strtotime( $item['watched_at'] ) ) : '';
 				break;
 
 			case 'read':
-				$meta_key   = '_reactions_cite_name';
+				$meta_key   = '_postkind_cite_name';
 				$meta_value = $item['title'] ?? '';
 				$post_title = sprintf( 'Read %s', $meta_value );
 				$date       = '';
@@ -821,30 +821,30 @@ class Import_Manager {
 					$show       = $item['show_name'] ?? $item['author'] ?? '';
 					$source_url = $item['source_url'] ?? '';
 
-					$meta['_reactions_cite_name']     = $episode;
-					$meta['_reactions_cite_author']   = $show;
-					$meta['_reactions_cite_photo']    = $item['cover_image'] ?? '';
-					$meta['_reactions_cite_url']      = $source_url;
-					$meta['_reactions_listen_track']  = $episode;
-					$meta['_reactions_listen_artist'] = $show;
-					$meta['_reactions_listen_album']  = $show;
-					$meta['_reactions_listen_cover']  = $item['cover_image'] ?? '';
-					$meta['_reactions_listen_url']    = $source_url;
-					$meta['_reactions_source']        = $item['source'] ?? 'Snipd';
-					$meta['_reactions_highlight_count'] = $item['highlight_count'] ?? 0;
+					$meta['_postkind_cite_name']     = $episode;
+					$meta['_postkind_cite_author']   = $show;
+					$meta['_postkind_cite_photo']    = $item['cover_image'] ?? '';
+					$meta['_postkind_cite_url']      = $source_url;
+					$meta['_postkind_listen_track']  = $episode;
+					$meta['_postkind_listen_artist'] = $show;
+					$meta['_postkind_listen_album']  = $show;
+					$meta['_postkind_listen_cover']  = $item['cover_image'] ?? '';
+					$meta['_postkind_listen_url']    = $source_url;
+					$meta['_postkind_source']        = $item['source'] ?? 'Snipd';
+					$meta['_postkind_highlight_count'] = $item['highlight_count'] ?? 0;
 				} else {
 					// Music track.
 					$track  = $item['track'] ?? '';
 					$artist = $item['artist'] ?? '';
 					$album  = $item['album'] ?? '';
 
-					$meta['_reactions_cite_name']     = $track;
-					$meta['_reactions_cite_author']   = $artist;
-					$meta['_reactions_listen_track']  = $track;
-					$meta['_reactions_listen_artist'] = $artist;
-					$meta['_reactions_listen_album']  = $album;
-					$meta['_reactions_listen_cover']  = $item['cover'] ?? '';
-					$meta['_reactions_listen_mbid']   = $item['mbid'] ?? '';
+					$meta['_postkind_cite_name']     = $track;
+					$meta['_postkind_cite_author']   = $artist;
+					$meta['_postkind_listen_track']  = $track;
+					$meta['_postkind_listen_artist'] = $artist;
+					$meta['_postkind_listen_album']  = $album;
+					$meta['_postkind_listen_cover']  = $item['cover'] ?? '';
+					$meta['_postkind_listen_mbid']   = $item['mbid'] ?? '';
 				}
 				break;
 
@@ -852,13 +852,13 @@ class Import_Manager {
 				$title = $item['title'] ?? '';
 				$year  = $item['year'] ?? '';
 
-				$meta['_reactions_cite_name']       = $title;
-				$meta['_reactions_cite_photo']      = $item['poster'] ?? '';
-				$meta['_reactions_watch_title']     = $title;
-				$meta['_reactions_watch_year']      = $year;
-				$meta['_reactions_watch_poster']    = $item['poster'] ?? '';
-				$meta['_reactions_watch_tmdb_id']   = $item['tmdb_id'] ?? '';
-				$meta['_reactions_watch_status']    = 'watched';
+				$meta['_postkind_cite_name']       = $title;
+				$meta['_postkind_cite_photo']      = $item['poster'] ?? '';
+				$meta['_postkind_watch_title']     = $title;
+				$meta['_postkind_watch_year']      = $year;
+				$meta['_postkind_watch_poster']    = $item['poster'] ?? '';
+				$meta['_postkind_watch_tmdb_id']   = $item['tmdb_id'] ?? '';
+				$meta['_postkind_watch_status']    = 'watched';
 				break;
 
 			case 'read':
@@ -866,18 +866,18 @@ class Import_Manager {
 				$author = $item['author'] ?? '';
 				$asin   = $item['asin'] ?? '';
 
-				$meta['_reactions_cite_name']       = $title;
-				$meta['_reactions_cite_author']     = $author;
-				$meta['_reactions_cite_photo']      = $item['cover_image'] ?? $item['cover'] ?? '';
-				$meta['_reactions_cite_url']        = $item['source_url'] ?? '';
-				$meta['_reactions_read_title']      = $title;
-				$meta['_reactions_read_author']     = $author;
-				$meta['_reactions_read_cover']      = $item['cover_image'] ?? $item['cover'] ?? '';
-				$meta['_reactions_read_isbn']       = $item['isbn'] ?? $asin;
-				$meta['_reactions_read_asin']       = $asin;
-				$meta['_reactions_read_status']     = 'finished';
-				$meta['_reactions_source']          = $item['source'] ?? '';
-				$meta['_reactions_highlight_count'] = $item['highlight_count'] ?? 0;
+				$meta['_postkind_cite_name']       = $title;
+				$meta['_postkind_cite_author']     = $author;
+				$meta['_postkind_cite_photo']      = $item['cover_image'] ?? $item['cover'] ?? '';
+				$meta['_postkind_cite_url']        = $item['source_url'] ?? '';
+				$meta['_postkind_read_title']      = $title;
+				$meta['_postkind_read_author']     = $author;
+				$meta['_postkind_read_cover']      = $item['cover_image'] ?? $item['cover'] ?? '';
+				$meta['_postkind_read_isbn']       = $item['isbn'] ?? $asin;
+				$meta['_postkind_read_asin']       = $asin;
+				$meta['_postkind_read_status']     = 'finished';
+				$meta['_postkind_source']          = $item['source'] ?? '';
+				$meta['_postkind_highlight_count'] = $item['highlight_count'] ?? 0;
 				break;
 
 			default:
@@ -900,7 +900,7 @@ class Import_Manager {
 
 		// Mark as updated if any fields changed.
 		if ( $updated_count > 0 ) {
-			update_post_meta( $post_id, '_reactions_metadata_updated', time() );
+			update_post_meta( $post_id, '_postkind_metadata_updated', time() );
 		}
 
 		return $updated_count > 0;
@@ -993,21 +993,21 @@ class Import_Manager {
 					$post_format = 'audio';
 
 					// Citation fields for Post Kind editor.
-					$meta['_reactions_cite_name']   = $episode;
-					$meta['_reactions_cite_author'] = $show;
-					$meta['_reactions_cite_photo']  = $item['cover_image'] ?? '';
-					$meta['_reactions_cite_url']    = $source_url;
+					$meta['_postkind_cite_name']   = $episode;
+					$meta['_postkind_cite_author'] = $show;
+					$meta['_postkind_cite_photo']  = $item['cover_image'] ?? '';
+					$meta['_postkind_cite_url']    = $source_url;
 
 					// Listen-specific fields.
-					$meta['_reactions_listen_track']  = $episode;
-					$meta['_reactions_listen_artist'] = $show;
-					$meta['_reactions_listen_album']  = $show; // Show name as album for podcasts.
-					$meta['_reactions_listen_cover']  = $item['cover_image'] ?? '';
-					$meta['_reactions_listen_url']    = $source_url;
+					$meta['_postkind_listen_track']  = $episode;
+					$meta['_postkind_listen_artist'] = $show;
+					$meta['_postkind_listen_album']  = $show; // Show name as album for podcasts.
+					$meta['_postkind_listen_cover']  = $item['cover_image'] ?? '';
+					$meta['_postkind_listen_url']    = $source_url;
 
 					// Import tracking.
-					$meta['_reactions_source']          = $item['source'] ?? 'Snipd';
-					$meta['_reactions_highlight_count'] = $item['highlight_count'] ?? 0;
+					$meta['_postkind_source']          = $item['source'] ?? 'Snipd';
+					$meta['_postkind_highlight_count'] = $item['highlight_count'] ?? 0;
 				} else {
 					// Music track from Last.fm/ListenBrainz.
 					$track  = $item['track'] ?? '';
@@ -1021,7 +1021,7 @@ class Import_Manager {
 					$content_parts[] = sprintf( '<!-- wp:paragraph --><p>Listened to "%s" by %s.</p><!-- /wp:paragraph -->', esc_html( $track ), esc_html( $artist ) );
 
 					// Get embed preference and generate embed if configured.
-					$settings     = get_option( 'reactions_indieweb_settings', array() );
+					$settings     = get_option( 'post_kinds_indieweb_settings', array() );
 					$embed_source = $settings['listen_embed_source'] ?? 'none';
 					$embed_url    = '';
 
@@ -1046,16 +1046,16 @@ class Import_Manager {
 					$post_format = 'audio';
 
 					// Citation fields for Post Kind editor.
-					$meta['_reactions_cite_name']   = $track;
-					$meta['_reactions_cite_author'] = $artist;
+					$meta['_postkind_cite_name']   = $track;
+					$meta['_postkind_cite_author'] = $artist;
 
 					// Listen-specific fields.
-					$meta['_reactions_listen_track']  = $track;
-					$meta['_reactions_listen_artist'] = $artist;
-					$meta['_reactions_listen_album']  = $album;
-					$meta['_reactions_listen_cover']  = $item['cover'] ?? '';
-					$meta['_reactions_listen_mbid']   = $item['mbid'] ?? '';
-					$meta['_reactions_listen_url']    = $embed_url;
+					$meta['_postkind_listen_track']  = $track;
+					$meta['_postkind_listen_artist'] = $artist;
+					$meta['_postkind_listen_album']  = $album;
+					$meta['_postkind_listen_cover']  = $item['cover'] ?? '';
+					$meta['_postkind_listen_mbid']   = $item['mbid'] ?? '';
+					$meta['_postkind_listen_url']    = $embed_url;
 				}
 				break;
 
@@ -1077,26 +1077,26 @@ class Import_Manager {
 				$post_format = 'video';
 
 				// Citation fields for Post Kind editor.
-				$meta['_reactions_cite_name']   = $title;
-				$meta['_reactions_cite_photo']  = $item['poster'] ?? '';
+				$meta['_postkind_cite_name']   = $title;
+				$meta['_postkind_cite_photo']  = $item['poster'] ?? '';
 
 				// Watch-specific fields.
-				$meta['_reactions_watch_title']   = $title;
-				$meta['_reactions_watch_year']    = $year;
-				$meta['_reactions_watch_poster']  = $item['poster'] ?? '';
-				$meta['_reactions_watch_tmdb_id'] = $item['tmdb_id'] ?? '';
-				$meta['_reactions_watch_status']  = 'watched';
+				$meta['_postkind_watch_title']   = $title;
+				$meta['_postkind_watch_year']    = $year;
+				$meta['_postkind_watch_poster']  = $item['poster'] ?? '';
+				$meta['_postkind_watch_tmdb_id'] = $item['tmdb_id'] ?? '';
+				$meta['_postkind_watch_status']  = 'watched';
 
 				// Legacy field names for compatibility.
-				$meta['_reactions_watch_type']   = $type;
-				$meta['_reactions_watch_tmdb']   = $item['tmdb_id'] ?? '';
-				$meta['_reactions_watch_imdb']   = $item['imdb_id'] ?? '';
-				$meta['_reactions_watch_trakt']  = $item['trakt_id'] ?? '';
+				$meta['_postkind_watch_type']   = $type;
+				$meta['_postkind_watch_tmdb']   = $item['tmdb_id'] ?? '';
+				$meta['_postkind_watch_imdb']   = $item['imdb_id'] ?? '';
+				$meta['_postkind_watch_trakt']  = $item['trakt_id'] ?? '';
 
 				if ( 'episode' === $type || 'tv' === $type ) {
-					$meta['_reactions_watch_show']    = $item['show']['title'] ?? '';
-					$meta['_reactions_watch_season']  = $item['season'] ?? '';
-					$meta['_reactions_watch_episode'] = $item['number'] ?? '';
+					$meta['_postkind_watch_show']    = $item['show']['title'] ?? '';
+					$meta['_postkind_watch_season']  = $item['season'] ?? '';
+					$meta['_postkind_watch_episode'] = $item['number'] ?? '';
 				}
 				break;
 
@@ -1185,23 +1185,23 @@ class Import_Manager {
 				}
 
 				// Citation fields for Post Kind editor.
-				$meta['_reactions_cite_name']   = $title;
-				$meta['_reactions_cite_author'] = $author;
-				$meta['_reactions_cite_photo']  = $item['cover_image'] ?? $item['cover'] ?? '';
-				$meta['_reactions_cite_url']    = $item['source_url'] ?? '';
+				$meta['_postkind_cite_name']   = $title;
+				$meta['_postkind_cite_author'] = $author;
+				$meta['_postkind_cite_photo']  = $item['cover_image'] ?? $item['cover'] ?? '';
+				$meta['_postkind_cite_url']    = $item['source_url'] ?? '';
 
 				// Read-specific fields.
-				$meta['_reactions_read_title']  = $title;
-				$meta['_reactions_read_author'] = $author;
-				$meta['_reactions_read_cover']  = $item['cover_image'] ?? $item['cover'] ?? '';
-				$meta['_reactions_read_isbn']   = $item['isbn'] ?? $item['asin'] ?? '';
-				$meta['_reactions_read_asin']   = $asin;
-				$meta['_reactions_read_status'] = 'finished';
+				$meta['_postkind_read_title']  = $title;
+				$meta['_postkind_read_author'] = $author;
+				$meta['_postkind_read_cover']  = $item['cover_image'] ?? $item['cover'] ?? '';
+				$meta['_postkind_read_isbn']   = $item['isbn'] ?? $item['asin'] ?? '';
+				$meta['_postkind_read_asin']   = $asin;
+				$meta['_postkind_read_status'] = 'finished';
 
 				// Import tracking.
-				$meta['_reactions_source']          = $item['source'] ?? '';
-				$meta['_reactions_source_url']      = $item['source_url'] ?? '';
-				$meta['_reactions_highlight_count'] = $item['highlight_count'] ?? 0;
+				$meta['_postkind_source']          = $item['source'] ?? '';
+				$meta['_postkind_source_url']      = $item['source_url'] ?? '';
+				$meta['_postkind_highlight_count'] = $item['highlight_count'] ?? 0;
 				break;
 
 			case 'checkin':
@@ -1217,17 +1217,17 @@ class Import_Manager {
 				}
 
 				// Checkin-specific fields for Post Kind editor.
-				$meta['_reactions_checkin_name']      = $venue;
-				$meta['_reactions_checkin_address']   = $address;
-				$meta['_reactions_geo_latitude']      = $item['latitude'] ?? '';
-				$meta['_reactions_geo_longitude']     = $item['longitude'] ?? '';
+				$meta['_postkind_checkin_name']      = $venue;
+				$meta['_postkind_checkin_address']   = $address;
+				$meta['_postkind_geo_latitude']      = $item['latitude'] ?? '';
+				$meta['_postkind_geo_longitude']     = $item['longitude'] ?? '';
 
 				// Legacy/internal fields.
-				$meta['_reactions_checkin_venue']     = $venue;
-				$meta['_reactions_checkin_latitude']  = $item['latitude'] ?? '';
-				$meta['_reactions_checkin_longitude'] = $item['longitude'] ?? '';
-				$meta['_reactions_checkin_venue_id']  = $item['venue_id'] ?? '';
-				$meta['_reactions_checkin_shout']     = $item['shout'] ?? '';
+				$meta['_postkind_checkin_venue']     = $venue;
+				$meta['_postkind_checkin_latitude']  = $item['latitude'] ?? '';
+				$meta['_postkind_checkin_longitude'] = $item['longitude'] ?? '';
+				$meta['_postkind_checkin_venue_id']  = $item['venue_id'] ?? '';
+				$meta['_postkind_checkin_shout']     = $item['shout'] ?? '';
 				break;
 
 			case 'bookmark':
@@ -1244,14 +1244,14 @@ class Import_Manager {
 				}
 
 				// Citation fields for Post Kind editor.
-				$meta['_reactions_cite_name']   = $title;
-				$meta['_reactions_cite_author'] = $author;
-				$meta['_reactions_cite_url']    = $url;
-				$meta['_reactions_cite_photo']  = $item['cover_image'] ?? '';
+				$meta['_postkind_cite_name']   = $title;
+				$meta['_postkind_cite_author'] = $author;
+				$meta['_postkind_cite_url']    = $url;
+				$meta['_postkind_cite_photo']  = $item['cover_image'] ?? '';
 
 				// Import tracking.
-				$meta['_reactions_source']          = $item['source'] ?? '';
-				$meta['_reactions_highlight_count'] = $item['highlight_count'] ?? 0;
+				$meta['_postkind_source']          = $item['source'] ?? '';
+				$meta['_postkind_highlight_count'] = $item['highlight_count'] ?? 0;
 				break;
 
 			case 'note':
@@ -1266,12 +1266,12 @@ class Import_Manager {
 				}
 
 				// Citation fields for Post Kind editor.
-				$meta['_reactions_cite_name']   = $title;
-				$meta['_reactions_cite_url']    = $item['source_url'] ?? '';
+				$meta['_postkind_cite_name']   = $title;
+				$meta['_postkind_cite_url']    = $item['source_url'] ?? '';
 
 				// Import tracking.
-				$meta['_reactions_source']          = $item['source'] ?? '';
-				$meta['_reactions_highlight_count'] = $item['highlight_count'] ?? 0;
+				$meta['_postkind_source']          = $item['source'] ?? '';
+				$meta['_postkind_highlight_count'] = $item['highlight_count'] ?? 0;
 				break;
 
 			default:
@@ -1301,8 +1301,8 @@ class Import_Manager {
 		}
 
 		// Mark as imported.
-		update_post_meta( $post_id, '_reactions_imported_from', $source_config['name'] );
-		update_post_meta( $post_id, '_reactions_imported_at', time() );
+		update_post_meta( $post_id, '_postkind_imported_from', $source_config['name'] );
+		update_post_meta( $post_id, '_postkind_imported_at', time() );
 
 		return $post_id;
 	}
@@ -1321,7 +1321,7 @@ class Import_Manager {
 		 * @param array<string, mixed> $item          Imported item data.
 		 * @param array<string, mixed> $source_config Source configuration.
 		 */
-		do_action( 'reactions_indieweb_item_imported', $item, $source_config );
+		do_action( 'post_kinds_indieweb_item_imported', $item, $source_config );
 	}
 
 	/**
@@ -1330,7 +1330,7 @@ class Import_Manager {
 	 * @return string Post type slug.
 	 */
 	private function get_import_post_type(): string {
-		$settings     = get_option( 'reactions_indieweb_settings', array() );
+		$settings     = get_option( 'post_kinds_indieweb_settings', array() );
 		$storage_mode = $settings['import_storage_mode'] ?? 'standard';
 
 		return 'cpt' === $storage_mode ? 'reaction' : 'post';
@@ -1508,7 +1508,7 @@ class Import_Manager {
 		if ( ! isset( $this->sources[ $source ] ) ) {
 			return array(
 				'success' => false,
-				'error'   => __( 'Invalid import source.', 'reactions-for-indieweb' ),
+				'error'   => __( 'Invalid import source.', 'post-kinds-for-indieweb' ),
 			);
 		}
 
@@ -1522,7 +1522,7 @@ class Import_Manager {
 			'posts_per_page' => -1,
 			'meta_query'     => array(
 				array(
-					'key'     => '_reactions_imported_from',
+					'key'     => '_postkind_imported_from',
 					'value'   => $source_config['name'],
 					'compare' => '=',
 				),
@@ -1541,7 +1541,7 @@ class Import_Manager {
 				'success' => true,
 				'updated' => 0,
 				'skipped' => 0,
-				'message' => __( 'No imported posts found to re-sync.', 'reactions-for-indieweb' ),
+				'message' => __( 'No imported posts found to re-sync.', 'post-kinds-for-indieweb' ),
 			);
 		}
 
@@ -1564,7 +1564,7 @@ class Import_Manager {
 			'skipped' => $skipped,
 			'message' => sprintf(
 				/* translators: 1: Updated count, 2: Skipped count */
-				__( 'Re-synced %1$d posts, skipped %2$d.', 'reactions-for-indieweb' ),
+				__( 'Re-synced %1$d posts, skipped %2$d.', 'post-kinds-for-indieweb' ),
 				$updated,
 				$skipped
 			),
@@ -1603,10 +1603,10 @@ class Import_Manager {
 	 * @return bool True if updated.
 	 */
 	private function resync_watch_metadata( \WP_Post $post, string $source ): bool {
-		$title    = get_post_meta( $post->ID, '_reactions_watch_title', true );
-		$trakt_id = get_post_meta( $post->ID, '_reactions_watch_trakt', true );
-		$tmdb_id  = get_post_meta( $post->ID, '_reactions_watch_tmdb', true );
-		$imdb_id  = get_post_meta( $post->ID, '_reactions_watch_imdb', true );
+		$title    = get_post_meta( $post->ID, '_postkind_watch_title', true );
+		$trakt_id = get_post_meta( $post->ID, '_postkind_watch_trakt', true );
+		$tmdb_id  = get_post_meta( $post->ID, '_postkind_watch_tmdb', true );
+		$imdb_id  = get_post_meta( $post->ID, '_postkind_watch_imdb', true );
 
 		// If we don't have identifiers, try to look up by title.
 		if ( empty( $trakt_id ) && empty( $tmdb_id ) && empty( $imdb_id ) && empty( $title ) ) {
@@ -1641,14 +1641,14 @@ class Import_Manager {
 
 				if ( ! is_wp_error( $details ) && ! empty( $details ) ) {
 					// Update metadata.
-					update_post_meta( $post->ID, '_reactions_watch_title', $details['title'] ?? $title );
-					update_post_meta( $post->ID, '_reactions_watch_year', $details['year'] ?? '' );
-					update_post_meta( $post->ID, '_reactions_watch_type', $details['type'] ?? $type );
-					update_post_meta( $post->ID, '_reactions_watch_trakt', $details['trakt_id'] ?? $trakt_id );
-					update_post_meta( $post->ID, '_reactions_watch_tmdb', $details['tmdb_id'] ?? '' );
-					update_post_meta( $post->ID, '_reactions_watch_imdb', $details['imdb_id'] ?? '' );
-					update_post_meta( $post->ID, '_reactions_watch_status', 'watched' );
-					update_post_meta( $post->ID, '_reactions_resynced_at', time() );
+					update_post_meta( $post->ID, '_postkind_watch_title', $details['title'] ?? $title );
+					update_post_meta( $post->ID, '_postkind_watch_year', $details['year'] ?? '' );
+					update_post_meta( $post->ID, '_postkind_watch_type', $details['type'] ?? $type );
+					update_post_meta( $post->ID, '_postkind_watch_trakt', $details['trakt_id'] ?? $trakt_id );
+					update_post_meta( $post->ID, '_postkind_watch_tmdb', $details['tmdb_id'] ?? '' );
+					update_post_meta( $post->ID, '_postkind_watch_imdb', $details['imdb_id'] ?? '' );
+					update_post_meta( $post->ID, '_postkind_watch_status', 'watched' );
+					update_post_meta( $post->ID, '_postkind_resynced_at', time() );
 
 					return true;
 				}
@@ -1668,7 +1668,7 @@ class Import_Manager {
 	private function resync_listen_metadata( \WP_Post $post, string $source ): bool {
 		// Listen posts typically have all metadata from the initial import.
 		// Mark as re-synced but no API lookup needed.
-		update_post_meta( $post->ID, '_reactions_resynced_at', time() );
+		update_post_meta( $post->ID, '_postkind_resynced_at', time() );
 		return true;
 	}
 
@@ -1682,7 +1682,7 @@ class Import_Manager {
 	private function resync_read_metadata( \WP_Post $post, string $source ): bool {
 		// Read posts typically have all metadata from the initial import.
 		// Mark as re-synced but no API lookup needed.
-		update_post_meta( $post->ID, '_reactions_resynced_at', time() );
+		update_post_meta( $post->ID, '_postkind_resynced_at', time() );
 		return true;
 	}
 

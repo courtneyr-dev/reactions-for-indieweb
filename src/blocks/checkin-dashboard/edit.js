@@ -24,8 +24,8 @@ export default function Edit( { attributes, setAttributes } ) {
 	useEffect( () => {
 		setLoading( true );
 		Promise.all( [
-			apiFetch( { path: `/reactions-indieweb/v1/checkins?per_page=${ limit }` } ),
-			apiFetch( { path: '/reactions-indieweb/v1/checkins/stats' } ),
+			apiFetch( { path: `/post-kinds-indieweb/v1/checkins?per_page=${ limit }` } ),
+			apiFetch( { path: '/post-kinds-indieweb/v1/checkins/stats' } ),
 		] )
 			.then( ( [ checkinsData, statsData ] ) => {
 				setCheckins( checkinsData || [] );
@@ -40,36 +40,36 @@ export default function Edit( { attributes, setAttributes } ) {
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Display Settings', 'reactions-for-indieweb' ) }>
+				<PanelBody title={ __( 'Display Settings', 'post-kinds-for-indieweb' ) }>
 					<SelectControl
-						label={ __( 'Default Layout', 'reactions-for-indieweb' ) }
+						label={ __( 'Default Layout', 'post-kinds-for-indieweb' ) }
 						value={ layout }
 						options={ [
-							{ label: __( 'Grid', 'reactions-for-indieweb' ), value: 'grid' },
-							{ label: __( 'Map', 'reactions-for-indieweb' ), value: 'map' },
-							{ label: __( 'Timeline', 'reactions-for-indieweb' ), value: 'timeline' },
+							{ label: __( 'Grid', 'post-kinds-for-indieweb' ), value: 'grid' },
+							{ label: __( 'Map', 'post-kinds-for-indieweb' ), value: 'map' },
+							{ label: __( 'Timeline', 'post-kinds-for-indieweb' ), value: 'timeline' },
 						] }
 						onChange={ ( v ) => setAttributes( { layout: v } ) }
 					/>
 					<RangeControl
-						label={ __( 'Number of Check-ins', 'reactions-for-indieweb' ) }
+						label={ __( 'Number of Check-ins', 'post-kinds-for-indieweb' ) }
 						value={ limit }
 						onChange={ ( v ) => setAttributes( { limit: v } ) }
 						min={ 4 }
 						max={ 50 }
 					/>
 					<ToggleControl
-						label={ __( 'Show Map View', 'reactions-for-indieweb' ) }
+						label={ __( 'Show Map View', 'post-kinds-for-indieweb' ) }
 						checked={ showMap }
 						onChange={ ( v ) => setAttributes( { showMap: v } ) }
 					/>
 					<ToggleControl
-						label={ __( 'Show Statistics', 'reactions-for-indieweb' ) }
+						label={ __( 'Show Statistics', 'post-kinds-for-indieweb' ) }
 						checked={ showStats }
 						onChange={ ( v ) => setAttributes( { showStats: v } ) }
 					/>
 					<ToggleControl
-						label={ __( 'Show Filters', 'reactions-for-indieweb' ) }
+						label={ __( 'Show Filters', 'post-kinds-for-indieweb' ) }
 						checked={ showFilters }
 						onChange={ ( v ) => setAttributes( { showFilters: v } ) }
 					/>
@@ -81,15 +81,15 @@ export default function Edit( { attributes, setAttributes } ) {
 						<div className="checkin-stats-preview">
 							<div className="stat-item">
 								<span className="stat-value">{ stats.total || 0 }</span>
-								<span className="stat-label">{ __( 'Check-ins', 'reactions-for-indieweb' ) }</span>
+								<span className="stat-label">{ __( 'Check-ins', 'post-kinds-for-indieweb' ) }</span>
 							</div>
 							<div className="stat-item">
 								<span className="stat-value">{ stats.unique_venues || 0 }</span>
-								<span className="stat-label">{ __( 'Venues', 'reactions-for-indieweb' ) }</span>
+								<span className="stat-label">{ __( 'Venues', 'post-kinds-for-indieweb' ) }</span>
 							</div>
 							<div className="stat-item">
 								<span className="stat-value">{ stats.countries?.length || 0 }</span>
-								<span className="stat-label">{ __( 'Countries', 'reactions-for-indieweb' ) }</span>
+								<span className="stat-label">{ __( 'Countries', 'post-kinds-for-indieweb' ) }</span>
 							</div>
 						</div>
 					) }
@@ -97,12 +97,12 @@ export default function Edit( { attributes, setAttributes } ) {
 					{ loading ? (
 						<div className="checkin-loading">
 							<span className="spinner is-active"></span>
-							{ __( 'Loading check-ins...', 'reactions-for-indieweb' ) }
+							{ __( 'Loading check-ins...', 'post-kinds-for-indieweb' ) }
 						</div>
 					) : checkins.length === 0 ? (
 						<div className="checkin-empty">
 							<span className="dashicons dashicons-location"></span>
-							<p>{ __( 'No check-ins found. Create check-in posts to see them here.', 'reactions-for-indieweb' ) }</p>
+							<p>{ __( 'No check-ins found. Create check-in posts to see them here.', 'post-kinds-for-indieweb' ) }</p>
 						</div>
 					) : (
 						<div className="checkin-grid-preview">
@@ -126,7 +126,7 @@ export default function Edit( { attributes, setAttributes } ) {
 
 					{ checkins.length > 6 && (
 						<p className="checkin-more">
-							{ __( '+ more check-ins will be shown on the frontend', 'reactions-for-indieweb' ) }
+							{ __( '+ more check-ins will be shown on the frontend', 'post-kinds-for-indieweb' ) }
 						</p>
 					) }
 				</div>

@@ -26,46 +26,46 @@ import { useSelect, useDispatch } from '@wordpress/data';
  */
 const MOOD_EMOJIS = {
 	// Happy - Unicode CLDR short names
-	'😊': __( 'smiling face with smiling eyes', 'reactions-for-indieweb' ),
-	'😃': __( 'grinning face with big eyes', 'reactions-for-indieweb' ),
-	'😄': __( 'grinning face with smiling eyes', 'reactions-for-indieweb' ),
-	'🥳': __( 'partying face', 'reactions-for-indieweb' ),
-	'😎': __( 'smiling face with sunglasses', 'reactions-for-indieweb' ),
-	'🤗': __( 'smiling face with open hands', 'reactions-for-indieweb' ),
-	'😌': __( 'relieved face', 'reactions-for-indieweb' ),
-	'🥰': __( 'smiling face with hearts', 'reactions-for-indieweb' ),
+	'😊': __( 'smiling face with smiling eyes', 'post-kinds-for-indieweb' ),
+	'😃': __( 'grinning face with big eyes', 'post-kinds-for-indieweb' ),
+	'😄': __( 'grinning face with smiling eyes', 'post-kinds-for-indieweb' ),
+	'🥳': __( 'partying face', 'post-kinds-for-indieweb' ),
+	'😎': __( 'smiling face with sunglasses', 'post-kinds-for-indieweb' ),
+	'🤗': __( 'smiling face with open hands', 'post-kinds-for-indieweb' ),
+	'😌': __( 'relieved face', 'post-kinds-for-indieweb' ),
+	'🥰': __( 'smiling face with hearts', 'post-kinds-for-indieweb' ),
 	// Neutral
-	'😐': __( 'neutral face', 'reactions-for-indieweb' ),
-	'🤔': __( 'thinking face', 'reactions-for-indieweb' ),
-	'😑': __( 'expressionless face', 'reactions-for-indieweb' ),
-	'🙄': __( 'face with rolling eyes', 'reactions-for-indieweb' ),
-	'😶': __( 'face without mouth', 'reactions-for-indieweb' ),
-	'😏': __( 'smirking face', 'reactions-for-indieweb' ),
+	'😐': __( 'neutral face', 'post-kinds-for-indieweb' ),
+	'🤔': __( 'thinking face', 'post-kinds-for-indieweb' ),
+	'😑': __( 'expressionless face', 'post-kinds-for-indieweb' ),
+	'🙄': __( 'face with rolling eyes', 'post-kinds-for-indieweb' ),
+	'😶': __( 'face without mouth', 'post-kinds-for-indieweb' ),
+	'😏': __( 'smirking face', 'post-kinds-for-indieweb' ),
 	// Sad
-	'😢': __( 'crying face', 'reactions-for-indieweb' ),
-	'😭': __( 'loudly crying face', 'reactions-for-indieweb' ),
-	'😔': __( 'pensive face', 'reactions-for-indieweb' ),
-	'😞': __( 'disappointed face', 'reactions-for-indieweb' ),
-	'🥺': __( 'pleading face', 'reactions-for-indieweb' ),
-	'😿': __( 'crying cat', 'reactions-for-indieweb' ),
+	'😢': __( 'crying face', 'post-kinds-for-indieweb' ),
+	'😭': __( 'loudly crying face', 'post-kinds-for-indieweb' ),
+	'😔': __( 'pensive face', 'post-kinds-for-indieweb' ),
+	'😞': __( 'disappointed face', 'post-kinds-for-indieweb' ),
+	'🥺': __( 'pleading face', 'post-kinds-for-indieweb' ),
+	'😿': __( 'crying cat', 'post-kinds-for-indieweb' ),
 	// Angry
-	'😡': __( 'enraged face', 'reactions-for-indieweb' ),
-	'😤': __( 'face with steam from nose', 'reactions-for-indieweb' ),
-	'🤬': __( 'face with symbols on mouth', 'reactions-for-indieweb' ),
-	'💢': __( 'anger symbol', 'reactions-for-indieweb' ),
-	'😠': __( 'angry face', 'reactions-for-indieweb' ),
+	'😡': __( 'enraged face', 'post-kinds-for-indieweb' ),
+	'😤': __( 'face with steam from nose', 'post-kinds-for-indieweb' ),
+	'🤬': __( 'face with symbols on mouth', 'post-kinds-for-indieweb' ),
+	'💢': __( 'anger symbol', 'post-kinds-for-indieweb' ),
+	'😠': __( 'angry face', 'post-kinds-for-indieweb' ),
 	// Tired
-	'😴': __( 'sleeping face', 'reactions-for-indieweb' ),
-	'🥱': __( 'yawning face', 'reactions-for-indieweb' ),
-	'😪': __( 'sleepy face', 'reactions-for-indieweb' ),
-	'😩': __( 'weary face', 'reactions-for-indieweb' ),
-	'🤒': __( 'face with thermometer', 'reactions-for-indieweb' ),
+	'😴': __( 'sleeping face', 'post-kinds-for-indieweb' ),
+	'🥱': __( 'yawning face', 'post-kinds-for-indieweb' ),
+	'😪': __( 'sleepy face', 'post-kinds-for-indieweb' ),
+	'😩': __( 'weary face', 'post-kinds-for-indieweb' ),
+	'🤒': __( 'face with thermometer', 'post-kinds-for-indieweb' ),
 	// Anxious
-	'😰': __( 'anxious face with sweat', 'reactions-for-indieweb' ),
-	'😨': __( 'fearful face', 'reactions-for-indieweb' ),
-	'😱': __( 'face screaming in fear', 'reactions-for-indieweb' ),
-	'🫣': __( 'face with peeking eye', 'reactions-for-indieweb' ),
-	'😬': __( 'grimacing face', 'reactions-for-indieweb' ),
+	'😰': __( 'anxious face with sweat', 'post-kinds-for-indieweb' ),
+	'😨': __( 'fearful face', 'post-kinds-for-indieweb' ),
+	'😱': __( 'face screaming in fear', 'post-kinds-for-indieweb' ),
+	'🫣': __( 'face with peeking eye', 'post-kinds-for-indieweb' ),
+	'😬': __( 'grimacing face', 'post-kinds-for-indieweb' ),
 };
 
 /**
@@ -73,27 +73,27 @@ const MOOD_EMOJIS = {
  */
 const MOOD_CATEGORIES = [
 	{
-		name: __( 'Happy', 'reactions-for-indieweb' ),
+		name: __( 'Happy', 'post-kinds-for-indieweb' ),
 		emojis: [ '😊', '😃', '😄', '🥳', '😎', '🤗', '😌', '🥰' ],
 	},
 	{
-		name: __( 'Neutral', 'reactions-for-indieweb' ),
+		name: __( 'Neutral', 'post-kinds-for-indieweb' ),
 		emojis: [ '😐', '🤔', '😑', '🙄', '😶', '😏' ],
 	},
 	{
-		name: __( 'Sad', 'reactions-for-indieweb' ),
+		name: __( 'Sad', 'post-kinds-for-indieweb' ),
 		emojis: [ '😢', '😭', '😔', '😞', '🥺', '😿' ],
 	},
 	{
-		name: __( 'Angry', 'reactions-for-indieweb' ),
+		name: __( 'Angry', 'post-kinds-for-indieweb' ),
 		emojis: [ '😡', '😤', '🤬', '💢', '😠' ],
 	},
 	{
-		name: __( 'Tired', 'reactions-for-indieweb' ),
+		name: __( 'Tired', 'post-kinds-for-indieweb' ),
 		emojis: [ '😴', '🥱', '😪', '😩', '🤒' ],
 	},
 	{
-		name: __( 'Anxious', 'reactions-for-indieweb' ),
+		name: __( 'Anxious', 'post-kinds-for-indieweb' ),
 		emojis: [ '😰', '😨', '😱', '🫣', '😬' ],
 	},
 ];
@@ -148,9 +148,9 @@ export default function Edit( { attributes, setAttributes } ) {
 	useEffect( () => {
 		const updates = {};
 
-		const metaMood = postMeta._reactions_mood_label ?? '';
-		const metaEmoji = postMeta._reactions_mood_emoji ?? '';
-		const metaIntensity = postMeta._reactions_mood_rating ?? 3;
+		const metaMood = postMeta._postkind_mood_label ?? '';
+		const metaEmoji = postMeta._postkind_mood_emoji ?? '';
+		const metaIntensity = postMeta._postkind_mood_rating ?? 3;
 
 		if ( metaMood !== ( mood || '' ) ) updates.mood = metaMood;
 		if ( metaEmoji !== ( emoji || '' ) ) updates.emoji = metaEmoji;
@@ -160,23 +160,23 @@ export default function Edit( { attributes, setAttributes } ) {
 			setAttributes( updates );
 		}
 	}, [
-		postMeta._reactions_mood_label,
-		postMeta._reactions_mood_emoji,
-		postMeta._reactions_mood_rating,
+		postMeta._postkind_mood_label,
+		postMeta._postkind_mood_emoji,
+		postMeta._postkind_mood_rating,
 	] );
 
 	// Sync FROM block attributes TO post meta when attributes change
 	useEffect( () => {
 		const metaUpdates = {};
 
-		if ( ( mood || '' ) !== ( postMeta._reactions_mood_label ?? '' ) ) {
-			metaUpdates._reactions_mood_label = mood || '';
+		if ( ( mood || '' ) !== ( postMeta._postkind_mood_label ?? '' ) ) {
+			metaUpdates._postkind_mood_label = mood || '';
 		}
-		if ( ( emoji || '' ) !== ( postMeta._reactions_mood_emoji ?? '' ) ) {
-			metaUpdates._reactions_mood_emoji = emoji || '';
+		if ( ( emoji || '' ) !== ( postMeta._postkind_mood_emoji ?? '' ) ) {
+			metaUpdates._postkind_mood_emoji = emoji || '';
 		}
-		if ( ( intensity || 3 ) !== ( postMeta._reactions_mood_rating ?? 3 ) ) {
-			metaUpdates._reactions_mood_rating = intensity || 3;
+		if ( ( intensity || 3 ) !== ( postMeta._postkind_mood_rating ?? 3 ) ) {
+			metaUpdates._postkind_mood_rating = intensity || 3;
 		}
 
 		if ( Object.keys( metaUpdates ).length > 0 ) {
@@ -191,21 +191,21 @@ export default function Edit( { attributes, setAttributes } ) {
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Mood Details', 'reactions-for-indieweb' ) } initialOpen={ true }>
+				<PanelBody title={ __( 'Mood Details', 'post-kinds-for-indieweb' ) } initialOpen={ true }>
 					<TextControl
-						label={ __( 'Mood', 'reactions-for-indieweb' ) }
+						label={ __( 'Mood', 'post-kinds-for-indieweb' ) }
 						value={ mood || '' }
 						onChange={ ( value ) => setAttributes( { mood: value } ) }
-						placeholder={ __( 'How are you feeling?', 'reactions-for-indieweb' ) }
+						placeholder={ __( 'How are you feeling?', 'post-kinds-for-indieweb' ) }
 					/>
 					<SelectControl
-						label={ __( 'Emoji', 'reactions-for-indieweb' ) }
+						label={ __( 'Emoji', 'post-kinds-for-indieweb' ) }
 						value={ emoji || '😊' }
 						options={ EMOJI_OPTIONS }
 						onChange={ ( value ) => setAttributes( { emoji: value } ) }
 					/>
 					<RangeControl
-						label={ __( 'Intensity', 'reactions-for-indieweb' ) }
+						label={ __( 'Intensity', 'post-kinds-for-indieweb' ) }
 						value={ intensity || 3 }
 						onChange={ ( value ) => setAttributes( { intensity: value } ) }
 						min={ 1 }
@@ -217,12 +217,12 @@ export default function Edit( { attributes, setAttributes } ) {
 						] }
 					/>
 				</PanelBody>
-				<PanelBody title={ __( 'Note', 'reactions-for-indieweb' ) } initialOpen={ false }>
+				<PanelBody title={ __( 'Note', 'post-kinds-for-indieweb' ) } initialOpen={ false }>
 					<TextControl
-						label={ __( 'Note', 'reactions-for-indieweb' ) }
+						label={ __( 'Note', 'post-kinds-for-indieweb' ) }
 						value={ note || '' }
 						onChange={ ( value ) => setAttributes( { note: value } ) }
-						placeholder={ __( "What's on your mind?", 'reactions-for-indieweb' ) }
+						placeholder={ __( "What's on your mind?", 'post-kinds-for-indieweb' ) }
 					/>
 				</PanelBody>
 			</InspectorControls>
@@ -242,7 +242,7 @@ export default function Edit( { attributes, setAttributes } ) {
 									type="button"
 									className={ `reactions-card__intensity-dot ${ i < ( intensity || 3 ) ? 'filled' : '' }` }
 									onClick={ () => setAttributes( { intensity: i + 1 } ) }
-									aria-label={ `${ __( 'Set intensity to', 'reactions-for-indieweb' ) } ${ i + 1 }` }
+									aria-label={ `${ __( 'Set intensity to', 'post-kinds-for-indieweb' ) } ${ i + 1 }` }
 								/>
 							) ) }
 						</div>
@@ -267,14 +267,14 @@ export default function Edit( { attributes, setAttributes } ) {
 					</div>
 
 					<div className="reactions-card__content">
-						<span className="reactions-card__badge">😊 { __( 'Feeling', 'reactions-for-indieweb' ) }</span>
+						<span className="reactions-card__badge">😊 { __( 'Feeling', 'post-kinds-for-indieweb' ) }</span>
 
 						<RichText
 							tagName="h3"
 							className="reactions-card__title"
 							value={ mood }
 							onChange={ ( value ) => setAttributes( { mood: value } ) }
-							placeholder={ __( 'How are you feeling?', 'reactions-for-indieweb' ) }
+							placeholder={ __( 'How are you feeling?', 'post-kinds-for-indieweb' ) }
 						/>
 
 						<RichText
@@ -282,7 +282,7 @@ export default function Edit( { attributes, setAttributes } ) {
 							className="reactions-card__notes"
 							value={ note }
 							onChange={ ( value ) => setAttributes( { note: value } ) }
-							placeholder={ __( "What's on your mind?", 'reactions-for-indieweb' ) }
+							placeholder={ __( "What's on your mind?", 'post-kinds-for-indieweb' ) }
 						/>
 					</div>
 				</div>

@@ -1,10 +1,10 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
-  "name": "reactions-indieweb/play-card",
+  "name": "post-kinds-indieweb/play-card",
   "version": "1.0.0",
   "title": "Play Card",
-  "category": "reactions-indieweb",
+  "category": "post-kinds-indieweb",
   "description": "Display a game you played with cover art, platform, status, and rating.",
   "keywords": [
     "play",
@@ -13,7 +13,7 @@
     "video game",
     "board game"
   ],
-  "textdomain": "reactions-indieweb",
+  "textdomain": "post-kinds-indieweb",
   "attributes": {
     "title": {
       "type": "string",
@@ -74,13 +74,10 @@
     "steamId": {
       "type": "string"
     },
-    "developer": {
+    "officialUrl": {
       "type": "string"
     },
-    "publisher": {
-      "type": "string"
-    },
-    "releaseYear": {
+    "purchaseUrl": {
       "type": "string"
     },
     "layout": {

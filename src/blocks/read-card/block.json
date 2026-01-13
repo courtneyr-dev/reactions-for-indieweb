@@ -1,13 +1,13 @@
 {
     "$schema": "https://schemas.wp.org/trunk/block.json",
     "apiVersion": 3,
-    "name": "reactions-indieweb/read-card",
+    "name": "post-kinds-indieweb/read-card",
     "version": "1.0.0",
     "title": "Read Card",
-    "category": "reactions-indieweb",
+    "category": "post-kinds-indieweb",
     "description": "Display a book you're reading or have read with cover, author, and progress.",
     "keywords": ["read", "book", "reading", "author", "isbn", "library"],
-    "textdomain": "reactions-indieweb",
+    "textdomain": "post-kinds-indieweb",
     "attributes": {
         "bookTitle": {
             "type": "string",

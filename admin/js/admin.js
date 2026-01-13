@@ -1,5 +1,5 @@
 /**
- * Reactions for IndieWeb - Admin JavaScript
+ * Post Kinds for IndieWeb - Admin JavaScript
  *
  * @package Reactions_For_IndieWeb
  * @since 1.0.0
@@ -71,7 +71,7 @@
             navigator.clipboard.writeText(text).then(() => {
                 const $button = $(this);
                 const originalText = $button.text();
-                $button.text(reactionsIndieWeb.strings.copied);
+                $button.text(postKindsIndieWeb.strings.copied);
                 setTimeout(() => $button.text(originalText), 2000);
             });
         },
@@ -84,29 +84,29 @@
             const $button = $(this);
             const type = $button.data('type');
 
-            if (!confirm(reactionsIndieWeb.strings.confirmClear)) {
+            if (!confirm(postKindsIndieWeb.strings.confirmClear)) {
                 return;
             }
 
             $button.prop('disabled', true);
 
             $.ajax({
-                url: reactionsIndieWeb.ajaxUrl,
+                url: postKindsIndieWeb.ajaxUrl,
                 type: 'POST',
                 data: {
-                    action: 'reactions_indieweb_clear_cache',
-                    nonce: reactionsIndieWeb.nonce,
+                    action: 'post_kinds_indieweb_clear_cache',
+                    nonce: postKindsIndieWeb.nonce,
                     type: type
                 },
                 success: function(response) {
                     if (response.success) {
                         alert(response.data.message);
                     } else {
-                        alert(response.data.message || reactionsIndieWeb.strings.error);
+                        alert(response.data.message || postKindsIndieWeb.strings.error);
                     }
                 },
                 error: function() {
-                    alert(reactionsIndieWeb.strings.error);
+                    alert(postKindsIndieWeb.strings.error);
                 },
                 complete: function() {
                     $button.prop('disabled', false);
@@ -131,7 +131,7 @@
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'reactions-indieweb-settings.json';
+            a.download = 'post-kinds-indieweb-settings.json';
             a.click();
             URL.revokeObjectURL(url);
         },
@@ -160,7 +160,7 @@
          * Initialize API settings page
          */
         initApiSettings: function() {
-            if (!$('.reactions-indieweb-api-settings').length) {
+            if (!$('.post-kinds-indieweb-api-settings').length) {
                 return;
             }
 
@@ -198,14 +198,14 @@
             const api = $button.data('api');
             const $card = $button.closest('.reactions-api-card');
 
-            $button.prop('disabled', true).text(reactionsIndieWeb.strings.testingApi);
+            $button.prop('disabled', true).text(postKindsIndieWeb.strings.testingApi);
 
             $.ajax({
-                url: reactionsIndieWeb.ajaxUrl,
+                url: postKindsIndieWeb.ajaxUrl,
                 type: 'POST',
                 data: {
-                    action: 'reactions_indieweb_test_api',
-                    nonce: reactionsIndieWeb.nonce,
+                    action: 'post_kinds_indieweb_test_api',
+                    nonce: postKindsIndieWeb.nonce,
                     api: api
                 },
                 success: function(response) {
@@ -215,20 +215,20 @@
                             .removeClass('error disabled')
                             .addClass('connected')
                             .text('Connected');
-                        alert(reactionsIndieWeb.strings.testSuccess);
+                        alert(postKindsIndieWeb.strings.testSuccess);
                     } else {
                         $card.removeClass('connected').addClass('error');
                         $card.find('.api-status-badge')
                             .removeClass('connected disabled')
                             .addClass('error')
                             .text('Not Connected');
-                        alert(reactionsIndieWeb.strings.testFailed + (response.data?.message || 'Unknown error'));
+                        alert(postKindsIndieWeb.strings.testFailed + (response.data?.message || 'Unknown error'));
                     }
                 },
                 error: function(xhr, status, error) {
-                    let errorMsg = reactionsIndieWeb.strings.error;
+                    let errorMsg = postKindsIndieWeb.strings.error;
                     if (xhr.responseJSON && xhr.responseJSON.data && xhr.responseJSON.data.message) {
-                        errorMsg = reactionsIndieWeb.strings.testFailed + xhr.responseJSON.data.message;
+                        errorMsg = postKindsIndieWeb.strings.testFailed + xhr.responseJSON.data.message;
                     } else if (xhr.responseText) {
                         // Try to show a snippet of the response for debugging.
                         errorMsg = 'Server error: ' + xhr.responseText.substring(0, 200);
@@ -251,8 +251,8 @@
             const $button = $(this);
 
             // Get credentials from the card (more specific selector)
-            const clientId = $card.find(`input[name="reactions_indieweb_api_credentials[${api}][client_id]"]`).val();
-            const clientSecret = $card.find(`input[name="reactions_indieweb_api_credentials[${api}][client_secret]"]`).val();
+            const clientId = $card.find(`input[name="post_kinds_indieweb_api_credentials[${api}][client_id]"]`).val();
+            const clientSecret = $card.find(`input[name="post_kinds_indieweb_api_credentials[${api}][client_secret]"]`).val();
 
             if (!clientId) {
                 alert('Please enter your Client ID first.');
@@ -268,11 +268,11 @@
             $button.prop('disabled', true).text('Connecting...');
 
             $.ajax({
-                url: reactionsIndieWeb.ajaxUrl,
+                url: postKindsIndieWeb.ajaxUrl,
                 type: 'POST',
                 data: {
-                    action: 'reactions_indieweb_get_oauth_url',
-                    nonce: reactionsIndieWeb.nonce,
+                    action: 'post_kinds_indieweb_get_oauth_url',
+                    nonce: postKindsIndieWeb.nonce,
                     api: api,
                     client_id: clientId,
                     client_secret: clientSecret
@@ -333,7 +333,7 @@
          * Initialize import page
          */
         initImportPage: function() {
-            if (!$('.reactions-indieweb-import').length) {
+            if (!$('.post-kinds-indieweb-import').length) {
                 return;
             }
 
@@ -373,11 +373,11 @@
             $('#import-preview-modal').data('source', source);
 
             $.ajax({
-                url: reactionsIndieWeb.ajaxUrl,
+                url: postKindsIndieWeb.ajaxUrl,
                 type: 'POST',
                 data: {
-                    action: 'reactions_indieweb_get_import_preview',
-                    nonce: reactionsIndieWeb.nonce,
+                    action: 'post_kinds_indieweb_get_import_preview',
+                    nonce: postKindsIndieWeb.nonce,
                     source: source,
                     options: options
                 },
@@ -393,7 +393,7 @@
                 },
                 error: function() {
                     $('.preview-loading').hide();
-                    $('.preview-content').html('<p class="error">' + reactionsIndieWeb.strings.error + '</p>').show();
+                    $('.preview-content').html('<p class="error">' + postKindsIndieWeb.strings.error + '</p>').show();
                 }
             });
         },
@@ -454,14 +454,14 @@
             const source = $button.data('source');
             const options = ReactionsAdmin.getImportOptions(source);
 
-            $button.prop('disabled', true).text(reactionsIndieWeb.strings.importing);
+            $button.prop('disabled', true).text(postKindsIndieWeb.strings.importing);
 
             $.ajax({
-                url: reactionsIndieWeb.ajaxUrl,
+                url: postKindsIndieWeb.ajaxUrl,
                 type: 'POST',
                 data: {
-                    action: 'reactions_indieweb_start_import',
-                    nonce: reactionsIndieWeb.nonce,
+                    action: 'post_kinds_indieweb_start_import',
+                    nonce: postKindsIndieWeb.nonce,
                     source: source,
                     options: options
                 },
@@ -470,11 +470,11 @@
                         alert(response.data.message || 'Import completed!');
                         location.reload();
                     } else {
-                        alert(response.data.message || reactionsIndieWeb.strings.error);
+                        alert(response.data.message || postKindsIndieWeb.strings.error);
                     }
                 },
                 error: function(xhr, status, error) {
-                    let errorMsg = reactionsIndieWeb.strings.error;
+                    let errorMsg = postKindsIndieWeb.strings.error;
                     if (xhr.responseJSON && xhr.responseJSON.data && xhr.responseJSON.data.message) {
                         errorMsg = xhr.responseJSON.data.message;
                     } else if (xhr.responseText) {
@@ -503,22 +503,22 @@
             $button.prop('disabled', true).html('<span class="dashicons dashicons-update spin"></span> Syncing...');
 
             $.ajax({
-                url: reactionsIndieWeb.ajaxUrl,
+                url: postKindsIndieWeb.ajaxUrl,
                 type: 'POST',
                 data: {
-                    action: 'reactions_indieweb_resync_metadata',
-                    nonce: reactionsIndieWeb.nonce,
+                    action: 'post_kinds_indieweb_resync_metadata',
+                    nonce: postKindsIndieWeb.nonce,
                     source: source
                 },
                 success: function(response) {
                     if (response.success) {
                         alert(response.data.message || 'Metadata re-synced successfully!');
                     } else {
-                        alert(response.data.message || reactionsIndieWeb.strings.error);
+                        alert(response.data.message || postKindsIndieWeb.strings.error);
                     }
                 },
                 error: function(xhr, status, error) {
-                    let errorMsg = reactionsIndieWeb.strings.error;
+                    let errorMsg = postKindsIndieWeb.strings.error;
                     if (xhr.responseJSON && xhr.responseJSON.data && xhr.responseJSON.data.message) {
                         errorMsg = xhr.responseJSON.data.message;
                     }
@@ -552,18 +552,18 @@
             }
 
             $.ajax({
-                url: reactionsIndieWeb.ajaxUrl,
+                url: postKindsIndieWeb.ajaxUrl,
                 type: 'POST',
                 data: {
-                    action: 'reactions_indieweb_cancel_import',
-                    nonce: reactionsIndieWeb.nonce,
+                    action: 'post_kinds_indieweb_cancel_import',
+                    nonce: postKindsIndieWeb.nonce,
                     import_id: importId
                 },
                 success: function(response) {
                     if (response.success) {
                         location.reload();
                     } else {
-                        alert(response.data.message || reactionsIndieWeb.strings.error);
+                        alert(response.data.message || postKindsIndieWeb.strings.error);
                     }
                 }
             });
@@ -591,11 +591,11 @@
                     const importId = $import.data('import-id');
 
                     $.ajax({
-                        url: reactionsIndieWeb.ajaxUrl,
+                        url: postKindsIndieWeb.ajaxUrl,
                         type: 'POST',
                         data: {
-                            action: 'reactions_indieweb_get_import_status',
-                            nonce: reactionsIndieWeb.nonce,
+                            action: 'post_kinds_indieweb_get_import_status',
+                            nonce: postKindsIndieWeb.nonce,
                             import_id: importId
                         },
                         success: function(response) {
@@ -622,7 +622,7 @@
          * Initialize webhooks page
          */
         initWebhooksPage: function() {
-            if (!$('.reactions-indieweb-webhooks').length) {
+            if (!$('.post-kinds-indieweb-webhooks').length) {
                 return;
             }
 
@@ -657,18 +657,18 @@
             const $input = $button.siblings('.webhook-secret-input');
 
             $.ajax({
-                url: reactionsIndieWeb.ajaxUrl,
+                url: postKindsIndieWeb.ajaxUrl,
                 type: 'POST',
                 data: {
-                    action: 'reactions_indieweb_regenerate_webhook_secret',
-                    nonce: reactionsIndieWeb.nonce,
+                    action: 'post_kinds_indieweb_regenerate_webhook_secret',
+                    nonce: postKindsIndieWeb.nonce,
                     webhook: webhook
                 },
                 success: function(response) {
                     if (response.success) {
                         $input.val(response.data.secret);
                     } else {
-                        alert(response.data.message || reactionsIndieWeb.strings.error);
+                        alert(response.data.message || postKindsIndieWeb.strings.error);
                     }
                 }
             });
@@ -683,11 +683,11 @@
             const $row = $(this).closest('tr');
 
             $.ajax({
-                url: reactionsIndieWeb.ajaxUrl,
+                url: postKindsIndieWeb.ajaxUrl,
                 type: 'POST',
                 data: {
-                    action: 'reactions_indieweb_approve_scrobble',
-                    nonce: reactionsIndieWeb.nonce,
+                    action: 'post_kinds_indieweb_approve_scrobble',
+                    nonce: postKindsIndieWeb.nonce,
                     index: index
                 },
                 success: function(response) {
@@ -696,7 +696,7 @@
                             $(this).remove();
                         });
                     } else {
-                        alert(response.data.message || reactionsIndieWeb.strings.error);
+                        alert(response.data.message || postKindsIndieWeb.strings.error);
                     }
                 }
             });
@@ -711,11 +711,11 @@
             const $row = $(this).closest('tr');
 
             $.ajax({
-                url: reactionsIndieWeb.ajaxUrl,
+                url: postKindsIndieWeb.ajaxUrl,
                 type: 'POST',
                 data: {
-                    action: 'reactions_indieweb_reject_scrobble',
-                    nonce: reactionsIndieWeb.nonce,
+                    action: 'post_kinds_indieweb_reject_scrobble',
+                    nonce: postKindsIndieWeb.nonce,
                     index: index
                 },
                 success: function(response) {
@@ -898,14 +898,14 @@
                 return;
             }
 
-            $results.html('<p>' + reactionsIndieWeb.strings.lookingUp + '</p>');
+            $results.html('<p>' + postKindsIndieWeb.strings.lookingUp + '</p>');
 
             $.ajax({
-                url: reactionsIndieWeb.ajaxUrl,
+                url: postKindsIndieWeb.ajaxUrl,
                 type: 'POST',
                 data: {
-                    action: 'reactions_indieweb_lookup_media',
-                    nonce: reactionsIndieWeb.nonce,
+                    action: 'post_kinds_indieweb_lookup_media',
+                    nonce: postKindsIndieWeb.nonce,
                     type: type,
                     query: query
                 },
@@ -921,11 +921,11 @@
                         });
                         $results.html(html);
                     } else {
-                        $results.html('<p>' + reactionsIndieWeb.strings.noResults + '</p>');
+                        $results.html('<p>' + postKindsIndieWeb.strings.noResults + '</p>');
                     }
                 },
                 error: function() {
-                    $results.html('<p class="error">' + reactionsIndieWeb.strings.error + '</p>');
+                    $results.html('<p class="error">' + postKindsIndieWeb.strings.error + '</p>');
                 }
             });
         },
@@ -948,7 +948,7 @@
          * Initialize quick post page
          */
         initQuickPost: function() {
-            if (!$('.reactions-indieweb-quick-post').length) {
+            if (!$('.post-kinds-indieweb-quick-post').length) {
                 return;
             }
 
@@ -1041,14 +1041,14 @@
                 return;
             }
 
-            $results.html('<p class="searching">' + reactionsIndieWeb.strings.lookingUp + '</p>');
+            $results.html('<p class="searching">' + postKindsIndieWeb.strings.lookingUp + '</p>');
 
             $.ajax({
-                url: reactionsIndieWeb.ajaxUrl,
+                url: postKindsIndieWeb.ajaxUrl,
                 type: 'POST',
                 data: {
-                    action: 'reactions_indieweb_lookup_media',
-                    nonce: reactionsIndieWeb.nonce,
+                    action: 'post_kinds_indieweb_lookup_media',
+                    nonce: postKindsIndieWeb.nonce,
                     type: type,
                     query: query
                 },
@@ -1070,11 +1070,11 @@
                         });
                         $results.html(html);
                     } else {
-                        $results.html('<p>' + reactionsIndieWeb.strings.noResults + '</p>');
+                        $results.html('<p>' + postKindsIndieWeb.strings.noResults + '</p>');
                     }
                 },
                 error: function() {
-                    $results.html('<p class="error">' + reactionsIndieWeb.strings.error + '</p>');
+                    $results.html('<p class="error">' + postKindsIndieWeb.strings.error + '</p>');
                 }
             });
         },
@@ -1198,11 +1198,11 @@
             $feedback.removeClass('success error').hide();
 
             $.ajax({
-                url: reactionsIndieWeb.ajaxUrl,
+                url: postKindsIndieWeb.ajaxUrl,
                 type: 'POST',
                 data: {
-                    action: 'reactions_indieweb_quick_post',
-                    nonce: reactionsIndieWeb.nonce,
+                    action: 'post_kinds_indieweb_quick_post',
+                    nonce: postKindsIndieWeb.nonce,
                     kind: kind,
                     data: data
                 },
@@ -1221,7 +1221,7 @@
                     }
                 },
                 error: function() {
-                    $feedback.addClass('error').text(reactionsIndieWeb.strings.error).show();
+                    $feedback.addClass('error').text(postKindsIndieWeb.strings.error).show();
                 },
                 complete: function() {
                     $submit.prop('disabled', false);

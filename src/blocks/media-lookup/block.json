@@ -1,13 +1,13 @@
 {
     "$schema": "https://schemas.wp.org/trunk/block.json",
     "apiVersion": 3,
-    "name": "reactions-indieweb/media-lookup",
+    "name": "post-kinds-indieweb/media-lookup",
     "version": "1.0.0",
     "title": "Media Lookup",
-    "category": "reactions-indieweb",
+    "category": "post-kinds-indieweb",
     "description": "Search and embed media info from external APIs (books, movies, music).",
     "keywords": ["lookup", "search", "media", "book", "movie", "music", "api"],
-    "textdomain": "reactions-indieweb",
+    "textdomain": "post-kinds-indieweb",
     "attributes": {
         "mediaType": {
             "type": "string",

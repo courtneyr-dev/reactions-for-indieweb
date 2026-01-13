@@ -4,7 +4,7 @@
  * @package Reactions_For_IndieWeb
  */
 
-.wp-block-reactions-indieweb-media-lookup {
+.wp-block-post-kinds-indieweb-media-lookup {
 	--media-lookup-gap: 1rem;
 	--media-lookup-radius: 8px;
 }

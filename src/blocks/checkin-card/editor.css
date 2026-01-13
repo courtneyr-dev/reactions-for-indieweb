@@ -4,15 +4,15 @@
  * @package Reactions_For_IndieWeb
  */
 
-.wp-block-reactions-indieweb-checkin-card .checkin-photo {
+.wp-block-post-kinds-indieweb-checkin-card .checkin-photo {
 	cursor: pointer;
 }
 
-.wp-block-reactions-indieweb-checkin-card .checkin-photo:hover {
+.wp-block-post-kinds-indieweb-checkin-card .checkin-photo:hover {
 	opacity: 0.8;
 }
 
-.wp-block-reactions-indieweb-checkin-card .photo-placeholder {
+.wp-block-post-kinds-indieweb-checkin-card .photo-placeholder {
 	width: 150px;
 	height: 150px;
 	display: flex;
@@ -28,11 +28,11 @@
 	gap: 0.5rem;
 }
 
-.wp-block-reactions-indieweb-checkin-card .photo-placeholder .venue-icon {
+.wp-block-post-kinds-indieweb-checkin-card .photo-placeholder .venue-icon {
 	font-size: 2rem;
 }
 
-.wp-block-reactions-indieweb-checkin-card .placeholder-actions {
+.wp-block-post-kinds-indieweb-checkin-card .placeholder-actions {
 	display: flex;
 	gap: 0.5rem;
 	flex-wrap: wrap;

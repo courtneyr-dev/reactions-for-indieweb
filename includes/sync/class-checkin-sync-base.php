@@ -6,15 +6,15 @@
  * Handles POSSE (Publish Own Site, Syndicate Elsewhere) and
  * PESOS (Publish Elsewhere, Syndicate Own Site) patterns.
  *
- * @package ReactionsForIndieWeb
+ * @package PostKindsForIndieWeb
  * @since   1.0.0
  */
 
 declare(strict_types=1);
 
-namespace ReactionsForIndieWeb\Sync;
+namespace PostKindsForIndieWeb\Sync;
 
-use ReactionsForIndieWeb\Meta_Fields;
+use PostKindsForIndieWeb\Meta_Fields;
 
 // Prevent direct access.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -63,8 +63,8 @@ abstract class Checkin_Sync_Base {
 	 * Constructor.
 	 */
 	public function __construct() {
-		$this->external_id_meta_key     = '_reactions_checkin_' . $this->service_id . '_id';
-		$this->syndication_url_meta_key = '_reactions_syndication_' . $this->service_id;
+		$this->external_id_meta_key     = '_postkind_checkin_' . $this->service_id . '_id';
+		$this->syndication_url_meta_key = '_postkind_syndication_' . $this->service_id;
 	}
 
 	/**
@@ -232,7 +232,7 @@ abstract class Checkin_Sync_Base {
 				++$imported;
 
 				// Mark as imported from this service (prevent POSSE loop).
-				update_post_meta( $post_id, '_reactions_imported_from', $this->service_id );
+				update_post_meta( $post_id, '_postkind_imported_from', $this->service_id );
 				update_post_meta( $post_id, $this->external_id_meta_key, $external_checkin['id'] ?? '' );
 
 				// Add syndication link.
@@ -283,7 +283,7 @@ abstract class Checkin_Sync_Base {
 	 */
 	protected function is_syndication_enabled( int $post_id ): bool {
 		// Check global setting.
-		$settings    = get_option( 'reactions_indieweb_settings', array() );
+		$settings    = get_option( 'post_kinds_indieweb_settings', array() );
 		$setting_key = 'checkin_sync_to_' . $this->service_id;
 
 		if ( empty( $settings[ $setting_key ] ) ) {
@@ -321,7 +321,7 @@ abstract class Checkin_Sync_Base {
 	 * @return bool
 	 */
 	protected function was_imported_from_service( int $post_id ): bool {
-		$imported_from = get_post_meta( $post_id, '_reactions_imported_from', true );
+		$imported_from = get_post_meta( $post_id, '_postkind_imported_from', true );
 		return $this->service_id === $imported_from;
 	}
 

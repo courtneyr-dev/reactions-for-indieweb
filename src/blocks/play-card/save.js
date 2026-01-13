@@ -37,9 +37,8 @@ export default function Save( { attributes } ) {
 		gameUrl,
 		bggId,
 		rawgId,
-		developer,
-		publisher,
-		releaseYear,
+		officialUrl,
+		purchaseUrl,
 		layout,
 	} = attributes;
 
@@ -118,25 +117,6 @@ export default function Save( { attributes } ) {
 						</h3>
 					) }
 
-					{ /* Developer */ }
-					{ developer && (
-						<p className="reactions-card__subtitle">
-							<span className="p-author h-card">
-								<span className="p-name">{ developer }</span>
-							</span>
-						</p>
-					) }
-
-					{ /* Publisher and year */ }
-					{ ( publisher || releaseYear ) && (
-						<p className="reactions-card__meta">
-							{ publisher }
-							{ releaseYear && (
-								<span> ({ releaseYear })</span>
-							) }
-						</p>
-					) }
-
 					{ /* Hours played */ }
 					{ hoursPlayed > 0 && (
 						<p className="reactions-card__meta">
@@ -149,6 +129,42 @@ export default function Save( { attributes } ) {
 
 					{ /* Review */ }
 					{ review && <p className="reactions-card__notes p-content">{ review }</p> }
+
+					{ /* Links */ }
+					{ ( officialUrl || purchaseUrl || gameUrl ) && (
+						<div className="reactions-card__links">
+							{ gameUrl && (
+								<a
+									href={ gameUrl }
+									className="reactions-card__link"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									View on BGG
+								</a>
+							) }
+							{ officialUrl && (
+								<a
+									href={ officialUrl }
+									className="reactions-card__link"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									Official Site
+								</a>
+							) }
+							{ purchaseUrl && (
+								<a
+									href={ purchaseUrl }
+									className="reactions-card__link reactions-card__link--buy"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									Buy
+								</a>
+							) }
+						</div>
+					) }
 
 					{ /* Played timestamp */ }
 					{ playedAt && (

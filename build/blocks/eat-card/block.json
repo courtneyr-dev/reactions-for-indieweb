@@ -1,10 +1,10 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
-  "name": "reactions-indieweb/eat-card",
+  "name": "post-kinds-indieweb/eat-card",
   "version": "1.0.0",
   "title": "Eat Card",
-  "category": "reactions-indieweb",
+  "category": "post-kinds-indieweb",
   "description": "Display a meal or food you ate with photo, restaurant, cuisine, and rating.",
   "keywords": [
     "eat",
@@ -13,7 +13,7 @@
     "restaurant",
     "dining"
   ],
-  "textdomain": "reactions-indieweb",
+  "textdomain": "post-kinds-indieweb",
   "attributes": {
     "name": {
       "type": "string",
@@ -53,8 +53,28 @@
     "restaurantUrl": {
       "type": "string"
     },
-    "locality": {
+    "locationName": {
       "type": "string"
+    },
+    "locationAddress": {
+      "type": "string"
+    },
+    "locationLocality": {
+      "type": "string"
+    },
+    "locationRegion": {
+      "type": "string"
+    },
+    "locationCountry": {
+      "type": "string"
+    },
+    "geoLatitude": {
+      "type": "number",
+      "default": 0
+    },
+    "geoLongitude": {
+      "type": "number",
+      "default": 0
     },
     "layout": {
       "type": "string",

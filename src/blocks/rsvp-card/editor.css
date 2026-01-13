@@ -4,15 +4,15 @@
  * @package Reactions_For_IndieWeb
  */
 
-.wp-block-reactions-indieweb-rsvp-card .event-image {
+.wp-block-post-kinds-indieweb-rsvp-card .event-image {
 	cursor: pointer;
 }
 
-.wp-block-reactions-indieweb-rsvp-card .event-image:hover {
+.wp-block-post-kinds-indieweb-rsvp-card .event-image:hover {
 	opacity: 0.8;
 }
 
-.wp-block-reactions-indieweb-rsvp-card .image-placeholder {
+.wp-block-post-kinds-indieweb-rsvp-card .image-placeholder {
 	width: 150px;
 	height: 100px;
 	display: flex;
@@ -28,15 +28,15 @@
 	gap: 0.5rem;
 }
 
-.wp-block-reactions-indieweb-rsvp-card .image-placeholder .rsvp-icon {
+.wp-block-post-kinds-indieweb-rsvp-card .image-placeholder .rsvp-icon {
 	font-size: 2rem;
 }
 
-.wp-block-reactions-indieweb-rsvp-card .rsvp-quick-buttons {
+.wp-block-post-kinds-indieweb-rsvp-card .rsvp-quick-buttons {
 	margin: 0.5rem 0;
 }
 
-.wp-block-reactions-indieweb-rsvp-card .placeholder-actions {
+.wp-block-post-kinds-indieweb-rsvp-card .placeholder-actions {
 	display: flex;
 	flex-direction: column;
 	gap: 0.75rem;

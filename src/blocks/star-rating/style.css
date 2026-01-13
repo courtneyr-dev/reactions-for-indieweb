@@ -4,7 +4,7 @@
  * @package Reactions_For_IndieWeb
  */
 
-.wp-block-reactions-indieweb-star-rating {
+.wp-block-post-kinds-indieweb-star-rating {
 	--star-rating-color: #ffc107;
 	--star-rating-empty: #ddd;
 }

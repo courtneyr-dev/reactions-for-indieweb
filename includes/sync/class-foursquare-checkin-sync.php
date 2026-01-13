@@ -8,16 +8,16 @@
  * Note: Foursquare's v3 Places API is read-only. For checkins, we use the
  * older v2 API which requires OAuth2 user authentication.
  *
- * @package ReactionsForIndieWeb
+ * @package PostKindsForIndieWeb
  * @since   1.0.0
  */
 
 declare(strict_types=1);
 
-namespace ReactionsForIndieWeb\Sync;
+namespace PostKindsForIndieWeb\Sync;
 
-use ReactionsForIndieWeb\Meta_Fields;
-use ReactionsForIndieWeb\Taxonomy;
+use PostKindsForIndieWeb\Meta_Fields;
+use PostKindsForIndieWeb\Taxonomy;
 
 // Prevent direct access.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -93,7 +93,7 @@ class Foursquare_Checkin_Sync extends Checkin_Sync_Base {
 	public function __construct() {
 		parent::__construct();
 
-		$credentials          = get_option( 'reactions_indieweb_api_credentials', array() );
+		$credentials          = get_option( 'post_kinds_indieweb_api_credentials', array() );
 		$fs_creds             = $credentials['foursquare'] ?? array();
 		$this->client_id      = $fs_creds['client_id'] ?? '';
 		$this->client_secret  = $fs_creds['client_secret'] ?? '';
@@ -109,7 +109,7 @@ class Foursquare_Checkin_Sync extends Checkin_Sync_Base {
 	public function register_routes(): void {
 		// OAuth callback.
 		register_rest_route(
-			'reactions-indieweb/v1',
+			'post-kinds-indieweb/v1',
 			'/foursquare/oauth/callback',
 			array(
 				'methods'             => 'GET',
@@ -120,7 +120,7 @@ class Foursquare_Checkin_Sync extends Checkin_Sync_Base {
 
 		// Manual import trigger.
 		register_rest_route(
-			'reactions-indieweb/v1',
+			'post-kinds-indieweb/v1',
 			'/foursquare/import',
 			array(
 				'methods'             => 'POST',
@@ -133,7 +133,7 @@ class Foursquare_Checkin_Sync extends Checkin_Sync_Base {
 
 		// Disconnect.
 		register_rest_route(
-			'reactions-indieweb/v1',
+			'post-kinds-indieweb/v1',
 			'/foursquare/disconnect',
 			array(
 				'methods'             => 'POST',
@@ -164,11 +164,11 @@ class Foursquare_Checkin_Sync extends Checkin_Sync_Base {
 			return '';
 		}
 
-		$redirect_uri = rest_url( 'reactions-indieweb/v1/foursquare/oauth/callback' );
+		$redirect_uri = rest_url( 'post-kinds-indieweb/v1/foursquare/oauth/callback' );
 
 		// Store state for CSRF protection.
 		$state = wp_create_nonce( 'foursquare_oauth' );
-		set_transient( 'reactions_foursquare_oauth_state', $state, HOUR_IN_SECONDS );
+		set_transient( 'post_kinds_foursquare_oauth_state', $state, HOUR_IN_SECONDS );
 
 		return add_query_arg(
 			array(
@@ -214,7 +214,7 @@ class Foursquare_Checkin_Sync extends Checkin_Sync_Base {
 	 * @return bool True on success.
 	 */
 	public function handle_oauth_callback( string $code ): bool {
-		$redirect_uri = rest_url( 'reactions-indieweb/v1/foursquare/oauth/callback' );
+		$redirect_uri = rest_url( 'post-kinds-indieweb/v1/foursquare/oauth/callback' );
 
 		$response = wp_remote_post(
 			self::OAUTH_URL . 'access_token',
@@ -242,9 +242,9 @@ class Foursquare_Checkin_Sync extends Checkin_Sync_Base {
 		}
 
 		// Store the user access token.
-		$credentials = get_option( 'reactions_indieweb_api_credentials', array() );
+		$credentials = get_option( 'post_kinds_indieweb_api_credentials', array() );
 		$credentials['foursquare']['user_access_token'] = $body['access_token'];
-		update_option( 'reactions_indieweb_api_credentials', $credentials );
+		update_option( 'post_kinds_indieweb_api_credentials', $credentials );
 
 		$this->access_token = $body['access_token'];
 
@@ -265,10 +265,10 @@ class Foursquare_Checkin_Sync extends Checkin_Sync_Base {
 			$user = $this->api_get( 'users/self' );
 
 			if ( ! empty( $user['response']['user'] ) ) {
-				$credentials = get_option( 'reactions_indieweb_api_credentials', array() );
+				$credentials = get_option( 'post_kinds_indieweb_api_credentials', array() );
 				$credentials['foursquare']['user_id']   = $user['response']['user']['id'] ?? '';
 				$credentials['foursquare']['user_name'] = $user['response']['user']['firstName'] ?? '';
-				update_option( 'reactions_indieweb_api_credentials', $credentials );
+				update_option( 'post_kinds_indieweb_api_credentials', $credentials );
 			}
 		} catch ( \Exception $e ) {
 			$this->log( 'Failed to fetch user info', array( 'error' => $e->getMessage() ) );
@@ -285,7 +285,7 @@ class Foursquare_Checkin_Sync extends Checkin_Sync_Base {
 		if ( ! $this->is_connected() ) {
 			return new \WP_Error(
 				'not_connected',
-				__( 'Foursquare is not connected. Please authorize first.', 'reactions-for-indieweb' ),
+				__( 'Foursquare is not connected. Please authorize first.', 'post-kinds-for-indieweb' ),
 				array( 'status' => 400 )
 			);
 		}
@@ -303,19 +303,19 @@ class Foursquare_Checkin_Sync extends Checkin_Sync_Base {
 	 * @return \WP_REST_Response
 	 */
 	public function handle_disconnect_request( \WP_REST_Request $request ) {
-		$credentials = get_option( 'reactions_indieweb_api_credentials', array() );
+		$credentials = get_option( 'post_kinds_indieweb_api_credentials', array() );
 
 		unset( $credentials['foursquare']['user_access_token'] );
 		unset( $credentials['foursquare']['user_id'] );
 		unset( $credentials['foursquare']['user_name'] );
 
-		update_option( 'reactions_indieweb_api_credentials', $credentials );
+		update_option( 'post_kinds_indieweb_api_credentials', $credentials );
 
 		$this->access_token = null;
 
 		return rest_ensure_response( array(
 			'success' => true,
-			'message' => __( 'Foursquare disconnected.', 'reactions-for-indieweb' ),
+			'message' => __( 'Foursquare disconnected.', 'post-kinds-for-indieweb' ),
 		) );
 	}
 
@@ -451,8 +451,8 @@ class Foursquare_Checkin_Sync extends Checkin_Sync_Base {
 			'post_content' => $external_checkin['shout'] ?? '',
 			'post_title'   => sprintf(
 				/* translators: %s: venue name */
-				__( 'Checked in at %s', 'reactions-for-indieweb' ),
-				$venue['name'] ?? __( 'Unknown venue', 'reactions-for-indieweb' )
+				__( 'Checked in at %s', 'post-kinds-for-indieweb' ),
+				$venue['name'] ?? __( 'Unknown venue', 'post-kinds-for-indieweb' )
 			),
 		);
 
@@ -486,7 +486,7 @@ class Foursquare_Checkin_Sync extends Checkin_Sync_Base {
 		update_post_meta( $post_id, $prefix . 'checkin_foursquare_id', $venue['id'] ?? '' );
 
 		// Apply default privacy setting.
-		$settings = get_option( 'reactions_indieweb_settings', array() );
+		$settings = get_option( 'post_kinds_indieweb_settings', array() );
 		$default_privacy = $settings['checkin_default_privacy'] ?? 'approximate';
 		update_post_meta( $post_id, $prefix . 'geo_privacy', $default_privacy );
 
@@ -595,7 +595,7 @@ class Foursquare_Checkin_Sync extends Checkin_Sync_Base {
 	private function oauth_redirect_with_error( string $error ) {
 		$redirect_url = add_query_arg(
 			array(
-				'page'            => 'reactions-indieweb-apis',
+				'page'            => 'post-kinds-indieweb-apis',
 				'foursquare_auth' => 'error',
 				'error'           => $error,
 			),
@@ -614,7 +614,7 @@ class Foursquare_Checkin_Sync extends Checkin_Sync_Base {
 	private function oauth_redirect_with_success() {
 		$redirect_url = add_query_arg(
 			array(
-				'page'            => 'reactions-indieweb-apis',
+				'page'            => 'post-kinds-indieweb-apis',
 				'foursquare_auth' => 'success',
 			),
 			admin_url( 'admin.php' )

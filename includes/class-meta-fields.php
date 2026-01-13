@@ -4,13 +4,13 @@
  *
  * Registers all post meta fields for IndieWeb post kinds with REST API exposure.
  *
- * @package ReactionsForIndieWeb
+ * @package PostKindsForIndieWeb
  * @since   1.0.0
  */
 
 declare(strict_types=1);
 
-namespace ReactionsForIndieWeb;
+namespace PostKindsForIndieWeb;
 
 // Prevent direct access.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -32,7 +32,7 @@ class Meta_Fields {
 	 *
 	 * @var string
 	 */
-	public const PREFIX = '_reactions_';
+	public const PREFIX = '_postkind_';
 
 	/**
 	 * Post types to register meta for.
@@ -68,43 +68,49 @@ class Meta_Fields {
 			// Citation Fields (All Response Kinds).
 			'cite_name'        => array(
 				'type'        => 'string',
-				'description' => __( 'Title of the cited content.', 'reactions-for-indieweb' ),
+				'description' => __( 'Title of the cited content.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
 			'cite_url'         => array(
 				'type'        => 'string',
-				'description' => __( 'URL of the cited content.', 'reactions-for-indieweb' ),
+				'description' => __( 'URL of the cited content.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'esc_url_raw',
 				'default'     => '',
 			),
 			'cite_author'      => array(
 				'type'        => 'string',
-				'description' => __( 'Author name of the cited content.', 'reactions-for-indieweb' ),
+				'description' => __( 'Author name of the cited content.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
 			'cite_author_url'  => array(
 				'type'        => 'string',
-				'description' => __( 'Author URL of the cited content.', 'reactions-for-indieweb' ),
+				'description' => __( 'Author URL of the cited content.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'esc_url_raw',
 				'default'     => '',
 			),
 			'cite_photo'       => array(
 				'type'        => 'string',
-				'description' => __( 'Featured image URL of the cited content.', 'reactions-for-indieweb' ),
+				'description' => __( 'Featured image URL of the cited content.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'esc_url_raw',
 				'default'     => '',
 			),
 			'cite_summary'     => array(
 				'type'        => 'string',
-				'description' => __( 'Summary or excerpt of the cited content.', 'reactions-for-indieweb' ),
+				'description' => __( 'Summary or excerpt of the cited content.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_textarea_field',
 				'default'     => '',
 			),
+			'bookmark_embed_type' => array(
+				'type'        => 'string',
+				'description' => __( 'Embed type for bookmarks: auto, oembed, bookmark-card, or none.', 'post-kinds-for-indieweb' ),
+				'sanitize'    => 'sanitize_text_field',
+				'default'     => 'auto',
+			),
 			'cite_published'   => array(
 				'type'        => 'string',
-				'description' => __( 'Publication date of the cited content (ISO 8601).', 'reactions-for-indieweb' ),
+				'description' => __( 'Publication date of the cited content (ISO 8601).', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
@@ -112,7 +118,7 @@ class Meta_Fields {
 			// RSVP Fields.
 			'rsvp_status'      => array(
 				'type'        => 'string',
-				'description' => __( 'RSVP status: yes, no, maybe, or interested.', 'reactions-for-indieweb' ),
+				'description' => __( 'RSVP status: yes, no, maybe, or interested.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => array( $this, 'sanitize_rsvp_status' ),
 				'default'     => '',
 				'enum'        => array( '', 'yes', 'no', 'maybe', 'interested' ),
@@ -121,62 +127,62 @@ class Meta_Fields {
 			// Check-in Fields.
 			'checkin_name'     => array(
 				'type'        => 'string',
-				'description' => __( 'Venue or location name.', 'reactions-for-indieweb' ),
+				'description' => __( 'Venue or location name.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
 			'checkin_url'      => array(
 				'type'        => 'string',
-				'description' => __( 'Venue URL.', 'reactions-for-indieweb' ),
+				'description' => __( 'Venue URL.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'esc_url_raw',
 				'default'     => '',
 			),
 			'checkin_address'  => array(
 				'type'        => 'string',
-				'description' => __( 'Street address.', 'reactions-for-indieweb' ),
+				'description' => __( 'Street address.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
 			'checkin_locality' => array(
 				'type'        => 'string',
-				'description' => __( 'City or locality.', 'reactions-for-indieweb' ),
+				'description' => __( 'City or locality.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
 			'checkin_region'   => array(
 				'type'        => 'string',
-				'description' => __( 'State, province, or region.', 'reactions-for-indieweb' ),
+				'description' => __( 'State, province, or region.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
 			'checkin_country'  => array(
 				'type'        => 'string',
-				'description' => __( 'Country name.', 'reactions-for-indieweb' ),
+				'description' => __( 'Country name.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
 			'geo_latitude'     => array(
 				'type'        => 'number',
-				'description' => __( 'Geographic latitude.', 'reactions-for-indieweb' ),
+				'description' => __( 'Geographic latitude.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => array( $this, 'sanitize_coordinate' ),
 				'default'     => 0,
 			),
 			'geo_longitude'    => array(
 				'type'        => 'number',
-				'description' => __( 'Geographic longitude.', 'reactions-for-indieweb' ),
+				'description' => __( 'Geographic longitude.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => array( $this, 'sanitize_coordinate' ),
 				'default'     => 0,
 			),
 			'geo_privacy'      => array(
 				'type'        => 'string',
-				'description' => __( 'Location privacy level: public, approximate, or private.', 'reactions-for-indieweb' ),
+				'description' => __( 'Location privacy level: public, approximate, or private.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => array( $this, 'sanitize_geo_privacy' ),
 				'default'     => 'approximate',
 				'enum'        => array( 'public', 'approximate', 'private' ),
 			),
 			'checkin_osm_id'   => array(
 				'type'        => 'string',
-				'description' => __( 'OpenStreetMap place ID.', 'reactions-for-indieweb' ),
+				'description' => __( 'OpenStreetMap place ID.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
@@ -184,37 +190,37 @@ class Meta_Fields {
 			// Listen Fields.
 			'listen_track'     => array(
 				'type'        => 'string',
-				'description' => __( 'Track or episode name.', 'reactions-for-indieweb' ),
+				'description' => __( 'Track or episode name.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
 			'listen_artist'    => array(
 				'type'        => 'string',
-				'description' => __( 'Artist or creator name.', 'reactions-for-indieweb' ),
+				'description' => __( 'Artist or creator name.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
 			'listen_album'     => array(
 				'type'        => 'string',
-				'description' => __( 'Album or podcast name.', 'reactions-for-indieweb' ),
+				'description' => __( 'Album or podcast name.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
 			'listen_cover'     => array(
 				'type'        => 'string',
-				'description' => __( 'Album or podcast cover art URL.', 'reactions-for-indieweb' ),
+				'description' => __( 'Album or podcast cover art URL.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'esc_url_raw',
 				'default'     => '',
 			),
 			'listen_mbid'      => array(
 				'type'        => 'string',
-				'description' => __( 'MusicBrainz recording ID.', 'reactions-for-indieweb' ),
+				'description' => __( 'MusicBrainz recording ID.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
 			'listen_url'       => array(
 				'type'        => 'string',
-				'description' => __( 'URL to the track or episode.', 'reactions-for-indieweb' ),
+				'description' => __( 'URL to the track or episode.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'esc_url_raw',
 				'default'     => '',
 			),
@@ -222,44 +228,44 @@ class Meta_Fields {
 			// Watch Fields.
 			'watch_title'      => array(
 				'type'        => 'string',
-				'description' => __( 'Film or show title.', 'reactions-for-indieweb' ),
+				'description' => __( 'Film or show title.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
 			'watch_year'       => array(
 				'type'        => 'string',
-				'description' => __( 'Release year.', 'reactions-for-indieweb' ),
+				'description' => __( 'Release year.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
 			'watch_poster'     => array(
 				'type'        => 'string',
-				'description' => __( 'Poster image URL.', 'reactions-for-indieweb' ),
+				'description' => __( 'Poster image URL.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'esc_url_raw',
 				'default'     => '',
 			),
 			'watch_tmdb_id'    => array(
 				'type'        => 'string',
-				'description' => __( 'TMDB ID for the film or show.', 'reactions-for-indieweb' ),
+				'description' => __( 'TMDB ID for the film or show.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
 			'watch_status'     => array(
 				'type'        => 'string',
-				'description' => __( 'Watch status: watched, watching, or abandoned.', 'reactions-for-indieweb' ),
+				'description' => __( 'Watch status: watched, watching, or abandoned.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => array( $this, 'sanitize_watch_status' ),
 				'default'     => 'watched',
 				'enum'        => array( 'watched', 'watching', 'abandoned' ),
 			),
 			'watch_spoilers'   => array(
 				'type'        => 'boolean',
-				'description' => __( 'Whether the post contains spoilers.', 'reactions-for-indieweb' ),
+				'description' => __( 'Whether the post contains spoilers.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'rest_sanitize_boolean',
 				'default'     => false,
 			),
 			'watch_url'        => array(
 				'type'        => 'string',
-				'description' => __( 'URL to the film or show page.', 'reactions-for-indieweb' ),
+				'description' => __( 'URL to the film or show page.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'esc_url_raw',
 				'default'     => '',
 			),
@@ -267,50 +273,50 @@ class Meta_Fields {
 			// Read Fields.
 			'read_title'       => array(
 				'type'        => 'string',
-				'description' => __( 'Book or article title.', 'reactions-for-indieweb' ),
+				'description' => __( 'Book or article title.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
 			'read_author'      => array(
 				'type'        => 'string',
-				'description' => __( 'Book or article author.', 'reactions-for-indieweb' ),
+				'description' => __( 'Book or article author.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
 			'read_isbn'        => array(
 				'type'        => 'string',
-				'description' => __( 'ISBN-13 of the book.', 'reactions-for-indieweb' ),
+				'description' => __( 'ISBN-13 of the book.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => array( $this, 'sanitize_isbn' ),
 				'default'     => '',
 			),
 			'read_cover'       => array(
 				'type'        => 'string',
-				'description' => __( 'Book cover image URL.', 'reactions-for-indieweb' ),
+				'description' => __( 'Book cover image URL.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'esc_url_raw',
 				'default'     => '',
 			),
 			'read_status'      => array(
 				'type'        => 'string',
-				'description' => __( 'Reading status: to-read, reading, finished, or abandoned.', 'reactions-for-indieweb' ),
+				'description' => __( 'Reading status: to-read, reading, finished, or abandoned.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => array( $this, 'sanitize_read_status' ),
 				'default'     => 'reading',
 				'enum'        => array( 'to-read', 'reading', 'finished', 'abandoned' ),
 			),
 			'read_progress'    => array(
 				'type'        => 'number',
-				'description' => __( 'Reading progress (percentage or page number).', 'reactions-for-indieweb' ),
+				'description' => __( 'Reading progress (percentage or page number).', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'absint',
 				'default'     => 0,
 			),
 			'read_pages'       => array(
 				'type'        => 'number',
-				'description' => __( 'Total number of pages.', 'reactions-for-indieweb' ),
+				'description' => __( 'Total number of pages.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'absint',
 				'default'     => 0,
 			),
 			'read_url'         => array(
 				'type'        => 'string',
-				'description' => __( 'URL to the book or article.', 'reactions-for-indieweb' ),
+				'description' => __( 'URL to the book or article.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'esc_url_raw',
 				'default'     => '',
 			),
@@ -318,25 +324,25 @@ class Meta_Fields {
 			// Event Fields.
 			'event_start'      => array(
 				'type'        => 'string',
-				'description' => __( 'Event start datetime (ISO 8601).', 'reactions-for-indieweb' ),
+				'description' => __( 'Event start datetime (ISO 8601).', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
 			'event_end'        => array(
 				'type'        => 'string',
-				'description' => __( 'Event end datetime (ISO 8601).', 'reactions-for-indieweb' ),
+				'description' => __( 'Event end datetime (ISO 8601).', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
 			'event_location'   => array(
 				'type'        => 'string',
-				'description' => __( 'Event location name or address.', 'reactions-for-indieweb' ),
+				'description' => __( 'Event location name or address.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
 			'event_url'        => array(
 				'type'        => 'string',
-				'description' => __( 'Event URL or registration link.', 'reactions-for-indieweb' ),
+				'description' => __( 'Event URL or registration link.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'esc_url_raw',
 				'default'     => '',
 			),
@@ -344,25 +350,25 @@ class Meta_Fields {
 			// Review Fields.
 			'review_rating'    => array(
 				'type'        => 'number',
-				'description' => __( 'Rating value (supports decimals like 3.5).', 'reactions-for-indieweb' ),
+				'description' => __( 'Rating value (supports decimals like 3.5).', 'post-kinds-for-indieweb' ),
 				'sanitize'    => array( $this, 'sanitize_rating' ),
 				'default'     => 0,
 			),
 			'review_best'      => array(
 				'type'        => 'number',
-				'description' => __( 'Best possible rating (typically 5).', 'reactions-for-indieweb' ),
+				'description' => __( 'Best possible rating (typically 5).', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'absint',
 				'default'     => 5,
 			),
 			'review_item_name' => array(
 				'type'        => 'string',
-				'description' => __( 'Name of the reviewed item.', 'reactions-for-indieweb' ),
+				'description' => __( 'Name of the reviewed item.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
 			'review_item_url'  => array(
 				'type'        => 'string',
-				'description' => __( 'URL of the reviewed item.', 'reactions-for-indieweb' ),
+				'description' => __( 'URL of the reviewed item.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'esc_url_raw',
 				'default'     => '',
 			),
@@ -370,13 +376,13 @@ class Meta_Fields {
 			// Recipe Fields.
 			'recipe_yield'     => array(
 				'type'        => 'string',
-				'description' => __( 'Recipe yield (e.g., "4 servings").', 'reactions-for-indieweb' ),
+				'description' => __( 'Recipe yield (e.g., "4 servings").', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
 			'recipe_duration'  => array(
 				'type'        => 'string',
-				'description' => __( 'Total recipe duration (ISO 8601 duration).', 'reactions-for-indieweb' ),
+				'description' => __( 'Total recipe duration (ISO 8601 duration).', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
@@ -384,19 +390,19 @@ class Meta_Fields {
 			// Favorite Fields.
 			'favorite_name'    => array(
 				'type'        => 'string',
-				'description' => __( 'Name of the favorited item.', 'reactions-for-indieweb' ),
+				'description' => __( 'Name of the favorited item.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
 			'favorite_url'     => array(
 				'type'        => 'string',
-				'description' => __( 'URL of the favorited item.', 'reactions-for-indieweb' ),
+				'description' => __( 'URL of the favorited item.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'esc_url_raw',
 				'default'     => '',
 			),
 			'favorite_rating'  => array(
 				'type'        => 'number',
-				'description' => __( 'Rating for the favorited item (0-5).', 'reactions-for-indieweb' ),
+				'description' => __( 'Rating for the favorited item (0-5).', 'post-kinds-for-indieweb' ),
 				'sanitize'    => array( $this, 'sanitize_rating' ),
 				'default'     => 0,
 			),
@@ -404,31 +410,31 @@ class Meta_Fields {
 			// Jam Fields (extends listen with "highlight" flag).
 			'jam_track'        => array(
 				'type'        => 'string',
-				'description' => __( 'Track name for jam.', 'reactions-for-indieweb' ),
+				'description' => __( 'Track name for jam.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
 			'jam_artist'       => array(
 				'type'        => 'string',
-				'description' => __( 'Artist name for jam.', 'reactions-for-indieweb' ),
+				'description' => __( 'Artist name for jam.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
 			'jam_album'        => array(
 				'type'        => 'string',
-				'description' => __( 'Album name for jam.', 'reactions-for-indieweb' ),
+				'description' => __( 'Album name for jam.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
 			'jam_cover'        => array(
 				'type'        => 'string',
-				'description' => __( 'Cover art URL for jam.', 'reactions-for-indieweb' ),
+				'description' => __( 'Cover art URL for jam.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'esc_url_raw',
 				'default'     => '',
 			),
 			'jam_url'          => array(
 				'type'        => 'string',
-				'description' => __( 'URL to the track.', 'reactions-for-indieweb' ),
+				'description' => __( 'URL to the track.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'esc_url_raw',
 				'default'     => '',
 			),
@@ -436,31 +442,31 @@ class Meta_Fields {
 			// Wish Fields.
 			'wish_name'        => array(
 				'type'        => 'string',
-				'description' => __( 'Name of the wished item.', 'reactions-for-indieweb' ),
+				'description' => __( 'Name of the wished item.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
 			'wish_url'         => array(
 				'type'        => 'string',
-				'description' => __( 'URL of the wished item.', 'reactions-for-indieweb' ),
+				'description' => __( 'URL of the wished item.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'esc_url_raw',
 				'default'     => '',
 			),
 			'wish_photo'       => array(
 				'type'        => 'string',
-				'description' => __( 'Image URL of the wished item.', 'reactions-for-indieweb' ),
+				'description' => __( 'Image URL of the wished item.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'esc_url_raw',
 				'default'     => '',
 			),
 			'wish_type'        => array(
 				'type'        => 'string',
-				'description' => __( 'Type of wish: book, movie, product, experience, etc.', 'reactions-for-indieweb' ),
+				'description' => __( 'Type of wish: book, movie, product, experience, etc.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
 			'wish_priority'    => array(
 				'type'        => 'string',
-				'description' => __( 'Priority level: low, medium, high.', 'reactions-for-indieweb' ),
+				'description' => __( 'Priority level: low, medium, high.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => array( $this, 'sanitize_priority' ),
 				'default'     => 'medium',
 				'enum'        => array( 'low', 'medium', 'high' ),
@@ -469,19 +475,19 @@ class Meta_Fields {
 			// Mood Fields.
 			'mood_emoji'       => array(
 				'type'        => 'string',
-				'description' => __( 'Emoji representing the mood.', 'reactions-for-indieweb' ),
+				'description' => __( 'Emoji representing the mood.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
 			'mood_label'       => array(
 				'type'        => 'string',
-				'description' => __( 'Text label for the mood (e.g., happy, tired, excited).', 'reactions-for-indieweb' ),
+				'description' => __( 'Text label for the mood (e.g., happy, tired, excited).', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
 			'mood_rating'      => array(
 				'type'        => 'number',
-				'description' => __( 'Mood rating on 1-5 scale.', 'reactions-for-indieweb' ),
+				'description' => __( 'Mood rating on 1-5 scale.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => array( $this, 'sanitize_mood_rating' ),
 				'default'     => 0,
 			),
@@ -489,31 +495,31 @@ class Meta_Fields {
 			// Acquisition Fields.
 			'acquisition_name' => array(
 				'type'        => 'string',
-				'description' => __( 'Name of the acquired item.', 'reactions-for-indieweb' ),
+				'description' => __( 'Name of the acquired item.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
 			'acquisition_url'  => array(
 				'type'        => 'string',
-				'description' => __( 'URL of the acquired item.', 'reactions-for-indieweb' ),
+				'description' => __( 'URL of the acquired item.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'esc_url_raw',
 				'default'     => '',
 			),
 			'acquisition_photo' => array(
 				'type'        => 'string',
-				'description' => __( 'Image URL of the acquired item.', 'reactions-for-indieweb' ),
+				'description' => __( 'Image URL of the acquired item.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'esc_url_raw',
 				'default'     => '',
 			),
 			'acquisition_price' => array(
 				'type'        => 'string',
-				'description' => __( 'Price paid for the item.', 'reactions-for-indieweb' ),
+				'description' => __( 'Price paid for the item.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
 			'acquisition_rating' => array(
 				'type'        => 'number',
-				'description' => __( 'Rating for the acquired item (0-5).', 'reactions-for-indieweb' ),
+				'description' => __( 'Rating for the acquired item (0-5).', 'post-kinds-for-indieweb' ),
 				'sanitize'    => array( $this, 'sanitize_rating' ),
 				'default'     => 0,
 			),
@@ -521,140 +527,236 @@ class Meta_Fields {
 			// Drink Fields.
 			'drink_name'       => array(
 				'type'        => 'string',
-				'description' => __( 'Name of the beverage.', 'reactions-for-indieweb' ),
+				'description' => __( 'Name of the beverage.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
 			'drink_type'       => array(
 				'type'        => 'string',
-				'description' => __( 'Type of drink: coffee, beer, wine, cocktail, tea, etc.', 'reactions-for-indieweb' ),
+				'description' => __( 'Type of drink: coffee, beer, wine, cocktail, tea, etc.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
 			'drink_brewery'    => array(
 				'type'        => 'string',
-				'description' => __( 'Brewery, winery, or producer name.', 'reactions-for-indieweb' ),
+				'description' => __( 'Brewery, winery, or producer name.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
 			'drink_photo'      => array(
 				'type'        => 'string',
-				'description' => __( 'Photo URL of the drink.', 'reactions-for-indieweb' ),
+				'description' => __( 'Photo URL of the drink.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'esc_url_raw',
 				'default'     => '',
 			),
 			'drink_rating'     => array(
 				'type'        => 'number',
-				'description' => __( 'Rating for the drink (0-5).', 'reactions-for-indieweb' ),
+				'description' => __( 'Rating for the drink (0-5).', 'post-kinds-for-indieweb' ),
 				'sanitize'    => array( $this, 'sanitize_rating' ),
+				'default'     => 0,
+			),
+			'drink_location_name' => array(
+				'type'        => 'string',
+				'description' => __( 'Bar, cafe, or venue name.', 'post-kinds-for-indieweb' ),
+				'sanitize'    => 'sanitize_text_field',
+				'default'     => '',
+			),
+			'drink_location_address' => array(
+				'type'        => 'string',
+				'description' => __( 'Street address of the venue.', 'post-kinds-for-indieweb' ),
+				'sanitize'    => 'sanitize_text_field',
+				'default'     => '',
+			),
+			'drink_location_locality' => array(
+				'type'        => 'string',
+				'description' => __( 'City or locality.', 'post-kinds-for-indieweb' ),
+				'sanitize'    => 'sanitize_text_field',
+				'default'     => '',
+			),
+			'drink_location_region' => array(
+				'type'        => 'string',
+				'description' => __( 'State, province, or region.', 'post-kinds-for-indieweb' ),
+				'sanitize'    => 'sanitize_text_field',
+				'default'     => '',
+			),
+			'drink_location_country' => array(
+				'type'        => 'string',
+				'description' => __( 'Country name.', 'post-kinds-for-indieweb' ),
+				'sanitize'    => 'sanitize_text_field',
+				'default'     => '',
+			),
+			'drink_geo_latitude' => array(
+				'type'        => 'number',
+				'description' => __( 'Geographic latitude of the venue.', 'post-kinds-for-indieweb' ),
+				'sanitize'    => array( $this, 'sanitize_coordinate' ),
+				'default'     => 0,
+			),
+			'drink_geo_longitude' => array(
+				'type'        => 'number',
+				'description' => __( 'Geographic longitude of the venue.', 'post-kinds-for-indieweb' ),
+				'sanitize'    => array( $this, 'sanitize_coordinate' ),
 				'default'     => 0,
 			),
 
 			// Eat Fields.
 			'eat_name'         => array(
 				'type'        => 'string',
-				'description' => __( 'Name of the meal or dish.', 'reactions-for-indieweb' ),
+				'description' => __( 'Name of the meal or dish.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
 			'eat_type'         => array(
 				'type'        => 'string',
-				'description' => __( 'Type of meal: breakfast, lunch, dinner, snack.', 'reactions-for-indieweb' ),
+				'description' => __( 'Type of meal: breakfast, lunch, dinner, snack.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
 			'eat_restaurant'   => array(
 				'type'        => 'string',
-				'description' => __( 'Restaurant or venue name.', 'reactions-for-indieweb' ),
+				'description' => __( 'Restaurant or venue name (deprecated, use eat_location_name).', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
 			'eat_photo'        => array(
 				'type'        => 'string',
-				'description' => __( 'Photo URL of the meal.', 'reactions-for-indieweb' ),
+				'description' => __( 'Photo URL of the meal.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'esc_url_raw',
 				'default'     => '',
 			),
 			'eat_rating'       => array(
 				'type'        => 'number',
-				'description' => __( 'Rating for the meal (0-5).', 'reactions-for-indieweb' ),
+				'description' => __( 'Rating for the meal (0-5).', 'post-kinds-for-indieweb' ),
 				'sanitize'    => array( $this, 'sanitize_rating' ),
+				'default'     => 0,
+			),
+			'eat_location_name' => array(
+				'type'        => 'string',
+				'description' => __( 'Restaurant or venue name.', 'post-kinds-for-indieweb' ),
+				'sanitize'    => 'sanitize_text_field',
+				'default'     => '',
+			),
+			'eat_location_address' => array(
+				'type'        => 'string',
+				'description' => __( 'Street address of the venue.', 'post-kinds-for-indieweb' ),
+				'sanitize'    => 'sanitize_text_field',
+				'default'     => '',
+			),
+			'eat_location_locality' => array(
+				'type'        => 'string',
+				'description' => __( 'City or locality.', 'post-kinds-for-indieweb' ),
+				'sanitize'    => 'sanitize_text_field',
+				'default'     => '',
+			),
+			'eat_location_region' => array(
+				'type'        => 'string',
+				'description' => __( 'State, province, or region.', 'post-kinds-for-indieweb' ),
+				'sanitize'    => 'sanitize_text_field',
+				'default'     => '',
+			),
+			'eat_location_country' => array(
+				'type'        => 'string',
+				'description' => __( 'Country name.', 'post-kinds-for-indieweb' ),
+				'sanitize'    => 'sanitize_text_field',
+				'default'     => '',
+			),
+			'eat_geo_latitude' => array(
+				'type'        => 'number',
+				'description' => __( 'Geographic latitude of the venue.', 'post-kinds-for-indieweb' ),
+				'sanitize'    => array( $this, 'sanitize_coordinate' ),
+				'default'     => 0,
+			),
+			'eat_geo_longitude' => array(
+				'type'        => 'number',
+				'description' => __( 'Geographic longitude of the venue.', 'post-kinds-for-indieweb' ),
+				'sanitize'    => array( $this, 'sanitize_coordinate' ),
 				'default'     => 0,
 			),
 
 			// Play Fields (gaming).
 			'play_title'       => array(
 				'type'        => 'string',
-				'description' => __( 'Game title.', 'reactions-for-indieweb' ),
+				'description' => __( 'Game title.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
 			'play_platform'    => array(
 				'type'        => 'string',
-				'description' => __( 'Platform: PC, PlayStation, Xbox, Nintendo, Mobile, Board Game, etc.', 'reactions-for-indieweb' ),
+				'description' => __( 'Platform: PC, PlayStation, Xbox, Nintendo, Mobile, Board Game, etc.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
 			'play_status'      => array(
 				'type'        => 'string',
-				'description' => __( 'Play status: playing, completed, abandoned, backlog.', 'reactions-for-indieweb' ),
+				'description' => __( 'Play status: playing, completed, abandoned, backlog.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => array( $this, 'sanitize_play_status' ),
 				'default'     => 'playing',
 				'enum'        => array( 'playing', 'completed', 'abandoned', 'backlog' ),
 			),
 			'play_hours'       => array(
 				'type'        => 'number',
-				'description' => __( 'Hours played.', 'reactions-for-indieweb' ),
+				'description' => __( 'Hours played.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => array( $this, 'sanitize_float' ),
 				'default'     => 0,
 			),
 			'play_cover'       => array(
 				'type'        => 'string',
-				'description' => __( 'Game cover art URL.', 'reactions-for-indieweb' ),
+				'description' => __( 'Game cover art URL.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'esc_url_raw',
 				'default'     => '',
 			),
 			'play_igdb_id'     => array(
 				'type'        => 'string',
-				'description' => __( 'IGDB game ID.', 'reactions-for-indieweb' ),
+				'description' => __( 'IGDB game ID.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
 			'play_steam_id'    => array(
 				'type'        => 'string',
-				'description' => __( 'Steam app ID.', 'reactions-for-indieweb' ),
+				'description' => __( 'Steam app ID.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
 			'play_bgg_id'      => array(
 				'type'        => 'string',
-				'description' => __( 'BoardGameGeek game ID.', 'reactions-for-indieweb' ),
+				'description' => __( 'BoardGameGeek game ID.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
 			'play_rawg_id'     => array(
 				'type'        => 'string',
-				'description' => __( 'RAWG.io game ID.', 'reactions-for-indieweb' ),
+				'description' => __( 'RAWG.io game ID.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'sanitize_text_field',
 				'default'     => '',
 			),
 			'play_rating'      => array(
 				'type'        => 'number',
-				'description' => __( 'Rating for the game (0-5).', 'reactions-for-indieweb' ),
+				'description' => __( 'Rating for the game (0-5).', 'post-kinds-for-indieweb' ),
 				'sanitize'    => array( $this, 'sanitize_rating' ),
 				'default'     => 0,
+			),
+			'play_official_url' => array(
+				'type'        => 'string',
+				'description' => __( 'Official website URL for the game.', 'post-kinds-for-indieweb' ),
+				'sanitize'    => 'esc_url_raw',
+				'default'     => '',
+			),
+			'play_purchase_url' => array(
+				'type'        => 'string',
+				'description' => __( 'Purchase URL for the game.', 'post-kinds-for-indieweb' ),
+				'sanitize'    => 'esc_url_raw',
+				'default'     => '',
 			),
 
 			// Syndication Opt-Out Fields.
 			'syndicate_lastfm' => array(
 				'type'        => 'boolean',
-				'description' => __( 'Whether to syndicate to Last.fm.', 'reactions-for-indieweb' ),
+				'description' => __( 'Whether to syndicate to Last.fm.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'rest_sanitize_boolean',
 				'default'     => true,
 			),
 			'syndicate_trakt'  => array(
 				'type'        => 'boolean',
-				'description' => __( 'Whether to syndicate to Trakt.', 'reactions-for-indieweb' ),
+				'description' => __( 'Whether to syndicate to Trakt.', 'post-kinds-for-indieweb' ),
 				'sanitize'    => 'rest_sanitize_boolean',
 				'default'     => true,
 			),
@@ -667,7 +769,7 @@ class Meta_Fields {
 		 *
 		 * @param array<string, array<string, mixed>> $fields Meta field definitions.
 		 */
-		$this->fields = apply_filters( 'reactions_indieweb_meta_fields', $this->fields );
+		$this->fields = apply_filters( 'post_kinds_indieweb_meta_fields', $this->fields );
 	}
 
 	/**
@@ -686,7 +788,7 @@ class Meta_Fields {
 	 */
 	public function register_meta_fields(): void {
 		// Check if CPT mode is enabled and add reaction post type.
-		$settings     = get_option( 'reactions_indieweb_settings', array() );
+		$settings     = get_option( 'post_kinds_indieweb_settings', array() );
 		$storage_mode = $settings['import_storage_mode'] ?? 'standard';
 
 		if ( 'cpt' === $storage_mode ) {
@@ -700,7 +802,7 @@ class Meta_Fields {
 		 *
 		 * @param array<string> $post_types Array of post type slugs.
 		 */
-		$this->post_types = apply_filters( 'reactions_indieweb_meta_post_types', $this->post_types );
+		$this->post_types = apply_filters( 'post_kinds_indieweb_meta_post_types', $this->post_types );
 
 		foreach ( $this->post_types as $post_type ) {
 			foreach ( $this->fields as $key => $field ) {

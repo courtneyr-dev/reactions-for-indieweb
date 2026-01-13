@@ -5,15 +5,15 @@
  * Admin page to view posts that were skipped for syndication
  * and manually trigger syndication for them.
  *
- * @package ReactionsForIndieWeb
+ * @package PostKindsForIndieWeb
  * @since   1.0.0
  */
 
 declare(strict_types=1);
 
-namespace ReactionsForIndieWeb\Admin;
+namespace PostKindsForIndieWeb\Admin;
 
-use ReactionsForIndieWeb\Meta_Fields;
+use PostKindsForIndieWeb\Meta_Fields;
 
 // Prevent direct access.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -59,7 +59,7 @@ class Syndication_Page {
 	 */
 	public function init(): void {
 		add_action( 'admin_init', array( $this, 'handle_actions' ) );
-		add_action( 'wp_ajax_reactions_syndicate_now', array( $this, 'ajax_syndicate_now' ) );
+		add_action( 'wp_ajax_postkind_syndicate_now', array( $this, 'ajax_syndicate_now' ) );
 	}
 
 	/**
@@ -72,11 +72,11 @@ class Syndication_Page {
 			return $this->services;
 		}
 
-		$settings = get_option( 'reactions_indieweb_settings', array() );
+		$settings = get_option( 'post_kinds_indieweb_settings', array() );
 
 		// Check Last.fm.
 		if ( ! empty( $settings['listen_sync_to_lastfm'] ) ) {
-			$credentials = get_option( 'reactions_indieweb_api_credentials', array() );
+			$credentials = get_option( 'post_kinds_indieweb_api_credentials', array() );
 			$lastfm      = $credentials['lastfm'] ?? array();
 
 			if ( ! empty( $lastfm['session_key'] ) ) {
@@ -90,7 +90,7 @@ class Syndication_Page {
 
 		// Check Trakt.
 		if ( ! empty( $settings['watch_sync_to_trakt'] ) ) {
-			$credentials = get_option( 'reactions_indieweb_api_credentials', array() );
+			$credentials = get_option( 'post_kinds_indieweb_api_credentials', array() );
 			$trakt       = $credentials['trakt'] ?? array();
 
 			if ( ! empty( $trakt['access_token'] ) ) {
@@ -115,7 +115,7 @@ class Syndication_Page {
 			return;
 		}
 
-		if ( ! isset( $_GET['page'] ) || 'reactions-indieweb-syndication' !== $_GET['page'] ) {
+		if ( ! isset( $_GET['page'] ) || 'post-kinds-indieweb-syndication' !== $_GET['page'] ) {
 			return;
 		}
 
@@ -136,20 +136,20 @@ class Syndication_Page {
 
 		if ( $result ) {
 			add_settings_error(
-				'reactions_syndication',
+				'post_kinds_syndication',
 				'syndicated',
 				sprintf(
 					/* translators: %s: service name */
-					__( 'Post successfully syndicated to %s.', 'reactions-for-indieweb' ),
+					__( 'Post successfully syndicated to %s.', 'post-kinds-for-indieweb' ),
 					esc_html( $this->get_services()[ $service ]['name'] ?? $service )
 				),
 				'success'
 			);
 		} else {
 			add_settings_error(
-				'reactions_syndication',
+				'post_kinds_syndication',
 				'syndication_failed',
-				__( 'Syndication failed. Please check the post data and try again.', 'reactions-for-indieweb' ),
+				__( 'Syndication failed. Please check the post data and try again.', 'post-kinds-for-indieweb' ),
 				'error'
 			);
 		}
@@ -161,17 +161,17 @@ class Syndication_Page {
 	 * @return void
 	 */
 	public function ajax_syndicate_now(): void {
-		check_ajax_referer( 'reactions_syndicate_now', 'nonce' );
+		check_ajax_referer( 'post_kinds_syndicate_now', 'nonce' );
 
 		if ( ! current_user_can( 'edit_posts' ) ) {
-			wp_send_json_error( array( 'message' => __( 'Permission denied.', 'reactions-for-indieweb' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Permission denied.', 'post-kinds-for-indieweb' ) ) );
 		}
 
 		$post_id = isset( $_POST['post_id'] ) ? (int) $_POST['post_id'] : 0;
 		$service = isset( $_POST['service'] ) ? sanitize_key( $_POST['service'] ) : '';
 
 		if ( ! $post_id || ! $service ) {
-			wp_send_json_error( array( 'message' => __( 'Invalid parameters.', 'reactions-for-indieweb' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Invalid parameters.', 'post-kinds-for-indieweb' ) ) );
 		}
 
 		$result = $this->syndicate_post( $post_id, $service );
@@ -181,14 +181,14 @@ class Syndication_Page {
 				array(
 					'message' => sprintf(
 						/* translators: %s: service name */
-						__( 'Syndicated to %s', 'reactions-for-indieweb' ),
+						__( 'Syndicated to %s', 'post-kinds-for-indieweb' ),
 						$this->get_services()[ $service ]['name'] ?? $service
 					),
 					'url'     => $result['url'] ?? '',
 				)
 			);
 		} else {
-			wp_send_json_error( array( 'message' => __( 'Syndication failed.', 'reactions-for-indieweb' ) ) );
+			wp_send_json_error( array( 'message' => __( 'Syndication failed.', 'post-kinds-for-indieweb' ) ) );
 		}
 	}
 
@@ -231,11 +231,11 @@ class Syndication_Page {
 	 * @return array|false Result array or false on failure.
 	 */
 	private function syndicate_to_lastfm( int $post_id ) {
-		if ( ! class_exists( 'ReactionsForIndieWeb\\Sync\\Lastfm_Listen_Sync' ) ) {
+		if ( ! class_exists( 'PostKindsForIndieWeb\\Sync\\Lastfm_Listen_Sync' ) ) {
 			return false;
 		}
 
-		$sync = new \ReactionsForIndieWeb\Sync\Lastfm_Listen_Sync();
+		$sync = new \PostKindsForIndieWeb\Sync\Lastfm_Listen_Sync();
 
 		// Get listen data from post.
 		$prefix = Meta_Fields::PREFIX;
@@ -258,9 +258,9 @@ class Syndication_Page {
 		$result = $method->invoke( $sync, $post_id, $data );
 
 		if ( $result && ! empty( $result['id'] ) ) {
-			update_post_meta( $post_id, '_reactions_listen_lastfm_id', $result['id'] );
+			update_post_meta( $post_id, '_postkind_listen_lastfm_id', $result['id'] );
 			if ( ! empty( $result['url'] ) ) {
-				update_post_meta( $post_id, '_reactions_syndication_lastfm', $result['url'] );
+				update_post_meta( $post_id, '_postkind_syndication_lastfm', $result['url'] );
 			}
 		}
 
@@ -274,11 +274,11 @@ class Syndication_Page {
 	 * @return array|false Result array or false on failure.
 	 */
 	private function syndicate_to_trakt( int $post_id ) {
-		if ( ! class_exists( 'ReactionsForIndieWeb\\Sync\\Trakt_Watch_Sync' ) ) {
+		if ( ! class_exists( 'PostKindsForIndieWeb\\Sync\\Trakt_Watch_Sync' ) ) {
 			return false;
 		}
 
-		$sync = new \ReactionsForIndieWeb\Sync\Trakt_Watch_Sync();
+		$sync = new \PostKindsForIndieWeb\Sync\Trakt_Watch_Sync();
 
 		// Get watch data from post.
 		$prefix = Meta_Fields::PREFIX;
@@ -309,9 +309,9 @@ class Syndication_Page {
 		$result = $method->invoke( $sync, $post_id, $data );
 
 		if ( $result && ! empty( $result['id'] ) ) {
-			update_post_meta( $post_id, '_reactions_watch_trakt_id', $result['id'] );
+			update_post_meta( $post_id, '_postkind_watch_trakt_id', $result['id'] );
 			if ( ! empty( $result['url'] ) ) {
-				update_post_meta( $post_id, '_reactions_syndication_trakt', $result['url'] );
+				update_post_meta( $post_id, '_postkind_syndication_trakt', $result['url'] );
 			}
 		}
 
@@ -367,7 +367,7 @@ class Syndication_Page {
 	 * @return array<\WP_Post> Array of posts.
 	 */
 	private function get_syndicated_posts( string $service ): array {
-		$syndication_meta_key = '_reactions_syndication_' . $service;
+		$syndication_meta_key = '_postkind_syndication_' . $service;
 
 		$args = array(
 			'post_type'      => 'post',
@@ -403,9 +403,9 @@ class Syndication_Page {
 		}
 		?>
 		<div class="wrap">
-			<h1><?php esc_html_e( 'Syndication', 'reactions-for-indieweb' ); ?></h1>
+			<h1><?php esc_html_e( 'Syndication', 'post-kinds-for-indieweb' ); ?></h1>
 
-			<?php settings_errors( 'reactions_syndication' ); ?>
+			<?php settings_errors( 'post_kinds_syndication' ); ?>
 
 			<?php if ( empty( $services ) ) : ?>
 				<div class="notice notice-info">
@@ -413,11 +413,11 @@ class Syndication_Page {
 						<?php
 						printf(
 							/* translators: %s: link to settings page */
-							esc_html__( 'No syndication services are configured. %s to enable syndication.', 'reactions-for-indieweb' ),
+							esc_html__( 'No syndication services are configured. %s to enable syndication.', 'post-kinds-for-indieweb' ),
 							sprintf(
 								'<a href="%s">%s</a>',
-								esc_url( admin_url( 'admin.php?page=reactions-indieweb' ) ),
-								esc_html__( 'Configure settings', 'reactions-for-indieweb' )
+								esc_url( admin_url( 'admin.php?page=post-kinds-indieweb' ) ),
+								esc_html__( 'Configure settings', 'post-kinds-for-indieweb' )
 							)
 						);
 						?>
@@ -426,7 +426,7 @@ class Syndication_Page {
 			<?php else : ?>
 				<nav class="nav-tab-wrapper">
 					<?php foreach ( $services as $id => $service ) : ?>
-						<a href="<?php echo esc_url( admin_url( 'admin.php?page=reactions-indieweb-syndication&service=' . $id ) ); ?>"
+						<a href="<?php echo esc_url( admin_url( 'admin.php?page=post-kinds-indieweb-syndication&service=' . $id ) ); ?>"
 						   class="nav-tab <?php echo $current_service === $id ? 'nav-tab-active' : ''; ?>">
 							<?php echo esc_html( $service['name'] ); ?>
 						</a>
@@ -434,18 +434,18 @@ class Syndication_Page {
 				</nav>
 
 				<?php if ( $current_service && isset( $services[ $current_service ] ) ) : ?>
-					<div class="reactions-syndication-content" style="margin-top: 20px;">
+					<div class="post-kinds-syndication-content" style="margin-top: 20px;">
 						<ul class="subsubsub">
 							<li>
-								<a href="<?php echo esc_url( admin_url( 'admin.php?page=reactions-indieweb-syndication&service=' . $current_service . '&tab=skipped' ) ); ?>"
+								<a href="<?php echo esc_url( admin_url( 'admin.php?page=post-kinds-indieweb-syndication&service=' . $current_service . '&tab=skipped' ) ); ?>"
 								   class="<?php echo 'skipped' === $current_tab ? 'current' : ''; ?>">
-									<?php esc_html_e( 'Skipped', 'reactions-for-indieweb' ); ?>
+									<?php esc_html_e( 'Skipped', 'post-kinds-for-indieweb' ); ?>
 								</a> |
 							</li>
 							<li>
-								<a href="<?php echo esc_url( admin_url( 'admin.php?page=reactions-indieweb-syndication&service=' . $current_service . '&tab=syndicated' ) ); ?>"
+								<a href="<?php echo esc_url( admin_url( 'admin.php?page=post-kinds-indieweb-syndication&service=' . $current_service . '&tab=syndicated' ) ); ?>"
 								   class="<?php echo 'syndicated' === $current_tab ? 'current' : ''; ?>">
-									<?php esc_html_e( 'Syndicated', 'reactions-for-indieweb' ); ?>
+									<?php esc_html_e( 'Syndicated', 'post-kinds-for-indieweb' ); ?>
 								</a>
 							</li>
 						</ul>
@@ -472,21 +472,21 @@ class Syndication_Page {
 	private function render_skipped_posts( string $service ): void {
 		$posts = $this->get_skipped_posts( $service );
 		?>
-		<h2><?php esc_html_e( 'Posts Skipped for Syndication', 'reactions-for-indieweb' ); ?></h2>
+		<h2><?php esc_html_e( 'Posts Skipped for Syndication', 'post-kinds-for-indieweb' ); ?></h2>
 		<p class="description">
-			<?php esc_html_e( 'These posts have syndication disabled. Click "Syndicate Now" to send them to the service.', 'reactions-for-indieweb' ); ?>
+			<?php esc_html_e( 'These posts have syndication disabled. Click "Syndicate Now" to send them to the service.', 'post-kinds-for-indieweb' ); ?>
 		</p>
 
 		<?php if ( empty( $posts ) ) : ?>
-			<p><?php esc_html_e( 'No skipped posts found.', 'reactions-for-indieweb' ); ?></p>
+			<p><?php esc_html_e( 'No skipped posts found.', 'post-kinds-for-indieweb' ); ?></p>
 		<?php else : ?>
 			<table class="wp-list-table widefat fixed striped">
 				<thead>
 					<tr>
-						<th scope="col"><?php esc_html_e( 'Title', 'reactions-for-indieweb' ); ?></th>
-						<th scope="col"><?php esc_html_e( 'Date', 'reactions-for-indieweb' ); ?></th>
-						<th scope="col"><?php esc_html_e( 'Content', 'reactions-for-indieweb' ); ?></th>
-						<th scope="col"><?php esc_html_e( 'Actions', 'reactions-for-indieweb' ); ?></th>
+						<th scope="col"><?php esc_html_e( 'Title', 'post-kinds-for-indieweb' ); ?></th>
+						<th scope="col"><?php esc_html_e( 'Date', 'post-kinds-for-indieweb' ); ?></th>
+						<th scope="col"><?php esc_html_e( 'Content', 'post-kinds-for-indieweb' ); ?></th>
+						<th scope="col"><?php esc_html_e( 'Actions', 'post-kinds-for-indieweb' ); ?></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -508,21 +508,21 @@ class Syndication_Page {
 	private function render_syndicated_posts( string $service ): void {
 		$posts = $this->get_syndicated_posts( $service );
 		?>
-		<h2><?php esc_html_e( 'Syndicated Posts', 'reactions-for-indieweb' ); ?></h2>
+		<h2><?php esc_html_e( 'Syndicated Posts', 'post-kinds-for-indieweb' ); ?></h2>
 		<p class="description">
-			<?php esc_html_e( 'These posts have been syndicated to the service.', 'reactions-for-indieweb' ); ?>
+			<?php esc_html_e( 'These posts have been syndicated to the service.', 'post-kinds-for-indieweb' ); ?>
 		</p>
 
 		<?php if ( empty( $posts ) ) : ?>
-			<p><?php esc_html_e( 'No syndicated posts found.', 'reactions-for-indieweb' ); ?></p>
+			<p><?php esc_html_e( 'No syndicated posts found.', 'post-kinds-for-indieweb' ); ?></p>
 		<?php else : ?>
 			<table class="wp-list-table widefat fixed striped">
 				<thead>
 					<tr>
-						<th scope="col"><?php esc_html_e( 'Title', 'reactions-for-indieweb' ); ?></th>
-						<th scope="col"><?php esc_html_e( 'Date', 'reactions-for-indieweb' ); ?></th>
-						<th scope="col"><?php esc_html_e( 'Content', 'reactions-for-indieweb' ); ?></th>
-						<th scope="col"><?php esc_html_e( 'Syndication URL', 'reactions-for-indieweb' ); ?></th>
+						<th scope="col"><?php esc_html_e( 'Title', 'post-kinds-for-indieweb' ); ?></th>
+						<th scope="col"><?php esc_html_e( 'Date', 'post-kinds-for-indieweb' ); ?></th>
+						<th scope="col"><?php esc_html_e( 'Content', 'post-kinds-for-indieweb' ); ?></th>
+						<th scope="col"><?php esc_html_e( 'Syndication URL', 'post-kinds-for-indieweb' ); ?></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -564,7 +564,7 @@ class Syndication_Page {
 			}
 		}
 
-		$syndication_url = get_post_meta( $post->ID, '_reactions_syndication_' . $service, true );
+		$syndication_url = get_post_meta( $post->ID, '_postkind_syndication_' . $service, true );
 		?>
 		<tr>
 			<td>
@@ -579,14 +579,14 @@ class Syndication_Page {
 			<td>
 				<?php if ( $syndicated && $syndication_url ) : ?>
 					<a href="<?php echo esc_url( $syndication_url ); ?>" target="_blank" rel="noopener noreferrer">
-						<?php esc_html_e( 'View', 'reactions-for-indieweb' ); ?>
+						<?php esc_html_e( 'View', 'post-kinds-for-indieweb' ); ?>
 					</a>
 				<?php elseif ( ! $syndicated ) : ?>
 					<?php
 					$syndicate_url = wp_nonce_url(
 						add_query_arg(
 							array(
-								'page'    => 'reactions-indieweb-syndication',
+								'page'    => 'post-kinds-indieweb-syndication',
 								'action'  => 'syndicate_now',
 								'post_id' => $post->ID,
 								'service' => $service,
@@ -597,7 +597,7 @@ class Syndication_Page {
 					);
 					?>
 					<a href="<?php echo esc_url( $syndicate_url ); ?>" class="button button-small">
-						<?php esc_html_e( 'Syndicate Now', 'reactions-for-indieweb' ); ?>
+						<?php esc_html_e( 'Syndicate Now', 'post-kinds-for-indieweb' ); ?>
 					</a>
 				<?php endif; ?>
 			</td>

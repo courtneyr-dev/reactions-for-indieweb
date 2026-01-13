@@ -60,10 +60,10 @@ export default function Edit( { attributes, setAttributes } ) {
 	// Sync block attributes to post meta
 	useEffect( () => {
 		const metaUpdates = {};
-		if ( title !== undefined ) metaUpdates._reactions_favorite_title = title || '';
-		if ( url !== undefined ) metaUpdates._reactions_favorite_url = url || '';
-		if ( author !== undefined ) metaUpdates._reactions_favorite_author = author || '';
-		if ( image !== undefined ) metaUpdates._reactions_favorite_image = image || '';
+		if ( title !== undefined ) metaUpdates._postkind_favorite_title = title || '';
+		if ( url !== undefined ) metaUpdates._postkind_favorite_url = url || '';
+		if ( author !== undefined ) metaUpdates._postkind_favorite_author = author || '';
+		if ( image !== undefined ) metaUpdates._postkind_favorite_image = image || '';
 
 		if ( Object.keys( metaUpdates ).length > 0 ) {
 			editPost( { meta: metaUpdates } );
@@ -73,7 +73,7 @@ export default function Edit( { attributes, setAttributes } ) {
 	const handleImageSelect = ( media ) => {
 		setAttributes( {
 			image: media.url,
-			imageAlt: media.alt || title || __( 'Favorite image', 'reactions-for-indieweb' ),
+			imageAlt: media.alt || title || __( 'Favorite image', 'post-kinds-for-indieweb' ),
 		} );
 	};
 
@@ -85,33 +85,33 @@ export default function Edit( { attributes, setAttributes } ) {
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Favorite Details', 'reactions-for-indieweb' ) } initialOpen={ true }>
+				<PanelBody title={ __( 'Favorite Details', 'post-kinds-for-indieweb' ) } initialOpen={ true }>
 					<TextControl
-						label={ __( 'Title', 'reactions-for-indieweb' ) }
+						label={ __( 'Title', 'post-kinds-for-indieweb' ) }
 						value={ title || '' }
 						onChange={ ( value ) => setAttributes( { title: value } ) }
-						placeholder={ __( 'What did you favorite?', 'reactions-for-indieweb' ) }
+						placeholder={ __( 'What did you favorite?', 'post-kinds-for-indieweb' ) }
 					/>
 					<TextControl
-						label={ __( 'URL', 'reactions-for-indieweb' ) }
+						label={ __( 'URL', 'post-kinds-for-indieweb' ) }
 						value={ url || '' }
 						onChange={ ( value ) => setAttributes( { url: value } ) }
 						type="url"
-						placeholder={ __( 'https://...', 'reactions-for-indieweb' ) }
+						placeholder={ __( 'https://...', 'post-kinds-for-indieweb' ) }
 					/>
 					<TextControl
-						label={ __( 'Author', 'reactions-for-indieweb' ) }
+						label={ __( 'Author', 'post-kinds-for-indieweb' ) }
 						value={ author || '' }
 						onChange={ ( value ) => setAttributes( { author: value } ) }
-						placeholder={ __( 'Original author', 'reactions-for-indieweb' ) }
+						placeholder={ __( 'Original author', 'post-kinds-for-indieweb' ) }
 					/>
 				</PanelBody>
-				<PanelBody title={ __( 'Description', 'reactions-for-indieweb' ) } initialOpen={ false }>
+				<PanelBody title={ __( 'Description', 'post-kinds-for-indieweb' ) } initialOpen={ false }>
 					<TextControl
-						label={ __( 'Description', 'reactions-for-indieweb' ) }
+						label={ __( 'Description', 'post-kinds-for-indieweb' ) }
 						value={ description || '' }
 						onChange={ ( value ) => setAttributes( { description: value } ) }
-						placeholder={ __( 'Why did you favorite this?', 'reactions-for-indieweb' ) }
+						placeholder={ __( 'Why did you favorite this?', 'post-kinds-for-indieweb' ) }
 					/>
 				</PanelBody>
 			</InspectorControls>
@@ -132,7 +132,7 @@ export default function Edit( { attributes, setAttributes } ) {
 													type="button"
 													className="reactions-card__media-remove"
 													onClick={ handleImageRemove }
-													aria-label={ __( 'Remove image', 'reactions-for-indieweb' ) }
+													aria-label={ __( 'Remove image', 'post-kinds-for-indieweb' ) }
 												>
 													×
 												</button>
@@ -140,7 +140,7 @@ export default function Edit( { attributes, setAttributes } ) {
 										) : (
 											<div className="reactions-card__media-placeholder">
 												<span className="reactions-card__media-icon">⭐</span>
-												<span className="reactions-card__media-text">{ __( 'Add Image', 'reactions-for-indieweb' ) }</span>
+												<span className="reactions-card__media-text">{ __( 'Add Image', 'post-kinds-for-indieweb' ) }</span>
 											</div>
 										) }
 									</button>
@@ -150,14 +150,14 @@ export default function Edit( { attributes, setAttributes } ) {
 					</div>
 
 					<div className="reactions-card__content">
-						<span className="reactions-card__badge">★ { __( 'Favorited', 'reactions-for-indieweb' ) }</span>
+						<span className="reactions-card__badge">★ { __( 'Favorited', 'post-kinds-for-indieweb' ) }</span>
 
 						<RichText
 							tagName="h3"
 							className="reactions-card__title"
 							value={ title }
 							onChange={ ( value ) => setAttributes( { title: value } ) }
-							placeholder={ __( 'What did you favorite?', 'reactions-for-indieweb' ) }
+							placeholder={ __( 'What did you favorite?', 'post-kinds-for-indieweb' ) }
 						/>
 
 						<div className="reactions-card__input-row">
@@ -167,7 +167,7 @@ export default function Edit( { attributes, setAttributes } ) {
 								className="reactions-card__input reactions-card__input--url"
 								value={ url || '' }
 								onChange={ ( e ) => setAttributes( { url: e.target.value } ) }
-								placeholder={ __( 'https://example.com/...', 'reactions-for-indieweb' ) }
+								placeholder={ __( 'https://example.com/...', 'post-kinds-for-indieweb' ) }
 							/>
 						</div>
 
@@ -176,7 +176,7 @@ export default function Edit( { attributes, setAttributes } ) {
 							className="reactions-card__subtitle"
 							value={ author }
 							onChange={ ( value ) => setAttributes( { author: value } ) }
-							placeholder={ __( 'By whom?', 'reactions-for-indieweb' ) }
+							placeholder={ __( 'By whom?', 'post-kinds-for-indieweb' ) }
 						/>
 
 						<RichText
@@ -184,7 +184,7 @@ export default function Edit( { attributes, setAttributes } ) {
 							className="reactions-card__notes"
 							value={ description }
 							onChange={ ( value ) => setAttributes( { description: value } ) }
-							placeholder={ __( 'Why did you favorite this?', 'reactions-for-indieweb' ) }
+							placeholder={ __( 'Why did you favorite this?', 'post-kinds-for-indieweb' ) }
 						/>
 					</div>
 				</div>

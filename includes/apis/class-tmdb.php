@@ -4,13 +4,13 @@
  *
  * Provides movie and TV show metadata from TMDB.
  *
- * @package ReactionsForIndieWeb
+ * @package PostKindsForIndieWeb
  * @since   1.0.0
  */
 
 declare(strict_types=1);
 
-namespace ReactionsForIndieWeb\APIs;
+namespace PostKindsForIndieWeb\APIs;
 
 // Prevent direct access.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -85,7 +85,7 @@ class TMDB extends API_Base {
 	 */
 	public function __construct() {
 		parent::__construct();
-		$credentials        = get_option( 'reactions_indieweb_api_credentials', array() );
+		$credentials        = get_option( 'post_kinds_indieweb_api_credentials', array() );
 		$tmdb_creds         = $credentials['tmdb'] ?? array();
 		$this->api_key      = $tmdb_creds['api_key'] ?? '';
 		$this->access_token = $tmdb_creds['access_token'] ?? '';
@@ -179,7 +179,7 @@ class TMDB extends API_Base {
 	public function test_connection(): bool {
 		if ( ! $this->api_key && ! $this->access_token ) {
 			// Debug: show what credentials we actually have.
-			$credentials = get_option( 'reactions_indieweb_api_credentials', array() );
+			$credentials = get_option( 'post_kinds_indieweb_api_credentials', array() );
 			$tmdb_creds  = $credentials['tmdb'] ?? array();
 			$has_token   = ! empty( $tmdb_creds['access_token'] );
 			$has_key     = ! empty( $tmdb_creds['api_key'] );
@@ -188,7 +188,7 @@ class TMDB extends API_Base {
 			throw new \Exception(
 				sprintf(
 					/* translators: Debug info about credentials */
-					__( 'No API credentials loaded. Debug: enabled=%s, has_token=%s, has_key=%s', 'reactions-for-indieweb' ),
+					__( 'No API credentials loaded. Debug: enabled=%s, has_token=%s, has_key=%s', 'post-kinds-for-indieweb' ),
 					$is_enabled ? 'yes' : 'no',
 					$has_token ? 'yes' : 'no',
 					$has_key ? 'yes' : 'no'
@@ -203,7 +203,7 @@ class TMDB extends API_Base {
 			throw new \Exception(
 				sprintf(
 					/* translators: %s: Error message */
-					__( 'API request failed: %s', 'reactions-for-indieweb' ),
+					__( 'API request failed: %s', 'post-kinds-for-indieweb' ),
 					$e->getMessage()
 				)
 			);

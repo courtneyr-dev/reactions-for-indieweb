@@ -4,13 +4,13 @@
  *
  * Provides venue search and checkin data from Foursquare (Places API).
  *
- * @package ReactionsForIndieWeb
+ * @package PostKindsForIndieWeb
  * @since   1.0.0
  */
 
 declare(strict_types=1);
 
-namespace ReactionsForIndieWeb\APIs;
+namespace PostKindsForIndieWeb\APIs;
 
 // Prevent direct access.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -64,7 +64,7 @@ class Foursquare extends API_Base {
 	 */
 	public function __construct() {
 		parent::__construct();
-		$credentials   = get_option( 'reactions_indieweb_api_credentials', array() );
+		$credentials   = get_option( 'post_kinds_indieweb_api_credentials', array() );
 		$fs_creds      = $credentials['foursquare'] ?? array();
 		$this->api_key = $fs_creds['api_key'] ?? '';
 	}

@@ -52,7 +52,7 @@ export function StarRating({ value = 0, onChange, max = 5, readonly = false }) {
             className="reactions-star-rating"
             onMouseLeave={handleMouseLeave}
             role="group"
-            aria-label={__('Rating', 'reactions-for-indieweb')}
+            aria-label={__('Rating', 'post-kinds-for-indieweb')}
         >
             {Array.from({ length: max }, (_, i) => i + 1).map((rating) => (
                 <button
@@ -62,7 +62,7 @@ export function StarRating({ value = 0, onChange, max = 5, readonly = false }) {
                     onClick={() => handleClick(rating)}
                     onMouseEnter={() => handleMouseEnter(rating)}
                     disabled={readonly}
-                    aria-label={`${rating} ${rating === 1 ? __('star', 'reactions-for-indieweb') : __('stars', 'reactions-for-indieweb')}`}
+                    aria-label={`${rating} ${rating === 1 ? __('star', 'post-kinds-for-indieweb') : __('stars', 'post-kinds-for-indieweb')}`}
                     aria-pressed={rating <= value}
                 >
                     {rating <= displayValue ? starIcon : starOutlineIcon}
@@ -140,19 +140,19 @@ export function MediaSearch({ type, placeholder, onSelect }) {
         switch (type) {
             case 'movie':
             case 'tv':
-                return '/reactions-indieweb/v1/lookup/video';
+                return '/post-kinds-indieweb/v1/lookup/video';
             case 'music':
-                return '/reactions-indieweb/v1/lookup/music';
+                return '/post-kinds-indieweb/v1/lookup/music';
             case 'book':
-                return '/reactions-indieweb/v1/lookup/book';
+                return '/post-kinds-indieweb/v1/lookup/book';
             case 'podcast':
-                return '/reactions-indieweb/v1/lookup/podcast';
+                return '/post-kinds-indieweb/v1/lookup/podcast';
             case 'venue':
-                return '/reactions-indieweb/v1/lookup/venue';
+                return '/post-kinds-indieweb/v1/lookup/venue';
             case 'game':
-                return '/reactions-indieweb/v1/lookup/game';
+                return '/post-kinds-indieweb/v1/lookup/game';
             default:
-                return '/reactions-indieweb/v1/lookup/video';
+                return '/post-kinds-indieweb/v1/lookup/video';
         }
     };
 
@@ -193,21 +193,21 @@ export function MediaSearch({ type, placeholder, onSelect }) {
             if (resultsArray.length > 0) {
                 setResults(resultsArray);
             } else {
-                setError(__('No results found.', 'reactions-for-indieweb'));
+                setError(__('No results found.', 'post-kinds-for-indieweb'));
             }
         } catch (err) {
             // Handle different error types
-            let errorMessage = __('Search failed.', 'reactions-for-indieweb');
+            let errorMessage = __('Search failed.', 'post-kinds-for-indieweb');
 
             if (err.message) {
                 // If error message contains HTML, show generic error
                 if (err.message.includes('<') || err.message.includes('critical error')) {
-                    errorMessage = __('Search service unavailable. Please try again.', 'reactions-for-indieweb');
+                    errorMessage = __('Search service unavailable. Please try again.', 'post-kinds-for-indieweb');
                 } else {
                     errorMessage = err.message;
                 }
             } else if (err.code) {
-                errorMessage = `${__('Error', 'reactions-for-indieweb')}: ${err.code}`;
+                errorMessage = `${__('Error', 'post-kinds-for-indieweb')}: ${err.code}`;
             }
 
             setError(errorMessage);
@@ -246,7 +246,7 @@ export function MediaSearch({ type, placeholder, onSelect }) {
                     onClick={doSearch}
                     disabled={isSearching || !query.trim()}
                 >
-                    {isSearching ? <Spinner /> : __('Search', 'reactions-for-indieweb')}
+                    {isSearching ? <Spinner /> : __('Search', 'post-kinds-for-indieweb')}
                 </Button>
             </div>
 
@@ -403,7 +403,7 @@ export function CiteBlock({ url, name, author, type = 'u-cite' }) {
             </a>
             {author && (
                 <span className="p-author h-card">
-                    {__(' by ', 'reactions-for-indieweb')}
+                    {__(' by ', 'post-kinds-for-indieweb')}
                     <span className="p-name">{author}</span>
                 </span>
             )}
@@ -469,14 +469,14 @@ function getRelativeTime(date) {
     const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
     if (diffDays === 0) {
-        return __('Today', 'reactions-for-indieweb');
+        return __('Today', 'post-kinds-for-indieweb');
     } else if (diffDays === 1) {
-        return __('Yesterday', 'reactions-for-indieweb');
+        return __('Yesterday', 'post-kinds-for-indieweb');
     } else if (diffDays < 7) {
-        return `${diffDays} ${__('days ago', 'reactions-for-indieweb')}`;
+        return `${diffDays} ${__('days ago', 'post-kinds-for-indieweb')}`;
     } else if (diffDays < 30) {
         const weeks = Math.floor(diffDays / 7);
-        return `${weeks} ${weeks === 1 ? __('week ago', 'reactions-for-indieweb') : __('weeks ago', 'reactions-for-indieweb')}`;
+        return `${weeks} ${weeks === 1 ? __('week ago', 'post-kinds-for-indieweb') : __('weeks ago', 'post-kinds-for-indieweb')}`;
     } else {
         return date.toLocaleDateString();
     }
@@ -511,7 +511,7 @@ export function LocationDisplay({ name, address, city, country, latitude, longit
                     <data className="p-longitude" value={longitude} />
                     {mapUrl && (
                         <a href={mapUrl} target="_blank" rel="noopener noreferrer" className="map-link">
-                            {__('View on map', 'reactions-for-indieweb')}
+                            {__('View on map', 'post-kinds-for-indieweb')}
                         </a>
                     )}
                 </span>

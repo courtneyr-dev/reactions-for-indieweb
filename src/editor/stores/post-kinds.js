@@ -1,5 +1,5 @@
 /**
- * Reactions for IndieWeb - Post Kinds Data Store
+ * Post Kinds for IndieWeb - Post Kinds Data Store
  *
  * Manages post kind state, auto-detection, and metadata in the block editor.
  *
@@ -19,14 +19,14 @@ import { store as editorStore } from '@wordpress/editor';
  *
  * @type {string}
  */
-export const STORE_NAME = 'reactions-indieweb/post-kinds';
+export const STORE_NAME = 'post-kinds-indieweb/post-kinds';
 
 /**
  * Meta key prefix used in PHP.
  *
  * @type {string}
  */
-const META_PREFIX = '_reactions_';
+const META_PREFIX = '_postkind_';
 
 /**
  * Default state shape.
@@ -250,7 +250,7 @@ const actions = {
 
 			try {
 				const results = await apiFetch( {
-					path: `/reactions-indieweb/v1/lookup/${ lookupType }?q=${ encodeURIComponent( query ) }`,
+					path: `/post-kinds-indieweb/v1/lookup/${ lookupType }?q=${ encodeURIComponent( query ) }`,
 				} );
 
 				dispatch.receiveApiResults( results );

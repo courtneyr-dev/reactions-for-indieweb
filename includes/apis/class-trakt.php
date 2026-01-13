@@ -4,13 +4,13 @@
  *
  * Provides watch history import and tracking from Trakt.tv.
  *
- * @package ReactionsForIndieWeb
+ * @package PostKindsForIndieWeb
  * @since   1.0.0
  */
 
 declare(strict_types=1);
 
-namespace ReactionsForIndieWeb\APIs;
+namespace PostKindsForIndieWeb\APIs;
 
 // Prevent direct access.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -85,7 +85,7 @@ class Trakt extends API_Base {
 	 */
 	public function __construct() {
 		parent::__construct();
-		$credentials         = get_option( 'reactions_indieweb_api_credentials', array() );
+		$credentials         = get_option( 'post_kinds_indieweb_api_credentials', array() );
 		$trakt_creds         = $credentials['trakt'] ?? array();
 		$this->client_id     = $trakt_creds['client_id'] ?? '';
 		$this->client_secret = $trakt_creds['client_secret'] ?? '';
@@ -518,7 +518,7 @@ class Trakt extends API_Base {
 	 */
 	public function get_history( string $type = 'all', int $page = 1, int $limit = 25, string $start_at = '', string $end_at = '' ): array {
 		if ( ! $this->is_authenticated() ) {
-			throw new \Exception( __( 'Trakt authentication required. Please reconnect your Trakt account in API Connections.', 'reactions-for-indieweb' ) );
+			throw new \Exception( __( 'Trakt authentication required. Please reconnect your Trakt account in API Connections.', 'post-kinds-for-indieweb' ) );
 		}
 
 		$params = array(

@@ -1,9 +1,9 @@
 /**
- * Reactions for IndieWeb - Syndication Controls Component
+ * Post Kinds for IndieWeb - Syndication Controls Component
  *
  * Displays per-post syndication opt-out toggles for connected services.
  *
- * @package ReactionsForIndieWeb
+ * @package PostKindsForIndieWeb
  * @since   1.0.0
  */
 
@@ -26,13 +26,13 @@ import { STORE_NAME } from '../../stores/post-kinds';
 /**
  * Get available syndication services from global config.
  *
- * Uses reactionsIndieWebEditor (not reactionsIndieWeb) to avoid
+ * Uses postKindsIndieWebEditor (not postKindsIndieWeb) to avoid
  * conflicts with the admin.js script which uses the same global name.
  *
  * @return {Object} Services configuration.
  */
 function getSyndicationServices() {
-	return window.reactionsIndieWebEditor?.syndicationServices || {};
+	return window.postKindsIndieWebEditor?.syndicationServices || {};
 }
 
 /**
@@ -83,10 +83,10 @@ export default function SyndicationControls( { kind } ) {
 	}
 
 	return (
-		<VStack spacing={ 2 } className="reactions-indieweb-syndication-controls">
+		<VStack spacing={ 2 } className="post-kinds-indieweb-syndication-controls">
 			<PanelRow>
 				<span className="components-base-control__label">
-					{ __( 'Syndication', 'reactions-for-indieweb' ) }
+					{ __( 'Syndication', 'post-kinds-for-indieweb' ) }
 				</span>
 			</PanelRow>
 
@@ -101,8 +101,8 @@ export default function SyndicationControls( { kind } ) {
 						label={ config.name }
 						help={
 							isEnabled
-								? __( 'Will sync on publish', 'reactions-for-indieweb' )
-								: __( 'Will not sync', 'reactions-for-indieweb' )
+								? __( 'Will sync on publish', 'post-kinds-for-indieweb' )
+								: __( 'Will not sync', 'post-kinds-for-indieweb' )
 						}
 						checked={ isEnabled }
 						onChange={ ( value ) =>
@@ -116,7 +116,7 @@ export default function SyndicationControls( { kind } ) {
 			{ needsAuthServices.map( ( [ serviceId, config ] ) => (
 				<div
 					key={ serviceId }
-					className="reactions-indieweb-syndication-notice"
+					className="post-kinds-indieweb-syndication-notice"
 					style={ {
 						padding: '8px 12px',
 						backgroundColor: '#fff8e5',
@@ -128,7 +128,7 @@ export default function SyndicationControls( { kind } ) {
 					<strong>{ config.name }:</strong>{ ' ' }
 					{ __(
 						'Authorization required. Complete setup in API Connections.',
-						'reactions-for-indieweb'
+						'post-kinds-for-indieweb'
 					) }
 				</div>
 			) ) }

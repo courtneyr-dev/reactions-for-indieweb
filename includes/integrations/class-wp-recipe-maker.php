@@ -5,15 +5,15 @@
  * Integrates with WP Recipe Maker plugin to auto-detect and suggest
  * the 'recipe' post kind when a post contains a WPRM recipe.
  *
- * @package ReactionsForIndieWeb
+ * @package PostKindsForIndieWeb
  * @since   1.1.0
  */
 
 declare(strict_types=1);
 
-namespace ReactionsForIndieWeb\Integrations;
+namespace PostKindsForIndieWeb\Integrations;
 
-use ReactionsForIndieWeb\Taxonomy;
+use PostKindsForIndieWeb\Taxonomy;
 
 // Prevent direct access.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -119,7 +119,7 @@ class WP_Recipe_Maker {
 		}
 
 		// Check if auto-detection is enabled.
-		$settings = get_option( 'reactions_indieweb_settings', array() );
+		$settings = get_option( 'post_kinds_indieweb_settings', array() );
 		if ( empty( $settings['wprm_auto_kind'] ) ) {
 			return;
 		}
@@ -172,7 +172,7 @@ class WP_Recipe_Maker {
 		}
 
 		// Sync basic recipe data to our meta fields.
-		$prefix = '_reactions_';
+		$prefix = '_postkind_';
 
 		// Recipe yield/servings.
 		$servings = $this->get_recipe_servings( $recipe );
@@ -428,19 +428,19 @@ class WP_Recipe_Maker {
 				if ( ! hasRecipeKind ) {
 					createNotice(
 						'info',
-						'" . esc_js( __( 'This post contains a recipe. Consider setting the post kind to \"Recipe\".', 'reactions-for-indieweb' ) ) . "',
+						'" . esc_js( __( 'This post contains a recipe. Consider setting the post kind to \"Recipe\".', 'post-kinds-for-indieweb' ) ) . "',
 						{
-							id: 'reactions-recipe-suggestion',
+							id: 'post-kinds-recipe-suggestion',
 							isDismissible: true,
 							actions: [
 								{
-									label: '" . esc_js( __( 'Set Recipe Kind', 'reactions-for-indieweb' ) ) . "',
+									label: '" . esc_js( __( 'Set Recipe Kind', 'post-kinds-for-indieweb' ) ) . "',
 									onClick: function() {
 										// Find recipe term ID and set it
 										wp.apiFetch({ path: '/wp/v2/kind?slug=recipe' }).then( function( terms ) {
 											if ( terms && terms.length ) {
 												dispatch( 'core/editor' ).editPost({ kind: [ terms[0].id ] });
-												dispatch( 'core/notices' ).removeNotice( 'reactions-recipe-suggestion' );
+												dispatch( 'core/notices' ).removeNotice( 'post-kinds-recipe-suggestion' );
 											}
 										});
 									}
@@ -464,7 +464,7 @@ class WP_Recipe_Maker {
 	 */
 	public function register_rest_routes(): void {
 		register_rest_route(
-			'reactions-indieweb/v1',
+			'post-kinds-indieweb/v1',
 			'/post/(?P<id>\d+)/has-recipe',
 			array(
 				'methods'             => 'GET',

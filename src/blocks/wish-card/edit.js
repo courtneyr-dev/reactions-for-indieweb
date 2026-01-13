@@ -26,24 +26,24 @@ import { useSelect, useDispatch } from '@wordpress/data';
  * Wish type options with emojis.
  */
 const WISH_TYPES = [
-	{ label: __( 'Item', 'reactions-for-indieweb' ), value: 'item', emoji: '🛍️' },
-	{ label: __( 'Experience', 'reactions-for-indieweb' ), value: 'experience', emoji: '✨' },
-	{ label: __( 'Book', 'reactions-for-indieweb' ), value: 'book', emoji: '📚' },
-	{ label: __( 'Game', 'reactions-for-indieweb' ), value: 'game', emoji: '🎮' },
-	{ label: __( 'Movie/Show', 'reactions-for-indieweb' ), value: 'media', emoji: '🎬' },
-	{ label: __( 'Travel', 'reactions-for-indieweb' ), value: 'travel', emoji: '✈️' },
-	{ label: __( 'Tech', 'reactions-for-indieweb' ), value: 'tech', emoji: '💻' },
-	{ label: __( 'Food', 'reactions-for-indieweb' ), value: 'food', emoji: '🍕' },
-	{ label: __( 'Other', 'reactions-for-indieweb' ), value: 'other', emoji: '🎁' },
+	{ label: __( 'Item', 'post-kinds-for-indieweb' ), value: 'item', emoji: '🛍️' },
+	{ label: __( 'Experience', 'post-kinds-for-indieweb' ), value: 'experience', emoji: '✨' },
+	{ label: __( 'Book', 'post-kinds-for-indieweb' ), value: 'book', emoji: '📚' },
+	{ label: __( 'Game', 'post-kinds-for-indieweb' ), value: 'game', emoji: '🎮' },
+	{ label: __( 'Movie/Show', 'post-kinds-for-indieweb' ), value: 'media', emoji: '🎬' },
+	{ label: __( 'Travel', 'post-kinds-for-indieweb' ), value: 'travel', emoji: '✈️' },
+	{ label: __( 'Tech', 'post-kinds-for-indieweb' ), value: 'tech', emoji: '💻' },
+	{ label: __( 'Food', 'post-kinds-for-indieweb' ), value: 'food', emoji: '🍕' },
+	{ label: __( 'Other', 'post-kinds-for-indieweb' ), value: 'other', emoji: '🎁' },
 ];
 
 /**
  * Priority options.
  */
 const PRIORITY_OPTIONS = [
-	{ label: __( 'Low', 'reactions-for-indieweb' ), value: 'low' },
-	{ label: __( 'Medium', 'reactions-for-indieweb' ), value: 'medium' },
-	{ label: __( 'High', 'reactions-for-indieweb' ), value: 'high' },
+	{ label: __( 'Low', 'post-kinds-for-indieweb' ), value: 'low' },
+	{ label: __( 'Medium', 'post-kinds-for-indieweb' ), value: 'medium' },
+	{ label: __( 'High', 'post-kinds-for-indieweb' ), value: 'high' },
 ];
 
 function getWishTypeInfo( type ) {
@@ -91,12 +91,12 @@ export default function Edit( { attributes, setAttributes } ) {
 	// Sync block attributes to post meta
 	useEffect( () => {
 		const metaUpdates = {};
-		if ( title !== undefined ) metaUpdates._reactions_wish_title = title || '';
-		if ( wishType !== undefined ) metaUpdates._reactions_wish_type = wishType || '';
-		if ( url !== undefined ) metaUpdates._reactions_wish_url = url || '';
-		if ( price !== undefined ) metaUpdates._reactions_wish_price = price || '';
-		if ( priority !== undefined ) metaUpdates._reactions_wish_priority = priority || '';
-		if ( image !== undefined ) metaUpdates._reactions_wish_image = image || '';
+		if ( title !== undefined ) metaUpdates._postkind_wish_title = title || '';
+		if ( wishType !== undefined ) metaUpdates._postkind_wish_type = wishType || '';
+		if ( url !== undefined ) metaUpdates._postkind_wish_url = url || '';
+		if ( price !== undefined ) metaUpdates._postkind_wish_price = price || '';
+		if ( priority !== undefined ) metaUpdates._postkind_wish_priority = priority || '';
+		if ( image !== undefined ) metaUpdates._postkind_wish_image = image || '';
 
 		if ( Object.keys( metaUpdates ).length > 0 ) {
 			editPost( { meta: metaUpdates } );
@@ -106,7 +106,7 @@ export default function Edit( { attributes, setAttributes } ) {
 	const handleImageSelect = ( media ) => {
 		setAttributes( {
 			image: media.url,
-			imageAlt: media.alt || title || __( 'Wish image', 'reactions-for-indieweb' ),
+			imageAlt: media.alt || title || __( 'Wish image', 'post-kinds-for-indieweb' ),
 		} );
 	};
 
@@ -131,45 +131,45 @@ export default function Edit( { attributes, setAttributes } ) {
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Wish Details', 'reactions-for-indieweb' ) } initialOpen={ true }>
+				<PanelBody title={ __( 'Wish Details', 'post-kinds-for-indieweb' ) } initialOpen={ true }>
 					<TextControl
-						label={ __( 'Title', 'reactions-for-indieweb' ) }
+						label={ __( 'Title', 'post-kinds-for-indieweb' ) }
 						value={ title || '' }
 						onChange={ ( value ) => setAttributes( { title: value } ) }
-						placeholder={ __( 'What do you wish for?', 'reactions-for-indieweb' ) }
+						placeholder={ __( 'What do you wish for?', 'post-kinds-for-indieweb' ) }
 					/>
 					<SelectControl
-						label={ __( 'Type', 'reactions-for-indieweb' ) }
+						label={ __( 'Type', 'post-kinds-for-indieweb' ) }
 						value={ wishType || 'item' }
 						options={ wishTypeOptions }
 						onChange={ ( value ) => setAttributes( { wishType: value } ) }
 					/>
 					<SelectControl
-						label={ __( 'Priority', 'reactions-for-indieweb' ) }
+						label={ __( 'Priority', 'post-kinds-for-indieweb' ) }
 						value={ priority || 'medium' }
 						options={ priorityOptions }
 						onChange={ ( value ) => setAttributes( { priority: value } ) }
 					/>
 					<TextControl
-						label={ __( 'Price', 'reactions-for-indieweb' ) }
+						label={ __( 'Price', 'post-kinds-for-indieweb' ) }
 						value={ price || '' }
 						onChange={ ( value ) => setAttributes( { price: value } ) }
-						placeholder={ __( '$0.00', 'reactions-for-indieweb' ) }
+						placeholder={ __( '$0.00', 'post-kinds-for-indieweb' ) }
 					/>
 					<TextControl
-						label={ __( 'Product URL', 'reactions-for-indieweb' ) }
+						label={ __( 'Product URL', 'post-kinds-for-indieweb' ) }
 						value={ url || '' }
 						onChange={ ( value ) => setAttributes( { url: value } ) }
 						type="url"
-						help={ __( 'Link to the product or item', 'reactions-for-indieweb' ) }
+						help={ __( 'Link to the product or item', 'post-kinds-for-indieweb' ) }
 					/>
 				</PanelBody>
-				<PanelBody title={ __( 'Reason', 'reactions-for-indieweb' ) } initialOpen={ false }>
+				<PanelBody title={ __( 'Reason', 'post-kinds-for-indieweb' ) } initialOpen={ false }>
 					<TextControl
-						label={ __( 'Reason', 'reactions-for-indieweb' ) }
+						label={ __( 'Reason', 'post-kinds-for-indieweb' ) }
 						value={ reason || '' }
 						onChange={ ( value ) => setAttributes( { reason: value } ) }
-						placeholder={ __( 'Why do you want this?', 'reactions-for-indieweb' ) }
+						placeholder={ __( 'Why do you want this?', 'post-kinds-for-indieweb' ) }
 					/>
 				</PanelBody>
 			</InspectorControls>
@@ -194,7 +194,7 @@ export default function Edit( { attributes, setAttributes } ) {
 													type="button"
 													className="reactions-card__media-remove"
 													onClick={ handleImageRemove }
-													aria-label={ __( 'Remove image', 'reactions-for-indieweb' ) }
+													aria-label={ __( 'Remove image', 'post-kinds-for-indieweb' ) }
 												>
 													×
 												</button>
@@ -202,7 +202,7 @@ export default function Edit( { attributes, setAttributes } ) {
 										) : (
 											<div className="reactions-card__media-placeholder">
 												<span className="reactions-card__media-icon">{ typeInfo.emoji }</span>
-												<span className="reactions-card__media-text">{ __( 'Add Image', 'reactions-for-indieweb' ) }</span>
+												<span className="reactions-card__media-text">{ __( 'Add Image', 'post-kinds-for-indieweb' ) }</span>
 											</div>
 										) }
 									</button>
@@ -243,7 +243,7 @@ export default function Edit( { attributes, setAttributes } ) {
 							className="reactions-card__title"
 							value={ title }
 							onChange={ ( value ) => setAttributes( { title: value } ) }
-							placeholder={ __( 'What do you wish for?', 'reactions-for-indieweb' ) }
+							placeholder={ __( 'What do you wish for?', 'post-kinds-for-indieweb' ) }
 						/>
 
 						<div className="reactions-card__input-row">
@@ -253,7 +253,7 @@ export default function Edit( { attributes, setAttributes } ) {
 								className="reactions-card__input reactions-card__input--price"
 								value={ price || '' }
 								onChange={ ( e ) => setAttributes( { price: e.target.value } ) }
-								placeholder={ __( '$0.00', 'reactions-for-indieweb' ) }
+								placeholder={ __( '$0.00', 'post-kinds-for-indieweb' ) }
 							/>
 						</div>
 
@@ -264,7 +264,7 @@ export default function Edit( { attributes, setAttributes } ) {
 								className="reactions-card__input reactions-card__input--url"
 								value={ url || '' }
 								onChange={ ( e ) => setAttributes( { url: e.target.value } ) }
-								placeholder={ __( 'https://...', 'reactions-for-indieweb' ) }
+								placeholder={ __( 'https://...', 'post-kinds-for-indieweb' ) }
 							/>
 						</div>
 
@@ -273,7 +273,7 @@ export default function Edit( { attributes, setAttributes } ) {
 							className="reactions-card__notes"
 							value={ reason }
 							onChange={ ( value ) => setAttributes( { reason: value } ) }
-							placeholder={ __( 'Why do you want this?', 'reactions-for-indieweb' ) }
+							placeholder={ __( 'Why do you want this?', 'post-kinds-for-indieweb' ) }
 						/>
 					</div>
 				</div>

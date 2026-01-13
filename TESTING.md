@@ -1,6 +1,6 @@
-# QA Testing Guide for Reactions for IndieWeb
+# QA Testing Guide for Post Kinds for IndieWeb
 
-This document provides comprehensive testing directions for the Reactions for IndieWeb plugin.
+This document provides comprehensive testing directions for the Post Kinds for IndieWeb plugin.
 
 ## Table of Contents
 
@@ -41,7 +41,7 @@ Access: `http://post-formats-test.local` (or check Local WP for exact URL)
 
 ### Installed Plugins for Testing
 
-- [x] Reactions for IndieWeb (symlinked)
+- [x] Post Kinds for IndieWeb (symlinked)
 - [x] Query Monitor
 - [x] Debug Bar
 - [x] IndieWeb
@@ -54,7 +54,7 @@ Access: `http://post-formats-test.local` (or check Local WP for exact URL)
 Before testing, ensure assets are compiled:
 
 ```bash
-cd "/Users/crobertson/Documents/Reactions for IndieWeb"
+cd "/Users/crobertson/Documents/Post Kinds for IndieWeb"
 npm install
 npm run build
 ```
@@ -105,7 +105,7 @@ define( 'SCRIPT_DEBUG', true );
 | Step | Action | Expected Result |
 |------|--------|-----------------|
 | 1 | Deactivate IndieBlocks | IndieBlocks inactive |
-| 2 | Activate Reactions for IndieWeb | Plugin activates with info notice |
+| 2 | Activate Post Kinds for IndieWeb | Plugin activates with info notice |
 | 3 | Check admin notice | Shows "works best with IndieBlocks" notice |
 | 4 | Verify functionality | Core features work without IndieBlocks |
 
@@ -113,7 +113,7 @@ define( 'SCRIPT_DEBUG', true );
 | Step | Action | Expected Result |
 |------|--------|-----------------|
 | 1 | Activate IndieBlocks first | IndieBlocks active |
-| 2 | Activate Reactions for IndieWeb | No warning notice shown |
+| 2 | Activate Post Kinds for IndieWeb | No warning notice shown |
 | 3 | Check integration | Enhanced features available |
 
 #### Test 1.4: Deactivation
@@ -159,7 +159,7 @@ define( 'SCRIPT_DEBUG', true );
 | Step | Action | Expected Result |
 |------|--------|-----------------|
 | 1 | Open block inserter (+ button) | Inserter opens |
-| 2 | Search "Reactions" | Category "Reactions for IndieWeb" visible |
+| 2 | Search "Reactions" | Category "Post Kinds for IndieWeb" visible |
 | 3 | View blocks | All 7 blocks listed |
 
 **Blocks to verify:**
@@ -329,7 +329,7 @@ define( 'SCRIPT_DEBUG', true );
 #### Test 4.1: API Settings Page
 | Step | Action | Expected Result |
 |------|--------|-----------------|
-| 1 | Go to Settings → Reactions for IndieWeb | Settings page loads |
+| 1 | Go to Settings → Post Kinds for IndieWeb | Settings page loads |
 | 2 | Navigate to "API Settings" tab | API key fields visible |
 | 3 | Enter invalid API key | Error on save or API call |
 | 4 | Enter valid API key | Success message |
@@ -381,7 +381,7 @@ define( 'SCRIPT_DEBUG', true );
 #### Test 5.1: Settings Page Navigation
 | Step | Action | Expected Result |
 |------|--------|-----------------|
-| 1 | Go to Settings → Reactions for IndieWeb | Page loads |
+| 1 | Go to Settings → Post Kinds for IndieWeb | Page loads |
 | 2 | Check all tabs exist | General, API Settings, Import, Webhooks, Debug |
 | 3 | Click each tab | Tab content loads without page refresh |
 
@@ -671,7 +671,7 @@ When reporting bugs, include:
 ```
 
 ### Getting Debug Info
-1. Go to Settings → Reactions for IndieWeb → Debug
+1. Go to Settings → Post Kinds for IndieWeb → Debug
 2. Click "Copy Debug Info"
 3. Paste into bug report
 
@@ -683,7 +683,7 @@ When reporting bugs, include:
 
 ### PHP Errors
 1. Check `wp-content/debug.log`
-2. Look for entries with `reactions-indieweb`
+2. Look for entries with `post-kinds-indieweb`
 3. Include relevant lines in report
 
 ---

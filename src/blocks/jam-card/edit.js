@@ -64,11 +64,11 @@ export default function Edit( { attributes, setAttributes } ) {
 	// Sync block attributes to post meta
 	useEffect( () => {
 		const metaUpdates = {};
-		if ( title !== undefined ) metaUpdates._reactions_jam_title = title || '';
-		if ( artist !== undefined ) metaUpdates._reactions_jam_artist = artist || '';
-		if ( album !== undefined ) metaUpdates._reactions_jam_album = album || '';
-		if ( cover !== undefined ) metaUpdates._reactions_jam_cover = cover || '';
-		if ( url !== undefined ) metaUpdates._reactions_jam_url = url || '';
+		if ( title !== undefined ) metaUpdates._postkind_jam_title = title || '';
+		if ( artist !== undefined ) metaUpdates._postkind_jam_artist = artist || '';
+		if ( album !== undefined ) metaUpdates._postkind_jam_album = album || '';
+		if ( cover !== undefined ) metaUpdates._postkind_jam_cover = cover || '';
+		if ( url !== undefined ) metaUpdates._postkind_jam_url = url || '';
 
 		if ( Object.keys( metaUpdates ).length > 0 ) {
 			editPost( { meta: metaUpdates } );
@@ -103,49 +103,49 @@ export default function Edit( { attributes, setAttributes } ) {
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Search Music', 'reactions-for-indieweb' ) } initialOpen={ ! title }>
+				<PanelBody title={ __( 'Search Music', 'post-kinds-for-indieweb' ) } initialOpen={ ! title }>
 					<MediaSearch
 						type="music"
-						placeholder={ __( 'Search for a song...', 'reactions-for-indieweb' ) }
+						placeholder={ __( 'Search for a song...', 'post-kinds-for-indieweb' ) }
 						onSelect={ handleSearchSelect }
 					/>
 					<p className="components-base-control__help" style={ { marginTop: '8px' } }>
-						{ __( 'Search MusicBrainz to auto-fill song details.', 'reactions-for-indieweb' ) }
+						{ __( 'Search MusicBrainz to auto-fill song details.', 'post-kinds-for-indieweb' ) }
 					</p>
 				</PanelBody>
-				<PanelBody title={ __( 'Song Details', 'reactions-for-indieweb' ) } initialOpen={ true }>
+				<PanelBody title={ __( 'Song Details', 'post-kinds-for-indieweb' ) } initialOpen={ true }>
 					<TextControl
-						label={ __( 'Song Title', 'reactions-for-indieweb' ) }
+						label={ __( 'Song Title', 'post-kinds-for-indieweb' ) }
 						value={ title || '' }
 						onChange={ ( value ) => setAttributes( { title: value } ) }
-						placeholder={ __( 'Song name', 'reactions-for-indieweb' ) }
+						placeholder={ __( 'Song name', 'post-kinds-for-indieweb' ) }
 					/>
 					<TextControl
-						label={ __( 'Artist', 'reactions-for-indieweb' ) }
+						label={ __( 'Artist', 'post-kinds-for-indieweb' ) }
 						value={ artist || '' }
 						onChange={ ( value ) => setAttributes( { artist: value } ) }
-						placeholder={ __( 'Artist name', 'reactions-for-indieweb' ) }
+						placeholder={ __( 'Artist name', 'post-kinds-for-indieweb' ) }
 					/>
 					<TextControl
-						label={ __( 'Album', 'reactions-for-indieweb' ) }
+						label={ __( 'Album', 'post-kinds-for-indieweb' ) }
 						value={ album || '' }
 						onChange={ ( value ) => setAttributes( { album: value } ) }
-						placeholder={ __( 'Album name', 'reactions-for-indieweb' ) }
+						placeholder={ __( 'Album name', 'post-kinds-for-indieweb' ) }
 					/>
 					<TextControl
-						label={ __( 'Listen URL', 'reactions-for-indieweb' ) }
+						label={ __( 'Listen URL', 'post-kinds-for-indieweb' ) }
 						value={ url || '' }
 						onChange={ ( value ) => setAttributes( { url: value } ) }
 						type="url"
-						help={ __( 'Link to Spotify, Apple Music, etc.', 'reactions-for-indieweb' ) }
+						help={ __( 'Link to Spotify, Apple Music, etc.', 'post-kinds-for-indieweb' ) }
 					/>
 				</PanelBody>
-				<PanelBody title={ __( 'Note', 'reactions-for-indieweb' ) } initialOpen={ false }>
+				<PanelBody title={ __( 'Note', 'post-kinds-for-indieweb' ) } initialOpen={ false }>
 					<TextControl
-						label={ __( 'Note', 'reactions-for-indieweb' ) }
+						label={ __( 'Note', 'post-kinds-for-indieweb' ) }
 						value={ note || '' }
 						onChange={ ( value ) => setAttributes( { note: value } ) }
-						placeholder={ __( 'Why are you jamming to this?', 'reactions-for-indieweb' ) }
+						placeholder={ __( 'Why are you jamming to this?', 'post-kinds-for-indieweb' ) }
 					/>
 				</PanelBody>
 			</InspectorControls>
@@ -157,7 +157,7 @@ export default function Edit( { attributes, setAttributes } ) {
 						<div className="reactions-card__search-bar">
 							<MediaSearch
 								type="music"
-								placeholder={ __( 'Search for a song...', 'reactions-for-indieweb' ) }
+								placeholder={ __( 'Search for a song...', 'post-kinds-for-indieweb' ) }
 								onSelect={ handleSearchSelect }
 							/>
 							<button
@@ -189,7 +189,7 @@ export default function Edit( { attributes, setAttributes } ) {
 														type="button"
 														className="reactions-card__media-remove"
 														onClick={ handleImageRemove }
-														aria-label={ __( 'Remove cover', 'reactions-for-indieweb' ) }
+														aria-label={ __( 'Remove cover', 'post-kinds-for-indieweb' ) }
 													>
 														×
 													</button>
@@ -197,7 +197,7 @@ export default function Edit( { attributes, setAttributes } ) {
 											) : (
 												<div className="reactions-card__media-placeholder">
 													<span className="reactions-card__media-icon">🎵</span>
-													<span className="reactions-card__media-text">{ __( 'Add Cover', 'reactions-for-indieweb' ) }</span>
+													<span className="reactions-card__media-text">{ __( 'Add Cover', 'post-kinds-for-indieweb' ) }</span>
 												</div>
 											) }
 										</button>
@@ -208,12 +208,12 @@ export default function Edit( { attributes, setAttributes } ) {
 
 						<div className="reactions-card__content">
 							<div className="reactions-card__header-row">
-								<span className="reactions-card__badge">🎵 { __( 'Now Playing', 'reactions-for-indieweb' ) }</span>
+								<span className="reactions-card__badge">🎵 { __( 'Now Playing', 'post-kinds-for-indieweb' ) }</span>
 								<button
 									type="button"
 									className="reactions-card__action-button"
 									onClick={ () => setIsSearching( true ) }
-									title={ __( 'Search for music', 'reactions-for-indieweb' ) }
+									title={ __( 'Search for music', 'post-kinds-for-indieweb' ) }
 								>
 									🔍
 								</button>
@@ -224,7 +224,7 @@ export default function Edit( { attributes, setAttributes } ) {
 								className="reactions-card__title"
 								value={ title }
 								onChange={ ( value ) => setAttributes( { title: value } ) }
-								placeholder={ __( 'What song are you jamming to?', 'reactions-for-indieweb' ) }
+								placeholder={ __( 'What song are you jamming to?', 'post-kinds-for-indieweb' ) }
 							/>
 
 							<RichText
@@ -232,7 +232,7 @@ export default function Edit( { attributes, setAttributes } ) {
 								className="reactions-card__subtitle"
 								value={ artist }
 								onChange={ ( value ) => setAttributes( { artist: value } ) }
-								placeholder={ __( 'Artist name...', 'reactions-for-indieweb' ) }
+								placeholder={ __( 'Artist name...', 'post-kinds-for-indieweb' ) }
 							/>
 
 							<RichText
@@ -240,7 +240,7 @@ export default function Edit( { attributes, setAttributes } ) {
 								className="reactions-card__location"
 								value={ album }
 								onChange={ ( value ) => setAttributes( { album: value } ) }
-								placeholder={ __( 'Album name...', 'reactions-for-indieweb' ) }
+								placeholder={ __( 'Album name...', 'post-kinds-for-indieweb' ) }
 							/>
 
 							<RichText
@@ -248,7 +248,7 @@ export default function Edit( { attributes, setAttributes } ) {
 								className="reactions-card__notes"
 								value={ note }
 								onChange={ ( value ) => setAttributes( { note: value } ) }
-								placeholder={ __( 'Why are you jamming to this?', 'reactions-for-indieweb' ) }
+								placeholder={ __( 'Why are you jamming to this?', 'post-kinds-for-indieweb' ) }
 							/>
 						</div>
 					</div>

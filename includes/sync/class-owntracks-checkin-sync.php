@@ -5,11 +5,11 @@
  * Receives location updates from OwnTracks via HTTP webhook.
  * OwnTracks is a self-hosted, privacy-respecting location tracking app.
  *
- * @package Reactions_For_IndieWeb
+ * @package PostKindsForIndieWeb
  * @since 1.0.0
  */
 
-namespace ReactionsForIndieWeb\Sync;
+namespace PostKindsForIndieWeb\Sync;
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
@@ -53,7 +53,7 @@ class OwnTracks_Checkin_Sync extends Checkin_Sync_Base {
      */
     public function register_routes(): void {
         // OwnTracks webhook endpoint.
-        register_rest_route( 'reactions-indieweb/v1', '/owntracks', array(
+        register_rest_route( 'post-kinds-indieweb/v1', '/owntracks', array(
             'methods'             => 'POST',
             'callback'            => array( $this, 'handle_webhook' ),
             'permission_callback' => array( $this, 'verify_webhook_auth' ),
@@ -69,11 +69,11 @@ class OwnTracks_Checkin_Sync extends Checkin_Sync_Base {
      * @return bool|\WP_Error True if authenticated, error otherwise.
      */
     public function verify_webhook_auth( \WP_REST_Request $request ) {
-        $settings = get_option( 'reactions_indieweb_settings', array() );
+        $settings = get_option( 'post_kinds_indieweb_settings', array() );
 
         // Check if OwnTracks is enabled.
         if ( empty( $settings['owntracks_enabled'] ) ) {
-            return new \WP_Error( 'disabled', __( 'OwnTracks integration is disabled.', 'reactions-for-indieweb' ), array( 'status' => 403 ) );
+            return new \WP_Error( 'disabled', __( 'OwnTracks integration is disabled.', 'post-kinds-for-indieweb' ), array( 'status' => 403 ) );
         }
 
         $expected_username = $settings['owntracks_username'] ?? '';
@@ -87,7 +87,7 @@ class OwnTracks_Checkin_Sync extends Checkin_Sync_Base {
         // Check HTTP Basic auth.
         $auth_header = $request->get_header( 'Authorization' );
         if ( empty( $auth_header ) || 0 !== strpos( $auth_header, 'Basic ' ) ) {
-            return new \WP_Error( 'unauthorized', __( 'Authentication required.', 'reactions-for-indieweb' ), array( 'status' => 401 ) );
+            return new \WP_Error( 'unauthorized', __( 'Authentication required.', 'post-kinds-for-indieweb' ), array( 'status' => 401 ) );
         }
 
         // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
@@ -95,7 +95,7 @@ class OwnTracks_Checkin_Sync extends Checkin_Sync_Base {
         list( $username, $password ) = explode( ':', $credentials, 2 );
 
         if ( $username !== $expected_username || $password !== $expected_password ) {
-            return new \WP_Error( 'forbidden', __( 'Invalid credentials.', 'reactions-for-indieweb' ), array( 'status' => 403 ) );
+            return new \WP_Error( 'forbidden', __( 'Invalid credentials.', 'post-kinds-for-indieweb' ), array( 'status' => 403 ) );
         }
 
         return true;
@@ -111,7 +111,7 @@ class OwnTracks_Checkin_Sync extends Checkin_Sync_Base {
         $payload = $request->get_json_params();
 
         if ( empty( $payload ) ) {
-            return new \WP_Error( 'empty_payload', __( 'No data received.', 'reactions-for-indieweb' ), array( 'status' => 400 ) );
+            return new \WP_Error( 'empty_payload', __( 'No data received.', 'post-kinds-for-indieweb' ), array( 'status' => 400 ) );
         }
 
         $type = $payload['_type'] ?? '';
@@ -142,7 +142,7 @@ class OwnTracks_Checkin_Sync extends Checkin_Sync_Base {
      * @return \WP_REST_Response|\WP_Error Response.
      */
     private function handle_location_update( array $payload ) {
-        $settings = get_option( 'reactions_indieweb_settings', array() );
+        $settings = get_option( 'post_kinds_indieweb_settings', array() );
 
         // Check if auto-checkin is enabled.
         if ( empty( $settings['owntracks_auto_checkin'] ) ) {
@@ -181,7 +181,7 @@ class OwnTracks_Checkin_Sync extends Checkin_Sync_Base {
      * @return \WP_REST_Response Response.
      */
     private function handle_transition( array $payload ) {
-        $settings = get_option( 'reactions_indieweb_settings', array() );
+        $settings = get_option( 'post_kinds_indieweb_settings', array() );
 
         // Only create checkin on enter, not exit.
         $event = $payload['event'] ?? '';
@@ -221,7 +221,7 @@ class OwnTracks_Checkin_Sync extends Checkin_Sync_Base {
             'device'    => $payload['tid'] ?? '',
         );
 
-        update_option( 'reactions_indieweb_owntracks_last_location', $location );
+        update_option( 'post_kinds_indieweb_owntracks_last_location', $location );
     }
 
     /**
@@ -237,12 +237,12 @@ class OwnTracks_Checkin_Sync extends Checkin_Sync_Base {
         $poi = $payload['poi'] ?? '';
 
         if ( empty( $lat ) || empty( $lon ) ) {
-            return new \WP_Error( 'no_location', __( 'No location data.', 'reactions-for-indieweb' ), array( 'status' => 400 ) );
+            return new \WP_Error( 'no_location', __( 'No location data.', 'post-kinds-for-indieweb' ), array( 'status' => 400 ) );
         }
 
         // Check for recent duplicate.
         if ( $this->has_recent_checkin_at_location( $lat, $lon, $tst ) ) {
-            return new \WP_Error( 'duplicate', __( 'Recent checkin at this location exists.', 'reactions-for-indieweb' ), array( 'status' => 200 ) );
+            return new \WP_Error( 'duplicate', __( 'Recent checkin at this location exists.', 'post-kinds-for-indieweb' ), array( 'status' => 200 ) );
         }
 
         // Try to reverse geocode.
@@ -257,7 +257,7 @@ class OwnTracks_Checkin_Sync extends Checkin_Sync_Base {
             $title = sprintf( '%.4f, %.4f', $lat, $lon );
         }
 
-        $settings = get_option( 'reactions_indieweb_settings', array() );
+        $settings = get_option( 'post_kinds_indieweb_settings', array() );
         $post_status = $settings['owntracks_post_status'] ?? 'publish';
 
         $post_data = array(
@@ -271,45 +271,45 @@ class OwnTracks_Checkin_Sync extends Checkin_Sync_Base {
         $post_id = wp_insert_post( $post_data );
 
         if ( is_wp_error( $post_id ) || ! $post_id ) {
-            return $post_id ?: new \WP_Error( 'insert_failed', __( 'Failed to create post.', 'reactions-for-indieweb' ) );
+            return $post_id ?: new \WP_Error( 'insert_failed', __( 'Failed to create post.', 'post-kinds-for-indieweb' ) );
         }
 
         // Set post kind.
         wp_set_object_terms( $post_id, 'checkin', 'kind' );
 
         // Save meta.
-        update_post_meta( $post_id, '_reactions_kind', 'checkin' );
-        update_post_meta( $post_id, '_reactions_imported_from', 'owntracks' );
-        update_post_meta( $post_id, '_reactions_checkin_name', $poi ?: ( $address['name'] ?? '' ) );
-        update_post_meta( $post_id, '_reactions_geo_latitude', $lat );
-        update_post_meta( $post_id, '_reactions_geo_longitude', $lon );
+        update_post_meta( $post_id, '_postkind_kind', 'checkin' );
+        update_post_meta( $post_id, '_postkind_imported_from', 'owntracks' );
+        update_post_meta( $post_id, '_postkind_checkin_name', $poi ?: ( $address['name'] ?? '' ) );
+        update_post_meta( $post_id, '_postkind_geo_latitude', $lat );
+        update_post_meta( $post_id, '_postkind_geo_longitude', $lon );
 
         // Privacy - OwnTracks data should respect user settings.
         $privacy = $settings['checkin_default_privacy'] ?? 'approximate';
-        update_post_meta( $post_id, '_reactions_geo_privacy', $privacy );
+        update_post_meta( $post_id, '_postkind_geo_privacy', $privacy );
 
         // Address components.
         if ( ! empty( $address ) ) {
             if ( ! empty( $address['address']['road'] ) ) {
-                update_post_meta( $post_id, '_reactions_checkin_street', $address['address']['road'] );
+                update_post_meta( $post_id, '_postkind_checkin_street', $address['address']['road'] );
             }
             if ( ! empty( $address['address']['city'] ?? $address['address']['town'] ?? $address['address']['village'] ) ) {
-                update_post_meta( $post_id, '_reactions_checkin_locality', $address['address']['city'] ?? $address['address']['town'] ?? $address['address']['village'] );
+                update_post_meta( $post_id, '_postkind_checkin_locality', $address['address']['city'] ?? $address['address']['town'] ?? $address['address']['village'] );
             }
             if ( ! empty( $address['address']['state'] ) ) {
-                update_post_meta( $post_id, '_reactions_checkin_region', $address['address']['state'] );
+                update_post_meta( $post_id, '_postkind_checkin_region', $address['address']['state'] );
             }
             if ( ! empty( $address['address']['country'] ) ) {
-                update_post_meta( $post_id, '_reactions_checkin_country', $address['address']['country'] );
+                update_post_meta( $post_id, '_postkind_checkin_country', $address['address']['country'] );
             }
             if ( ! empty( $address['address']['postcode'] ) ) {
-                update_post_meta( $post_id, '_reactions_checkin_postal_code', $address['address']['postcode'] );
+                update_post_meta( $post_id, '_postkind_checkin_postal_code', $address['address']['postcode'] );
             }
         }
 
         // Device info.
         if ( ! empty( $payload['tid'] ) ) {
-            update_post_meta( $post_id, '_reactions_owntracks_device', $payload['tid'] );
+            update_post_meta( $post_id, '_postkind_owntracks_device', $payload['tid'] );
         }
 
         return $post_id;
@@ -336,7 +336,7 @@ class OwnTracks_Checkin_Sync extends Checkin_Sync_Base {
             return false;
         }
 
-        $settings = get_option( 'reactions_indieweb_settings', array() );
+        $settings = get_option( 'post_kinds_indieweb_settings', array() );
         $post_status = $settings['owntracks_post_status'] ?? 'publish';
 
         $post_data = array(
@@ -357,14 +357,14 @@ class OwnTracks_Checkin_Sync extends Checkin_Sync_Base {
         wp_set_object_terms( $post_id, 'checkin', 'kind' );
 
         // Save meta.
-        update_post_meta( $post_id, '_reactions_kind', 'checkin' );
-        update_post_meta( $post_id, '_reactions_imported_from', 'owntracks' );
-        update_post_meta( $post_id, '_reactions_checkin_name', $desc );
-        update_post_meta( $post_id, '_reactions_geo_latitude', $lat );
-        update_post_meta( $post_id, '_reactions_geo_longitude', $lon );
+        update_post_meta( $post_id, '_postkind_kind', 'checkin' );
+        update_post_meta( $post_id, '_postkind_imported_from', 'owntracks' );
+        update_post_meta( $post_id, '_postkind_checkin_name', $desc );
+        update_post_meta( $post_id, '_postkind_geo_latitude', $lat );
+        update_post_meta( $post_id, '_postkind_geo_longitude', $lon );
 
         $privacy = $settings['checkin_default_privacy'] ?? 'approximate';
-        update_post_meta( $post_id, '_reactions_geo_privacy', $privacy );
+        update_post_meta( $post_id, '_postkind_geo_privacy', $privacy );
 
         return $post_id;
     }
@@ -392,18 +392,18 @@ class OwnTracks_Checkin_Sync extends Checkin_Sync_Base {
             'meta_query'     => array(
                 'relation' => 'AND',
                 array(
-                    'key'     => '_reactions_kind',
+                    'key'     => '_postkind_kind',
                     'value'   => 'checkin',
                     'compare' => '=',
                 ),
                 array(
-                    'key'     => '_reactions_geo_latitude',
+                    'key'     => '_postkind_geo_latitude',
                     'value'   => array( $lat - 0.001, $lat + 0.001 ),
                     'type'    => 'DECIMAL(10,6)',
                     'compare' => 'BETWEEN',
                 ),
                 array(
-                    'key'     => '_reactions_geo_longitude',
+                    'key'     => '_postkind_geo_longitude',
                     'value'   => array( $lon - 0.001, $lon + 0.001 ),
                     'type'    => 'DECIMAL(10,6)',
                     'compare' => 'BETWEEN',
@@ -424,8 +424,8 @@ class OwnTracks_Checkin_Sync extends Checkin_Sync_Base {
      * @return array<string, mixed> Address data.
      */
     private function reverse_geocode( float $lat, float $lon ): array {
-        $settings = get_option( 'reactions_indieweb_settings', array() );
-        $credentials = get_option( 'reactions_indieweb_api_credentials', array() );
+        $settings = get_option( 'post_kinds_indieweb_settings', array() );
+        $credentials = get_option( 'post_kinds_indieweb_api_credentials', array() );
 
         $email = $credentials['nominatim']['email'] ?? $settings['admin_email'] ?? get_option( 'admin_email' );
 
@@ -438,7 +438,7 @@ class OwnTracks_Checkin_Sync extends Checkin_Sync_Base {
         ), 'https://nominatim.openstreetmap.org/reverse' ), array(
             'timeout' => 10,
             'headers' => array(
-                'User-Agent' => 'Reactions for IndieWeb WordPress Plugin',
+                'User-Agent' => 'Post Kinds for IndieWeb WordPress Plugin',
             ),
         ) );
 
@@ -457,7 +457,7 @@ class OwnTracks_Checkin_Sync extends Checkin_Sync_Base {
      * @return bool True if enabled.
      */
     public function is_connected(): bool {
-        $settings = get_option( 'reactions_indieweb_settings', array() );
+        $settings = get_option( 'post_kinds_indieweb_settings', array() );
         return ! empty( $settings['owntracks_enabled'] );
     }
 
@@ -527,6 +527,6 @@ class OwnTracks_Checkin_Sync extends Checkin_Sync_Base {
      * @return string Webhook URL.
      */
     public function get_webhook_url(): string {
-        return rest_url( 'reactions-indieweb/v1/owntracks' );
+        return rest_url( 'post-kinds-indieweb/v1/owntracks' );
     }
 }

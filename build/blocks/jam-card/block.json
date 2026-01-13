@@ -1,10 +1,10 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
-  "name": "reactions-indieweb/jam-card",
+  "name": "post-kinds-indieweb/jam-card",
   "version": "1.0.0",
   "title": "Jam Card",
-  "category": "reactions-indieweb",
+  "category": "post-kinds-indieweb",
   "description": "Display a song you're jamming to with cover art and artist.",
   "keywords": [
     "jam",
@@ -12,7 +12,7 @@
     "song",
     "currently playing"
   ],
-  "textdomain": "reactions-indieweb",
+  "textdomain": "post-kinds-indieweb",
   "attributes": {
     "title": {
       "type": "string",

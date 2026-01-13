@@ -1,5 +1,5 @@
 /**
- * Reactions for IndieWeb - Kind Icons
+ * Post Kinds for IndieWeb - Kind Icons
  *
  * SVG icons for each post kind type.
  *

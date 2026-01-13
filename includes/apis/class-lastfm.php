@@ -4,13 +4,13 @@
  *
  * Provides scrobble import and music metadata from Last.fm.
  *
- * @package ReactionsForIndieWeb
+ * @package PostKindsForIndieWeb
  * @since   1.0.0
  */
 
 declare(strict_types=1);
 
-namespace ReactionsForIndieWeb\APIs;
+namespace PostKindsForIndieWeb\APIs;
 
 // Prevent direct access.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -78,7 +78,7 @@ class LastFM extends API_Base {
 	 */
 	public function __construct() {
 		parent::__construct();
-		$credentials       = get_option( 'reactions_indieweb_api_credentials', array() );
+		$credentials       = get_option( 'post_kinds_indieweb_api_credentials', array() );
 		$lastfm_creds      = $credentials['lastfm'] ?? array();
 		$this->api_key     = $lastfm_creds['api_key'] ?? '';
 		$this->api_secret  = $lastfm_creds['api_secret'] ?? '';

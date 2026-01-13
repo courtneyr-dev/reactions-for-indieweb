@@ -172,4 +172,4 @@ For security-related questions that aren't vulnerabilities, you can:
 
 ---
 
-Thank you for helping keep Reactions for IndieWeb secure!
+Thank you for helping keep Post Kinds for IndieWeb secure!

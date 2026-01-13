@@ -1,10 +1,10 @@
 /**
- * Reactions for IndieWeb - Editor Entry Point
+ * Post Kinds for IndieWeb - Editor Entry Point
  *
  * Initializes the editor-side functionality including the Kind Selector
  * sidebar panel and post kinds data store.
  *
- * @package ReactionsForIndieWeb
+ * @package PostKindsForIndieWeb
  * @since   1.0.0
  */
 
@@ -25,7 +25,7 @@ import KindSelectorPanel from './kind-selector';
 register( postKindsStore );
 
 // Register the plugin sidebar panel.
-registerPlugin( 'reactions-indieweb-kind-selector', {
+registerPlugin( 'post-kinds-indieweb-kind-selector', {
 	render: KindSelectorPanel,
 	icon: null, // Icon is rendered in the panel itself.
 } );
@@ -37,14 +37,14 @@ registerPlugin( 'reactions-indieweb-kind-selector', {
  * This allows integration with plugins like Post Formats for Block Themes.
  *
  * Usage by other plugins:
- *   window.dispatchEvent( new CustomEvent( 'reactions-indieweb-set-kind', {
+ *   window.dispatchEvent( new CustomEvent( 'post-kinds-indieweb-set-kind', {
  *       detail: { kind: 'listen' }
  *   } ) );
  *
  * Valid kind slugs: note, article, reply, like, repost, bookmark, rsvp,
  *                   checkin, listen, watch, read, event, photo, video, review
  */
-window.addEventListener( 'reactions-indieweb-set-kind', ( event ) => {
+window.addEventListener( 'post-kinds-indieweb-set-kind', ( event ) => {
 	const { kind } = event.detail || {};
 
 	if ( kind && select( STORE_NAME ) ) {

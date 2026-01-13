@@ -31,11 +31,43 @@ import { StarRating, MediaSearch } from '../shared/components';
  * Status options for games.
  */
 const STATUS_OPTIONS = [
-	{ label: __( 'Playing', 'reactions-for-indieweb' ), value: 'playing', emoji: '🎮' },
-	{ label: __( 'Completed', 'reactions-for-indieweb' ), value: 'completed', emoji: '✅' },
-	{ label: __( 'Abandoned', 'reactions-for-indieweb' ), value: 'abandoned', emoji: '⏸️' },
-	{ label: __( 'Backlog', 'reactions-for-indieweb' ), value: 'backlog', emoji: '📋' },
-	{ label: __( 'Wishlist', 'reactions-for-indieweb' ), value: 'wishlist', emoji: '⭐' },
+	{ label: __( 'Playing', 'post-kinds-for-indieweb' ), value: 'playing', emoji: '🎮' },
+	{ label: __( 'Completed', 'post-kinds-for-indieweb' ), value: 'completed', emoji: '✅' },
+	{ label: __( 'Abandoned', 'post-kinds-for-indieweb' ), value: 'abandoned', emoji: '⏸️' },
+	{ label: __( 'Backlog', 'post-kinds-for-indieweb' ), value: 'backlog', emoji: '📋' },
+	{ label: __( 'Wishlist', 'post-kinds-for-indieweb' ), value: 'wishlist', emoji: '⭐' },
+];
+
+/**
+ * Platform options for games.
+ */
+const PLATFORM_OPTIONS = [
+	// Video Game Consoles
+	{ label: '— Video Games —', value: '', disabled: true },
+	{ label: 'PlayStation 5', value: 'PlayStation 5' },
+	{ label: 'PlayStation 4', value: 'PlayStation 4' },
+	{ label: 'Xbox Series X/S', value: 'Xbox Series X/S' },
+	{ label: 'Xbox One', value: 'Xbox One' },
+	{ label: 'Nintendo Switch', value: 'Nintendo Switch' },
+	{ label: 'Nintendo 3DS', value: 'Nintendo 3DS' },
+	{ label: 'Steam Deck', value: 'Steam Deck' },
+	// PC/Mobile
+	{ label: '— Computer/Mobile —', value: '', disabled: true },
+	{ label: 'Windows', value: 'Windows' },
+	{ label: 'Mac', value: 'Mac' },
+	{ label: 'Linux', value: 'Linux' },
+	{ label: 'iOS', value: 'iOS' },
+	{ label: 'Android', value: 'Android' },
+	// Board/Tabletop
+	{ label: '— Tabletop —', value: '', disabled: true },
+	{ label: 'Board Game', value: 'Board Game' },
+	{ label: 'Card Game', value: 'Card Game' },
+	{ label: 'Tabletop RPG', value: 'Tabletop RPG' },
+	{ label: 'Miniatures', value: 'Miniatures' },
+	{ label: 'Dice Game', value: 'Dice Game' },
+	// Other
+	{ label: '— Other —', value: '', disabled: true },
+	{ label: 'Other (type below)', value: 'other' },
 ];
 
 function getStatusInfo( status ) {
@@ -56,12 +88,15 @@ export default function Edit( { attributes, setAttributes } ) {
 		bggId,
 		rawgId,
 		steamId,
-		developer,
-		publisher,
-		releaseYear,
+		officialUrl,
+		purchaseUrl,
 	} = attributes;
 
 	const [ isSearching, setIsSearching ] = useState( false );
+	const [ showCustomPlatform, setShowCustomPlatform ] = useState( false );
+
+	// Check if current platform is a predefined option
+	const isPredefinedPlatform = PLATFORM_OPTIONS.some( opt => opt.value === platform && opt.value !== 'other' && opt.value !== '' );
 
 	const blockProps = useBlockProps( {
 		className: 'play-card-block',
@@ -107,15 +142,17 @@ export default function Edit( { attributes, setAttributes } ) {
 		const updates = {};
 
 		// Check each field - sync if meta differs from attribute
-		const metaTitle = postMeta._reactions_play_title ?? '';
-		const metaPlatform = postMeta._reactions_play_platform ?? '';
-		const metaCover = postMeta._reactions_play_cover ?? '';
-		const metaStatus = postMeta._reactions_play_status ?? '';
-		const metaHours = postMeta._reactions_play_hours ?? 0;
-		const metaRating = postMeta._reactions_play_rating ?? 0;
-		const metaBggId = postMeta._reactions_play_bgg_id ?? '';
-		const metaRawgId = postMeta._reactions_play_rawg_id ?? '';
-		const metaSteamId = postMeta._reactions_play_steam_id ?? '';
+		const metaTitle = postMeta._postkind_play_title ?? '';
+		const metaPlatform = postMeta._postkind_play_platform ?? '';
+		const metaCover = postMeta._postkind_play_cover ?? '';
+		const metaStatus = postMeta._postkind_play_status ?? '';
+		const metaHours = postMeta._postkind_play_hours ?? 0;
+		const metaRating = postMeta._postkind_play_rating ?? 0;
+		const metaBggId = postMeta._postkind_play_bgg_id ?? '';
+		const metaRawgId = postMeta._postkind_play_rawg_id ?? '';
+		const metaSteamId = postMeta._postkind_play_steam_id ?? '';
+		const metaOfficialUrl = postMeta._postkind_play_official_url ?? '';
+		const metaPurchaseUrl = postMeta._postkind_play_purchase_url ?? '';
 
 		if ( metaTitle !== ( title || '' ) ) updates.title = metaTitle;
 		if ( metaPlatform !== ( platform || '' ) ) updates.platform = metaPlatform;
@@ -126,20 +163,24 @@ export default function Edit( { attributes, setAttributes } ) {
 		if ( metaBggId !== ( bggId || '' ) ) updates.bggId = metaBggId;
 		if ( metaRawgId !== ( rawgId || '' ) ) updates.rawgId = metaRawgId;
 		if ( metaSteamId !== ( steamId || '' ) ) updates.steamId = metaSteamId;
+		if ( metaOfficialUrl !== ( officialUrl || '' ) ) updates.officialUrl = metaOfficialUrl;
+		if ( metaPurchaseUrl !== ( purchaseUrl || '' ) ) updates.purchaseUrl = metaPurchaseUrl;
 
 		if ( Object.keys( updates ).length > 0 ) {
 			setAttributes( updates );
 		}
 	}, [
-		postMeta._reactions_play_title,
-		postMeta._reactions_play_platform,
-		postMeta._reactions_play_cover,
-		postMeta._reactions_play_status,
-		postMeta._reactions_play_hours,
-		postMeta._reactions_play_rating,
-		postMeta._reactions_play_bgg_id,
-		postMeta._reactions_play_rawg_id,
-		postMeta._reactions_play_steam_id,
+		postMeta._postkind_play_title,
+		postMeta._postkind_play_platform,
+		postMeta._postkind_play_cover,
+		postMeta._postkind_play_status,
+		postMeta._postkind_play_hours,
+		postMeta._postkind_play_rating,
+		postMeta._postkind_play_bgg_id,
+		postMeta._postkind_play_rawg_id,
+		postMeta._postkind_play_steam_id,
+		postMeta._postkind_play_official_url,
+		postMeta._postkind_play_purchase_url,
 	] );
 
 	// Sync FROM block attributes TO post meta when attributes change
@@ -148,59 +189,51 @@ export default function Edit( { attributes, setAttributes } ) {
 		const metaUpdates = {};
 
 		// Only update if attribute differs from current meta
-		if ( ( title || '' ) !== ( postMeta._reactions_play_title ?? '' ) ) {
-			metaUpdates._reactions_play_title = title || '';
+		if ( ( title || '' ) !== ( postMeta._postkind_play_title ?? '' ) ) {
+			metaUpdates._postkind_play_title = title || '';
 		}
-		if ( ( platform || '' ) !== ( postMeta._reactions_play_platform ?? '' ) ) {
-			metaUpdates._reactions_play_platform = platform || '';
+		if ( ( platform || '' ) !== ( postMeta._postkind_play_platform ?? '' ) ) {
+			metaUpdates._postkind_play_platform = platform || '';
 		}
-		if ( ( cover || '' ) !== ( postMeta._reactions_play_cover ?? '' ) ) {
-			metaUpdates._reactions_play_cover = cover || '';
+		if ( ( cover || '' ) !== ( postMeta._postkind_play_cover ?? '' ) ) {
+			metaUpdates._postkind_play_cover = cover || '';
 		}
-		if ( ( status || '' ) !== ( postMeta._reactions_play_status ?? '' ) ) {
-			metaUpdates._reactions_play_status = status || '';
+		if ( ( status || '' ) !== ( postMeta._postkind_play_status ?? '' ) ) {
+			metaUpdates._postkind_play_status = status || '';
 		}
-		if ( ( hoursPlayed || 0 ) !== ( postMeta._reactions_play_hours ?? 0 ) ) {
-			metaUpdates._reactions_play_hours = hoursPlayed || 0;
+		if ( ( hoursPlayed || 0 ) !== ( postMeta._postkind_play_hours ?? 0 ) ) {
+			metaUpdates._postkind_play_hours = hoursPlayed || 0;
 		}
-		if ( ( rating || 0 ) !== ( postMeta._reactions_play_rating ?? 0 ) ) {
-			metaUpdates._reactions_play_rating = rating || 0;
+		if ( ( rating || 0 ) !== ( postMeta._postkind_play_rating ?? 0 ) ) {
+			metaUpdates._postkind_play_rating = rating || 0;
 		}
-		if ( ( bggId || '' ) !== ( postMeta._reactions_play_bgg_id ?? '' ) ) {
-			metaUpdates._reactions_play_bgg_id = bggId || '';
+		if ( ( bggId || '' ) !== ( postMeta._postkind_play_bgg_id ?? '' ) ) {
+			metaUpdates._postkind_play_bgg_id = bggId || '';
 		}
-		if ( ( rawgId || '' ) !== ( postMeta._reactions_play_rawg_id ?? '' ) ) {
-			metaUpdates._reactions_play_rawg_id = rawgId || '';
+		if ( ( rawgId || '' ) !== ( postMeta._postkind_play_rawg_id ?? '' ) ) {
+			metaUpdates._postkind_play_rawg_id = rawgId || '';
 		}
-		if ( ( steamId || '' ) !== ( postMeta._reactions_play_steam_id ?? '' ) ) {
-			metaUpdates._reactions_play_steam_id = steamId || '';
+		if ( ( steamId || '' ) !== ( postMeta._postkind_play_steam_id ?? '' ) ) {
+			metaUpdates._postkind_play_steam_id = steamId || '';
+		}
+		if ( ( officialUrl || '' ) !== ( postMeta._postkind_play_official_url ?? '' ) ) {
+			metaUpdates._postkind_play_official_url = officialUrl || '';
+		}
+		if ( ( purchaseUrl || '' ) !== ( postMeta._postkind_play_purchase_url ?? '' ) ) {
+			metaUpdates._postkind_play_purchase_url = purchaseUrl || '';
 		}
 
 		if ( Object.keys( metaUpdates ).length > 0 ) {
 			editPost( { meta: metaUpdates } );
 		}
-	}, [ title, platform, cover, status, hoursPlayed, rating, bggId, rawgId, steamId ] );
+	}, [ title, platform, cover, status, hoursPlayed, rating, bggId, rawgId, steamId, officialUrl, purchaseUrl ] );
 
 	const handleSearchSelect = ( item ) => {
-		// BGG uses 'designers', RAWG uses 'developers'
-		const devName = item.designers
-			? ( Array.isArray( item.designers ) ? item.designers.join( ', ' ) : item.designers )
-			: ( item.developers
-				? ( Array.isArray( item.developers ) ? item.developers.join( ', ' ) : item.developers )
-				: '' );
-
-		const pubName = item.publishers
-			? ( Array.isArray( item.publishers ) ? item.publishers.join( ', ' ) : item.publishers )
-			: '';
-
 		setAttributes( {
 			title: item.title || item.name || '',
 			cover: item.cover || item.image || item.thumbnail || item.background_image || '',
 			coverAlt: item.title || item.name || '',
 			platform: item.platforms ? ( Array.isArray( item.platforms ) ? item.platforms[ 0 ] : item.platforms ) : '',
-			developer: devName,
-			publisher: pubName,
-			releaseYear: item.year || item.released?.substring( 0, 4 ) || '',
 			gameUrl: item.url || '',
 			bggId: item.source === 'bgg' ? String( item.id ) : '',
 			rawgId: item.source === 'rawg' ? String( item.id ) : '',
@@ -211,7 +244,7 @@ export default function Edit( { attributes, setAttributes } ) {
 	const handleImageSelect = ( media ) => {
 		setAttributes( {
 			cover: media.url,
-			coverAlt: media.alt || title || __( 'Game cover', 'reactions-for-indieweb' ),
+			coverAlt: media.alt || title || __( 'Game cover', 'post-kinds-for-indieweb' ),
 		} );
 	};
 
@@ -231,86 +264,103 @@ export default function Edit( { attributes, setAttributes } ) {
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Find Game', 'reactions-for-indieweb' ) } initialOpen={ ! title }>
+				<PanelBody title={ __( 'Find Game', 'post-kinds-for-indieweb' ) } initialOpen={ ! title }>
 					<p className="components-base-control__help" style={ { marginBottom: '12px' } }>
-						{ __( 'Search for your game on these sites, then paste the URL below:', 'reactions-for-indieweb' ) }
+						{ __( 'Search for your game on these sites, then paste the URL below:', 'post-kinds-for-indieweb' ) }
 					</p>
 					<div style={ { display: 'flex', gap: '8px', marginBottom: '12px' } }>
 						<ExternalLink
 							href={ `https://boardgamegeek.com/geeksearch.php?action=search&objecttype=boardgame&q=${ encodeURIComponent( title || '' ) }` }
 							style={ { display: 'inline-flex', alignItems: 'center', gap: '4px' } }
 						>
-							{ __( 'BoardGameGeek', 'reactions-for-indieweb' ) }
+							{ __( 'BoardGameGeek', 'post-kinds-for-indieweb' ) }
 						</ExternalLink>
 						<ExternalLink
 							href={ `https://videogamegeek.com/geeksearch.php?action=search&objecttype=videogame&q=${ encodeURIComponent( title || '' ) }` }
 							style={ { display: 'inline-flex', alignItems: 'center', gap: '4px' } }
 						>
-							{ __( 'VideoGameGeek', 'reactions-for-indieweb' ) }
+							{ __( 'VideoGameGeek', 'post-kinds-for-indieweb' ) }
 						</ExternalLink>
 					</div>
 					<TextControl
-						label={ __( 'Paste BGG/VGG URL', 'reactions-for-indieweb' ) }
+						label={ __( 'Paste BGG/VGG URL', 'post-kinds-for-indieweb' ) }
 						value={ gameUrl || '' }
 						onChange={ ( value ) => {
 							setAttributes( { gameUrl: value } );
-							// Extract BGG ID from URL patterns like:
+							// Extract BGG ID and title from URL patterns like:
 							// https://boardgamegeek.com/boardgame/13/catan
+							// https://boardgamegeek.com/boardgameexpansion/461932/wingspan-americas-expansion
 							// https://videogamegeek.com/videogame/12345/game-name
-							const bggMatch = value.match( /(?:boardgamegeek|videogamegeek)\.com\/(?:boardgame|videogame|thing)\/(\d+)/ );
+							const bggMatch = value.match( /(?:boardgamegeek|videogamegeek)\.com\/(?:boardgame|boardgameexpansion|videogame|videogameexpansion|rpgitem|thing)\/(\d+)(?:\/([^/?#]+))?/ );
 							if ( bggMatch ) {
-								setAttributes( { bggId: bggMatch[ 1 ] } );
+								const updates = { bggId: bggMatch[ 1 ] };
+								// Extract title from URL slug if present
+								if ( bggMatch[ 2 ] ) {
+									// Convert slug to title: "wingspan-americas-expansion" -> "Wingspan Americas Expansion"
+									const titleFromSlug = bggMatch[ 2 ]
+										.split( '-' )
+										.map( word => word.charAt( 0 ).toUpperCase() + word.slice( 1 ) )
+										.join( ' ' );
+									updates.title = titleFromSlug;
+								}
+								setAttributes( updates );
 							}
 						} }
 						placeholder="https://boardgamegeek.com/boardgame/13/catan"
-						help={ __( 'The game ID will be extracted automatically.', 'reactions-for-indieweb' ) }
+						help={ __( 'The game ID will be extracted automatically.', 'post-kinds-for-indieweb' ) }
 					/>
 					{ bggId && (
 						<p style={ { marginTop: '4px', color: 'var(--wp-components-color-accent, #007cba)' } }>
-							{ __( 'BGG ID:', 'reactions-for-indieweb' ) } { bggId }
+							{ __( 'BGG ID:', 'post-kinds-for-indieweb' ) } { bggId }
 						</p>
 					) }
 					<hr style={ { margin: '16px 0' } } />
 					<p className="components-base-control__help" style={ { marginBottom: '8px' } }>
-						{ __( 'Or search directly (requires API token):', 'reactions-for-indieweb' ) }
+						{ __( 'Or search directly (requires API token):', 'post-kinds-for-indieweb' ) }
 					</p>
 					<MediaSearch
 						type="game"
-						placeholder={ __( 'Search BoardGameGeek...', 'reactions-for-indieweb' ) }
+						placeholder={ __( 'Search BoardGameGeek...', 'post-kinds-for-indieweb' ) }
 						onSelect={ handleSearchSelect }
 					/>
 				</PanelBody>
-				<PanelBody title={ __( 'Game Details', 'reactions-for-indieweb' ) } initialOpen={ true }>
+				<PanelBody title={ __( 'Game Details', 'post-kinds-for-indieweb' ) } initialOpen={ true }>
 					<TextControl
-						label={ __( 'Title', 'reactions-for-indieweb' ) }
+						label={ __( 'Title', 'post-kinds-for-indieweb' ) }
 						value={ title || '' }
 						onChange={ ( value ) => setAttributes( { title: value } ) }
-						placeholder={ __( 'Game title', 'reactions-for-indieweb' ) }
+						placeholder={ __( 'Game title', 'post-kinds-for-indieweb' ) }
 					/>
 					<SelectControl
-						label={ __( 'Status', 'reactions-for-indieweb' ) }
+						label={ __( 'Status', 'post-kinds-for-indieweb' ) }
 						value={ status || 'playing' }
 						options={ statusOptions }
 						onChange={ ( value ) => setAttributes( { status: value } ) }
 					/>
-					<TextControl
-						label={ __( 'Platform', 'reactions-for-indieweb' ) }
-						value={ platform || '' }
-						onChange={ ( value ) => setAttributes( { platform: value } ) }
-						placeholder={ __( 'PC, Switch, PS5...', 'reactions-for-indieweb' ) }
+					<SelectControl
+						label={ __( 'Platform', 'post-kinds-for-indieweb' ) }
+						value={ isPredefinedPlatform ? platform : ( platform ? 'other' : '' ) }
+						options={ PLATFORM_OPTIONS }
+						onChange={ ( value ) => {
+							if ( value === 'other' ) {
+								setShowCustomPlatform( true );
+								setAttributes( { platform: '' } );
+							} else {
+								setShowCustomPlatform( false );
+								setAttributes( { platform: value } );
+							}
+						} }
 					/>
-					<TextControl
-						label={ __( 'Developer', 'reactions-for-indieweb' ) }
-						value={ developer || '' }
-						onChange={ ( value ) => setAttributes( { developer: value } ) }
-					/>
-					<TextControl
-						label={ __( 'Release Year', 'reactions-for-indieweb' ) }
-						value={ releaseYear || '' }
-						onChange={ ( value ) => setAttributes( { releaseYear: value } ) }
-					/>
+					{ ( showCustomPlatform || ( platform && ! isPredefinedPlatform ) ) && (
+						<TextControl
+							label={ __( 'Custom Platform', 'post-kinds-for-indieweb' ) }
+							value={ platform || '' }
+							onChange={ ( value ) => setAttributes( { platform: value } ) }
+							placeholder={ __( 'Enter platform name...', 'post-kinds-for-indieweb' ) }
+						/>
+					) }
 					<RangeControl
-						label={ __( 'Hours Played', 'reactions-for-indieweb' ) }
+						label={ __( 'Hours Played', 'post-kinds-for-indieweb' ) }
 						value={ hoursPlayed || 0 }
 						onChange={ ( value ) => setAttributes( { hoursPlayed: value } ) }
 						min={ 0 }
@@ -318,7 +368,7 @@ export default function Edit( { attributes, setAttributes } ) {
 						step={ 0.5 }
 					/>
 					<RangeControl
-						label={ __( 'Rating', 'reactions-for-indieweb' ) }
+						label={ __( 'Rating', 'post-kinds-for-indieweb' ) }
 						value={ rating || 0 }
 						onChange={ ( value ) => setAttributes( { rating: value } ) }
 						min={ 0 }
@@ -326,35 +376,45 @@ export default function Edit( { attributes, setAttributes } ) {
 						step={ 1 }
 					/>
 				</PanelBody>
-				<PanelBody title={ __( 'Links & IDs', 'reactions-for-indieweb' ) } initialOpen={ false }>
+				<PanelBody title={ __( 'Links', 'post-kinds-for-indieweb' ) } initialOpen={ false }>
 					<TextControl
-						label={ __( 'Game URL', 'reactions-for-indieweb' ) }
+						label={ __( 'Official Website', 'post-kinds-for-indieweb' ) }
+						value={ officialUrl || '' }
+						onChange={ ( value ) => setAttributes( { officialUrl: value } ) }
+						type="url"
+						placeholder="https://..."
+						help={ __( 'Link to the official game website.', 'post-kinds-for-indieweb' ) }
+					/>
+					<TextControl
+						label={ __( 'Purchase Link', 'post-kinds-for-indieweb' ) }
+						value={ purchaseUrl || '' }
+						onChange={ ( value ) => setAttributes( { purchaseUrl: value } ) }
+						type="url"
+						placeholder="https://amazon.com/..."
+						help={ __( 'Link to buy the game (Amazon, Target, etc).', 'post-kinds-for-indieweb' ) }
+					/>
+					<hr style={ { margin: '16px 0' } } />
+					<p className="components-base-control__help" style={ { marginBottom: '8px' } }>
+						{ __( 'Database IDs (auto-filled from BGG URL):', 'post-kinds-for-indieweb' ) }
+					</p>
+					<TextControl
+						label={ __( 'BGG/VGG URL', 'post-kinds-for-indieweb' ) }
 						value={ gameUrl || '' }
 						onChange={ ( value ) => setAttributes( { gameUrl: value } ) }
 						type="url"
 					/>
 					<TextControl
-						label={ __( 'BoardGameGeek ID', 'reactions-for-indieweb' ) }
+						label={ __( 'BoardGameGeek ID', 'post-kinds-for-indieweb' ) }
 						value={ bggId || '' }
 						onChange={ ( value ) => setAttributes( { bggId: value } ) }
 					/>
-					<TextControl
-						label={ __( 'RAWG ID', 'reactions-for-indieweb' ) }
-						value={ rawgId || '' }
-						onChange={ ( value ) => setAttributes( { rawgId: value } ) }
-					/>
-					<TextControl
-						label={ __( 'Steam App ID', 'reactions-for-indieweb' ) }
-						value={ steamId || '' }
-						onChange={ ( value ) => setAttributes( { steamId: value } ) }
-					/>
 				</PanelBody>
-				<PanelBody title={ __( 'Review', 'reactions-for-indieweb' ) } initialOpen={ false }>
+				<PanelBody title={ __( 'Review', 'post-kinds-for-indieweb' ) } initialOpen={ false }>
 					<TextControl
-						label={ __( 'Review', 'reactions-for-indieweb' ) }
+						label={ __( 'Review', 'post-kinds-for-indieweb' ) }
 						value={ review || '' }
 						onChange={ ( value ) => setAttributes( { review: value } ) }
-						placeholder={ __( 'Your thoughts...', 'reactions-for-indieweb' ) }
+						placeholder={ __( 'Your thoughts...', 'post-kinds-for-indieweb' ) }
 					/>
 				</PanelBody>
 			</InspectorControls>
@@ -366,7 +426,7 @@ export default function Edit( { attributes, setAttributes } ) {
 						<div className="reactions-card__search-bar">
 							<MediaSearch
 								type="game"
-								placeholder={ __( 'Search for a game...', 'reactions-for-indieweb' ) }
+								placeholder={ __( 'Search for a game...', 'post-kinds-for-indieweb' ) }
 								onSelect={ handleSearchSelect }
 							/>
 							<button
@@ -399,7 +459,7 @@ export default function Edit( { attributes, setAttributes } ) {
 														type="button"
 														className="reactions-card__media-remove"
 														onClick={ handleImageRemove }
-														aria-label={ __( 'Remove cover', 'reactions-for-indieweb' ) }
+														aria-label={ __( 'Remove cover', 'post-kinds-for-indieweb' ) }
 													>
 														×
 													</button>
@@ -407,7 +467,7 @@ export default function Edit( { attributes, setAttributes } ) {
 											) : (
 												<div className="reactions-card__media-placeholder">
 													<span className="reactions-card__media-icon">🎮</span>
-													<span className="reactions-card__media-text">{ __( 'Add Cover', 'reactions-for-indieweb' ) }</span>
+													<span className="reactions-card__media-text">{ __( 'Add Cover', 'post-kinds-for-indieweb' ) }</span>
 												</div>
 											) }
 										</button>
@@ -435,7 +495,7 @@ export default function Edit( { attributes, setAttributes } ) {
 									type="button"
 									className="reactions-card__action-button"
 									onClick={ () => setIsSearching( true ) }
-									title={ __( 'Search for game', 'reactions-for-indieweb' ) }
+									title={ __( 'Search for game', 'post-kinds-for-indieweb' ) }
 								>
 									🔍
 								</button>
@@ -446,16 +506,9 @@ export default function Edit( { attributes, setAttributes } ) {
 								className="reactions-card__title"
 								value={ title }
 								onChange={ ( value ) => setAttributes( { title: value } ) }
-								placeholder={ __( 'Game title...', 'reactions-for-indieweb' ) }
+								placeholder={ __( 'Game title...', 'post-kinds-for-indieweb' ) }
 							/>
 
-							<RichText
-								tagName="p"
-								className="reactions-card__subtitle"
-								value={ developer }
-								onChange={ ( value ) => setAttributes( { developer: value } ) }
-								placeholder={ __( 'Developer', 'reactions-for-indieweb' ) }
-							/>
 
 							<div className="reactions-card__input-row">
 								<span className="reactions-card__input-icon">🎮</span>
@@ -464,7 +517,7 @@ export default function Edit( { attributes, setAttributes } ) {
 									className="reactions-card__input"
 									value={ platform || '' }
 									onChange={ ( e ) => setAttributes( { platform: e.target.value } ) }
-									placeholder={ __( 'Platform (PC, Switch...)', 'reactions-for-indieweb' ) }
+									placeholder={ __( 'Platform (PC, Switch...)', 'post-kinds-for-indieweb' ) }
 								/>
 							</div>
 
@@ -480,7 +533,7 @@ export default function Edit( { attributes, setAttributes } ) {
 									step="0.5"
 									style={ { maxWidth: '80px' } }
 								/>
-								<span>{ __( 'hours', 'reactions-for-indieweb' ) }</span>
+								<span>{ __( 'hours', 'post-kinds-for-indieweb' ) }</span>
 							</div>
 
 							<div className="reactions-card__rating">
@@ -496,8 +549,67 @@ export default function Edit( { attributes, setAttributes } ) {
 								className="reactions-card__notes"
 								value={ review }
 								onChange={ ( value ) => setAttributes( { review: value } ) }
-								placeholder={ __( 'Your thoughts...', 'reactions-for-indieweb' ) }
+								placeholder={ __( 'Your thoughts...', 'post-kinds-for-indieweb' ) }
 							/>
+
+							{ /* Links */ }
+							<div className="reactions-card__links">
+								{ gameUrl && (
+									<a
+										href={ gameUrl }
+										className="reactions-card__link"
+										target="_blank"
+										rel="noopener noreferrer"
+										onClick={ ( e ) => e.preventDefault() }
+									>
+										{ __( 'View on BGG', 'post-kinds-for-indieweb' ) }
+									</a>
+								) }
+								{ officialUrl && (
+									<a
+										href={ officialUrl }
+										className="reactions-card__link"
+										target="_blank"
+										rel="noopener noreferrer"
+										onClick={ ( e ) => e.preventDefault() }
+									>
+										{ __( 'Official Site', 'post-kinds-for-indieweb' ) }
+									</a>
+								) }
+								{ purchaseUrl && (
+									<a
+										href={ purchaseUrl }
+										className="reactions-card__link reactions-card__link--buy"
+										target="_blank"
+										rel="noopener noreferrer"
+										onClick={ ( e ) => e.preventDefault() }
+									>
+										{ __( 'Buy', 'post-kinds-for-indieweb' ) }
+									</a>
+								) }
+							</div>
+
+							{ /* Input fields for links when none are set */ }
+							{ ! gameUrl && ! officialUrl && ! purchaseUrl && (
+								<div className="reactions-card__input-row" style={ { flexWrap: 'wrap', gap: '8px' } }>
+									<input
+										type="url"
+										className="reactions-card__input reactions-card__input--url"
+										value={ officialUrl || '' }
+										onChange={ ( e ) => setAttributes( { officialUrl: e.target.value } ) }
+										placeholder={ __( 'Official website URL...', 'post-kinds-for-indieweb' ) }
+										style={ { flex: '1', minWidth: '150px' } }
+									/>
+									<input
+										type="url"
+										className="reactions-card__input reactions-card__input--url"
+										value={ purchaseUrl || '' }
+										onChange={ ( e ) => setAttributes( { purchaseUrl: e.target.value } ) }
+										placeholder={ __( 'Purchase URL...', 'post-kinds-for-indieweb' ) }
+										style={ { flex: '1', minWidth: '150px' } }
+									/>
+								</div>
+							) }
 						</div>
 					</div>
 				</div>

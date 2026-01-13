@@ -1,10 +1,10 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
-  "name": "reactions-indieweb/acquisition-card",
+  "name": "post-kinds-indieweb/acquisition-card",
   "version": "1.0.0",
   "title": "Acquisition Card",
-  "category": "reactions-indieweb",
+  "category": "post-kinds-indieweb",
   "description": "Display something you acquired or purchased with photo and details.",
   "keywords": [
     "acquisition",
@@ -13,7 +13,7 @@
     "got",
     "haul"
   ],
-  "textdomain": "reactions-indieweb",
+  "textdomain": "post-kinds-indieweb",
   "attributes": {
     "title": {
       "type": "string",

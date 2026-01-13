@@ -4,13 +4,13 @@
  *
  * A block pattern for logging music or podcast listens (scrobbling).
  *
- * @package ReactionsForIndieWeb
+ * @package PostKindsForIndieWeb
  * @since   1.0.0
  */
 
 declare(strict_types=1);
 
-namespace ReactionsForIndieWeb\Patterns;
+namespace PostKindsForIndieWeb\Patterns;
 
 // Prevent direct access.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Register the Listen Log pattern.
  */
 register_block_pattern(
-	'reactions-indieweb/listen-log',
+	'post-kinds-indieweb/listen-log',
 	array(
 		'title'       => __( 'Listen Log', 'reactions-for-indieweb' ),
 		'description' => __( 'Log a music track or podcast episode you listened to.', 'reactions-for-indieweb' ),
@@ -38,7 +38,7 @@ register_block_pattern(
 		<!-- wp:column {"width":"120px"} -->
 		<div class="wp-block-column" style="flex-basis:120px">
 
-			<!-- wp:image {"className":"u-photo reactions-listen-cover","width":"120px","height":"120px","scale":"cover","metadata":{"bindings":{"url":{"source":"reactions-indieweb/kind-meta","args":{"key":"listen_cover"}},"alt":{"source":"reactions-indieweb/kind-meta","args":{"key":"listen_album"}}}}} -->
+			<!-- wp:image {"className":"u-photo reactions-listen-cover","width":"120px","height":"120px","scale":"cover","metadata":{"bindings":{"url":{"source":"post-kinds-indieweb/kind-meta","args":{"key":"listen_cover"}},"alt":{"source":"post-kinds-indieweb/kind-meta","args":{"key":"listen_album"}}}}} -->
 			<figure class="wp-block-image is-resized u-photo reactions-listen-cover"><img src="" alt="" style="object-fit:cover;width:120px;height:120px"/></figure>
 			<!-- /wp:image -->
 
@@ -48,15 +48,15 @@ register_block_pattern(
 		<!-- wp:column -->
 		<div class="wp-block-column">
 
-			<!-- wp:heading {"level":2,"className":"p-name","metadata":{"bindings":{"content":{"source":"reactions-indieweb/kind-meta","args":{"key":"listen_track"}}}}} -->
+			<!-- wp:heading {"level":2,"className":"p-name","metadata":{"bindings":{"content":{"source":"post-kinds-indieweb/kind-meta","args":{"key":"listen_track"}}}}} -->
 			<h2 class="wp-block-heading p-name"></h2>
 			<!-- /wp:heading -->
 
-			<!-- wp:paragraph {"className":"p-author h-card","fontSize":"medium","metadata":{"bindings":{"content":{"source":"reactions-indieweb/kind-meta","args":{"key":"listen_artist"}}}}} -->
+			<!-- wp:paragraph {"className":"p-author h-card","fontSize":"medium","metadata":{"bindings":{"content":{"source":"post-kinds-indieweb/kind-meta","args":{"key":"listen_artist"}}}}} -->
 			<p class="p-author h-card has-medium-font-size"></p>
 			<!-- /wp:paragraph -->
 
-			<!-- wp:paragraph {"className":"reactions-listen-album","style":{"typography":{"fontStyle":"italic","fontWeight":"400"}},"textColor":"secondary","fontSize":"small","metadata":{"bindings":{"content":{"source":"reactions-indieweb/kind-meta","args":{"key":"listen_album"}}}}} -->
+			<!-- wp:paragraph {"className":"reactions-listen-album","style":{"typography":{"fontStyle":"italic","fontWeight":"400"}},"textColor":"secondary","fontSize":"small","metadata":{"bindings":{"content":{"source":"post-kinds-indieweb/kind-meta","args":{"key":"listen_album"}}}}} -->
 			<p class="reactions-listen-album has-secondary-color has-text-color has-small-font-size" style="font-style:italic;font-weight:400"></p>
 			<!-- /wp:paragraph -->
 

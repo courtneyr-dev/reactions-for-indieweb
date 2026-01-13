@@ -5,13 +5,13 @@
  * Provides common functionality for all external API integrations including
  * caching, rate limiting, error handling, and HTTP requests.
  *
- * @package ReactionsForIndieWeb
+ * @package PostKindsForIndieWeb
  * @since   1.0.0
  */
 
 declare(strict_types=1);
 
-namespace ReactionsForIndieWeb\APIs;
+namespace PostKindsForIndieWeb\APIs;
 
 // Prevent direct access.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -93,8 +93,8 @@ abstract class API_Base {
 	 */
 	public function __construct() {
 		$this->user_agent = sprintf(
-			'ReactionsForIndieWeb/%s (WordPress/%s; +%s)',
-			\REACTIONS_INDIEWEB_VERSION,
+			'PostKindsForIndieWeb/%s (WordPress/%s; +%s)',
+			\POST_KINDS_INDIEWEB_VERSION,
 			get_bloginfo( 'version' ),
 			home_url()
 		);
@@ -265,7 +265,7 @@ abstract class API_Base {
 			throw new \Exception(
 				sprintf(
 					/* translators: 1: API name, 2: Error message */
-					__( '%1$s API error: %2$s', 'reactions-for-indieweb' ),
+					__( '%1$s API error: %2$s', 'post-kinds-for-indieweb' ),
 					esc_html( $this->api_name ),
 					esc_html( $last_error->get_error_message() )
 				)
@@ -276,7 +276,7 @@ abstract class API_Base {
 		throw new \Exception(
 			sprintf(
 				/* translators: %s: API name */
-				__( '%s API request failed after multiple attempts.', 'reactions-for-indieweb' ),
+				__( '%s API request failed after multiple attempts.', 'post-kinds-for-indieweb' ),
 				esc_html( $this->api_name )
 			)
 		);
@@ -346,7 +346,7 @@ abstract class API_Base {
 		// Default error message.
 		return sprintf(
 			/* translators: 1: API name, 2: HTTP status code */
-			__( '%1$s API returned error code %2$d', 'reactions-for-indieweb' ),
+			__( '%1$s API returned error code %2$d', 'post-kinds-for-indieweb' ),
 			$this->api_name,
 			$code
 		);
@@ -446,7 +446,7 @@ abstract class API_Base {
 	 * @return string Full cache key.
 	 */
 	protected function get_cache_key( string $key ): string {
-		return 'reactions_' . $this->api_name . '_' . md5( $key );
+		return 'post_kinds_' . $this->api_name . '_' . md5( $key );
 	}
 
 	/**
@@ -490,7 +490,7 @@ abstract class API_Base {
 		 * @param string               $message  Error message.
 		 * @param array<string, mixed> $context  Additional context.
 		 */
-		do_action( 'reactions_indieweb_api_error', $this->api_name, $message, $context );
+		do_action( 'post_kinds_indieweb_api_error', $this->api_name, $message, $context );
 	}
 
 	/**
@@ -510,7 +510,7 @@ abstract class API_Base {
 		 * @param string               $message  Debug message.
 		 * @param array<string, mixed> $context  Additional context.
 		 */
-		do_action( 'reactions_indieweb_api_debug', $this->api_name, $message, $context );
+		do_action( 'post_kinds_indieweb_api_debug', $this->api_name, $message, $context );
 	}
 
 	/**
@@ -555,7 +555,7 @@ abstract class API_Base {
 	 * @return mixed Option value.
 	 */
 	protected function get_option( string $key, $default = '' ) {
-		return get_option( 'reactions_indieweb_' . $key, $default );
+		return get_option( 'post_kinds_indieweb_' . $key, $default );
 	}
 
 	/**

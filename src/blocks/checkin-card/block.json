@@ -1,13 +1,13 @@
 {
     "$schema": "https://schemas.wp.org/trunk/block.json",
     "apiVersion": 3,
-    "name": "reactions-indieweb/checkin-card",
+    "name": "post-kinds-indieweb/checkin-card",
     "version": "1.0.0",
     "title": "Checkin Card",
-    "category": "reactions-indieweb",
+    "category": "post-kinds-indieweb",
     "description": "Display a location checkin with venue details, map, and optional notes.",
     "keywords": ["checkin", "location", "venue", "place", "map", "travel"],
-    "textdomain": "reactions-indieweb",
+    "textdomain": "post-kinds-indieweb",
     "attributes": {
         "venueName": {
             "type": "string",

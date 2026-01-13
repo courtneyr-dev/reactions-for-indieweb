@@ -4,13 +4,13 @@
  *
  * A block pattern for responding to events with RSVP status.
  *
- * @package ReactionsForIndieWeb
+ * @package PostKindsForIndieWeb
  * @since   1.0.0
  */
 
 declare(strict_types=1);
 
-namespace ReactionsForIndieWeb\Patterns;
+namespace PostKindsForIndieWeb\Patterns;
 
 // Prevent direct access.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Register the RSVP Response pattern.
  */
 register_block_pattern(
-	'reactions-indieweb/rsvp-response',
+	'post-kinds-indieweb/rsvp-response',
 	array(
 		'title'       => __( 'RSVP Response', 'reactions-for-indieweb' ),
 		'description' => __( 'Respond to an event with yes, no, maybe, or interested.', 'reactions-for-indieweb' ),
@@ -49,7 +49,7 @@ register_block_pattern(
 	<!-- wp:group {"className":"reactions-rsvp-status","style":{"spacing":{"padding":{"top":"var:preset|spacing|20","bottom":"var:preset|spacing|20","left":"var:preset|spacing|30","right":"var:preset|spacing|30"}},"border":{"radius":"4px"}},"backgroundColor":"tertiary","layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"center"}} -->
 	<div class="wp-block-group reactions-rsvp-status has-tertiary-background-color has-background" style="border-radius:4px;padding-top:var(--wp--preset--spacing--20);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--20);padding-left:var(--wp--preset--spacing--30)">
 
-		<!-- wp:paragraph {"className":"p-rsvp","fontSize":"large","metadata":{"bindings":{"content":{"source":"reactions-indieweb/kind-meta","args":{"key":"rsvp_status"}}}}} -->
+		<!-- wp:paragraph {"className":"p-rsvp","fontSize":"large","metadata":{"bindings":{"content":{"source":"post-kinds-indieweb/kind-meta","args":{"key":"rsvp_status"}}}}} -->
 		<p class="p-rsvp has-large-font-size"></p>
 		<!-- /wp:paragraph -->
 

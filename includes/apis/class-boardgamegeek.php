@@ -5,13 +5,13 @@
  * Provides integration with BoardGameGeek's XML API2 for board game
  * and video game lookups.
  *
- * @package ReactionsForIndieWeb
+ * @package PostKindsForIndieWeb
  * @since   1.1.0
  */
 
 declare(strict_types=1);
 
-namespace ReactionsForIndieWeb\APIs;
+namespace PostKindsForIndieWeb\APIs;
 
 // Prevent direct access.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -82,7 +82,7 @@ class BoardGameGeek extends API_Base {
 		parent::__construct();
 
 		// Get token from API credentials storage.
-		$credentials = get_option( 'reactions_indieweb_api_credentials', array() );
+		$credentials = get_option( 'post_kinds_indieweb_api_credentials', array() );
 		$this->api_token = $credentials['bgg']['api_token'] ?? '';
 	}
 
@@ -243,7 +243,7 @@ class BoardGameGeek extends API_Base {
 		if ( ! $this->is_configured() ) {
 			return new \WP_Error(
 				'bgg_not_configured',
-				__( 'BoardGameGeek API token is not configured. Add your token in Settings > Reactions.', 'reactions-for-indieweb' )
+				__( 'BoardGameGeek API token is not configured. Add your token in Settings > Reactions.', 'post-kinds-for-indieweb' )
 			);
 		}
 
@@ -283,7 +283,7 @@ class BoardGameGeek extends API_Base {
 		if ( 401 === $code ) {
 			return new \WP_Error(
 				'bgg_auth_error',
-				__( 'BoardGameGeek API authentication failed. Please check your API token.', 'reactions-for-indieweb' )
+				__( 'BoardGameGeek API authentication failed. Please check your API token.', 'post-kinds-for-indieweb' )
 			);
 		}
 
@@ -500,11 +500,11 @@ class BoardGameGeek extends API_Base {
 	public function get_config_fields(): array {
 		return array(
 			'bgg_api_token' => array(
-				'label'       => __( 'BoardGameGeek API Token', 'reactions-for-indieweb' ),
+				'label'       => __( 'BoardGameGeek API Token', 'post-kinds-for-indieweb' ),
 				'type'        => 'password',
 				'description' => sprintf(
 					/* translators: %s: Link to BGG applications page */
-					__( 'Get your token from %s', 'reactions-for-indieweb' ),
+					__( 'Get your token from %s', 'post-kinds-for-indieweb' ),
 					'<a href="https://boardgamegeek.com/applications" target="_blank">boardgamegeek.com/applications</a>'
 				),
 			),

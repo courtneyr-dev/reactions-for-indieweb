@@ -4,15 +4,15 @@
  *
  * Handles POSSE (scrobbling) of listen posts to Last.fm.
  *
- * @package ReactionsForIndieWeb
+ * @package PostKindsForIndieWeb
  * @since   1.0.0
  */
 
 declare(strict_types=1);
 
-namespace ReactionsForIndieWeb\Sync;
+namespace PostKindsForIndieWeb\Sync;
 
-use ReactionsForIndieWeb\APIs\LastFM;
+use PostKindsForIndieWeb\APIs\LastFM;
 
 // Prevent direct access.
 if ( ! defined( 'ABSPATH' ) ) {
@@ -69,7 +69,7 @@ class Lastfm_Listen_Sync extends Listen_Sync_Base {
 	public function __construct() {
 		parent::__construct();
 
-		$credentials       = get_option( 'reactions_indieweb_api_credentials', array() );
+		$credentials       = get_option( 'post_kinds_indieweb_api_credentials', array() );
 		$lastfm_creds      = $credentials['lastfm'] ?? array();
 		$this->session_key = $lastfm_creds['session_key'] ?? '';
 		$this->username    = $lastfm_creds['username'] ?? '';

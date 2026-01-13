@@ -1,10 +1,10 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
-  "name": "reactions-indieweb/drink-card",
+  "name": "post-kinds-indieweb/drink-card",
   "version": "1.0.0",
   "title": "Drink Card",
-  "category": "reactions-indieweb",
+  "category": "post-kinds-indieweb",
   "description": "Display a drink you had with photo, type, brand, and rating.",
   "keywords": [
     "drink",
@@ -14,7 +14,7 @@
     "wine",
     "cocktail"
   ],
-  "textdomain": "reactions-indieweb",
+  "textdomain": "post-kinds-indieweb",
   "attributes": {
     "name": {
       "type": "string",
@@ -52,11 +52,31 @@
       "source": "html",
       "selector": ".drink-notes"
     },
-    "venue": {
-      "type": "string"
-    },
     "venueUrl": {
       "type": "string"
+    },
+    "locationName": {
+      "type": "string"
+    },
+    "locationAddress": {
+      "type": "string"
+    },
+    "locationLocality": {
+      "type": "string"
+    },
+    "locationRegion": {
+      "type": "string"
+    },
+    "locationCountry": {
+      "type": "string"
+    },
+    "geoLatitude": {
+      "type": "number",
+      "default": 0
+    },
+    "geoLongitude": {
+      "type": "number",
+      "default": 0
     },
     "layout": {
       "type": "string",

@@ -4,13 +4,13 @@
  *
  * Handles admin initialization, menu registration, and asset loading.
  *
- * @package Reactions_For_IndieWeb
+ * @package PostKindsForIndieWeb
  * @since 1.0.0
  */
 
-namespace ReactionsForIndieWeb\Admin;
+namespace PostKindsForIndieWeb\Admin;
 
-use ReactionsForIndieWeb\Plugin;
+use PostKindsForIndieWeb\Plugin;
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
@@ -121,7 +121,7 @@ class Admin {
         add_action( 'admin_init', array( $this, 'register_settings' ) );
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
         add_action( 'admin_notices', array( $this, 'admin_notices' ) );
-        add_filter( 'plugin_action_links_' . plugin_basename( \REACTIONS_INDIEWEB_PLUGIN_FILE ), array( $this, 'plugin_action_links' ) );
+        add_filter( 'plugin_action_links_' . plugin_basename( \POST_KINDS_INDIEWEB_PLUGIN_FILE ), array( $this, 'plugin_action_links' ) );
 
         // Initialize sub-components.
         $this->settings_page->init();
@@ -134,12 +134,12 @@ class Admin {
         $this->checkin_dashboard->init();
 
         // AJAX handlers.
-        add_action( 'wp_ajax_reactions_indieweb_test_api', array( $this, 'ajax_test_api' ) );
-        add_action( 'wp_ajax_reactions_indieweb_clear_cache', array( $this, 'ajax_clear_cache' ) );
-        add_action( 'wp_ajax_reactions_indieweb_lookup_media', array( $this, 'ajax_lookup_media' ) );
-        add_action( 'wp_ajax_reactions_indieweb_get_import_status', array( $this, 'ajax_get_import_status' ) );
-        add_action( 'wp_ajax_reactions_foursquare_import', array( $this, 'ajax_foursquare_import' ) );
-        add_action( 'wp_ajax_reactions_foursquare_disconnect', array( $this, 'ajax_foursquare_disconnect' ) );
+        add_action( 'wp_ajax_postkind_indieweb_test_api', array( $this, 'ajax_test_api' ) );
+        add_action( 'wp_ajax_postkind_indieweb_clear_cache', array( $this, 'ajax_clear_cache' ) );
+        add_action( 'wp_ajax_postkind_indieweb_lookup_media', array( $this, 'ajax_lookup_media' ) );
+        add_action( 'wp_ajax_postkind_indieweb_get_import_status', array( $this, 'ajax_get_import_status' ) );
+        add_action( 'wp_ajax_postkind_foursquare_import', array( $this, 'ajax_foursquare_import' ) );
+        add_action( 'wp_ajax_postkind_foursquare_disconnect', array( $this, 'ajax_foursquare_disconnect' ) );
     }
 
     /**
@@ -150,10 +150,10 @@ class Admin {
     public function register_menu(): void {
         // Main menu page.
         $this->page_hooks['main'] = add_menu_page(
-            __( 'Reactions', 'reactions-for-indieweb' ),
-            __( 'Reactions', 'reactions-for-indieweb' ),
+            __( 'Reactions', 'post-kinds-for-indieweb' ),
+            __( 'Reactions', 'post-kinds-for-indieweb' ),
             'manage_options',
-            'reactions-for-indieweb',
+            'post-kinds-for-indieweb',
             array( $this->settings_page, 'render' ),
             'dashicons-heart',
             30
@@ -161,71 +161,71 @@ class Admin {
 
         // Settings submenu (same as main).
         $this->page_hooks['settings'] = add_submenu_page(
-            'reactions-for-indieweb',
-            __( 'Settings', 'reactions-for-indieweb' ),
-            __( 'Settings', 'reactions-for-indieweb' ),
+            'post-kinds-for-indieweb',
+            __( 'Settings', 'post-kinds-for-indieweb' ),
+            __( 'Settings', 'post-kinds-for-indieweb' ),
             'manage_options',
-            'reactions-for-indieweb',
+            'post-kinds-for-indieweb',
             array( $this->settings_page, 'render' )
         );
 
         // API Connections submenu.
         $this->page_hooks['apis'] = add_submenu_page(
-            'reactions-for-indieweb',
-            __( 'API Connections', 'reactions-for-indieweb' ),
-            __( 'API Connections', 'reactions-for-indieweb' ),
+            'post-kinds-for-indieweb',
+            __( 'API Connections', 'post-kinds-for-indieweb' ),
+            __( 'API Connections', 'post-kinds-for-indieweb' ),
             'manage_options',
-            'reactions-indieweb-apis',
+            'post-kinds-indieweb-apis',
             array( $this->api_settings, 'render' )
         );
 
         // Import submenu.
         $this->page_hooks['import'] = add_submenu_page(
-            'reactions-for-indieweb',
-            __( 'Import', 'reactions-for-indieweb' ),
-            __( 'Import', 'reactions-for-indieweb' ),
+            'post-kinds-for-indieweb',
+            __( 'Import', 'post-kinds-for-indieweb' ),
+            __( 'Import', 'post-kinds-for-indieweb' ),
             'manage_options',
-            'reactions-indieweb-import',
+            'post-kinds-indieweb-import',
             array( $this->import_page, 'render' )
         );
 
         // Webhooks submenu.
         $this->page_hooks['webhooks'] = add_submenu_page(
-            'reactions-for-indieweb',
-            __( 'Webhooks', 'reactions-for-indieweb' ),
-            __( 'Webhooks', 'reactions-for-indieweb' ),
+            'post-kinds-for-indieweb',
+            __( 'Webhooks', 'post-kinds-for-indieweb' ),
+            __( 'Webhooks', 'post-kinds-for-indieweb' ),
             'manage_options',
-            'reactions-indieweb-webhooks',
+            'post-kinds-indieweb-webhooks',
             array( $this->webhooks_page, 'render' )
         );
 
         // Quick Post submenu.
         $this->page_hooks['quick_post'] = add_submenu_page(
-            'reactions-for-indieweb',
-            __( 'Quick Post', 'reactions-for-indieweb' ),
-            __( 'Quick Post', 'reactions-for-indieweb' ),
+            'post-kinds-for-indieweb',
+            __( 'Quick Post', 'post-kinds-for-indieweb' ),
+            __( 'Quick Post', 'post-kinds-for-indieweb' ),
             'edit_posts',
-            'reactions-indieweb-quick-post',
+            'post-kinds-indieweb-quick-post',
             array( $this->quick_post, 'render' )
         );
 
         // Syndication submenu.
         $this->page_hooks['syndication'] = add_submenu_page(
-            'reactions-for-indieweb',
-            __( 'Syndication', 'reactions-for-indieweb' ),
-            __( 'Syndication', 'reactions-for-indieweb' ),
+            'post-kinds-for-indieweb',
+            __( 'Syndication', 'post-kinds-for-indieweb' ),
+            __( 'Syndication', 'post-kinds-for-indieweb' ),
             'edit_posts',
-            'reactions-indieweb-syndication',
+            'post-kinds-indieweb-syndication',
             array( $this->syndication_page, 'render' )
         );
 
         // Check-in Dashboard submenu.
         $this->page_hooks['checkin_dashboard'] = add_submenu_page(
-            'reactions-for-indieweb',
-            __( 'Check-ins', 'reactions-for-indieweb' ),
-            __( 'Check-ins', 'reactions-for-indieweb' ),
+            'post-kinds-for-indieweb',
+            __( 'Check-ins', 'post-kinds-for-indieweb' ),
+            __( 'Check-ins', 'post-kinds-for-indieweb' ),
             'edit_posts',
-            'reactions-indieweb-checkins',
+            'post-kinds-indieweb-checkins',
             array( $this->checkin_dashboard, 'render' )
         );
     }
@@ -238,8 +238,8 @@ class Admin {
     public function register_settings(): void {
         // General settings.
         register_setting(
-            'reactions_indieweb_general',
-            'reactions_indieweb_settings',
+            'post_kinds_indieweb_general',
+            'post_kinds_indieweb_settings',
             array(
                 'type'              => 'array',
                 'sanitize_callback' => array( $this, 'sanitize_general_settings' ),
@@ -249,8 +249,8 @@ class Admin {
 
         // API credentials (stored separately for security).
         register_setting(
-            'reactions_indieweb_apis',
-            'reactions_indieweb_api_credentials',
+            'post_kinds_indieweb_apis',
+            'post_kinds_indieweb_api_credentials',
             array(
                 'type'              => 'array',
                 'sanitize_callback' => array( $this, 'sanitize_api_credentials' ),
@@ -260,8 +260,8 @@ class Admin {
 
         // Webhook settings.
         register_setting(
-            'reactions_indieweb_webhooks',
-            'reactions_indieweb_webhook_settings',
+            'post_kinds_indieweb_webhooks',
+            'post_kinds_indieweb_webhook_settings',
             array(
                 'type'              => 'array',
                 'sanitize_callback' => array( $this, 'sanitize_webhook_settings' ),
@@ -290,43 +290,43 @@ class Admin {
 
         // Core styles.
         wp_enqueue_style(
-            'reactions-indieweb-admin',
-            \REACTIONS_INDIEWEB_PLUGIN_URL . 'admin/css/admin.css',
+            'post-kinds-indieweb-admin',
+            \POST_KINDS_INDIEWEB_PLUGIN_URL . 'admin/css/admin.css',
             array(),
-            \REACTIONS_INDIEWEB_VERSION
+            \POST_KINDS_INDIEWEB_VERSION
         );
 
         // Core scripts.
         wp_enqueue_script(
-            'reactions-indieweb-admin',
-            \REACTIONS_INDIEWEB_PLUGIN_URL . 'admin/js/admin.js',
+            'post-kinds-indieweb-admin',
+            \POST_KINDS_INDIEWEB_PLUGIN_URL . 'admin/js/admin.js',
             array( 'jquery', 'wp-util', 'wp-api-fetch' ),
-            \REACTIONS_INDIEWEB_VERSION,
+            \POST_KINDS_INDIEWEB_VERSION,
             true
         );
 
         // Localize script.
         wp_localize_script(
-            'reactions-indieweb-admin',
-            'reactionsIndieWeb',
+            'post-kinds-indieweb-admin',
+            'postKindsIndieWeb',
             array(
                 'ajaxUrl'   => admin_url( 'admin-ajax.php' ),
-                'restUrl'   => rest_url( 'reactions-indieweb/v1/' ),
-                'nonce'     => wp_create_nonce( 'reactions_indieweb_admin' ),
+                'restUrl'   => rest_url( 'post-kinds-indieweb/v1/' ),
+                'nonce'     => wp_create_nonce( 'post_kinds_indieweb_admin' ),
                 'restNonce' => wp_create_nonce( 'wp_rest' ),
                 'strings'   => array(
-                    'confirmDelete'   => __( 'Are you sure you want to delete this?', 'reactions-for-indieweb' ),
-                    'confirmClear'    => __( 'Are you sure you want to clear all cached data?', 'reactions-for-indieweb' ),
-                    'testingApi'      => __( 'Testing connection...', 'reactions-for-indieweb' ),
-                    'testSuccess'     => __( 'Connection successful!', 'reactions-for-indieweb' ),
-                    'testFailed'      => __( 'Connection failed: ', 'reactions-for-indieweb' ),
-                    'importing'       => __( 'Importing...', 'reactions-for-indieweb' ),
-                    'importComplete'  => __( 'Import complete!', 'reactions-for-indieweb' ),
-                    'lookingUp'       => __( 'Looking up...', 'reactions-for-indieweb' ),
-                    'noResults'       => __( 'No results found.', 'reactions-for-indieweb' ),
-                    'error'           => __( 'An error occurred.', 'reactions-for-indieweb' ),
-                    'saved'           => __( 'Settings saved.', 'reactions-for-indieweb' ),
-                    'copied'          => __( 'Copied to clipboard!', 'reactions-for-indieweb' ),
+                    'confirmDelete'   => __( 'Are you sure you want to delete this?', 'post-kinds-for-indieweb' ),
+                    'confirmClear'    => __( 'Are you sure you want to clear all cached data?', 'post-kinds-for-indieweb' ),
+                    'testingApi'      => __( 'Testing connection...', 'post-kinds-for-indieweb' ),
+                    'testSuccess'     => __( 'Connection successful!', 'post-kinds-for-indieweb' ),
+                    'testFailed'      => __( 'Connection failed: ', 'post-kinds-for-indieweb' ),
+                    'importing'       => __( 'Importing...', 'post-kinds-for-indieweb' ),
+                    'importComplete'  => __( 'Import complete!', 'post-kinds-for-indieweb' ),
+                    'lookingUp'       => __( 'Looking up...', 'post-kinds-for-indieweb' ),
+                    'noResults'       => __( 'No results found.', 'post-kinds-for-indieweb' ),
+                    'error'           => __( 'An error occurred.', 'post-kinds-for-indieweb' ),
+                    'saved'           => __( 'Settings saved.', 'post-kinds-for-indieweb' ),
+                    'copied'          => __( 'Copied to clipboard!', 'post-kinds-for-indieweb' ),
                 ),
                 'postKinds' => $this->get_post_kinds(),
             )
@@ -341,13 +341,13 @@ class Admin {
         if ( $is_our_page ) {
             wp_enqueue_style(
                 'select2',
-                REACTIONS_INDIEWEB_URL . 'assets/vendor/select2/select2.min.css',
+                POST_KINDS_INDIEWEB_URL . 'assets/vendor/select2/select2.min.css',
                 array(),
                 '4.1.0'
             );
             wp_enqueue_script(
                 'select2',
-                REACTIONS_INDIEWEB_URL . 'assets/vendor/select2/select2.min.js',
+                POST_KINDS_INDIEWEB_URL . 'assets/vendor/select2/select2.min.js',
                 array( 'jquery' ),
                 '4.1.0',
                 true
@@ -369,8 +369,8 @@ class Admin {
             echo '<div class="notice notice-warning"><p>';
             printf(
                 /* translators: %s: Plugin name */
-                esc_html__( '%s requires IndieBlocks to be installed and activated for full functionality.', 'reactions-for-indieweb' ),
-                '<strong>Reactions for IndieWeb</strong>'
+                esc_html__( '%s requires IndieBlocks to be installed and activated for full functionality.', 'post-kinds-for-indieweb' ),
+                '<strong>Post Kinds for IndieWeb</strong>'
             );
             echo '</p></div>';
         }
@@ -378,12 +378,12 @@ class Admin {
         // Show success message after settings save.
         if ( isset( $_GET['settings-updated'] ) && 'true' === $_GET['settings-updated'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
             echo '<div class="notice notice-success is-dismissible"><p>';
-            esc_html_e( 'Settings saved successfully.', 'reactions-for-indieweb' );
+            esc_html_e( 'Settings saved successfully.', 'post-kinds-for-indieweb' );
             echo '</p></div>';
         }
 
         // Show active import notice.
-        $active_imports = get_option( 'reactions_indieweb_active_imports', array() );
+        $active_imports = get_option( 'post_kinds_indieweb_active_imports', array() );
         if ( ! empty( $active_imports ) ) {
             $count = count( $active_imports );
             echo '<div class="notice notice-info"><p>';
@@ -393,10 +393,10 @@ class Admin {
                     '%1$d import is currently running. <a href="%2$s">View progress</a>',
                     '%1$d imports are currently running. <a href="%2$s">View progress</a>',
                     $count,
-                    'reactions-for-indieweb'
+                    'post-kinds-for-indieweb'
                 ) ),
                 (int) $count,
-                esc_url( admin_url( 'admin.php?page=reactions-indieweb-import' ) )
+                esc_url( admin_url( 'admin.php?page=post-kinds-indieweb-import' ) )
             );
             echo '</p></div>';
         }
@@ -411,8 +411,8 @@ class Admin {
     public function plugin_action_links( array $links ): array {
         $settings_link = sprintf(
             '<a href="%s">%s</a>',
-            admin_url( 'admin.php?page=reactions-for-indieweb' ),
-            __( 'Settings', 'reactions-for-indieweb' )
+            admin_url( 'admin.php?page=post-kinds-for-indieweb' ),
+            __( 'Settings', 'post-kinds-for-indieweb' )
         );
 
         array_unshift( $links, $settings_link );
@@ -500,7 +500,7 @@ class Admin {
      */
     public function sanitize_general_settings( array $input ): array {
         $defaults     = $this->get_default_settings();
-        $old_settings = get_option( 'reactions_indieweb_settings', array() );
+        $old_settings = get_option( 'post_kinds_indieweb_settings', array() );
         $sanitized    = array();
         $active_tab   = $input['_active_tab'] ?? '';
 
@@ -607,13 +607,13 @@ class Admin {
         }
 
         // Check if storage mode changed - need to flush rewrite rules.
-        $old_settings = get_option( 'reactions_indieweb_settings', array() );
+        $old_settings = get_option( 'post_kinds_indieweb_settings', array() );
         $old_mode     = $old_settings['import_storage_mode'] ?? 'standard';
         $new_mode     = $sanitized['import_storage_mode'] ?? 'standard';
 
         if ( $old_mode !== $new_mode ) {
             // Schedule rewrite flush for next page load.
-            update_option( 'reactions_indieweb_flush_rewrite', true );
+            update_option( 'post_kinds_indieweb_flush_rewrite', true );
         }
 
         // Sync start dates - per-source cutoff dates.
@@ -652,7 +652,7 @@ class Admin {
          * @param array $sanitized Sanitized settings.
          * @param array $input Raw input.
          */
-        return apply_filters( 'reactions_indieweb_sanitize_general_settings', $sanitized, $input );
+        return apply_filters( 'post_kinds_indieweb_sanitize_general_settings', $sanitized, $input );
     }
 
     /**
@@ -694,7 +694,7 @@ class Admin {
                     // Don't overwrite with placeholder asterisks.
                     if ( preg_match( '/^\*+$/', $input[ $api ][ $field ] ) ) {
                         // Keep existing value.
-                        $existing = get_option( 'reactions_indieweb_api_credentials', array() );
+                        $existing = get_option( 'post_kinds_indieweb_api_credentials', array() );
                         $sanitized[ $api ][ $field ] = $existing[ $api ][ $field ] ?? '';
                     } else {
                         $sanitized[ $api ][ $field ] = sanitize_text_field( $input[ $api ][ $field ] );
@@ -731,7 +731,7 @@ class Admin {
             // Secret key handling.
             if ( isset( $input[ $type ]['secret'] ) ) {
                 if ( preg_match( '/^\*+$/', $input[ $type ]['secret'] ) ) {
-                    $existing = get_option( 'reactions_indieweb_webhook_settings', array() );
+                    $existing = get_option( 'post_kinds_indieweb_webhook_settings', array() );
                     $sanitized[ $type ]['secret'] = $existing[ $type ]['secret'] ?? '';
                 } else {
                     $sanitized[ $type ]['secret'] = sanitize_text_field( $input[ $type ]['secret'] );
@@ -757,75 +757,75 @@ class Admin {
     public function get_post_kinds(): array {
         $kinds = array(
             'listen'      => array(
-                'label' => __( 'Listen', 'reactions-for-indieweb' ),
+                'label' => __( 'Listen', 'post-kinds-for-indieweb' ),
                 'icon'  => 'dashicons-format-audio',
             ),
             'watch'       => array(
-                'label' => __( 'Watch', 'reactions-for-indieweb' ),
+                'label' => __( 'Watch', 'post-kinds-for-indieweb' ),
                 'icon'  => 'dashicons-video-alt2',
             ),
             'read'        => array(
-                'label' => __( 'Read', 'reactions-for-indieweb' ),
+                'label' => __( 'Read', 'post-kinds-for-indieweb' ),
                 'icon'  => 'dashicons-book',
             ),
             'play'        => array(
-                'label' => __( 'Play', 'reactions-for-indieweb' ),
+                'label' => __( 'Play', 'post-kinds-for-indieweb' ),
                 'icon'  => 'dashicons-games',
             ),
             'checkin'     => array(
-                'label' => __( 'Checkin', 'reactions-for-indieweb' ),
+                'label' => __( 'Checkin', 'post-kinds-for-indieweb' ),
                 'icon'  => 'dashicons-location',
             ),
             'eat'         => array(
-                'label' => __( 'Eat', 'reactions-for-indieweb' ),
+                'label' => __( 'Eat', 'post-kinds-for-indieweb' ),
                 'icon'  => 'dashicons-carrot',
             ),
             'drink'       => array(
-                'label' => __( 'Drink', 'reactions-for-indieweb' ),
+                'label' => __( 'Drink', 'post-kinds-for-indieweb' ),
                 'icon'  => 'dashicons-coffee',
             ),
             'like'        => array(
-                'label' => __( 'Like', 'reactions-for-indieweb' ),
+                'label' => __( 'Like', 'post-kinds-for-indieweb' ),
                 'icon'  => 'dashicons-heart',
             ),
             'favorite'    => array(
-                'label' => __( 'Favorite', 'reactions-for-indieweb' ),
+                'label' => __( 'Favorite', 'post-kinds-for-indieweb' ),
                 'icon'  => 'dashicons-star-filled',
             ),
             'bookmark'    => array(
-                'label' => __( 'Bookmark', 'reactions-for-indieweb' ),
+                'label' => __( 'Bookmark', 'post-kinds-for-indieweb' ),
                 'icon'  => 'dashicons-flag',
             ),
             'reply'       => array(
-                'label' => __( 'Reply', 'reactions-for-indieweb' ),
+                'label' => __( 'Reply', 'post-kinds-for-indieweb' ),
                 'icon'  => 'dashicons-format-chat',
             ),
             'repost'      => array(
-                'label' => __( 'Repost', 'reactions-for-indieweb' ),
+                'label' => __( 'Repost', 'post-kinds-for-indieweb' ),
                 'icon'  => 'dashicons-controls-repeat',
             ),
             'rsvp'        => array(
-                'label' => __( 'RSVP', 'reactions-for-indieweb' ),
+                'label' => __( 'RSVP', 'post-kinds-for-indieweb' ),
                 'icon'  => 'dashicons-calendar-alt',
             ),
             'jam'         => array(
-                'label' => __( 'Jam', 'reactions-for-indieweb' ),
+                'label' => __( 'Jam', 'post-kinds-for-indieweb' ),
                 'icon'  => 'dashicons-playlist-audio',
             ),
             'wish'        => array(
-                'label' => __( 'Wish', 'reactions-for-indieweb' ),
+                'label' => __( 'Wish', 'post-kinds-for-indieweb' ),
                 'icon'  => 'dashicons-pressthis',
             ),
             'mood'        => array(
-                'label' => __( 'Mood', 'reactions-for-indieweb' ),
+                'label' => __( 'Mood', 'post-kinds-for-indieweb' ),
                 'icon'  => 'dashicons-smiley',
             ),
             'acquisition' => array(
-                'label' => __( 'Acquisition', 'reactions-for-indieweb' ),
+                'label' => __( 'Acquisition', 'post-kinds-for-indieweb' ),
                 'icon'  => 'dashicons-cart',
             ),
             'recipe'      => array(
-                'label' => __( 'Recipe', 'reactions-for-indieweb' ),
+                'label' => __( 'Recipe', 'post-kinds-for-indieweb' ),
                 'icon'  => 'dashicons-clipboard',
             ),
         );
@@ -835,7 +835,7 @@ class Admin {
          *
          * @param array $kinds Post kinds configuration.
          */
-        return apply_filters( 'reactions_indieweb_post_kinds', $kinds );
+        return apply_filters( 'post_kinds_indieweb_post_kinds', $kinds );
     }
 
     /**
@@ -845,16 +845,16 @@ class Admin {
      */
     public function ajax_test_api(): void {
         try {
-            check_ajax_referer( 'reactions_indieweb_admin', 'nonce' );
+            check_ajax_referer( 'post_kinds_indieweb_admin', 'nonce' );
 
             if ( ! current_user_can( 'manage_options' ) ) {
-                wp_send_json_error( array( 'message' => __( 'Permission denied.', 'reactions-for-indieweb' ) ) );
+                wp_send_json_error( array( 'message' => __( 'Permission denied.', 'post-kinds-for-indieweb' ) ) );
             }
 
             $api = isset( $_POST['api'] ) ? sanitize_text_field( wp_unslash( $_POST['api'] ) ) : '';
 
             if ( empty( $api ) ) {
-                wp_send_json_error( array( 'message' => __( 'No API specified.', 'reactions-for-indieweb' ) ) );
+                wp_send_json_error( array( 'message' => __( 'No API specified.', 'post-kinds-for-indieweb' ) ) );
             }
 
             // Get API instance and test connection.
@@ -865,13 +865,13 @@ class Admin {
             }
 
             wp_send_json_success( array(
-                'message' => __( 'Connection successful!', 'reactions-for-indieweb' ),
+                'message' => __( 'Connection successful!', 'post-kinds-for-indieweb' ),
                 'data'    => $result,
             ) );
         } catch ( \Exception $e ) {
             wp_send_json_error( array( 'message' => $e->getMessage() ) );
         } catch ( \Error $e ) {
-            wp_send_json_error( array( 'message' => __( 'Server error: ', 'reactions-for-indieweb' ) . $e->getMessage() ) );
+            wp_send_json_error( array( 'message' => __( 'Server error: ', 'post-kinds-for-indieweb' ) . $e->getMessage() ) );
         }
     }
 
@@ -882,34 +882,34 @@ class Admin {
      * @return array<string, mixed>|\WP_Error Test result or error.
      */
     private function test_api_connection( string $api ) {
-        $credentials = get_option( 'reactions_indieweb_api_credentials', array() );
+        $credentials = get_option( 'post_kinds_indieweb_api_credentials', array() );
         $api_creds   = $credentials[ $api ] ?? array();
 
         if ( empty( $api_creds['enabled'] ) ) {
-            return new \WP_Error( 'disabled', __( 'API is not enabled.', 'reactions-for-indieweb' ) );
+            return new \WP_Error( 'disabled', __( 'API is not enabled.', 'post-kinds-for-indieweb' ) );
         }
 
         $class_map = array(
-            'lastfm'        => 'ReactionsForIndieWeb\\APIs\\LastFM',
-            'tmdb'          => 'ReactionsForIndieWeb\\APIs\\TMDB',
-            'trakt'         => 'ReactionsForIndieWeb\\APIs\\Trakt',
-            'simkl'         => 'ReactionsForIndieWeb\\APIs\\Simkl',
-            'tvmaze'        => 'ReactionsForIndieWeb\\APIs\\TVmaze',
-            'openlibrary'   => 'ReactionsForIndieWeb\\APIs\\OpenLibrary',
-            'hardcover'     => 'ReactionsForIndieWeb\\APIs\\Hardcover',
-            'google_books'  => 'ReactionsForIndieWeb\\APIs\\GoogleBooks',
-            'foursquare'    => 'ReactionsForIndieWeb\\APIs\\Foursquare',
-            'nominatim'     => 'ReactionsForIndieWeb\\APIs\\Nominatim',
-            'readwise'      => 'ReactionsForIndieWeb\\APIs\\Readwise',
+            'lastfm'        => 'PostKindsForIndieWeb\\APIs\\LastFM',
+            'tmdb'          => 'PostKindsForIndieWeb\\APIs\\TMDB',
+            'trakt'         => 'PostKindsForIndieWeb\\APIs\\Trakt',
+            'simkl'         => 'PostKindsForIndieWeb\\APIs\\Simkl',
+            'tvmaze'        => 'PostKindsForIndieWeb\\APIs\\TVmaze',
+            'openlibrary'   => 'PostKindsForIndieWeb\\APIs\\OpenLibrary',
+            'hardcover'     => 'PostKindsForIndieWeb\\APIs\\Hardcover',
+            'google_books'  => 'PostKindsForIndieWeb\\APIs\\GoogleBooks',
+            'foursquare'    => 'PostKindsForIndieWeb\\APIs\\Foursquare',
+            'nominatim'     => 'PostKindsForIndieWeb\\APIs\\Nominatim',
+            'readwise'      => 'PostKindsForIndieWeb\\APIs\\Readwise',
         );
 
         if ( ! isset( $class_map[ $api ] ) ) {
-            return new \WP_Error( 'unknown', __( 'Unknown API.', 'reactions-for-indieweb' ) );
+            return new \WP_Error( 'unknown', __( 'Unknown API.', 'post-kinds-for-indieweb' ) );
         }
 
         $class = $class_map[ $api ];
         if ( ! class_exists( $class ) ) {
-            return new \WP_Error( 'missing', __( 'API class not found.', 'reactions-for-indieweb' ) );
+            return new \WP_Error( 'missing', __( 'API class not found.', 'post-kinds-for-indieweb' ) );
         }
 
         try {
@@ -921,7 +921,7 @@ class Admin {
             if ( false === $result ) {
                 return new \WP_Error(
                     'connection_failed',
-                    __( 'Connection test failed. Please check your credentials.', 'reactions-for-indieweb' )
+                    __( 'Connection test failed. Please check your credentials.', 'post-kinds-for-indieweb' )
                 );
             }
 
@@ -936,7 +936,7 @@ class Admin {
                 'exception',
                 sprintf(
                     /* translators: 1: Error class name, 2: Error message, 3: File, 4: Line number */
-                    __( '%1$s: %2$s in %3$s:%4$d', 'reactions-for-indieweb' ),
+                    __( '%1$s: %2$s in %3$s:%4$d', 'post-kinds-for-indieweb' ),
                     get_class( $e ),
                     $e->getMessage(),
                     basename( $e->getFile() ),
@@ -952,10 +952,10 @@ class Admin {
      * @return void
      */
     public function ajax_clear_cache(): void {
-        check_ajax_referer( 'reactions_indieweb_admin', 'nonce' );
+        check_ajax_referer( 'post_kinds_indieweb_admin', 'nonce' );
 
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'reactions-for-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'post-kinds-for-indieweb' ) ) );
         }
 
         $type = isset( $_POST['type'] ) ? sanitize_text_field( wp_unslash( $_POST['type'] ) ) : 'all';
@@ -968,11 +968,11 @@ class Admin {
             // Clear API response transients.
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Bulk transient cleanup.
             $deleted += $wpdb->query(
-                "DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_reactions_indieweb_api_%'"
+                "DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_postkind_indieweb_api_%'"
             );
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Bulk transient cleanup.
             $wpdb->query(
-                "DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_timeout_reactions_indieweb_api_%'"
+                "DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_timeout_postkind_indieweb_api_%'"
             );
         }
 
@@ -980,18 +980,18 @@ class Admin {
             // Clear metadata cache transients.
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Bulk transient cleanup.
             $deleted += $wpdb->query(
-                "DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_reactions_indieweb_meta_%'"
+                "DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_postkind_indieweb_meta_%'"
             );
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Bulk transient cleanup.
             $wpdb->query(
-                "DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_timeout_reactions_indieweb_meta_%'"
+                "DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_timeout_postkind_indieweb_meta_%'"
             );
         }
 
         wp_send_json_success( array(
             'message' => sprintf(
                 /* translators: %d: Number of cache entries cleared */
-                __( 'Cleared %d cached entries.', 'reactions-for-indieweb' ),
+                __( 'Cleared %d cached entries.', 'post-kinds-for-indieweb' ),
                 $deleted
             ),
         ) );
@@ -1003,17 +1003,17 @@ class Admin {
      * @return void
      */
     public function ajax_lookup_media(): void {
-        check_ajax_referer( 'reactions_indieweb_admin', 'nonce' );
+        check_ajax_referer( 'post_kinds_indieweb_admin', 'nonce' );
 
         if ( ! current_user_can( 'edit_posts' ) ) {
-            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'reactions-for-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'post-kinds-for-indieweb' ) ) );
         }
 
         $type  = isset( $_POST['type'] ) ? sanitize_text_field( wp_unslash( $_POST['type'] ) ) : '';
         $query = isset( $_POST['query'] ) ? sanitize_text_field( wp_unslash( $_POST['query'] ) ) : '';
 
         if ( empty( $type ) || empty( $query ) ) {
-            wp_send_json_error( array( 'message' => __( 'Type and query are required.', 'reactions-for-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Type and query are required.', 'post-kinds-for-indieweb' ) ) );
         }
 
         $results = $this->lookup_media( $type, $query );
@@ -1033,12 +1033,12 @@ class Admin {
      * @return array<int, array<string, mixed>>|\WP_Error Search results or error.
      */
     private function lookup_media( string $type, string $query ) {
-        $credentials = get_option( 'reactions_indieweb_api_credentials', array() );
+        $credentials = get_option( 'post_kinds_indieweb_api_credentials', array() );
 
         switch ( $type ) {
             case 'music':
                 if ( ! empty( $credentials['musicbrainz']['enabled'] ) ) {
-                    $api = new \ReactionsForIndieWeb\APIs\MusicBrainz( $credentials['musicbrainz'] );
+                    $api = new \PostKindsForIndieWeb\APIs\MusicBrainz( $credentials['musicbrainz'] );
                     return $api->search_recordings( $query, 10 );
                 }
                 break;
@@ -1046,7 +1046,7 @@ class Admin {
             case 'movie':
             case 'tv':
                 if ( ! empty( $credentials['tmdb']['enabled'] ) ) {
-                    $api = new \ReactionsForIndieWeb\APIs\TMDB( $credentials['tmdb'] );
+                    $api = new \PostKindsForIndieWeb\APIs\TMDB( $credentials['tmdb'] );
                     if ( 'movie' === $type ) {
                         return $api->search_movies( $query );
                     } else {
@@ -1057,26 +1057,26 @@ class Admin {
 
             case 'book':
                 // Try Open Library first (no auth needed).
-                $api = new \ReactionsForIndieWeb\APIs\OpenLibrary( array() );
+                $api = new \PostKindsForIndieWeb\APIs\OpenLibrary( array() );
                 return $api->search( $query, 10 );
 
             case 'podcast':
                 if ( ! empty( $credentials['podcastindex']['enabled'] ) ) {
-                    $api = new \ReactionsForIndieWeb\APIs\PodcastIndex( $credentials['podcastindex'] );
+                    $api = new \PostKindsForIndieWeb\APIs\PodcastIndex( $credentials['podcastindex'] );
                     return $api->search_podcasts( $query );
                 }
                 break;
 
             case 'venue':
                 if ( ! empty( $credentials['foursquare']['enabled'] ) ) {
-                    $api = new \ReactionsForIndieWeb\APIs\Foursquare( $credentials['foursquare'] );
+                    $api = new \PostKindsForIndieWeb\APIs\Foursquare( $credentials['foursquare'] );
                     // Would need lat/lng for this.
-                    return new \WP_Error( 'needs_location', __( 'Location required for venue search.', 'reactions-for-indieweb' ) );
+                    return new \WP_Error( 'needs_location', __( 'Location required for venue search.', 'post-kinds-for-indieweb' ) );
                 }
                 break;
         }
 
-        return new \WP_Error( 'no_api', __( 'No API available for this media type.', 'reactions-for-indieweb' ) );
+        return new \WP_Error( 'no_api', __( 'No API available for this media type.', 'post-kinds-for-indieweb' ) );
     }
 
     /**
@@ -1085,19 +1085,19 @@ class Admin {
      * @return void
      */
     public function ajax_get_import_status(): void {
-        check_ajax_referer( 'reactions_indieweb_admin', 'nonce' );
+        check_ajax_referer( 'post_kinds_indieweb_admin', 'nonce' );
 
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'reactions-for-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'post-kinds-for-indieweb' ) ) );
         }
 
         $import_id = isset( $_POST['import_id'] ) ? sanitize_text_field( wp_unslash( $_POST['import_id'] ) ) : '';
 
         if ( empty( $import_id ) ) {
-            wp_send_json_error( array( 'message' => __( 'Import ID required.', 'reactions-for-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Import ID required.', 'post-kinds-for-indieweb' ) ) );
         }
 
-        $import_manager = new \ReactionsForIndieWeb\Import_Manager();
+        $import_manager = new \PostKindsForIndieWeb\Import_Manager();
         $status = $import_manager->get_status( $import_id );
 
         if ( is_wp_error( $status ) ) {
@@ -1124,7 +1124,7 @@ class Admin {
      * @return mixed Setting value.
      */
     public function get_setting( string $key, $default = null ) {
-        $settings = get_option( 'reactions_indieweb_settings', $this->get_default_settings() );
+        $settings = get_option( 'post_kinds_indieweb_settings', $this->get_default_settings() );
         return $settings[ $key ] ?? $default;
     }
 
@@ -1144,20 +1144,20 @@ class Admin {
      * @return void
      */
     public function ajax_foursquare_import(): void {
-        check_ajax_referer( 'reactions_indieweb_admin', 'nonce' );
+        check_ajax_referer( 'post_kinds_indieweb_admin', 'nonce' );
 
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'reactions-for-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'post-kinds-for-indieweb' ) ) );
         }
 
         $foursquare_sync = $this->plugin->get_checkin_sync_service( 'foursquare' );
 
         if ( ! $foursquare_sync ) {
-            wp_send_json_error( array( 'message' => __( 'Foursquare sync service not available.', 'reactions-for-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Foursquare sync service not available.', 'post-kinds-for-indieweb' ) ) );
         }
 
         if ( ! $foursquare_sync->is_connected() ) {
-            wp_send_json_error( array( 'message' => __( 'Foursquare not connected. Please authorize first.', 'reactions-for-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Foursquare not connected. Please authorize first.', 'post-kinds-for-indieweb' ) ) );
         }
 
         try {
@@ -1170,7 +1170,7 @@ class Admin {
             wp_send_json_success( array(
                 'message' => sprintf(
                     /* translators: %d: Number of checkins imported */
-                    __( 'Imported %d new checkins.', 'reactions-for-indieweb' ),
+                    __( 'Imported %d new checkins.', 'post-kinds-for-indieweb' ),
                     $result['imported'] ?? 0
                 ),
                 'imported' => $result['imported'] ?? 0,
@@ -1187,21 +1187,21 @@ class Admin {
      * @return void
      */
     public function ajax_foursquare_disconnect(): void {
-        check_ajax_referer( 'reactions_indieweb_admin', 'nonce' );
+        check_ajax_referer( 'post_kinds_indieweb_admin', 'nonce' );
 
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'reactions-for-indieweb' ) ) );
+            wp_send_json_error( array( 'message' => __( 'Permission denied.', 'post-kinds-for-indieweb' ) ) );
         }
 
-        $credentials = get_option( 'reactions_indieweb_api_credentials', array() );
+        $credentials = get_option( 'post_kinds_indieweb_api_credentials', array() );
 
         if ( isset( $credentials['foursquare'] ) ) {
             // Remove OAuth tokens but keep API key and client credentials.
             unset( $credentials['foursquare']['access_token'] );
             unset( $credentials['foursquare']['username'] );
-            update_option( 'reactions_indieweb_api_credentials', $credentials );
+            update_option( 'post_kinds_indieweb_api_credentials', $credentials );
         }
 
-        wp_send_json_success( array( 'message' => __( 'Disconnected from Foursquare.', 'reactions-for-indieweb' ) ) );
+        wp_send_json_success( array( 'message' => __( 'Disconnected from Foursquare.', 'post-kinds-for-indieweb' ) ) );
     }
 }

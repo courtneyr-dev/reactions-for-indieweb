@@ -1,6 +1,6 @@
-# Contributing to Reactions for IndieWeb
+# Contributing to Post Kinds for IndieWeb
 
-Thank you for your interest in contributing to Reactions for IndieWeb! This document provides guidelines and instructions for contributing.
+Thank you for your interest in contributing to Post Kinds for IndieWeb! This document provides guidelines and instructions for contributing.
 
 ## Table of Contents
 
@@ -23,7 +23,7 @@ This project adheres to the [WordPress Community Code of Conduct](https://make.w
 ### Reporting Bugs
 
 Before creating a bug report:
-1. Check the [existing issues](https://github.com/courtneyr-dev/reactions-for-indieweb/issues) to avoid duplicates
+1. Check the [existing issues](https://github.com/courtneyr-dev/post-kinds-for-indieweb/issues) to avoid duplicates
 2. Ensure you're using the latest version
 3. Verify the issue isn't caused by a plugin conflict
 
@@ -72,8 +72,8 @@ Documentation improvements are highly valued:
 
 1. **Fork and clone the repository**
    ```bash
-   git clone https://github.com/YOUR-USERNAME/reactions-for-indieweb.git
-   cd reactions-for-indieweb
+   git clone https://github.com/YOUR-USERNAME/post-kinds-for-indieweb.git
+   cd post-kinds-for-indieweb
    ```
 
 2. **Install PHP dependencies**
@@ -207,15 +207,15 @@ All user-facing strings must be translatable:
 
 ```php
 // PHP
-__( 'Text', 'reactions-indieweb' )
-_e( 'Text', 'reactions-indieweb' )
-esc_html__( 'Text', 'reactions-indieweb' )
+__( 'Text', 'post-kinds-indieweb' )
+_e( 'Text', 'post-kinds-indieweb' )
+esc_html__( 'Text', 'post-kinds-indieweb' )
 ```
 
 ```javascript
 // JavaScript
 import { __ } from '@wordpress/i18n';
-__( 'Text', 'reactions-indieweb' )
+__( 'Text', 'post-kinds-indieweb' )
 ```
 
 ## Testing
@@ -345,7 +345,7 @@ Releases are managed by maintainers following semantic versioning:
 
 ## Questions?
 
-- Open a [GitHub Discussion](https://github.com/courtneyr-dev/reactions-for-indieweb/discussions)
+- Open a [GitHub Discussion](https://github.com/courtneyr-dev/post-kinds-for-indieweb/discussions)
 - Check the [IndieWeb Wiki](https://indieweb.org/)
 - Join the [IndieWeb Chat](https://chat.indieweb.org/)
 

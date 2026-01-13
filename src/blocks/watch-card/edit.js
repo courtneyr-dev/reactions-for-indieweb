@@ -100,8 +100,8 @@ export default function Edit({ attributes, setAttributes }) {
             <div {...blockProps}>
                 <BlockPlaceholder
                     icon={watchIcon}
-                    label={__('Watch Card', 'reactions-for-indieweb')}
-                    instructions={__('Add a movie or TV show you watched. Search or enter details manually.', 'reactions-for-indieweb')}
+                    label={__('Watch Card', 'post-kinds-for-indieweb')}
+                    instructions={__('Add a movie or TV show you watched. Search or enter details manually.', 'post-kinds-for-indieweb')}
                 >
                     {isSearching ? (
                         <div className="search-mode">
@@ -110,20 +110,20 @@ export default function Edit({ attributes, setAttributes }) {
                                     variant={searchType === 'movie' ? 'primary' : 'secondary'}
                                     onClick={() => setSearchType('movie')}
                                 >
-                                    {__('Movie', 'reactions-for-indieweb')}
+                                    {__('Movie', 'post-kinds-for-indieweb')}
                                 </Button>
                                 <Button
                                     variant={searchType === 'tv' ? 'primary' : 'secondary'}
                                     onClick={() => setSearchType('tv')}
                                 >
-                                    {__('TV Show', 'reactions-for-indieweb')}
+                                    {__('TV Show', 'post-kinds-for-indieweb')}
                                 </Button>
                             </div>
                             <MediaSearch
                                 type={searchType}
                                 placeholder={searchType === 'movie'
-                                    ? __('Search for a movie...', 'reactions-for-indieweb')
-                                    : __('Search for a TV show...', 'reactions-for-indieweb')
+                                    ? __('Search for a movie...', 'post-kinds-for-indieweb')
+                                    : __('Search for a TV show...', 'post-kinds-for-indieweb')
                                 }
                                 onSelect={handleSearchSelect}
                             />
@@ -131,7 +131,7 @@ export default function Edit({ attributes, setAttributes }) {
                                 variant="link"
                                 onClick={() => setIsSearching(false)}
                             >
-                                {__('Enter manually', 'reactions-for-indieweb')}
+                                {__('Enter manually', 'post-kinds-for-indieweb')}
                             </Button>
                         </div>
                     ) : (
@@ -140,13 +140,13 @@ export default function Edit({ attributes, setAttributes }) {
                                 variant="primary"
                                 onClick={() => setIsSearching(true)}
                             >
-                                {__('Search Movies & TV', 'reactions-for-indieweb')}
+                                {__('Search Movies & TV', 'post-kinds-for-indieweb')}
                             </Button>
                             <Button
                                 variant="secondary"
                                 onClick={() => setAttributes({ mediaTitle: '' })}
                             >
-                                {__('Enter Manually', 'reactions-for-indieweb')}
+                                {__('Enter Manually', 'post-kinds-for-indieweb')}
                             </Button>
                         </div>
                     )}
@@ -158,49 +158,49 @@ export default function Edit({ attributes, setAttributes }) {
     return (
         <>
             <InspectorControls>
-                <PanelBody title={__('Search', 'reactions-for-indieweb')} initialOpen={false}>
+                <PanelBody title={__('Search', 'post-kinds-for-indieweb')} initialOpen={false}>
                     <div className="search-type-toggle" style={{ marginBottom: '12px', display: 'flex', gap: '8px' }}>
                         <Button
                             variant={searchType === 'movie' ? 'primary' : 'secondary'}
                             onClick={() => setSearchType('movie')}
                             size="small"
                         >
-                            {__('Movie', 'reactions-for-indieweb')}
+                            {__('Movie', 'post-kinds-for-indieweb')}
                         </Button>
                         <Button
                             variant={searchType === 'tv' ? 'primary' : 'secondary'}
                             onClick={() => setSearchType('tv')}
                             size="small"
                         >
-                            {__('TV Show', 'reactions-for-indieweb')}
+                            {__('TV Show', 'post-kinds-for-indieweb')}
                         </Button>
                     </div>
                     <MediaSearch
                         type={searchType}
                         placeholder={searchType === 'movie'
-                            ? __('Search for a movie...', 'reactions-for-indieweb')
-                            : __('Search for a TV show...', 'reactions-for-indieweb')
+                            ? __('Search for a movie...', 'post-kinds-for-indieweb')
+                            : __('Search for a TV show...', 'post-kinds-for-indieweb')
                         }
                         onSelect={handleSearchSelect}
                     />
                     <p className="components-base-control__help" style={{ marginTop: '8px' }}>
-                        {__('Search to auto-fill details from TMDB.', 'reactions-for-indieweb')}
+                        {__('Search to auto-fill details from TMDB.', 'post-kinds-for-indieweb')}
                     </p>
                 </PanelBody>
-                <PanelBody title={__('Media Details', 'reactions-for-indieweb')}>
+                <PanelBody title={__('Media Details', 'post-kinds-for-indieweb')}>
                     <SelectControl
-                        label={__('Type', 'reactions-for-indieweb')}
+                        label={__('Type', 'post-kinds-for-indieweb')}
                         value={mediaType}
                         options={[
-                            { label: __('Movie', 'reactions-for-indieweb'), value: 'movie' },
-                            { label: __('TV Show', 'reactions-for-indieweb'), value: 'tv' },
-                            { label: __('TV Episode', 'reactions-for-indieweb'), value: 'episode' },
+                            { label: __('Movie', 'post-kinds-for-indieweb'), value: 'movie' },
+                            { label: __('TV Show', 'post-kinds-for-indieweb'), value: 'tv' },
+                            { label: __('TV Episode', 'post-kinds-for-indieweb'), value: 'episode' },
                         ]}
                         onChange={(value) => setAttributes({ mediaType: value })}
                     />
 
                     <TextControl
-                        label={__('Title', 'reactions-for-indieweb')}
+                        label={__('Title', 'post-kinds-for-indieweb')}
                         value={mediaTitle || ''}
                         onChange={(value) => setAttributes({ mediaTitle: value })}
                     />
@@ -208,19 +208,19 @@ export default function Edit({ attributes, setAttributes }) {
                     {mediaType === 'episode' && (
                         <>
                             <TextControl
-                                label={__('Show Title', 'reactions-for-indieweb')}
+                                label={__('Show Title', 'post-kinds-for-indieweb')}
                                 value={showTitle || ''}
                                 onChange={(value) => setAttributes({ showTitle: value })}
                             />
                             <div className="episode-numbers">
                                 <NumberControl
-                                    label={__('Season', 'reactions-for-indieweb')}
+                                    label={__('Season', 'post-kinds-for-indieweb')}
                                     value={seasonNumber}
                                     onChange={(value) => setAttributes({ seasonNumber: parseInt(value) || null })}
                                     min={1}
                                 />
                                 <NumberControl
-                                    label={__('Episode', 'reactions-for-indieweb')}
+                                    label={__('Episode', 'post-kinds-for-indieweb')}
                                     value={episodeNumber}
                                     onChange={(value) => setAttributes({ episodeNumber: parseInt(value) || null })}
                                     min={1}
@@ -230,7 +230,7 @@ export default function Edit({ attributes, setAttributes }) {
                     )}
 
                     <NumberControl
-                        label={__('Year', 'reactions-for-indieweb')}
+                        label={__('Year', 'post-kinds-for-indieweb')}
                         value={releaseYear}
                         onChange={(value) => setAttributes({ releaseYear: parseInt(value) || null })}
                         min={1900}
@@ -238,16 +238,16 @@ export default function Edit({ attributes, setAttributes }) {
                     />
 
                     <TextControl
-                        label={__('Director', 'reactions-for-indieweb')}
+                        label={__('Director', 'post-kinds-for-indieweb')}
                         value={director || ''}
                         onChange={(value) => setAttributes({ director: value })}
                     />
                 </PanelBody>
 
-                <PanelBody title={__('Watch Info', 'reactions-for-indieweb')}>
+                <PanelBody title={__('Watch Info', 'post-kinds-for-indieweb')}>
                     <div className="components-base-control">
                         <label className="components-base-control__label">
-                            {__('Rating', 'reactions-for-indieweb')}
+                            {__('Rating', 'post-kinds-for-indieweb')}
                         </label>
                         <StarRating
                             value={rating}
@@ -257,15 +257,15 @@ export default function Edit({ attributes, setAttributes }) {
                     </div>
 
                     <ToggleControl
-                        label={__('Rewatch', 'reactions-for-indieweb')}
+                        label={__('Rewatch', 'post-kinds-for-indieweb')}
                         checked={isRewatch}
                         onChange={(value) => setAttributes({ isRewatch: value })}
-                        help={__('Check if this is a rewatch.', 'reactions-for-indieweb')}
+                        help={__('Check if this is a rewatch.', 'post-kinds-for-indieweb')}
                     />
 
                     <div className="components-base-control">
                         <label className="components-base-control__label">
-                            {__('Watched At', 'reactions-for-indieweb')}
+                            {__('Watched At', 'post-kinds-for-indieweb')}
                         </label>
                         <Button
                             variant="secondary"
@@ -273,7 +273,7 @@ export default function Edit({ attributes, setAttributes }) {
                         >
                             {watchedAt
                                 ? new Date(watchedAt).toLocaleString()
-                                : __('Set date/time', 'reactions-for-indieweb')
+                                : __('Set date/time', 'post-kinds-for-indieweb')
                             }
                         </Button>
                         {showDatePicker && (
@@ -291,36 +291,36 @@ export default function Edit({ attributes, setAttributes }) {
                     </div>
 
                     <TextControl
-                        label={__('Watch URL', 'reactions-for-indieweb')}
+                        label={__('Watch URL', 'post-kinds-for-indieweb')}
                         value={watchUrl || ''}
                         onChange={(value) => setAttributes({ watchUrl: value })}
                         type="url"
-                        help={__('Link to the content on a streaming service.', 'reactions-for-indieweb')}
+                        help={__('Link to the content on a streaming service.', 'post-kinds-for-indieweb')}
                     />
                 </PanelBody>
 
-                <PanelBody title={__('Layout', 'reactions-for-indieweb')}>
+                <PanelBody title={__('Layout', 'post-kinds-for-indieweb')}>
                     <SelectControl
-                        label={__('Layout Style', 'reactions-for-indieweb')}
+                        label={__('Layout Style', 'post-kinds-for-indieweb')}
                         value={layout}
                         options={[
-                            { label: __('Horizontal', 'reactions-for-indieweb'), value: 'horizontal' },
-                            { label: __('Vertical', 'reactions-for-indieweb'), value: 'vertical' },
-                            { label: __('Poster Focus', 'reactions-for-indieweb'), value: 'poster' },
-                            { label: __('Compact', 'reactions-for-indieweb'), value: 'compact' },
+                            { label: __('Horizontal', 'post-kinds-for-indieweb'), value: 'horizontal' },
+                            { label: __('Vertical', 'post-kinds-for-indieweb'), value: 'vertical' },
+                            { label: __('Poster Focus', 'post-kinds-for-indieweb'), value: 'poster' },
+                            { label: __('Compact', 'post-kinds-for-indieweb'), value: 'compact' },
                         ]}
                         onChange={(value) => setAttributes({ layout: value })}
                     />
                 </PanelBody>
 
-                <PanelBody title={__('Metadata', 'reactions-for-indieweb')} initialOpen={false}>
+                <PanelBody title={__('Metadata', 'post-kinds-for-indieweb')} initialOpen={false}>
                     <TextControl
-                        label={__('TMDB ID', 'reactions-for-indieweb')}
+                        label={__('TMDB ID', 'post-kinds-for-indieweb')}
                         value={tmdbId || ''}
                         onChange={(value) => setAttributes({ tmdbId: value })}
                     />
                     <TextControl
-                        label={__('IMDb ID', 'reactions-for-indieweb')}
+                        label={__('IMDb ID', 'post-kinds-for-indieweb')}
                         value={imdbId || ''}
                         onChange={(value) => setAttributes({ imdbId: value })}
                     />
@@ -357,7 +357,7 @@ export default function Edit({ attributes, setAttributes }) {
                             className="media-title p-name"
                             value={mediaTitle}
                             onChange={(value) => setAttributes({ mediaTitle: value })}
-                            placeholder={__('Title', 'reactions-for-indieweb')}
+                            placeholder={__('Title', 'post-kinds-for-indieweb')}
                         />
 
                         {mediaType === 'episode' && (seasonNumber || episodeNumber) && (
@@ -370,8 +370,8 @@ export default function Edit({ attributes, setAttributes }) {
 
                         <div className="meta-line">
                             {releaseYear && <span className="year">({releaseYear})</span>}
-                            {director && <span className="director">{__('Dir.', 'reactions-for-indieweb')} {director}</span>}
-                            {isRewatch && <span className="rewatch-badge">{__('Rewatch', 'reactions-for-indieweb')}</span>}
+                            {director && <span className="director">{__('Dir.', 'post-kinds-for-indieweb')} {director}</span>}
+                            {isRewatch && <span className="rewatch-badge">{__('Rewatch', 'post-kinds-for-indieweb')}</span>}
                         </div>
 
                         {rating > 0 && (
@@ -385,7 +385,7 @@ export default function Edit({ attributes, setAttributes }) {
                             className="watch-review"
                             value={review}
                             onChange={(value) => setAttributes({ review: value })}
-                            placeholder={__('Write a review...', 'reactions-for-indieweb')}
+                            placeholder={__('Write a review...', 'post-kinds-for-indieweb')}
                         />
                     </div>
                 </div>
