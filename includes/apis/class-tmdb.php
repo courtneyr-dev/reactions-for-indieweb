@@ -187,8 +187,8 @@ class TMDB extends API_Base {
 
 			throw new \Exception(
 				sprintf(
-					/* translators: Debug info about credentials */
-					__( 'No API credentials loaded. Debug: enabled=%s, has_token=%s, has_key=%s', 'post-kinds-for-indieweb' ),
+					/* translators: 1: enabled status, 2: has token status, 3: has key status */
+					__( 'No API credentials loaded. Debug: enabled=%1$s, has_token=%2$s, has_key=%3$s', 'post-kinds-for-indieweb' ),
 					$is_enabled ? 'yes' : 'no',
 					$has_token ? 'yes' : 'no',
 					$has_key ? 'yes' : 'no'

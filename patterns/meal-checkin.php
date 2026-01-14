@@ -23,9 +23,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 register_block_pattern(
 	'post-kinds-indieweb/meal-checkin',
 	array(
-		'title'       => __( 'Meal Check-in', 'reactions-for-indieweb' ),
-		'description' => __( 'Log a restaurant visit with food, drink, and location.', 'reactions-for-indieweb' ),
-		'categories'  => array( 'reactions-for-indieweb' ),
+		'title'       => __( 'Meal Check-in', 'post-kinds-for-indieweb' ),
+		'description' => __( 'Log a restaurant visit with food, drink, and location.', 'post-kinds-for-indieweb' ),
+		'categories'  => array( 'post-kinds-for-indieweb' ),
 		'keywords'    => array( 'meal', 'food', 'drink', 'restaurant', 'checkin', 'dining', 'indieweb' ),
 		'blockTypes'  => array( 'core/group' ),
 		'postTypes'   => array( 'post' ),

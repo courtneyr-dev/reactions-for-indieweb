@@ -23,9 +23,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 register_block_pattern(
 	'post-kinds-indieweb/read-progress',
 	array(
-		'title'       => __( 'Read Progress', 'reactions-for-indieweb' ),
-		'description' => __( 'Track your reading progress on a book.', 'reactions-for-indieweb' ),
-		'categories'  => array( 'reactions-for-indieweb' ),
+		'title'       => __( 'Read Progress', 'post-kinds-for-indieweb' ),
+		'description' => __( 'Track your reading progress on a book.', 'post-kinds-for-indieweb' ),
+		'categories'  => array( 'post-kinds-for-indieweb' ),
 		'keywords'    => array( 'read', 'book', 'reading', 'progress', 'library', 'indieweb', 'reaction' ),
 		'blockTypes'  => array( 'core/group' ),
 		'postTypes'   => array( 'post' ),

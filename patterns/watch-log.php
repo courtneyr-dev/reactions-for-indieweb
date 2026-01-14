@@ -23,9 +23,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 register_block_pattern(
 	'post-kinds-indieweb/watch-log',
 	array(
-		'title'       => __( 'Watch Log', 'reactions-for-indieweb' ),
-		'description' => __( 'Log a film or TV show you watched.', 'reactions-for-indieweb' ),
-		'categories'  => array( 'reactions-for-indieweb' ),
+		'title'       => __( 'Watch Log', 'post-kinds-for-indieweb' ),
+		'description' => __( 'Log a film or TV show you watched.', 'post-kinds-for-indieweb' ),
+		'categories'  => array( 'post-kinds-for-indieweb' ),
 		'keywords'    => array( 'watch', 'movie', 'film', 'tv', 'show', 'video', 'indieweb', 'reaction' ),
 		'blockTypes'  => array( 'core/group' ),
 		'postTypes'   => array( 'post' ),

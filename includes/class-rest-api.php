@@ -956,7 +956,7 @@ class REST_API {
 		} catch ( \Exception $e ) {
 			return new \WP_Error(
 				'lookup_failed',
-				$e->getMessage(),
+				esc_html( $e->getMessage() ),
 				array( 'status' => 500 )
 			);
 		}
@@ -1258,7 +1258,7 @@ class REST_API {
 		} catch ( \Exception $e ) {
 			return new \WP_Error(
 				'lookup_failed',
-				$e->getMessage(),
+				esc_html( $e->getMessage() ),
 				array( 'status' => 500 )
 			);
 		}
@@ -1298,7 +1298,7 @@ class REST_API {
 		} catch ( \Exception $e ) {
 			return new \WP_Error(
 				'lookup_failed',
-				$e->getMessage(),
+				esc_html( $e->getMessage() ),
 				array( 'status' => 500 )
 			);
 		}
@@ -1674,7 +1674,7 @@ class REST_API {
 		} catch ( \Exception $e ) {
 			return new \WP_Error(
 				'lookup_failed',
-				$e->getMessage(),
+				esc_html( $e->getMessage() ),
 				array( 'status' => 500 )
 			);
 		}
@@ -1716,7 +1716,7 @@ class REST_API {
 		} catch ( \Exception $e ) {
 			return new \WP_Error(
 				'lookup_failed',
-				$e->getMessage(),
+				esc_html( $e->getMessage() ),
 				array( 'status' => 500 )
 			);
 		}
@@ -1745,7 +1745,7 @@ class REST_API {
 		} catch ( \Exception $e ) {
 			return new \WP_Error(
 				'lookup_failed',
-				$e->getMessage(),
+				esc_html( $e->getMessage() ),
 				array( 'status' => 500 )
 			);
 		}
@@ -1780,7 +1780,7 @@ class REST_API {
 		} catch ( \Exception $e ) {
 			return new \WP_Error(
 				'lookup_failed',
-				$e->getMessage(),
+				esc_html( $e->getMessage() ),
 				array( 'status' => 500 )
 			);
 		}
@@ -1903,7 +1903,7 @@ class REST_API {
 		} catch ( \Exception $e ) {
 			return new \WP_Error(
 				'lookup_failed',
-				$e->getMessage(),
+				esc_html( $e->getMessage() ),
 				array( 'status' => 500 )
 			);
 		}
@@ -1939,7 +1939,7 @@ class REST_API {
 		} catch ( \Exception $e ) {
 			return new \WP_Error(
 				'geocode_failed',
-				$e->getMessage(),
+				esc_html( $e->getMessage() ),
 				array( 'status' => 500 )
 			);
 		}
@@ -1976,7 +1976,7 @@ class REST_API {
 		} catch ( \Exception $e ) {
 			return new \WP_Error(
 				'search_failed',
-				$e->getMessage(),
+				esc_html( $e->getMessage() ),
 				array( 'status' => 500 )
 			);
 		}
@@ -2031,7 +2031,7 @@ class REST_API {
 		} catch ( \Exception $e ) {
 			return new \WP_Error(
 				'reverse_failed',
-				$e->getMessage(),
+				esc_html( $e->getMessage() ),
 				array( 'status' => 500 )
 			);
 		}
@@ -2092,7 +2092,7 @@ class REST_API {
 		} catch ( \Exception $e ) {
 			return new \WP_Error(
 				'venue_search_failed',
-				$e->getMessage(),
+				esc_html( $e->getMessage() ),
 				array( 'status' => 500 )
 			);
 		}
@@ -2126,7 +2126,7 @@ class REST_API {
 		} catch ( \Exception $e ) {
 			return new \WP_Error(
 				'details_failed',
-				$e->getMessage(),
+				esc_html( $e->getMessage() ),
 				array( 'status' => 500 )
 			);
 		}
@@ -2199,7 +2199,7 @@ class REST_API {
 		} catch ( \Exception $e ) {
 			return new \WP_Error(
 				'import_failed',
-				$e->getMessage(),
+				esc_html( $e->getMessage() ),
 				array( 'status' => 500 )
 			);
 		}
@@ -2404,7 +2404,7 @@ class REST_API {
 		} catch ( \Exception $e ) {
 			return new \WP_Error(
 				'oauth_failed',
-				$e->getMessage(),
+				esc_html( $e->getMessage() ),
 				array( 'status' => 500 )
 			);
 		}
@@ -2442,7 +2442,7 @@ class REST_API {
 		} catch ( \Exception $e ) {
 			return new \WP_Error(
 				'revoke_failed',
-				$e->getMessage(),
+				esc_html( $e->getMessage() ),
 				array( 'status' => 500 )
 			);
 		}
@@ -2477,7 +2477,7 @@ class REST_API {
 					$response['user']  = $user;
 				}
 			} catch ( \Exception $e ) {
-				$response['error'] = $e->getMessage();
+				$response['error'] = esc_html( $e->getMessage() );
 			}
 		}
 
@@ -2602,7 +2602,7 @@ class REST_API {
 		} catch ( \Exception $e ) {
 			return new \WP_Error(
 				'test_failed',
-				$e->getMessage(),
+				esc_html( $e->getMessage() ),
 				array( 'status' => 500 )
 			);
 		}
