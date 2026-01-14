@@ -111,7 +111,7 @@
 
 .media-lookup-block.style-inline .media-subtitle::before {
 	content: " by ";
-	font-weight: normal;
+	font-weight: 400;
 }
 
 /* Year */

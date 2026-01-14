@@ -85,14 +85,36 @@ export default function KindGrid( { kinds, selectedKind, onSelect } ) {
 	// Sort kinds to show common ones first.
 	const sortedKinds = [ ...kinds ].sort( ( a, b ) => {
 		const order = [
-			'note', 'article', 'reply', 'like', 'repost', 'bookmark',
-			'photo', 'video', 'rsvp', 'checkin', 'listen', 'watch',
-			'read', 'event', 'review', 'play', 'eat', 'drink',
-			'favorite', 'jam', 'wish', 'mood', 'acquisition', 'recipe',
+			'note',
+			'article',
+			'reply',
+			'like',
+			'repost',
+			'bookmark',
+			'photo',
+			'video',
+			'rsvp',
+			'checkin',
+			'listen',
+			'watch',
+			'read',
+			'event',
+			'review',
+			'play',
+			'eat',
+			'drink',
+			'favorite',
+			'jam',
+			'wish',
+			'mood',
+			'acquisition',
+			'recipe',
 		];
 		const aIndex = order.indexOf( a.slug );
 		const bIndex = order.indexOf( b.slug );
-		return ( aIndex === -1 ? 999 : aIndex ) - ( bIndex === -1 ? 999 : bIndex );
+		return (
+			( aIndex === -1 ? 999 : aIndex ) - ( bIndex === -1 ? 999 : bIndex )
+		);
 	} );
 
 	return (
@@ -127,7 +149,10 @@ export default function KindGrid( { kinds, selectedKind, onSelect } ) {
 							</span>
 							{ isSelected && (
 								<VisuallyHidden>
-									{ __( '(selected)', 'post-kinds-for-indieweb' ) }
+									{ __(
+										'(selected)',
+										'post-kinds-for-indieweb'
+									) }
 								</VisuallyHidden>
 							) }
 						</Button>

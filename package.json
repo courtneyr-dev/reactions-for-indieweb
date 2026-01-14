@@ -4,50 +4,25 @@
 	"description": "Modern block editor support for IndieWeb post kinds and microformats. A successor to the classic IndieWeb Post Kinds plugin.",
 	"author": "Courtney Robertson",
 	"license": "GPL-2.0-or-later",
-	"main": "build/index.js",
-	"scripts": {
-		"build": "wp-scripts build",
-		"build:prod": "wp-scripts build --mode=production",
-		"start": "wp-scripts start",
-		"lint": "npm run lint:js && npm run lint:css && npm run lint:pkg-json",
-		"lint:js": "wp-scripts lint-js src/",
-		"lint:js:fix": "wp-scripts lint-js src/ --fix",
-		"lint:css": "wp-scripts lint-style 'src/**/*.{css,scss}'",
-		"lint:css:fix": "wp-scripts lint-style 'src/**/*.{css,scss}' --fix",
-		"lint:pkg-json": "wp-scripts lint-pkg-json",
-		"format": "wp-scripts format",
-		"test": "npm run test:unit",
-		"test:unit": "wp-scripts test-unit-js",
-		"test:unit:watch": "wp-scripts test-unit-js --watch",
-		"test:unit:coverage": "wp-scripts test-unit-js --coverage",
-		"test:e2e": "wp-scripts test-playwright",
-		"test:e2e:debug": "wp-scripts test-playwright --debug",
-		"env:start": "wp-env start",
-		"env:stop": "wp-env stop",
-		"env:clean": "wp-env clean",
-		"env:cli": "wp-env run cli wp",
-		"env:logs": "wp-env logs",
-		"packages-update": "wp-scripts packages-update",
-		"plugin-zip": "wp-scripts plugin-zip",
-		"prepare": "husky"
+	"keywords": [
+		"wordpress",
+		"indieweb",
+		"post-kinds",
+		"microformats",
+		"gutenberg",
+		"blocks"
+	],
+	"homepage": "https://github.com/courtneyr-dev/post-kinds-for-indieweb#readme",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/courtneyr-dev/post-kinds-for-indieweb.git"
 	},
-	"devDependencies": {
-		"@wordpress/env": "^10.0.0",
-		"@wordpress/scripts": "^31.2.0",
-		"husky": "^9.0.0",
-		"lint-staged": "^16.2.7"
+	"bugs": {
+		"url": "https://github.com/courtneyr-dev/post-kinds-for-indieweb/issues"
 	},
-	"dependencies": {
-		"@wordpress/api-fetch": "^7.0.0",
-		"@wordpress/block-editor": "^15.10.0",
-		"@wordpress/blocks": "^15.10.0",
-		"@wordpress/components": "^31.0.0",
-		"@wordpress/compose": "^7.0.0",
-		"@wordpress/data": "^10.0.0",
-		"@wordpress/element": "^6.0.0",
-		"@wordpress/i18n": "^6.10.0",
-		"@wordpress/icons": "^11.4.0",
-		"@wordpress/plugins": "^7.0.0"
+	"engines": {
+		"node": ">=18.0.0",
+		"npm": ">=9.0.0"
 	},
 	"files": [
 		"assets/",
@@ -60,8 +35,65 @@
 		"readme.txt",
 		"uninstall.php"
 	],
-	"engines": {
-		"node": ">=18.0.0",
-		"npm": ">=9.0.0"
+	"main": "build/index.js",
+	"dependencies": {
+		"@wordpress/api-fetch": "^7.0.0",
+		"@wordpress/block-editor": "^15.10.0",
+		"@wordpress/blocks": "^15.10.0",
+		"@wordpress/components": "^31.0.0",
+		"@wordpress/compose": "^7.0.0",
+		"@wordpress/data": "^10.0.0",
+		"@wordpress/editor": "^14.0.0",
+		"@wordpress/element": "^6.0.0",
+		"@wordpress/i18n": "^6.10.0",
+		"@wordpress/icons": "^11.4.0",
+		"@wordpress/plugins": "^7.0.0",
+		"@wordpress/primitives": "^4.0.0"
+	},
+	"devDependencies": {
+		"@axe-core/playwright": "^4.10.0",
+		"@lhci/cli": "^0.14.0",
+		"@playwright/test": "^1.49.0",
+		"@testing-library/jest-dom": "^6.6.0",
+		"@testing-library/react": "^16.0.0",
+		"@wordpress/env": "^10.0.0",
+		"@wordpress/scripts": "^31.2.0",
+		"husky": "^9.0.0",
+		"lint-staged": "^16.2.7"
+	},
+	"scripts": {
+		"build": "wp-scripts build",
+		"build:prod": "wp-scripts build --mode=production",
+		"start": "wp-scripts start",
+		"lint": "npm run lint:js && npm run lint:css && npm run lint:pkg-json",
+		"lint:js": "wp-scripts lint-js src/",
+		"lint:js:fix": "wp-scripts lint-js src/ --fix",
+		"lint:css": "wp-scripts lint-style 'src/**/*.{css,scss}'",
+		"lint:css:fix": "wp-scripts lint-style 'src/**/*.{css,scss}' --fix",
+		"lint:pkg-json": "wp-scripts lint-pkg-json",
+		"format": "wp-scripts format",
+		"test": "npm run test:unit",
+		"test:unit": "wp-scripts test-unit-js --config jest.config.js",
+		"test:unit:watch": "wp-scripts test-unit-js --config jest.config.js --watch",
+		"test:unit:coverage": "wp-scripts test-unit-js --config jest.config.js --coverage",
+		"test:e2e": "playwright test",
+		"test:e2e:debug": "playwright test --debug",
+		"test:e2e:ui": "playwright test --ui",
+		"test:a11y": "playwright test tests/e2e/accessibility.spec.js",
+		"test:visual": "playwright test --update-snapshots",
+		"lighthouse": "lhci autorun",
+		"audit": "npm audit --audit-level=high",
+		"audit:fix": "npm audit fix",
+		"security": "npm run audit && echo 'Run composer audit separately'",
+		"i18n:check": "wp-scripts lint-md-docs && npm run lint:js -- --rule '@wordpress/i18n-text-domain: error'",
+		"env:start": "wp-env start",
+		"env:stop": "wp-env stop",
+		"env:clean": "wp-env clean",
+		"env:cli": "wp-env run cli wp",
+		"env:logs": "wp-env logs",
+		"packages-update": "wp-scripts packages-update",
+		"plugin-zip": "wp-scripts plugin-zip",
+		"prepare": "husky",
+		"check": "npm run lint && npm run test:unit && npm run audit"
 	}
 }

@@ -113,11 +113,11 @@ $wrapper_attributes = get_block_wrapper_attributes( array(
 	<div class="checkin-dashboard-stats">
 		<div class="stat-item">
 			<span class="stat-value"><?php echo esc_html( $stats['total'] ); ?></span>
-			<span class="stat-label"><?php esc_html_e( 'Check-ins', 'reactions-for-indieweb' ); ?></span>
+			<span class="stat-label"><?php esc_html_e( 'Check-ins', 'post-kinds-for-indieweb' ); ?></span>
 		</div>
 		<div class="stat-item">
 			<span class="stat-value"><?php echo esc_html( $stats['unique_venues'] ); ?></span>
-			<span class="stat-label"><?php esc_html_e( 'Venues', 'reactions-for-indieweb' ); ?></span>
+			<span class="stat-label"><?php esc_html_e( 'Venues', 'post-kinds-for-indieweb' ); ?></span>
 		</div>
 	</div>
 	<?php endif; ?>
@@ -125,15 +125,15 @@ $wrapper_attributes = get_block_wrapper_attributes( array(
 	<?php if ( $show_filters ) : ?>
 	<div class="checkin-dashboard-filters">
 		<button type="button" class="view-btn active" data-view="grid">
-			<?php esc_html_e( 'Grid', 'reactions-for-indieweb' ); ?>
+			<?php esc_html_e( 'Grid', 'post-kinds-for-indieweb' ); ?>
 		</button>
 		<?php if ( $show_map ) : ?>
 		<button type="button" class="view-btn" data-view="map">
-			<?php esc_html_e( 'Map', 'reactions-for-indieweb' ); ?>
+			<?php esc_html_e( 'Map', 'post-kinds-for-indieweb' ); ?>
 		</button>
 		<?php endif; ?>
 		<button type="button" class="view-btn" data-view="timeline">
-			<?php esc_html_e( 'Timeline', 'reactions-for-indieweb' ); ?>
+			<?php esc_html_e( 'Timeline', 'post-kinds-for-indieweb' ); ?>
 		</button>
 	</div>
 	<?php endif; ?>
@@ -143,7 +143,7 @@ $wrapper_attributes = get_block_wrapper_attributes( array(
 		<div class="checkin-view-grid <?php echo 'grid' === $layout ? 'active' : ''; ?>">
 			<?php if ( empty( $checkins ) ) : ?>
 			<div class="checkin-empty">
-				<p><?php esc_html_e( 'No check-ins yet.', 'reactions-for-indieweb' ); ?></p>
+				<p><?php esc_html_e( 'No check-ins yet.', 'post-kinds-for-indieweb' ); ?></p>
 			</div>
 			<?php else : ?>
 			<div class="checkin-grid">

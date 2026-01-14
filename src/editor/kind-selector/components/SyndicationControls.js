@@ -3,7 +3,7 @@
  *
  * Displays per-post syndication opt-out toggles for connected services.
  *
- * @package PostKindsForIndieWeb
+ * @package
  * @since   1.0.0
  */
 
@@ -12,11 +12,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import { useSelect, useDispatch } from '@wordpress/data';
-import {
-	ToggleControl,
-	PanelRow,
-	__experimentalVStack as VStack,
-} from '@wordpress/components';
+import { ToggleControl, PanelRow, Flex } from '@wordpress/components';
 
 /**
  * Internal dependencies
@@ -58,13 +54,21 @@ export default function SyndicationControls( { kind } ) {
 	const connectedServices = servicesForKind.filter(
 		( [ , config ] ) => config.connected
 	);
+	// eslint-disable-next-line @wordpress/no-unused-vars-before-return -- Used after early return, but calculated here to avoid recalculation.
 	const needsAuthServices = servicesForKind.filter(
 		( [ , config ] ) => config.needsAuth
 	);
 
+	const { updateKindMeta } = useDispatch( STORE_NAME );
+
 	// Get current syndication settings from meta.
+	// Hooks must be called unconditionally per React rules.
 	const syndicationMeta = useSelect(
 		( select ) => {
+			// Return empty object if no services to avoid unnecessary selects.
+			if ( connectedServices.length === 0 ) {
+				return {};
+			}
 			const getKindMeta = select( STORE_NAME ).getKindMeta;
 			const meta = {};
 			connectedServices.forEach( ( [ serviceId ] ) => {
@@ -75,15 +79,17 @@ export default function SyndicationControls( { kind } ) {
 		[ connectedServices ]
 	);
 
-	const { updateKindMeta } = useDispatch( STORE_NAME );
-
 	// Don't render if no services for this kind.
 	if ( servicesForKind.length === 0 ) {
 		return null;
 	}
 
 	return (
-		<VStack spacing={ 2 } className="post-kinds-indieweb-syndication-controls">
+		<Flex
+			direction="column"
+			gap={ 2 }
+			className="post-kinds-indieweb-syndication-controls"
+		>
 			<PanelRow>
 				<span className="components-base-control__label">
 					{ __( 'Syndication', 'post-kinds-for-indieweb' ) }
@@ -101,8 +107,14 @@ export default function SyndicationControls( { kind } ) {
 						label={ config.name }
 						help={
 							isEnabled
-								? __( 'Will sync on publish', 'post-kinds-for-indieweb' )
-								: __( 'Will not sync', 'post-kinds-for-indieweb' )
+								? __(
+										'Will sync on publish',
+										'post-kinds-for-indieweb'
+								  )
+								: __(
+										'Will not sync',
+										'post-kinds-for-indieweb'
+								  )
 						}
 						checked={ isEnabled }
 						onChange={ ( value ) =>
@@ -132,6 +144,6 @@ export default function SyndicationControls( { kind } ) {
 					) }
 				</div>
 			) ) }
-		</VStack>
+		</Flex>
 	);
 }

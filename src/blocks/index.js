@@ -3,11 +3,15 @@
  *
  * Entry point for all custom Gutenberg blocks.
  *
- * @package PostKindsForIndieWeb
+ * @package
  */
 
 // WordPress dependencies
-import { getCategories, setCategories, registerBlockCollection } from '@wordpress/blocks';
+import {
+	getCategories,
+	setCategories,
+	registerBlockCollection,
+} from '@wordpress/blocks';
 
 // Custom heart icon (not available in @wordpress/icons)
 const heartIcon = (
@@ -18,7 +22,9 @@ const heartIcon = (
 
 // Register our custom block category before importing blocks
 const categories = getCategories();
-const hasCategory = categories.some( ( cat ) => cat.slug === 'post-kinds-indieweb' );
+const hasCategory = categories.some(
+	( cat ) => cat.slug === 'post-kinds-indieweb'
+);
 
 if ( ! hasCategory ) {
 	setCategories( [

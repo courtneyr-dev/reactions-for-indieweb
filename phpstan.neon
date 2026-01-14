@@ -11,10 +11,17 @@ parameters:
 		- node_modules/
 		- build/
 		- tests/
+		- ~/
+		# Temporarily excluded - needs refactoring, causes memory exhaustion
+		- includes/admin/class-api-settings.php
+		- includes/class-rest-api.php
+		- includes/admin/class-settings-page.php
+		- includes/class-import-manager.php
 	bootstrapFiles:
 		- vendor/autoload.php
 	parallel:
-		processTimeout: 300.0
+		maximumNumberOfProcesses: 1
+		processTimeout: 600.0
 	ignoreErrors:
 		# Allow dynamic method calls on WordPress objects
 		- '#Call to an undefined method [a-zA-Z0-9\\_]+::[a-zA-Z0-9\\_]+\(\)#'

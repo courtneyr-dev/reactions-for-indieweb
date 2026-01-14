@@ -25,7 +25,7 @@
 	<rule ref="PHPCompatibilityWP"/>
 
 	<!-- Rules: WordPress Coding Standards -->
-	<config name="minimum_wp_version" value="6.4"/>
+	<config name="minimum_wp_version" value="6.5"/>
 	<rule ref="WordPress">
 		<!-- Allow short array syntax -->
 		<exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
@@ -38,6 +38,35 @@
 	<!-- Allow short array syntax -->
 	<rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
 
+	<!-- ===== Security Sniffs ===== -->
+
+	<!-- Verify proper escaping -->
+	<rule ref="WordPress.Security.EscapeOutput">
+		<type>error</type>
+	</rule>
+
+	<!-- Verify proper nonce usage -->
+	<rule ref="WordPress.Security.NonceVerification">
+		<type>error</type>
+	</rule>
+
+	<!-- Verify input validation and sanitization -->
+	<rule ref="WordPress.Security.ValidatedSanitizedInput">
+		<type>error</type>
+	</rule>
+
+	<!-- Prevent direct database queries without preparation -->
+	<rule ref="WordPress.DB.PreparedSQL">
+		<type>error</type>
+	</rule>
+
+	<!-- Prevent SQL injection via direct queries -->
+	<rule ref="WordPress.DB.DirectDatabaseQuery">
+		<type>warning</type>
+	</rule>
+
+	<!-- ===== Internationalization ===== -->
+
 	<!-- Verify text domain is correct -->
 	<rule ref="WordPress.WP.I18n">
 		<properties>
@@ -47,16 +76,61 @@
 		</properties>
 	</rule>
 
-	<!-- Verify proper escaping -->
-	<rule ref="WordPress.Security.EscapeOutput"/>
+	<!-- ===== Code Complexity Metrics ===== -->
 
-	<!-- Verify proper nonce usage -->
-	<rule ref="WordPress.Security.NonceVerification"/>
+	<!-- Cyclomatic complexity - warn at 10, error at 20 -->
+	<rule ref="Generic.Metrics.CyclomaticComplexity">
+		<properties>
+			<property name="complexity" value="10"/>
+			<property name="absoluteComplexity" value="20"/>
+		</properties>
+	</rule>
+
+	<!-- Nesting level - warn at 5, error at 10 -->
+	<rule ref="Generic.Metrics.NestingLevel">
+		<properties>
+			<property name="nestingLevel" value="5"/>
+			<property name="absoluteNestingLevel" value="10"/>
+		</properties>
+	</rule>
+
+	<!-- ===== Best Practices ===== -->
+
+	<!-- Verify proper enqueueing of scripts and styles -->
+	<rule ref="WordPress.WP.EnqueuedResources"/>
+
+	<!-- Check for deprecated WordPress functions -->
+	<rule ref="WordPress.WP.DeprecatedFunctions"/>
+
+	<!-- Check for deprecated WordPress parameters -->
+	<rule ref="WordPress.WP.DeprecatedParameters"/>
+
+	<!-- Prevent use of eval() -->
+	<rule ref="Squiz.PHP.Eval">
+		<type>error</type>
+	</rule>
+
+	<!-- Prevent use of discouraged PHP functions -->
+	<rule ref="WordPress.PHP.DiscouragedPHPFunctions">
+		<properties>
+			<property name="exclude" type="array">
+				<!-- Allow serialize/unserialize with proper checks -->
+				<element value="serialize"/>
+			</property>
+		</properties>
+	</rule>
 
 	<!-- Allow underscores in hook names for our namespace -->
 	<rule ref="WordPress.NamingConventions.ValidHookName">
 		<properties>
 			<property name="additionalWordDelimiters" value="-/"/>
 		</properties>
+	</rule>
+
+	<!-- ===== Documentation ===== -->
+
+	<!-- Require file doc comments -->
+	<rule ref="Squiz.Commenting.FileComment">
+		<exclude name="Squiz.Commenting.FileComment.Missing"/>
 	</rule>
 </ruleset>

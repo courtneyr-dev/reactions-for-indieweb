@@ -1,7 +1,7 @@
 /**
  * Acquisition Card Block - Save Component
  *
- * @package Reactions_For_IndieWeb
+ * @package
  */
 
 import { useBlockProps } from '@wordpress/block-editor';
@@ -17,8 +17,21 @@ const TYPE_LABELS = {
 };
 
 export default function Save( { attributes } ) {
-	const { title, acquisitionType, cost, where, whereUrl, photo, photoAlt, notes, acquiredAt, layout } = attributes;
-	const blockProps = useBlockProps.save( { className: `acquisition-card layout-${ layout }` } );
+	const {
+		title,
+		acquisitionType,
+		cost,
+		where,
+		whereUrl,
+		photo,
+		photoAlt,
+		notes,
+		acquiredAt,
+		layout,
+	} = attributes;
+	const blockProps = useBlockProps.save( {
+		className: `acquisition-card layout-${ layout }`,
+	} );
 
 	return (
 		<div { ...blockProps }>
@@ -41,7 +54,12 @@ export default function Save( { attributes } ) {
 					{ title && (
 						<h3 className="reactions-card__title p-name">
 							{ whereUrl ? (
-								<a href={ whereUrl } className="u-url" target="_blank" rel="noopener noreferrer">
+								<a
+									href={ whereUrl }
+									className="u-url"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
 									{ title }
 								</a>
 							) : (
@@ -50,13 +68,21 @@ export default function Save( { attributes } ) {
 						</h3>
 					) }
 
-					{ cost && <p className="reactions-card__subtitle">{ cost }</p> }
-
-					{ where && (
-						<p className="reactions-card__meta p-location">from { where }</p>
+					{ cost && (
+						<p className="reactions-card__subtitle">{ cost }</p>
 					) }
 
-					{ notes && <p className="reactions-card__notes p-content">{ notes }</p> }
+					{ where && (
+						<p className="reactions-card__meta p-location">
+							from { where }
+						</p>
+					) }
+
+					{ notes && (
+						<p className="reactions-card__notes p-content">
+							{ notes }
+						</p>
+					) }
 
 					{ acquiredAt && (
 						<time

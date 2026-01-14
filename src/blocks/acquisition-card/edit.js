@@ -3,7 +3,7 @@
  *
  * Full inline editing with theme-aware styling and full sidebar controls.
  *
- * @package Reactions_For_IndieWeb
+ * @package
  */
 
 import { __ } from '@wordpress/i18n';
@@ -14,11 +14,7 @@ import {
 	MediaUpload,
 	MediaUploadCheck,
 } from '@wordpress/block-editor';
-import {
-	PanelBody,
-	TextControl,
-	SelectControl,
-} from '@wordpress/components';
+import { PanelBody, TextControl, SelectControl } from '@wordpress/components';
 import { useEffect } from '@wordpress/element';
 import { useSelect, useDispatch } from '@wordpress/data';
 
@@ -26,18 +22,53 @@ import { useSelect, useDispatch } from '@wordpress/data';
  * Acquisition type options with emojis.
  */
 const ACQUISITION_TYPES = [
-	{ label: __( 'Purchase', 'post-kinds-for-indieweb' ), value: 'purchase', emoji: '🛒' },
-	{ label: __( 'Gift', 'post-kinds-for-indieweb' ), value: 'gift', emoji: '🎁' },
-	{ label: __( 'Found', 'post-kinds-for-indieweb' ), value: 'found', emoji: '🔍' },
-	{ label: __( 'Won', 'post-kinds-for-indieweb' ), value: 'won', emoji: '🏆' },
-	{ label: __( 'Trade', 'post-kinds-for-indieweb' ), value: 'trade', emoji: '🔄' },
-	{ label: __( 'Free', 'post-kinds-for-indieweb' ), value: 'free', emoji: '✨' },
-	{ label: __( 'Inherited', 'post-kinds-for-indieweb' ), value: 'inherited', emoji: '📜' },
-	{ label: __( 'Other', 'post-kinds-for-indieweb' ), value: 'other', emoji: '📦' },
+	{
+		label: __( 'Purchase', 'post-kinds-for-indieweb' ),
+		value: 'purchase',
+		emoji: '🛒',
+	},
+	{
+		label: __( 'Gift', 'post-kinds-for-indieweb' ),
+		value: 'gift',
+		emoji: '🎁',
+	},
+	{
+		label: __( 'Found', 'post-kinds-for-indieweb' ),
+		value: 'found',
+		emoji: '🔍',
+	},
+	{
+		label: __( 'Won', 'post-kinds-for-indieweb' ),
+		value: 'won',
+		emoji: '🏆',
+	},
+	{
+		label: __( 'Trade', 'post-kinds-for-indieweb' ),
+		value: 'trade',
+		emoji: '🔄',
+	},
+	{
+		label: __( 'Free', 'post-kinds-for-indieweb' ),
+		value: 'free',
+		emoji: '✨',
+	},
+	{
+		label: __( 'Inherited', 'post-kinds-for-indieweb' ),
+		value: 'inherited',
+		emoji: '📜',
+	},
+	{
+		label: __( 'Other', 'post-kinds-for-indieweb' ),
+		value: 'other',
+		emoji: '📦',
+	},
 ];
 
 function getAcquisitionTypeInfo( type ) {
-	return ACQUISITION_TYPES.find( ( t ) => t.value === type ) || ACQUISITION_TYPES[ 0 ];
+	return (
+		ACQUISITION_TYPES.find( ( t ) => t.value === type ) ||
+		ACQUISITION_TYPES[ 0 ]
+	);
 }
 
 export default function Edit( { attributes, setAttributes } ) {
@@ -57,13 +88,13 @@ export default function Edit( { attributes, setAttributes } ) {
 	} );
 
 	const { editPost } = useDispatch( 'core/editor' );
-	const currentKind = useSelect(
-		( select ) => {
-			const terms = select( 'core/editor' ).getEditedPostAttribute( 'indieblocks_kind' );
-			return terms && terms.length > 0 ? terms[ 0 ] : null;
-		},
-		[]
-	);
+	const currentKind = useSelect( ( select ) => {
+		const terms =
+			select( 'core/editor' ).getEditedPostAttribute(
+				'indieblocks_kind'
+			);
+		return terms && terms.length > 0 ? terms[ 0 ] : null;
+	}, [] );
 
 	// Set post kind to "acquisition" when block is inserted
 	useEffect( () => {
@@ -81,12 +112,24 @@ export default function Edit( { attributes, setAttributes } ) {
 	// Sync block attributes to post meta
 	useEffect( () => {
 		const metaUpdates = {};
-		if ( title !== undefined ) metaUpdates._postkind_acquisition_title = title || '';
-		if ( acquisitionType !== undefined ) metaUpdates._postkind_acquisition_type = acquisitionType || '';
-		if ( cost !== undefined ) metaUpdates._postkind_acquisition_cost = cost || '';
-		if ( where !== undefined ) metaUpdates._postkind_acquisition_where = where || '';
-		if ( whereUrl !== undefined ) metaUpdates._postkind_acquisition_where_url = whereUrl || '';
-		if ( photo !== undefined ) metaUpdates._postkind_acquisition_photo = photo || '';
+		if ( title !== undefined ) {
+			metaUpdates._postkind_acquisition_title = title || '';
+		}
+		if ( acquisitionType !== undefined ) {
+			metaUpdates._postkind_acquisition_type = acquisitionType || '';
+		}
+		if ( cost !== undefined ) {
+			metaUpdates._postkind_acquisition_cost = cost || '';
+		}
+		if ( where !== undefined ) {
+			metaUpdates._postkind_acquisition_where = where || '';
+		}
+		if ( whereUrl !== undefined ) {
+			metaUpdates._postkind_acquisition_where_url = whereUrl || '';
+		}
+		if ( photo !== undefined ) {
+			metaUpdates._postkind_acquisition_photo = photo || '';
+		}
 
 		if ( Object.keys( metaUpdates ).length > 0 ) {
 			editPost( { meta: metaUpdates } );
@@ -96,7 +139,10 @@ export default function Edit( { attributes, setAttributes } ) {
 	const handleImageSelect = ( media ) => {
 		setAttributes( {
 			photo: media.url,
-			photoAlt: media.alt || title || __( 'Acquisition photo', 'post-kinds-for-indieweb' ),
+			photoAlt:
+				media.alt ||
+				title ||
+				__( 'Acquisition photo', 'post-kinds-for-indieweb' ),
 		} );
 	};
 
@@ -116,52 +162,91 @@ export default function Edit( { attributes, setAttributes } ) {
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Acquisition Details', 'post-kinds-for-indieweb' ) } initialOpen={ true }>
+				<PanelBody
+					title={ __(
+						'Acquisition Details',
+						'post-kinds-for-indieweb'
+					) }
+					initialOpen={ true }
+				>
 					<TextControl
 						label={ __( 'Title', 'post-kinds-for-indieweb' ) }
 						value={ title || '' }
-						onChange={ ( value ) => setAttributes( { title: value } ) }
-						placeholder={ __( 'What did you get?', 'post-kinds-for-indieweb' ) }
+						onChange={ ( value ) =>
+							setAttributes( { title: value } )
+						}
+						placeholder={ __(
+							'What did you get?',
+							'post-kinds-for-indieweb'
+						) }
 					/>
 					<SelectControl
 						label={ __( 'Type', 'post-kinds-for-indieweb' ) }
 						value={ acquisitionType || 'purchase' }
 						options={ acquisitionTypeOptions }
-						onChange={ ( value ) => setAttributes( { acquisitionType: value } ) }
+						onChange={ ( value ) =>
+							setAttributes( { acquisitionType: value } )
+						}
 					/>
 					<TextControl
 						label={ __( 'Cost', 'post-kinds-for-indieweb' ) }
 						value={ cost || '' }
-						onChange={ ( value ) => setAttributes( { cost: value } ) }
+						onChange={ ( value ) =>
+							setAttributes( { cost: value } )
+						}
 						placeholder={ __( '$0.00', 'post-kinds-for-indieweb' ) }
 					/>
 					<TextControl
 						label={ __( 'From Where', 'post-kinds-for-indieweb' ) }
 						value={ where || '' }
-						onChange={ ( value ) => setAttributes( { where: value } ) }
-						placeholder={ __( 'Store or source', 'post-kinds-for-indieweb' ) }
+						onChange={ ( value ) =>
+							setAttributes( { where: value } )
+						}
+						placeholder={ __(
+							'Store or source',
+							'post-kinds-for-indieweb'
+						) }
 					/>
 					<TextControl
-						label={ __( 'Store/Source URL', 'post-kinds-for-indieweb' ) }
+						label={ __(
+							'Store/Source URL',
+							'post-kinds-for-indieweb'
+						) }
 						value={ whereUrl || '' }
-						onChange={ ( value ) => setAttributes( { whereUrl: value } ) }
+						onChange={ ( value ) =>
+							setAttributes( { whereUrl: value } )
+						}
 						type="url"
-						help={ __( 'Link to where you got it', 'post-kinds-for-indieweb' ) }
+						help={ __(
+							'Link to where you got it',
+							'post-kinds-for-indieweb'
+						) }
 					/>
 				</PanelBody>
-				<PanelBody title={ __( 'Notes', 'post-kinds-for-indieweb' ) } initialOpen={ false }>
+				<PanelBody
+					title={ __( 'Notes', 'post-kinds-for-indieweb' ) }
+					initialOpen={ false }
+				>
 					<TextControl
 						label={ __( 'Notes', 'post-kinds-for-indieweb' ) }
 						value={ notes || '' }
-						onChange={ ( value ) => setAttributes( { notes: value } ) }
-						placeholder={ __( 'Notes about this...', 'post-kinds-for-indieweb' ) }
+						onChange={ ( value ) =>
+							setAttributes( { notes: value } )
+						}
+						placeholder={ __(
+							'Notes about this…',
+							'post-kinds-for-indieweb'
+						) }
 					/>
 				</PanelBody>
 			</InspectorControls>
 
 			<div { ...blockProps }>
 				<div className="reactions-card">
-					<div className="reactions-card__media" style={ { width: '120px' } }>
+					<div
+						className="reactions-card__media"
+						style={ { width: '120px' } }
+					>
 						<MediaUploadCheck>
 							<MediaUpload
 								onSelect={ handleImageSelect }
@@ -174,20 +259,36 @@ export default function Edit( { attributes, setAttributes } ) {
 									>
 										{ photo ? (
 											<>
-												<img src={ photo } alt={ photoAlt || title } className="reactions-card__image" />
+												<img
+													src={ photo }
+													alt={ photoAlt || title }
+													className="reactions-card__image"
+												/>
 												<button
 													type="button"
 													className="reactions-card__media-remove"
-													onClick={ handleImageRemove }
-													aria-label={ __( 'Remove photo', 'post-kinds-for-indieweb' ) }
+													onClick={
+														handleImageRemove
+													}
+													aria-label={ __(
+														'Remove photo',
+														'post-kinds-for-indieweb'
+													) }
 												>
 													×
 												</button>
 											</>
 										) : (
 											<div className="reactions-card__media-placeholder">
-												<span className="reactions-card__media-icon">{ typeInfo.emoji }</span>
-												<span className="reactions-card__media-text">{ __( 'Add Photo', 'post-kinds-for-indieweb' ) }</span>
+												<span className="reactions-card__media-icon">
+													{ typeInfo.emoji }
+												</span>
+												<span className="reactions-card__media-text">
+													{ __(
+														'Add Photo',
+														'post-kinds-for-indieweb'
+													) }
+												</span>
 											</div>
 										) }
 									</button>
@@ -201,10 +302,17 @@ export default function Edit( { attributes, setAttributes } ) {
 							<select
 								className="reactions-card__type-select"
 								value={ acquisitionType || 'purchase' }
-								onChange={ ( e ) => setAttributes( { acquisitionType: e.target.value } ) }
+								onChange={ ( e ) =>
+									setAttributes( {
+										acquisitionType: e.target.value,
+									} )
+								}
 							>
 								{ ACQUISITION_TYPES.map( ( type ) => (
-									<option key={ type.value } value={ type.value }>
+									<option
+										key={ type.value }
+										value={ type.value }
+									>
 										{ type.emoji } { type.label }
 									</option>
 								) ) }
@@ -215,18 +323,38 @@ export default function Edit( { attributes, setAttributes } ) {
 							tagName="h3"
 							className="reactions-card__title"
 							value={ title }
-							onChange={ ( value ) => setAttributes( { title: value } ) }
-							placeholder={ __( 'What did you get?', 'post-kinds-for-indieweb' ) }
+							onChange={ ( value ) =>
+								setAttributes( { title: value } )
+							}
+							placeholder={ __(
+								'What did you get?',
+								'post-kinds-for-indieweb'
+							) }
 						/>
 
 						<div className="reactions-card__input-row">
-							<span className="reactions-card__input-icon">💰</span>
+							<span className="reactions-card__input-icon">
+								💰
+							</span>
 							<input
 								type="text"
 								className="reactions-card__input reactions-card__input--price"
 								value={ cost || '' }
-								onChange={ ( e ) => setAttributes( { cost: e.target.value } ) }
-								placeholder={ acquisitionType === 'gift' || acquisitionType === 'free' ? __( 'Free!', 'post-kinds-for-indieweb' ) : __( '$0.00', 'post-kinds-for-indieweb' ) }
+								onChange={ ( e ) =>
+									setAttributes( { cost: e.target.value } )
+								}
+								placeholder={
+									acquisitionType === 'gift' ||
+									acquisitionType === 'free'
+										? __(
+												'Free!',
+												'post-kinds-for-indieweb'
+										  )
+										: __(
+												'$0.00',
+												'post-kinds-for-indieweb'
+										  )
+								}
 							/>
 						</div>
 
@@ -234,16 +362,26 @@ export default function Edit( { attributes, setAttributes } ) {
 							tagName="p"
 							className="reactions-card__location"
 							value={ where }
-							onChange={ ( value ) => setAttributes( { where: value } ) }
-							placeholder={ __( 'From where?', 'post-kinds-for-indieweb' ) }
+							onChange={ ( value ) =>
+								setAttributes( { where: value } )
+							}
+							placeholder={ __(
+								'From where?',
+								'post-kinds-for-indieweb'
+							) }
 						/>
 
 						<RichText
 							tagName="p"
 							className="reactions-card__notes"
 							value={ notes }
-							onChange={ ( value ) => setAttributes( { notes: value } ) }
-							placeholder={ __( 'Notes about this...', 'post-kinds-for-indieweb' ) }
+							onChange={ ( value ) =>
+								setAttributes( { notes: value } )
+							}
+							placeholder={ __(
+								'Notes about this…',
+								'post-kinds-for-indieweb'
+							) }
 						/>
 					</div>
 				</div>

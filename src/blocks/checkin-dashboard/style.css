@@ -180,7 +180,7 @@
 }
 
 .timeline-items::before {
-	content: '';
+	content: "";
 	position: absolute;
 	left: 0.5rem;
 	top: 0;
@@ -335,6 +335,7 @@
 
 /* Responsive */
 @media (max-width: 600px) {
+
 	.checkin-grid {
 		grid-template-columns: 1fr;
 	}

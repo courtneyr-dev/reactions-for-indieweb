@@ -4,7 +4,7 @@
  * Initializes the editor-side functionality including the Kind Selector
  * sidebar panel and post kinds data store.
  *
- * @package PostKindsForIndieWeb
+ * @package
  * @since   1.0.0
  */
 
@@ -12,8 +12,7 @@
  * WordPress dependencies
  */
 import { registerPlugin } from '@wordpress/plugins';
-import { register } from '@wordpress/data';
-import { dispatch, select } from '@wordpress/data';
+import { register, dispatch, select } from '@wordpress/data';
 
 /**
  * Internal dependencies

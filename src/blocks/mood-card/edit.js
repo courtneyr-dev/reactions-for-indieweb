@@ -3,7 +3,7 @@
  *
  * Full inline editing with theme-aware styling and full sidebar controls.
  *
- * @package Reactions_For_IndieWeb
+ * @package
  */
 
 import { __ } from '@wordpress/i18n';
@@ -99,18 +99,15 @@ const MOOD_CATEGORIES = [
 ];
 
 // Build emoji options with labels for dropdown
-const EMOJI_OPTIONS = Object.entries( MOOD_EMOJIS ).map( ( [ emojiChar, label ] ) => ( {
-	label: `${ emojiChar } ${ label }`,
-	value: emojiChar,
-} ) );
+const EMOJI_OPTIONS = Object.entries( MOOD_EMOJIS ).map(
+	( [ emojiChar, label ] ) => ( {
+		label: `${ emojiChar } ${ label }`,
+		value: emojiChar,
+	} )
+);
 
 export default function Edit( { attributes, setAttributes } ) {
-	const {
-		mood,
-		emoji,
-		note,
-		intensity,
-	} = attributes;
+	const { mood, emoji, note, intensity } = attributes;
 
 	const blockProps = useBlockProps( {
 		className: 'mood-card-block',
@@ -119,17 +116,18 @@ export default function Edit( { attributes, setAttributes } ) {
 	const { editPost } = useDispatch( 'core/editor' );
 
 	// Get post meta and kind - meta is the source of truth for sidebar sync
-	const { currentKind, postMeta } = useSelect(
-		( select ) => {
-			const terms = select( 'core/editor' ).getEditedPostAttribute( 'indieblocks_kind' );
-			const meta = select( 'core/editor' ).getEditedPostAttribute( 'meta' ) || {};
-			return {
-				currentKind: terms && terms.length > 0 ? terms[ 0 ] : null,
-				postMeta: meta,
-			};
-		},
-		[]
-	);
+	const { currentKind, postMeta } = useSelect( ( select ) => {
+		const terms =
+			select( 'core/editor' ).getEditedPostAttribute(
+				'indieblocks_kind'
+			);
+		const meta =
+			select( 'core/editor' ).getEditedPostAttribute( 'meta' ) || {};
+		return {
+			currentKind: terms && terms.length > 0 ? terms[ 0 ] : null,
+			postMeta: meta,
+		};
+	}, [] );
 
 	// Set post kind to "mood" when block is inserted
 	useEffect( () => {
@@ -152,9 +150,15 @@ export default function Edit( { attributes, setAttributes } ) {
 		const metaEmoji = postMeta._postkind_mood_emoji ?? '';
 		const metaIntensity = postMeta._postkind_mood_rating ?? 3;
 
-		if ( metaMood !== ( mood || '' ) ) updates.mood = metaMood;
-		if ( metaEmoji !== ( emoji || '' ) ) updates.emoji = metaEmoji;
-		if ( metaIntensity !== ( intensity || 3 ) ) updates.intensity = metaIntensity;
+		if ( metaMood !== ( mood || '' ) ) {
+			updates.mood = metaMood;
+		}
+		if ( metaEmoji !== ( emoji || '' ) ) {
+			updates.emoji = metaEmoji;
+		}
+		if ( metaIntensity !== ( intensity || 3 ) ) {
+			updates.intensity = metaIntensity;
+		}
 
 		if ( Object.keys( updates ).length > 0 ) {
 			setAttributes( updates );
@@ -191,23 +195,35 @@ export default function Edit( { attributes, setAttributes } ) {
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Mood Details', 'post-kinds-for-indieweb' ) } initialOpen={ true }>
+				<PanelBody
+					title={ __( 'Mood Details', 'post-kinds-for-indieweb' ) }
+					initialOpen={ true }
+				>
 					<TextControl
 						label={ __( 'Mood', 'post-kinds-for-indieweb' ) }
 						value={ mood || '' }
-						onChange={ ( value ) => setAttributes( { mood: value } ) }
-						placeholder={ __( 'How are you feeling?', 'post-kinds-for-indieweb' ) }
+						onChange={ ( value ) =>
+							setAttributes( { mood: value } )
+						}
+						placeholder={ __(
+							'How are you feeling?',
+							'post-kinds-for-indieweb'
+						) }
 					/>
 					<SelectControl
 						label={ __( 'Emoji', 'post-kinds-for-indieweb' ) }
 						value={ emoji || '😊' }
 						options={ EMOJI_OPTIONS }
-						onChange={ ( value ) => setAttributes( { emoji: value } ) }
+						onChange={ ( value ) =>
+							setAttributes( { emoji: value } )
+						}
 					/>
 					<RangeControl
 						label={ __( 'Intensity', 'post-kinds-for-indieweb' ) }
 						value={ intensity || 3 }
-						onChange={ ( value ) => setAttributes( { intensity: value } ) }
+						onChange={ ( value ) =>
+							setAttributes( { intensity: value } )
+						}
 						min={ 1 }
 						max={ 5 }
 						marks={ [
@@ -217,12 +233,20 @@ export default function Edit( { attributes, setAttributes } ) {
 						] }
 					/>
 				</PanelBody>
-				<PanelBody title={ __( 'Note', 'post-kinds-for-indieweb' ) } initialOpen={ false }>
+				<PanelBody
+					title={ __( 'Note', 'post-kinds-for-indieweb' ) }
+					initialOpen={ false }
+				>
 					<TextControl
 						label={ __( 'Note', 'post-kinds-for-indieweb' ) }
 						value={ note || '' }
-						onChange={ ( value ) => setAttributes( { note: value } ) }
-						placeholder={ __( "What's on your mind?", 'post-kinds-for-indieweb' ) }
+						onChange={ ( value ) =>
+							setAttributes( { note: value } )
+						}
+						placeholder={ __(
+							"What's on your mind?",
+							'post-kinds-for-indieweb'
+						) }
 					/>
 				</PanelBody>
 			</InspectorControls>
@@ -231,7 +255,9 @@ export default function Edit( { attributes, setAttributes } ) {
 				<div className="reactions-card reactions-card--mood">
 					<div className="reactions-card__emoji-section">
 						<div className="reactions-card__emoji-display">
-							<span className="reactions-card__emoji-large">{ emoji || '😊' }</span>
+							<span className="reactions-card__emoji-large">
+								{ emoji || '😊' }
+							</span>
 						</div>
 
 						{ /* Intensity Dots */ }
@@ -240,9 +266,16 @@ export default function Edit( { attributes, setAttributes } ) {
 								<button
 									key={ i }
 									type="button"
-									className={ `reactions-card__intensity-dot ${ i < ( intensity || 3 ) ? 'filled' : '' }` }
-									onClick={ () => setAttributes( { intensity: i + 1 } ) }
-									aria-label={ `${ __( 'Set intensity to', 'post-kinds-for-indieweb' ) } ${ i + 1 }` }
+									className={ `reactions-card__intensity-dot ${
+										i < ( intensity || 3 ) ? 'filled' : ''
+									}` }
+									onClick={ () =>
+										setAttributes( { intensity: i + 1 } )
+									}
+									aria-label={ `${ __(
+										'Set intensity to',
+										'post-kinds-for-indieweb'
+									) } ${ i + 1 }` }
 								/>
 							) ) }
 						</div>
@@ -250,13 +283,20 @@ export default function Edit( { attributes, setAttributes } ) {
 						{ /* Emoji Picker */ }
 						<div className="reactions-card__emoji-picker">
 							{ MOOD_CATEGORIES.map( ( category ) => (
-								<div key={ category.name } className="reactions-card__emoji-category">
+								<div
+									key={ category.name }
+									className="reactions-card__emoji-category"
+								>
 									{ category.emojis.map( ( e ) => (
 										<button
 											key={ e }
 											type="button"
-											className={ `reactions-card__emoji-btn ${ emoji === e ? 'selected' : '' }` }
-											onClick={ () => handleEmojiSelect( e ) }
+											className={ `reactions-card__emoji-btn ${
+												emoji === e ? 'selected' : ''
+											}` }
+											onClick={ () =>
+												handleEmojiSelect( e )
+											}
 										>
 											{ e }
 										</button>
@@ -267,22 +307,34 @@ export default function Edit( { attributes, setAttributes } ) {
 					</div>
 
 					<div className="reactions-card__content">
-						<span className="reactions-card__badge">😊 { __( 'Feeling', 'post-kinds-for-indieweb' ) }</span>
+						<span className="reactions-card__badge">
+							😊 { __( 'Feeling', 'post-kinds-for-indieweb' ) }
+						</span>
 
 						<RichText
 							tagName="h3"
 							className="reactions-card__title"
 							value={ mood }
-							onChange={ ( value ) => setAttributes( { mood: value } ) }
-							placeholder={ __( 'How are you feeling?', 'post-kinds-for-indieweb' ) }
+							onChange={ ( value ) =>
+								setAttributes( { mood: value } )
+							}
+							placeholder={ __(
+								'How are you feeling?',
+								'post-kinds-for-indieweb'
+							) }
 						/>
 
 						<RichText
 							tagName="p"
 							className="reactions-card__notes"
 							value={ note }
-							onChange={ ( value ) => setAttributes( { note: value } ) }
-							placeholder={ __( "What's on your mind?", 'post-kinds-for-indieweb' ) }
+							onChange={ ( value ) =>
+								setAttributes( { note: value } )
+							}
+							placeholder={ __(
+								"What's on your mind?",
+								'post-kinds-for-indieweb'
+							) }
 						/>
 					</div>
 				</div>

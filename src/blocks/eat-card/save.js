@@ -1,7 +1,7 @@
 /**
  * Eat Card Block - Save Component
  *
- * @package Reactions_For_IndieWeb
+ * @package
  */
 
 import { useBlockProps } from '@wordpress/block-editor';
@@ -26,16 +26,31 @@ export default function Save( { attributes } ) {
 		layout,
 	} = attributes;
 
-	const blockProps = useBlockProps.save( { className: `eat-card layout-${ layout }` } );
+	const blockProps = useBlockProps.save( {
+		className: `eat-card layout-${ layout }`,
+	} );
 
 	const renderStars = () => {
-		if ( ! rating || rating <= 0 ) return null;
+		if ( ! rating || rating <= 0 ) {
+			return null;
+		}
 		return (
-			<div className="reactions-card__rating p-rating" aria-label={ `Rating: ${ rating } out of 5` }>
+			<div
+				className="reactions-card__rating p-rating"
+				aria-label={ `Rating: ${ rating } out of 5` }
+			>
 				{ Array.from( { length: 5 }, ( _, i ) => (
-					<span key={ i } className={ `star ${ i < rating ? 'filled' : '' }` } aria-hidden="true">★</span>
+					<span
+						key={ i }
+						className={ `star ${ i < rating ? 'filled' : '' }` }
+						aria-hidden="true"
+					>
+						★
+					</span>
 				) ) }
-				<span className="reactions-card__rating-value">{ rating }/5</span>
+				<span className="reactions-card__rating-value">
+					{ rating }/5
+				</span>
 			</div>
 		);
 	};
@@ -54,33 +69,66 @@ export default function Save( { attributes } ) {
 					</div>
 				) }
 				<div className="reactions-card__content">
-					{ cuisine && <span className="reactions-card__badge">{ cuisine }</span> }
+					{ cuisine && (
+						<span className="reactions-card__badge">
+							{ cuisine }
+						</span>
+					) }
 
 					{ name && (
-						<h3 className="reactions-card__title p-name">{ name }</h3>
+						<h3 className="reactions-card__title p-name">
+							{ name }
+						</h3>
 					) }
 
 					{ locationName && (
 						<div className="reactions-card__location p-location h-card">
 							<p className="reactions-card__venue">
 								{ restaurantUrl ? (
-									<a href={ restaurantUrl } className="p-name u-url" target="_blank" rel="noopener noreferrer">
+									<a
+										href={ restaurantUrl }
+										className="p-name u-url"
+										target="_blank"
+										rel="noopener noreferrer"
+									>
 										{ locationName }
 									</a>
 								) : (
-									<span className="p-name">{ locationName }</span>
+									<span className="p-name">
+										{ locationName }
+									</span>
 								) }
 							</p>
 							{ locationAddress && (
-								<p className="reactions-card__address p-street-address">{ locationAddress }</p>
+								<p className="reactions-card__address p-street-address">
+									{ locationAddress }
+								</p>
 							) }
-							{ ( locationLocality || locationRegion || locationCountry ) && (
+							{ ( locationLocality ||
+								locationRegion ||
+								locationCountry ) && (
 								<p className="reactions-card__city">
-									{ locationLocality && <span className="p-locality">{ locationLocality }</span> }
-									{ locationLocality && locationRegion && ', ' }
-									{ locationRegion && <span className="p-region">{ locationRegion }</span> }
-									{ ( locationLocality || locationRegion ) && locationCountry && ', ' }
-									{ locationCountry && <span className="p-country-name">{ locationCountry }</span> }
+									{ locationLocality && (
+										<span className="p-locality">
+											{ locationLocality }
+										</span>
+									) }
+									{ locationLocality &&
+										locationRegion &&
+										', ' }
+									{ locationRegion && (
+										<span className="p-region">
+											{ locationRegion }
+										</span>
+									) }
+									{ ( locationLocality || locationRegion ) &&
+										locationCountry &&
+										', ' }
+									{ locationCountry && (
+										<span className="p-country-name">
+											{ locationCountry }
+										</span>
+									) }
 								</p>
 							) }
 							{ ( geoLatitude !== 0 || geoLongitude !== 0 ) && (
@@ -89,8 +137,12 @@ export default function Save( { attributes } ) {
 									value={ `${ geoLatitude },${ geoLongitude }` }
 									hidden
 								>
-									<span className="p-latitude">{ geoLatitude }</span>
-									<span className="p-longitude">{ geoLongitude }</span>
+									<span className="p-latitude">
+										{ geoLatitude }
+									</span>
+									<span className="p-longitude">
+										{ geoLongitude }
+									</span>
 								</data>
 							) }
 						</div>
@@ -98,7 +150,11 @@ export default function Save( { attributes } ) {
 
 					{ renderStars() }
 
-					{ notes && <p className="reactions-card__notes p-content">{ notes }</p> }
+					{ notes && (
+						<p className="reactions-card__notes p-content">
+							{ notes }
+						</p>
+					) }
 
 					{ ateAt && (
 						<time

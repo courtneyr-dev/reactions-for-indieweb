@@ -1,17 +1,38 @@
 /**
  * Wish Card Block - Save Component
  *
- * @package Reactions_For_IndieWeb
+ * @package
  */
 
 import { useBlockProps } from '@wordpress/block-editor';
 
-const TYPE_LABELS = { item: 'Item', experience: 'Experience', book: 'Book', game: 'Game', media: 'Media', travel: 'Travel', other: 'Other' };
+const TYPE_LABELS = {
+	item: 'Item',
+	experience: 'Experience',
+	book: 'Book',
+	game: 'Game',
+	media: 'Media',
+	travel: 'Travel',
+	other: 'Other',
+};
 const PRIORITY_LABELS = { low: 'Low', medium: 'Medium', high: 'High' };
 
 export default function Save( { attributes } ) {
-	const { title, wishType, url, image, imageAlt, price, reason, priority, wishedAt, layout } = attributes;
-	const blockProps = useBlockProps.save( { className: `wish-card layout-${ layout } priority-${ priority }` } );
+	const {
+		title,
+		wishType,
+		url,
+		image,
+		imageAlt,
+		price,
+		reason,
+		priority,
+		wishedAt,
+		layout,
+	} = attributes;
+	const blockProps = useBlockProps.save( {
+		className: `wish-card layout-${ layout } priority-${ priority }`,
+	} );
 
 	return (
 		<div { ...blockProps }>
@@ -31,7 +52,9 @@ export default function Save( { attributes } ) {
 						<span className="reactions-card__badge">
 							{ TYPE_LABELS[ wishType ] || wishType }
 						</span>
-						<span className={ `reactions-card__badge reactions-card__badge--${ priority }` }>
+						<span
+							className={ `reactions-card__badge reactions-card__badge--${ priority }` }
+						>
 							{ PRIORITY_LABELS[ priority ] }
 						</span>
 					</div>
@@ -39,7 +62,12 @@ export default function Save( { attributes } ) {
 					{ title && (
 						<h3 className="reactions-card__title p-name">
 							{ url ? (
-								<a href={ url } className="u-url u-wish-of" target="_blank" rel="noopener noreferrer">
+								<a
+									href={ url }
+									className="u-url u-wish-of"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
 									{ title }
 								</a>
 							) : (
@@ -48,9 +76,15 @@ export default function Save( { attributes } ) {
 						</h3>
 					) }
 
-					{ price && <p className="reactions-card__subtitle">{ price }</p> }
+					{ price && (
+						<p className="reactions-card__subtitle">{ price }</p>
+					) }
 
-					{ reason && <p className="reactions-card__notes p-content">{ reason }</p> }
+					{ reason && (
+						<p className="reactions-card__notes p-content">
+							{ reason }
+						</p>
+					) }
 
 					{ wishedAt && (
 						<time

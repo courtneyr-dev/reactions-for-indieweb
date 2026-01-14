@@ -1,7 +1,7 @@
 /**
  * Acquisition Card Block
  *
- * @package Reactions_For_IndieWeb
+ * @package
  */
 
 import { registerBlockType } from '@wordpress/blocks';

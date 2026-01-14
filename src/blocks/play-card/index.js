@@ -1,7 +1,7 @@
 /**
  * Play Card Block
  *
- * @package Reactions_For_IndieWeb
+ * @package
  */
 
 import { registerBlockType } from '@wordpress/blocks';
@@ -24,6 +24,10 @@ const STATUS_LABELS = {
 
 /**
  * Deprecated v1 save function - includes developer, publisher, releaseYear
+ *
+ * @param {Object} props            Block props.
+ * @param {Object} props.attributes Block attributes.
+ * @return {JSX.Element} Block save element.
  */
 const v1Save = ( { attributes } ) => {
 	const {
@@ -67,7 +71,9 @@ const v1Save = ( { attributes } ) => {
 						★
 					</span>
 				) ) }
-				<span className="reactions-card__rating-value">{ rating }/5</span>
+				<span className="reactions-card__rating-value">
+					{ rating }/5
+				</span>
 			</div>
 		);
 	};
@@ -88,16 +94,27 @@ const v1Save = ( { attributes } ) => {
 				<div className="reactions-card__content">
 					<div className="reactions-card__badges">
 						{ status && (
-							<span className={ `reactions-card__badge reactions-card__badge--${ status }` }>
+							<span
+								className={ `reactions-card__badge reactions-card__badge--${ status }` }
+							>
 								{ STATUS_LABELS[ status ] || status }
 							</span>
 						) }
-						{ platform && <span className="reactions-card__badge">{ platform }</span> }
+						{ platform && (
+							<span className="reactions-card__badge">
+								{ platform }
+							</span>
+						) }
 					</div>
 					{ title && (
 						<h3 className="reactions-card__title p-name">
 							{ gameUrl ? (
-								<a href={ gameUrl } className="u-url" target="_blank" rel="noopener noreferrer">
+								<a
+									href={ gameUrl }
+									className="u-url"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
 									{ title }
 								</a>
 							) : (
@@ -124,7 +141,11 @@ const v1Save = ( { attributes } ) => {
 						</p>
 					) }
 					{ renderStars() }
-					{ review && <p className="reactions-card__notes p-content">{ review }</p> }
+					{ review && (
+						<p className="reactions-card__notes p-content">
+							{ review }
+						</p>
+					) }
 					{ playedAt && (
 						<time
 							className="reactions-card__timestamp dt-published"
@@ -136,10 +157,18 @@ const v1Save = ( { attributes } ) => {
 				</div>
 				<data className="u-play-of" value={ gameUrl || '' } hidden />
 				{ bggId && (
-					<data className="u-uid" value={ `https://boardgamegeek.com/boardgame/${ bggId }` } hidden />
+					<data
+						className="u-uid"
+						value={ `https://boardgamegeek.com/boardgame/${ bggId }` }
+						hidden
+					/>
 				) }
 				{ rawgId && (
-					<data className="u-uid" value={ `https://rawg.io/games/${ rawgId }` } hidden />
+					<data
+						className="u-uid"
+						value={ `https://rawg.io/games/${ rawgId }` }
+						hidden
+					/>
 				) }
 			</div>
 		</div>

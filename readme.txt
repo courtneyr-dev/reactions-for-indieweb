@@ -101,7 +101,7 @@ This plugin is a modern, block-editor-compatible successor to David Shanske's In
 
 = Documentation =
 
-* [GitHub Repository](https://github.com/developer-advocacy/post-kinds-for-indieweb)
+* [GitHub Repository](https://github.com/courtneyr-dev/post-kinds-for-indieweb)
 * [IndieWeb Wiki](https://indieweb.org/)
 * [IndieBlocks](https://wordpress.org/plugins/indieblocks/)
 

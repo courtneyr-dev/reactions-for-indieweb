@@ -13,8 +13,11 @@
  */
 import { __ } from '@wordpress/i18n';
 import { useSelect, useDispatch } from '@wordpress/data';
-import { useEffect, useCallback, useState, useRef } from '@wordpress/element';
-import { PluginDocumentSettingPanel, store as editorStore } from '@wordpress/editor';
+import { useEffect, useCallback, useRef } from '@wordpress/element';
+import {
+	PluginDocumentSettingPanel,
+	store as editorStore,
+} from '@wordpress/editor';
 import { store as blockEditorStore } from '@wordpress/block-editor';
 import { createBlock } from '@wordpress/blocks';
 import apiFetch from '@wordpress/api-fetch';
@@ -79,12 +82,13 @@ function getKindCardBlockMap() {
 /**
  * Get the appropriate block name for a bookmark based on embed type and oEmbed support.
  *
- * @param {string}  embedType     User's embed type preference (auto, oembed, bookmark-card, none).
+ * @param {string}  embedType        User's embed type preference (auto, oembed, bookmark-card, none).
  * @param {boolean} hasOembedSupport Whether the URL has oEmbed support.
  * @return {string|null} Block name to use, or null for no block.
  */
 function getBookmarkBlockName( embedType, hasOembedSupport ) {
-	const bookmarkCardActive = window.postKindsIndieWebEditor?.bookmarkCardActive;
+	const bookmarkCardActive =
+		window.postKindsIndieWebEditor?.bookmarkCardActive;
 
 	switch ( embedType ) {
 		case 'oembed':
@@ -128,14 +132,15 @@ function detectKindFromContent( blockList, title ) {
 
 	// Check for media-heavy posts.
 	const hasGallery = blockList.some( ( b ) => b.name === 'core/gallery' );
-	const imageCount = blockList.filter( ( b ) => b.name === 'core/image' ).length;
-	const hasVideo = blockList.some( ( b ) => b.name === 'core/video' );
+	const imageCount = blockList.filter(
+		( b ) => b.name === 'core/image'
+	).length;
 
 	if ( hasGallery || imageCount >= 3 ) {
 		return 'photo';
 	}
 
-	if ( hasVideo ) {
+	if ( blockList.some( ( b ) => b.name === 'core/video' ) ) {
 		return 'video';
 	}
 
@@ -179,7 +184,8 @@ export default function KindSelectorPanel() {
 			postTitle: editor.getEditedPostAttribute( 'title' ),
 			blocks: blockEditor.getBlocks(),
 			citeUrl: kindsStore.getKindMeta( 'cite_url' ),
-			bookmarkEmbedType: kindsStore.getKindMeta( 'bookmark_embed_type' ) || 'auto',
+			bookmarkEmbedType:
+				kindsStore.getKindMeta( 'bookmark_embed_type' ) || 'auto',
 		};
 	}, [] );
 
@@ -198,53 +204,59 @@ export default function KindSelectorPanel() {
 	 * @param {string} kind Kind slug.
 	 * @return {boolean} True if card block exists.
 	 */
-	const hasCardBlockForKind = useCallback( ( kind ) => {
-		const kindCardBlockMap = getKindCardBlockMap();
-		const blockName = kindCardBlockMap[ kind ];
-		if ( ! blockName ) {
-			return true; // No card block defined for this kind
-		}
+	const hasCardBlockForKind = useCallback(
+		( kind ) => {
+			const kindCardBlockMap = getKindCardBlockMap();
+			const blockName = kindCardBlockMap[ kind ];
+			if ( ! blockName ) {
+				return true; // No card block defined for this kind
+			}
 
-		// Check if any block matches the card block name
-		const checkBlocks = ( blockList ) => {
-			for ( const block of blockList ) {
-				if ( block.name === blockName ) {
-					return true;
-				}
-				// Check inner blocks recursively
-				if ( block.innerBlocks && block.innerBlocks.length > 0 ) {
-					if ( checkBlocks( block.innerBlocks ) ) {
+			// Check if any block matches the card block name
+			const checkBlocks = ( blockList ) => {
+				for ( const block of blockList ) {
+					if ( block.name === blockName ) {
 						return true;
 					}
+					// Check inner blocks recursively
+					if ( block.innerBlocks && block.innerBlocks.length > 0 ) {
+						if ( checkBlocks( block.innerBlocks ) ) {
+							return true;
+						}
+					}
 				}
-			}
-			return false;
-		};
+				return false;
+			};
 
-		return checkBlocks( blocks );
-	}, [ blocks ] );
+			return checkBlocks( blocks );
+		},
+		[ blocks ]
+	);
 
 	/**
 	 * Insert card block for the given kind at the beginning of the post.
 	 *
 	 * @param {string} kind Kind slug.
 	 */
-	const insertCardBlock = useCallback( ( kind ) => {
-		const kindCardBlockMap = getKindCardBlockMap();
-		const blockName = kindCardBlockMap[ kind ];
-		if ( ! blockName ) {
-			return; // No card block defined for this kind
-		}
+	const insertCardBlock = useCallback(
+		( kind ) => {
+			const kindCardBlockMap = getKindCardBlockMap();
+			const blockName = kindCardBlockMap[ kind ];
+			if ( ! blockName ) {
+				return; // No card block defined for this kind
+			}
 
-		// Don't insert if block already exists
-		if ( hasCardBlockForKind( kind ) ) {
-			return;
-		}
+			// Don't insert if block already exists
+			if ( hasCardBlockForKind( kind ) ) {
+				return;
+			}
 
-		// Create and insert the block at the beginning
-		const newBlock = createBlock( blockName );
-		insertBlocks( newBlock, 0 );
-	}, [ hasCardBlockForKind, insertBlocks ] );
+			// Create and insert the block at the beginning
+			const newBlock = createBlock( blockName );
+			insertBlocks( newBlock, 0 );
+		},
+		[ hasCardBlockForKind, insertBlocks ]
+	);
 
 	// Initialize store on mount.
 	useEffect( () => {
@@ -307,7 +319,13 @@ export default function KindSelectorPanel() {
 
 		const detectedKind = detectKindFromContent( blocks, postTitle );
 		setAutoDetectedKind( detectedKind );
-	}, [ blocks, postTitle, isAutoDetectionEnabled, selectedKind, setAutoDetectedKind ] );
+	}, [
+		blocks,
+		postTitle,
+		isAutoDetectionEnabled,
+		selectedKind,
+		setAutoDetectedKind,
+	] );
 
 	// Sync Bookmark Card block attributes to citation post meta.
 	const { updateKindMeta } = useDispatch( STORE_NAME );
@@ -340,7 +358,8 @@ export default function KindSelectorPanel() {
 		}
 
 		// Sync block attributes to post meta.
-		const { url, title, description, publisher, image } = bookmarkCard.attributes;
+		const { url, title, description, publisher, image } =
+			bookmarkCard.attributes;
 
 		if ( url ) {
 			updateKindMeta( 'cite_url', url );
@@ -381,10 +400,11 @@ export default function KindSelectorPanel() {
 		}
 
 		// Check if we already have a bookmark-related block in the post.
-		const hasBookmarkBlock = blocks.some( ( block ) =>
-			block.name === 'core/embed' ||
-			block.name === 'mamaduka/bookmark-card' ||
-			block.name === 'indieblocks/bookmark'
+		const hasBookmarkBlock = blocks.some(
+			( block ) =>
+				block.name === 'core/embed' ||
+				block.name === 'mamaduka/bookmark-card' ||
+				block.name === 'indieblocks/bookmark'
 		);
 
 		if ( hasBookmarkBlock ) {
@@ -404,10 +424,15 @@ export default function KindSelectorPanel() {
 			let hasOembedSupport = false;
 
 			// Check oEmbed support if we might need it.
-			if ( bookmarkEmbedType === 'auto' || bookmarkEmbedType === 'oembed' ) {
+			if (
+				bookmarkEmbedType === 'auto' ||
+				bookmarkEmbedType === 'oembed'
+			) {
 				try {
 					const response = await apiFetch( {
-						path: `/post-kinds-indieweb/v1/check-oembed?url=${ encodeURIComponent( citeUrl ) }`,
+						path: `/post-kinds-indieweb/v1/check-oembed?url=${ encodeURIComponent(
+							citeUrl
+						) }`,
 					} );
 					hasOembedSupport = response?.supported || false;
 				} catch {
@@ -416,7 +441,10 @@ export default function KindSelectorPanel() {
 			}
 
 			// Determine which block to insert.
-			const blockName = getBookmarkBlockName( bookmarkEmbedType, hasOembedSupport );
+			const blockName = getBookmarkBlockName(
+				bookmarkEmbedType,
+				hasOembedSupport
+			);
 
 			if ( ! blockName ) {
 				lastInsertedUrlRef.current = citeUrl;
@@ -428,7 +456,9 @@ export default function KindSelectorPanel() {
 			if ( blockName === 'core/embed' ) {
 				newBlock = createBlock( 'core/embed', { url: citeUrl } );
 			} else if ( blockName === 'mamaduka/bookmark-card' ) {
-				newBlock = createBlock( 'mamaduka/bookmark-card', { url: citeUrl } );
+				newBlock = createBlock( 'mamaduka/bookmark-card', {
+					url: citeUrl,
+				} );
 			}
 
 			if ( newBlock ) {
@@ -438,7 +468,14 @@ export default function KindSelectorPanel() {
 		};
 
 		insertBookmarkBlock();
-	}, [ citeUrl, bookmarkEmbedType, selectedKind, autoDetectedKind, blocks, insertBlocks ] );
+	}, [
+		citeUrl,
+		bookmarkEmbedType,
+		selectedKind,
+		autoDetectedKind,
+		blocks,
+		insertBlocks,
+	] );
 
 	// Track which embed blocks we've already processed to avoid infinite loops.
 	const processedEmbedsRef = useRef( new Set() );
@@ -506,7 +543,9 @@ export default function KindSelectorPanel() {
 				let hasOembedSupport = false;
 				try {
 					const response = await apiFetch( {
-						path: `/post-kinds-indieweb/v1/check-oembed?url=${ encodeURIComponent( url ) }`,
+						path: `/post-kinds-indieweb/v1/check-oembed?url=${ encodeURIComponent(
+							url
+						) }`,
 					} );
 					hasOembedSupport = response?.supported || false;
 				} catch {
@@ -515,7 +554,10 @@ export default function KindSelectorPanel() {
 
 				// If no oEmbed support, convert to bookmark card.
 				if ( ! hasOembedSupport ) {
-					const bookmarkCard = createBlock( 'mamaduka/bookmark-card', { url } );
+					const bookmarkCard = createBlock(
+						'mamaduka/bookmark-card',
+						{ url }
+					);
 					replaceBlock( block.clientId, bookmarkCard );
 				}
 			}
@@ -607,7 +649,9 @@ export default function KindSelectorPanel() {
 
 	// Get the current kind (selected or auto-detected).
 	const currentKind = selectedKind || autoDetectedKind || 'note';
-	const currentKindData = availableKinds.find( ( k ) => k.slug === currentKind );
+	const currentKindData = availableKinds.find(
+		( k ) => k.slug === currentKind
+	);
 
 	// Get icon for current kind.
 	const KindIcon = kindIcons[ currentKind ] || kindIcons.note;
@@ -637,9 +681,7 @@ export default function KindSelectorPanel() {
 			/>
 
 			{ /* Kind-specific fields */ }
-			{ currentKind && (
-				<KindFields kind={ currentKind } />
-			) }
+			{ currentKind && <KindFields kind={ currentKind } /> }
 		</PluginDocumentSettingPanel>
 	);
 }

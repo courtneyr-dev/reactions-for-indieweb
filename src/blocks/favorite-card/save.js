@@ -1,14 +1,25 @@
 /**
  * Favorite Card Block - Save Component
  *
- * @package Reactions_For_IndieWeb
+ * @package
  */
 
 import { useBlockProps } from '@wordpress/block-editor';
 
 export default function Save( { attributes } ) {
-	const { title, url, description, image, imageAlt, author, favoritedAt, layout } = attributes;
-	const blockProps = useBlockProps.save( { className: `favorite-card layout-${ layout }` } );
+	const {
+		title,
+		url,
+		description,
+		image,
+		imageAlt,
+		author,
+		favoritedAt,
+		layout,
+	} = attributes;
+	const blockProps = useBlockProps.save( {
+		className: `favorite-card layout-${ layout }`,
+	} );
 
 	return (
 		<div { ...blockProps }>
@@ -29,7 +40,12 @@ export default function Save( { attributes } ) {
 					{ title && (
 						<h3 className="reactions-card__title p-name">
 							{ url ? (
-								<a href={ url } className="u-url u-favorite-of" target="_blank" rel="noopener noreferrer">
+								<a
+									href={ url }
+									className="u-url u-favorite-of"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
 									{ title }
 								</a>
 							) : (
@@ -44,7 +60,11 @@ export default function Save( { attributes } ) {
 						</p>
 					) }
 
-					{ description && <p className="reactions-card__notes p-content">{ description }</p> }
+					{ description && (
+						<p className="reactions-card__notes p-content">
+							{ description }
+						</p>
+					) }
 
 					{ favoritedAt && (
 						<time

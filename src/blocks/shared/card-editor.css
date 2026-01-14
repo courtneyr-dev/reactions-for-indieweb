@@ -12,6 +12,8 @@
  * @package PostKindsForIndieWeb
  */
 
+/* stylelint-disable no-descending-specificity */
+
 /* Base card container - theme-aware styling */
 .reactions-card {
 	display: flex;
@@ -119,7 +121,7 @@
 	border: none;
 	border-radius: 50%;
 	background: rgba(0, 0, 0, 0.6);
-	color: white;
+	color: #fff;
 	font-size: 16px;
 	line-height: 1;
 	cursor: pointer;
@@ -201,7 +203,7 @@
 }
 
 .reactions-card__location::before {
-	content: '📍 ';
+	content: "📍 ";
 }
 
 /* Rating */

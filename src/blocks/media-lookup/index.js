@@ -1,7 +1,7 @@
 /**
  * Media Lookup Block
  *
- * @package Reactions_For_IndieWeb
+ * @package
  */
 
 import { registerBlockType } from '@wordpress/blocks';
@@ -13,9 +13,9 @@ import metadata from './block.json';
 /**
  * Register the Media Lookup block.
  */
-registerBlockType(metadata.name, {
-    ...metadata,
-    icon: searchIcon,
-    edit: Edit,
-    save: Save,
-});
+registerBlockType( metadata.name, {
+	...metadata,
+	icon: searchIcon,
+	edit: Edit,
+	save: Save,
+} );

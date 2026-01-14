@@ -1,14 +1,26 @@
 /**
  * Jam Card Block - Save Component
  *
- * @package Reactions_For_IndieWeb
+ * @package
  */
 
 import { useBlockProps } from '@wordpress/block-editor';
 
 export default function Save( { attributes } ) {
-	const { title, artist, album, cover, coverAlt, url, note, jammedAt, layout } = attributes;
-	const blockProps = useBlockProps.save( { className: `jam-card layout-${ layout }` } );
+	const {
+		title,
+		artist,
+		album,
+		cover,
+		coverAlt,
+		url,
+		note,
+		jammedAt,
+		layout,
+	} = attributes;
+	const blockProps = useBlockProps.save( {
+		className: `jam-card layout-${ layout }`,
+	} );
 
 	return (
 		<div { ...blockProps }>
@@ -24,12 +36,19 @@ export default function Save( { attributes } ) {
 					</div>
 				) }
 				<div className="reactions-card__content">
-					<span className="reactions-card__badge">🎵 Now Playing</span>
+					<span className="reactions-card__badge">
+						🎵 Now Playing
+					</span>
 
 					{ title && (
 						<h3 className="reactions-card__title p-name">
 							{ url ? (
-								<a href={ url } className="u-url u-jam-of" target="_blank" rel="noopener noreferrer">
+								<a
+									href={ url }
+									className="u-url u-jam-of"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
 									{ title }
 								</a>
 							) : (
@@ -44,9 +63,15 @@ export default function Save( { attributes } ) {
 						</p>
 					) }
 
-					{ album && <p className="reactions-card__meta">{ album }</p> }
+					{ album && (
+						<p className="reactions-card__meta">{ album }</p>
+					) }
 
-					{ note && <p className="reactions-card__notes p-content">{ note }</p> }
+					{ note && (
+						<p className="reactions-card__notes p-content">
+							{ note }
+						</p>
+					) }
 
 					{ jammedAt && (
 						<time

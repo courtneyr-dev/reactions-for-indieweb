@@ -250,7 +250,9 @@ const actions = {
 
 			try {
 				const results = await apiFetch( {
-					path: `/post-kinds-indieweb/v1/lookup/${ lookupType }?q=${ encodeURIComponent( query ) }`,
+					path: `/post-kinds-indieweb/v1/lookup/${ lookupType }?q=${ encodeURIComponent(
+						query
+					) }`,
 				} );
 
 				dispatch.receiveApiResults( results );
@@ -269,7 +271,9 @@ const actions = {
 		return async ( { dispatch, registry } ) => {
 			// Fetch available kinds.
 			try {
-				const kinds = await apiFetch( { path: '/wp/v2/kind?per_page=100' } );
+				const kinds = await apiFetch( {
+					path: '/wp/v2/kind?per_page=100',
+				} );
 				dispatch.setAvailableKinds( kinds );
 			} catch ( error ) {
 				// eslint-disable-next-line no-console
@@ -277,11 +281,21 @@ const actions = {
 			}
 
 			// Get current post's kind.
-			const postKinds = registry.select( editorStore ).getEditedPostAttribute( 'kind' );
-			const availableKinds = registry.select( STORE_NAME ).getAvailableKinds();
+			const postKinds = registry
+				.select( editorStore )
+				.getEditedPostAttribute( 'kind' );
+			const availableKinds = registry
+				.select( STORE_NAME )
+				.getAvailableKinds();
 
-			if ( postKinds && postKinds.length > 0 && availableKinds.length > 0 ) {
-				const currentKind = availableKinds.find( ( k ) => k.id === postKinds[ 0 ] );
+			if (
+				postKinds &&
+				postKinds.length > 0 &&
+				availableKinds.length > 0
+			) {
+				const currentKind = availableKinds.find(
+					( k ) => k.id === postKinds[ 0 ]
+				);
 				if ( currentKind ) {
 					dispatch.setKind( currentKind.slug );
 				}
@@ -490,7 +504,8 @@ const selectors = {
 	 * @return {*} Meta value.
 	 */
 	getKindMeta: createRegistrySelector( ( select ) => ( state, key ) => {
-		const meta = select( editorStore ).getEditedPostAttribute( 'meta' ) || {};
+		const meta =
+			select( editorStore ).getEditedPostAttribute( 'meta' ) || {};
 		return meta[ META_PREFIX + key ] || '';
 	} ),
 
@@ -500,7 +515,8 @@ const selectors = {
 	 * @return {Object} All meta values.
 	 */
 	getAllKindMeta: createRegistrySelector( ( select ) => () => {
-		const meta = select( editorStore ).getEditedPostAttribute( 'meta' ) || {};
+		const meta =
+			select( editorStore ).getEditedPostAttribute( 'meta' ) || {};
 		const kindMeta = {};
 
 		Object.keys( meta ).forEach( ( key ) => {

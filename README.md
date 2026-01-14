@@ -187,7 +187,7 @@ Contributions are welcome! Please read our [Contributing Guidelines](CONTRIBUTIN
 ### Quick Start
 
 ```bash
-git clone https://github.com/developer-advocacy/post-kinds-for-indieweb.git
+git clone https://github.com/courtneyr-dev/post-kinds-for-indieweb.git
 cd post-kinds-for-indieweb
 composer install
 npm install
@@ -196,8 +196,8 @@ npm run build
 
 ## Support
 
-- [GitHub Issues](https://github.com/developer-advocacy/post-kinds-for-indieweb/issues) - Bug reports and feature requests
-- [GitHub Discussions](https://github.com/developer-advocacy/post-kinds-for-indieweb/discussions) - Questions and ideas
+- [GitHub Issues](https://github.com/courtneyr-dev/post-kinds-for-indieweb/issues) - Bug reports and feature requests
+- [GitHub Discussions](https://github.com/courtneyr-dev/post-kinds-for-indieweb/discussions) - Questions and ideas
 - [IndieWeb Chat](https://chat.indieweb.org/) - Real-time community help
 - [SUPPORT.md](SUPPORT.md) - FAQ and troubleshooting
 

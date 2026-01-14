@@ -1,7 +1,7 @@
 /**
  * Play Card Block - Save Component
  *
- * @package Reactions_For_IndieWeb
+ * @package
  */
 
 import { useBlockProps } from '@wordpress/block-editor';
@@ -20,8 +20,9 @@ const STATUS_LABELS = {
 /**
  * Save component for the Play Card block.
  *
- * @param {Object} props Block props.
- * @returns {JSX.Element} Block save component.
+ * @param {Object} props            Block props.
+ * @param {Object} props.attributes Block attributes.
+ * @return {JSX.Element} Block save component.
  */
 export default function Save( { attributes } ) {
 	const {
@@ -68,7 +69,9 @@ export default function Save( { attributes } ) {
 						★
 					</span>
 				) ) }
-				<span className="reactions-card__rating-value">{ rating }/5</span>
+				<span className="reactions-card__rating-value">
+					{ rating }/5
+				</span>
 			</div>
 		);
 	};
@@ -92,11 +95,17 @@ export default function Save( { attributes } ) {
 					{ /* Status and platform badges */ }
 					<div className="reactions-card__badges">
 						{ status && (
-							<span className={ `reactions-card__badge reactions-card__badge--${ status }` }>
+							<span
+								className={ `reactions-card__badge reactions-card__badge--${ status }` }
+							>
 								{ STATUS_LABELS[ status ] || status }
 							</span>
 						) }
-						{ platform && <span className="reactions-card__badge">{ platform }</span> }
+						{ platform && (
+							<span className="reactions-card__badge">
+								{ platform }
+							</span>
+						) }
 					</div>
 
 					{ /* Game title */ }
@@ -128,7 +137,11 @@ export default function Save( { attributes } ) {
 					{ renderStars() }
 
 					{ /* Review */ }
-					{ review && <p className="reactions-card__notes p-content">{ review }</p> }
+					{ review && (
+						<p className="reactions-card__notes p-content">
+							{ review }
+						</p>
+					) }
 
 					{ /* Links */ }
 					{ ( officialUrl || purchaseUrl || gameUrl ) && (

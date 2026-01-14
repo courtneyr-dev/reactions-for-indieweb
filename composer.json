@@ -1,5 +1,5 @@
 {
-	"name": "developer-advocacy/post-kinds-for-indieweb",
+	"name": "courtneyr-dev/post-kinds-for-indieweb",
 	"description": "Modern block editor support for IndieWeb post kinds and microformats. A successor to the classic IndieWeb Post Kinds plugin.",
 	"type": "wordpress-plugin",
 	"license": "GPL-2.0-or-later",
@@ -34,16 +34,23 @@
 	"scripts": {
 		"lint": "phpcs",
 		"lint:fix": "phpcbf",
-		"analyze": "phpstan analyse",
+		"analyze": "phpstan analyse --memory-limit=2G",
 		"analyze:baseline": "phpstan analyse --generate-baseline",
 		"test": "phpunit",
 		"test:unit": "phpunit --testsuite=unit",
 		"test:integration": "phpunit --testsuite=integration",
-		"test:coverage": "phpunit --coverage-html coverage",
+		"test:coverage": "phpunit --coverage-html coverage/php",
+		"audit": "composer audit",
+		"security": "@audit",
+		"i18n:make-pot": "wp i18n make-pot . languages/post-kinds-for-indieweb.pot --domain=post-kinds-for-indieweb",
 		"check": [
 			"@lint",
 			"@analyze",
 			"@test"
+		],
+		"check:security": [
+			"@lint",
+			"@audit"
 		]
 	},
 	"config": {

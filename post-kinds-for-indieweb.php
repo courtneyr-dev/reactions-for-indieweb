@@ -12,7 +12,7 @@
  *
  * @wordpress-plugin
  * Plugin Name:       Post Kinds for IndieWeb and Block Themes
- * Plugin URI:        https://github.com/developer-advocacy/post-kinds-for-indieweb
+ * Plugin URI:        https://github.com/courtneyr-dev/post-kinds-for-indieweb
  * Description:       Modern block editor support for IndieWeb post kinds and microformats. A successor to the classic IndieWeb Post Kinds plugin.
  * Version:           1.0.0
  * Requires at least: 6.5

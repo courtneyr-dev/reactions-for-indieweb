@@ -3,7 +3,7 @@
  *
  * Displays a notice when a post kind has been auto-detected from content.
  *
- * @package PostKindsForIndieWeb
+ * @package
  * @since   1.0.0
  */
 
@@ -19,15 +19,13 @@ import { check, closeSmall } from '@wordpress/icons';
  *
  * Shows a dismissible notice with the auto-detected kind and actions.
  *
- * @param {Object}   props             Component props.
- * @param {string}   props.detectedKind Detected kind slug.
- * @param {string}   props.kindLabel    Human-readable kind label.
- * @param {Function} props.onAccept     Callback to accept the detected kind.
- * @param {Function} props.onDismiss    Callback to dismiss the notice.
+ * @param {Object}   props           Component props.
+ * @param {string}   props.kindLabel Human-readable kind label.
+ * @param {Function} props.onAccept  Callback to accept the detected kind.
+ * @param {Function} props.onDismiss Callback to dismiss the notice.
  * @return {JSX.Element} The notice component.
  */
 export default function AutoDetectionNotice( {
-	detectedKind,
 	kindLabel,
 	onAccept,
 	onDismiss,
@@ -39,10 +37,7 @@ export default function AutoDetectionNotice( {
 			className="post-kinds-indieweb-auto-detect-notice"
 		>
 			<p>
-				{ __(
-					'Auto-detected as:',
-					'post-kinds-for-indieweb'
-				) }{ ' ' }
+				{ __( 'Auto-detected as:', 'post-kinds-for-indieweb' ) }{ ' ' }
 				<strong>{ kindLabel }</strong>
 			</p>
 			<div className="post-kinds-indieweb-auto-detect-actions">

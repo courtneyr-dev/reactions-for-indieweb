@@ -1,7 +1,7 @@
 /**
  * Listen Card Block
  *
- * @package Reactions_For_IndieWeb
+ * @package
  */
 
 import { registerBlockType } from '@wordpress/blocks';
@@ -13,9 +13,9 @@ import metadata from './block.json';
 /**
  * Register the Listen Card block.
  */
-registerBlockType(metadata.name, {
-    ...metadata,
-    icon: listenIcon,
-    edit: Edit,
-    save: Save,
-});
+registerBlockType( metadata.name, {
+	...metadata,
+	icon: listenIcon,
+	edit: Edit,
+	save: Save,
+} );
