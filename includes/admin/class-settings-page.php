@@ -567,18 +567,6 @@ class Settings_Page {
 	 */
 	private function add_checkin_fields(): void {
 		add_settings_field(
-			'enable_checkin_cpt',
-			__( 'Enable Check-in Post Type', 'post-kinds-for-indieweb' ),
-			[ $this, 'render_checkbox_field' ],
-			'post_kinds_indieweb_checkin',
-			'post_kinds_indieweb_checkin_section',
-			[
-				'id'   => 'enable_checkin_cpt',
-				'desc' => __( 'Use a dedicated post type for check-ins instead of standard posts. This creates a "Check-ins" menu in the admin and a /checkins/ archive on the frontend.', 'post-kinds-for-indieweb' ),
-			]
-		);
-
-		add_settings_field(
 			'checkin_auto_import',
 			__( 'Auto-Sync Checkins', 'post-kinds-for-indieweb' ),
 			[ $this, 'render_source_auto_sync_field' ],

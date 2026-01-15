@@ -394,11 +394,6 @@ final class Plugin {
 			$this->post_type = new Post_Type();
 		}
 
-		// Checkin Post Type component (optional dedicated CPT).
-		if ( class_exists( __NAMESPACE__ . '\\Checkin_Post_Type' ) ) {
-			new Checkin_Post_Type();
-		}
-
 		// Venue Taxonomy component.
 		if ( class_exists( __NAMESPACE__ . '\\Venue_Taxonomy' ) ) {
 			new Venue_Taxonomy();
@@ -865,25 +860,14 @@ final class Plugin {
 	 * @return array<string, array<string, string>> Template definitions.
 	 */
 	private function get_plugin_template_definitions(): array {
-		$templates = [];
-
-		// Only register checkin archive template if CPT is enabled.
-		if ( Checkin_Post_Type::is_enabled() ) {
-			$templates['archive-checkin'] = [
-				'title'       => __( 'Check-in Archive', 'post-kinds-for-indieweb' ),
-				'description' => __( 'Template for displaying the check-in post type archive.', 'post-kinds-for-indieweb' ),
-				'post_types'  => [ 'checkin' ],
-			];
-		}
-
-		// Venue taxonomy template.
-		$templates['taxonomy-venue'] = [
-			'title'       => __( 'Venue Archive', 'post-kinds-for-indieweb' ),
-			'description' => __( 'Template for displaying venue taxonomy archives.', 'post-kinds-for-indieweb' ),
-			'post_types'  => [],
+		return [
+			// Venue taxonomy template.
+			'taxonomy-venue' => [
+				'title'       => __( 'Venue Archive', 'post-kinds-for-indieweb' ),
+				'description' => __( 'Template for displaying venue taxonomy archives.', 'post-kinds-for-indieweb' ),
+				'post_types'  => [],
+			],
 		];
-
-		return $templates;
 	}
 
 	/**

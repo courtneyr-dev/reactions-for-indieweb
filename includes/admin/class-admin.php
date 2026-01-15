@@ -85,13 +85,6 @@ class Admin {
 	private Checkin_Dashboard $checkin_dashboard;
 
 	/**
-	 * Checkin migrator instance.
-	 *
-	 * @var Checkin_Migrator
-	 */
-	private Checkin_Migrator $checkin_migrator;
-
-	/**
 	 * Admin page hook suffixes.
 	 *
 	 * @var array<string, string>
@@ -122,7 +115,6 @@ class Admin {
 		$this->quick_post        = new Quick_Post( $this );
 		$this->syndication_page  = new Syndication_Page( $this );
 		$this->checkin_dashboard = new Checkin_Dashboard( $this );
-		$this->checkin_migrator  = new Checkin_Migrator();
 
 		// Register hooks.
 		add_action( 'admin_menu', [ $this, 'register_menu' ] );

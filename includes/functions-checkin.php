@@ -2,8 +2,7 @@
 /**
  * Checkin Helper Functions
  *
- * Unified functions for querying check-ins that work in both modes
- * (standard posts with checkin kind OR dedicated checkin CPT).
+ * Functions for querying check-ins stored as standard posts with the checkin kind.
  *
  * @package PostKindsForIndieWeb
  * @since 1.2.0
@@ -19,10 +18,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Get check-ins with a unified query interface.
+ * Get check-ins.
  *
- * Works regardless of whether check-ins are stored as standard posts
- * with the checkin kind or as the dedicated checkin CPT.
+ * Queries standard posts with the checkin kind.
  *
  * @param array $args WP_Query arguments.
  * @return \WP_Query Query object.
@@ -33,33 +31,27 @@ function get_checkins( array $args = [] ): \WP_Query {
 		'orderby'        => 'date',
 		'order'          => 'DESC',
 		'post_status'    => 'publish',
+		'post_type'      => 'post',
 	];
 
 	$args = wp_parse_args( $args, $defaults );
 
-	if ( Checkin_Post_Type::is_enabled() ) {
-		// Use the dedicated CPT.
-		$args['post_type'] = Checkin_Post_Type::POST_TYPE;
-	} else {
-		// Use standard posts with checkin kind.
-		$args['post_type'] = 'post';
+	// Add checkin kind to tax_query.
+	$checkin_term = get_term_by( 'slug', 'checkin', 'indieblocks_kind' );
 
-		$checkin_term = get_term_by( 'slug', 'checkin', 'indieblocks_kind' );
+	if ( $checkin_term ) {
+		$existing_tax_query = $args['tax_query'] ?? [];
 
-		if ( $checkin_term ) {
-			$existing_tax_query = $args['tax_query'] ?? [];
-
-			$args['tax_query'] = array_merge(
-				$existing_tax_query,
+		$args['tax_query'] = array_merge(
+			$existing_tax_query,
+			[
 				[
-					[
-						'taxonomy' => 'indieblocks_kind',
-						'field'    => 'term_id',
-						'terms'    => $checkin_term->term_id,
-					],
-				]
-			);
-		}
+					'taxonomy' => 'indieblocks_kind',
+					'field'    => 'term_id',
+					'terms'    => $checkin_term->term_id,
+				],
+			]
+		);
 	}
 
 	return new \WP_Query( $args );
@@ -129,16 +121,11 @@ function get_checkins_in_range( string $after, string $before = '', array $args 
 /**
  * Get the archive URL for check-ins.
  *
- * Returns the appropriate URL whether using CPT mode or standard posts.
+ * Returns the term archive URL for the checkin kind.
  *
  * @return string Archive URL.
  */
 function get_checkins_archive_url(): string {
-	if ( Checkin_Post_Type::is_enabled() ) {
-		$url = get_post_type_archive_link( Checkin_Post_Type::POST_TYPE );
-		return $url ? $url : home_url( '/checkins/' );
-	}
-
 	$checkin_term = get_term_by( 'slug', 'checkin', 'indieblocks_kind' );
 
 	if ( $checkin_term ) {
@@ -152,13 +139,9 @@ function get_checkins_archive_url(): string {
 /**
  * Check if the current query is for check-ins.
  *
- * @return bool True if on a check-ins archive or single check-in.
+ * @return bool True if on a check-ins archive.
  */
 function is_checkins_archive(): bool {
-	if ( Checkin_Post_Type::is_enabled() ) {
-		return is_post_type_archive( Checkin_Post_Type::POST_TYPE );
-	}
-
 	return is_tax( 'indieblocks_kind', 'checkin' );
 }
 
@@ -173,11 +156,6 @@ function is_checkin( $post = null ): bool {
 
 	if ( ! $post ) {
 		return false;
-	}
-
-	// Check if it's the checkin CPT.
-	if ( Checkin_Post_Type::POST_TYPE === $post->post_type ) {
-		return true;
 	}
 
 	// Check if it's a standard post with checkin kind.
@@ -267,11 +245,6 @@ function get_checkin_location( $post = null ): array {
  * @return int Total number of published check-ins.
  */
 function get_checkin_count(): int {
-	if ( Checkin_Post_Type::is_enabled() ) {
-		$counts = wp_count_posts( Checkin_Post_Type::POST_TYPE );
-		return (int) ( $counts->publish ?? 0 );
-	}
-
 	$checkin_term = get_term_by( 'slug', 'checkin', 'indieblocks_kind' );
 
 	if ( ! $checkin_term ) {

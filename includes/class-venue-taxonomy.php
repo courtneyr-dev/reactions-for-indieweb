@@ -53,11 +53,6 @@ class Venue_Taxonomy {
 	public function register_taxonomy(): void {
 		$post_types = [ 'post' ];
 
-		// Add checkin CPT if enabled.
-		if ( Checkin_Post_Type::is_enabled() ) {
-			$post_types[] = Checkin_Post_Type::POST_TYPE;
-		}
-
 		$labels = [
 			'name'                       => _x( 'Venues', 'Taxonomy general name', 'post-kinds-for-indieweb' ),
 			'singular_name'              => _x( 'Venue', 'Taxonomy singular name', 'post-kinds-for-indieweb' ),
