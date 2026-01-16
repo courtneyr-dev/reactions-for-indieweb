@@ -420,7 +420,7 @@ export default function Edit( { attributes, setAttributes } ) {
 												</span>
 												<span className="post-kinds-card__media-text">
 													{ __(
-														'Add Photo',
+														'Add Photo (Optional)',
 														'post-kinds-for-indieweb'
 													) }
 												</span>

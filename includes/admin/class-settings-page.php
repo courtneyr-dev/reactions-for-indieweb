@@ -163,24 +163,6 @@ class Settings_Page {
 		);
 
 		add_settings_field(
-			'default_post_format',
-			__( 'Default Post Format', 'post-kinds-for-indieweb' ),
-			[ $this, 'render_select_field' ],
-			'post_kinds_indieweb_general',
-			'post_kinds_indieweb_general_section',
-			[
-				'id'      => 'default_post_format',
-				'options' => [
-					'standard' => __( 'Standard', 'post-kinds-for-indieweb' ),
-					'aside'    => __( 'Aside', 'post-kinds-for-indieweb' ),
-					'status'   => __( 'Status', 'post-kinds-for-indieweb' ),
-					'link'     => __( 'Link', 'post-kinds-for-indieweb' ),
-				],
-				'desc'    => __( 'Default post format for reaction posts.', 'post-kinds-for-indieweb' ),
-			]
-		);
-
-		add_settings_field(
 			'enable_microformats',
 			__( 'Enable Microformats', 'post-kinds-for-indieweb' ),
 			[ $this, 'render_checkbox_field' ],
@@ -204,23 +186,6 @@ class Settings_Page {
 			]
 		);
 
-		add_settings_field(
-			'import_storage_mode',
-			__( 'Import Post Storage', 'post-kinds-for-indieweb' ),
-			[ $this, 'render_select_field' ],
-			'post_kinds_indieweb_general',
-			'post_kinds_indieweb_general_section',
-			[
-				'id'      => 'import_storage_mode',
-				'options' => [
-					'standard' => __( 'Standard Posts', 'post-kinds-for-indieweb' ),
-					'cpt'      => __( 'Custom Post Type (Reactions)', 'post-kinds-for-indieweb' ),
-					'hidden'   => __( 'Standard Posts (Hidden from Blog)', 'post-kinds-for-indieweb' ),
-				],
-				'desc'    => __( 'How imported posts are stored. Standard Posts appear in your blog feed. Custom Post Type keeps imports separate. Hidden removes imports from the main blog but keeps them accessible via kind archives. Only affects new imports.', 'post-kinds-for-indieweb' ),
-			]
-		);
-
 		// Post Format Sync Settings.
 		add_settings_field(
 			'sync_formats_to_kinds',
@@ -231,18 +196,6 @@ class Settings_Page {
 			[
 				'id'   => 'sync_formats_to_kinds',
 				'desc' => __( 'Automatically set Post Kind when Post Format changes (and vice versa).', 'post-kinds-for-indieweb' ),
-			]
-		);
-
-		add_settings_field(
-			'format_kind_mappings',
-			__( 'Post Format Mappings', 'post-kinds-for-indieweb' ),
-			[ $this, 'render_format_mappings_field' ],
-			'post_kinds_indieweb_general',
-			'post_kinds_indieweb_general_section',
-			[
-				'id'   => 'format_kind_mappings',
-				'desc' => __( 'Map WordPress Post Formats to Reaction Kinds. When a post format is selected, the corresponding kind will be set automatically.', 'post-kinds-for-indieweb' ),
 			]
 		);
 
@@ -1524,17 +1477,19 @@ class Settings_Page {
 	}
 
 	/**
-	 * Render format to kind mappings field.
+	 * Render enabled kinds field with checkboxes and post format mappings.
 	 *
 	 * @param array<string, mixed> $args Field arguments.
 	 * @return void
 	 */
-	public function render_format_mappings_field( array $args ): void {
-		$settings = get_option( 'post_kinds_indieweb_settings', $this->admin->get_default_settings() );
-		$mappings = $settings['format_kind_mappings'] ?? $this->get_default_format_mappings();
+	public function render_enabled_kinds_field( array $args ): void {
+		$settings        = get_option( 'post_kinds_indieweb_settings', $this->admin->get_default_settings() );
+		$enabled_kinds   = $settings['enabled_kinds'] ?? $this->get_default_enabled_kinds();
+		$format_mappings = $settings['kind_format_mappings'] ?? $this->get_default_kind_format_mappings();
 
-		// WordPress Post Formats.
+		// WordPress Post Formats for dropdown.
 		$post_formats = [
+			''         => __( '— No format —', 'post-kinds-for-indieweb' ),
 			'standard' => __( 'Standard', 'post-kinds-for-indieweb' ),
 			'aside'    => __( 'Aside', 'post-kinds-for-indieweb' ),
 			'audio'    => __( 'Audio', 'post-kinds-for-indieweb' ),
@@ -1547,167 +1502,114 @@ class Settings_Page {
 			'video'    => __( 'Video', 'post-kinds-for-indieweb' ),
 		];
 
-		// Reaction Kinds.
-		$kinds = [
-			''         => __( '— No mapping —', 'post-kinds-for-indieweb' ),
-			'note'     => __( 'Note', 'post-kinds-for-indieweb' ),
-			'article'  => __( 'Article', 'post-kinds-for-indieweb' ),
-			'reply'    => __( 'Reply', 'post-kinds-for-indieweb' ),
-			'like'     => __( 'Like', 'post-kinds-for-indieweb' ),
-			'repost'   => __( 'Repost', 'post-kinds-for-indieweb' ),
-			'bookmark' => __( 'Bookmark', 'post-kinds-for-indieweb' ),
-			'rsvp'     => __( 'RSVP', 'post-kinds-for-indieweb' ),
-			'checkin'  => __( 'Check-in', 'post-kinds-for-indieweb' ),
-			'listen'   => __( 'Listen', 'post-kinds-for-indieweb' ),
-			'watch'    => __( 'Watch', 'post-kinds-for-indieweb' ),
-			'read'     => __( 'Read', 'post-kinds-for-indieweb' ),
-			'event'    => __( 'Event', 'post-kinds-for-indieweb' ),
-			'photo'    => __( 'Photo', 'post-kinds-for-indieweb' ),
-			'video'    => __( 'Video', 'post-kinds-for-indieweb' ),
-			'review'   => __( 'Review', 'post-kinds-for-indieweb' ),
-		];
-
-		if ( ! empty( $args['desc'] ) ) {
-			printf( '<p class="description" style="margin-bottom: 12px;">%s</p>', esc_html( $args['desc'] ) );
-		}
-
-		echo '<div class="format-mappings-grid" style="display: grid; grid-template-columns: repeat(2, minmax(200px, 280px)); gap: 8px 24px; max-width: 600px;">';
-
-		foreach ( $post_formats as $format_slug => $format_label ) {
-			$current_value = $mappings[ $format_slug ] ?? '';
-
-			echo '<div class="format-mapping-item" style="display: flex; align-items: center; gap: 8px;">';
-			printf(
-				'<label for="format_mapping_%s" style="min-width: 70px; font-weight: 500;">%s</label>',
-				esc_attr( $format_slug ),
-				esc_html( $format_label )
-			);
-			echo '<span style="color: #8c8f94;">→</span>';
-			printf(
-				'<select name="post_kinds_indieweb_settings[format_kind_mappings][%s]" id="format_mapping_%s" style="flex: 1; max-width: 150px;">',
-				esc_attr( $format_slug ),
-				esc_attr( $format_slug )
-			);
-
-			foreach ( $kinds as $kind_slug => $kind_label ) {
-				printf(
-					'<option value="%s"%s>%s</option>',
-					esc_attr( $kind_slug ),
-					selected( $current_value, $kind_slug, false ),
-					esc_html( $kind_label )
-				);
-			}
-
-			echo '</select>';
-			echo '</div>';
-		}
-
-		echo '</div>';
-	}
-
-	/**
-	 * Get default format to kind mappings.
-	 *
-	 * @return array<string, string>
-	 */
-	private function get_default_format_mappings(): array {
-		return [
-			'standard' => 'article',
-			'aside'    => 'note',
-			'audio'    => 'listen',
-			'chat'     => '',
-			'gallery'  => 'photo',
-			'image'    => 'photo',
-			'link'     => 'bookmark',
-			'quote'    => 'repost',
-			'status'   => 'note',
-			'video'    => 'watch',
-		];
-	}
-
-	/**
-	 * Render enabled kinds field with checkboxes.
-	 *
-	 * @param array<string, mixed> $args Field arguments.
-	 * @return void
-	 */
-	public function render_enabled_kinds_field( array $args ): void {
-		$settings      = get_option( 'post_kinds_indieweb_settings', $this->admin->get_default_settings() );
-		$enabled_kinds = $settings['enabled_kinds'] ?? $this->get_default_enabled_kinds();
-
 		// All available kinds with descriptions.
 		$all_kinds = [
-			'note'     => [
+			'note'        => [
 				'label' => __( 'Note', 'post-kinds-for-indieweb' ),
 				'desc'  => __( 'Short posts, similar to tweets or status updates', 'post-kinds-for-indieweb' ),
 				'icon'  => 'format-status',
 			],
-			'article'  => [
+			'article'     => [
 				'label' => __( 'Article', 'post-kinds-for-indieweb' ),
 				'desc'  => __( 'Long-form content with a title', 'post-kinds-for-indieweb' ),
 				'icon'  => 'media-document',
 			],
-			'reply'    => [
+			'reply'       => [
 				'label' => __( 'Reply', 'post-kinds-for-indieweb' ),
 				'desc'  => __( 'Response to someone else\'s content', 'post-kinds-for-indieweb' ),
 				'icon'  => 'format-chat',
 			],
-			'like'     => [
+			'like'        => [
 				'label' => __( 'Like', 'post-kinds-for-indieweb' ),
 				'desc'  => __( 'Indicate appreciation for external content', 'post-kinds-for-indieweb' ),
 				'icon'  => 'heart',
 			],
-			'repost'   => [
+			'repost'      => [
 				'label' => __( 'Repost', 'post-kinds-for-indieweb' ),
 				'desc'  => __( 'Share someone else\'s content on your site', 'post-kinds-for-indieweb' ),
 				'icon'  => 'controls-repeat',
 			],
-			'bookmark' => [
+			'bookmark'    => [
 				'label' => __( 'Bookmark', 'post-kinds-for-indieweb' ),
 				'desc'  => __( 'Save and share links to interesting content', 'post-kinds-for-indieweb' ),
 				'icon'  => 'bookmark',
 			],
-			'rsvp'     => [
+			'rsvp'        => [
 				'label' => __( 'RSVP', 'post-kinds-for-indieweb' ),
 				'desc'  => __( 'Respond to event invitations', 'post-kinds-for-indieweb' ),
 				'icon'  => 'calendar-alt',
 			],
-			'checkin'  => [
+			'checkin'     => [
 				'label' => __( 'Check-in', 'post-kinds-for-indieweb' ),
 				'desc'  => __( 'Share your location at a venue or place', 'post-kinds-for-indieweb' ),
 				'icon'  => 'location-alt',
 			],
-			'listen'   => [
+			'eat'         => [
+				'label' => __( 'Eat', 'post-kinds-for-indieweb' ),
+				'desc'  => __( 'Food and meal check-ins', 'post-kinds-for-indieweb' ),
+				'icon'  => 'carrot',
+			],
+			'drink'       => [
+				'label' => __( 'Drink', 'post-kinds-for-indieweb' ),
+				'desc'  => __( 'Beverage and drink check-ins', 'post-kinds-for-indieweb' ),
+				'icon'  => 'coffee',
+			],
+			'listen'      => [
 				'label' => __( 'Listen', 'post-kinds-for-indieweb' ),
 				'desc'  => __( 'Music scrobbles, podcasts, audio content', 'post-kinds-for-indieweb' ),
 				'icon'  => 'format-audio',
 			],
-			'watch'    => [
+			'jam'         => [
+				'label' => __( 'Jam', 'post-kinds-for-indieweb' ),
+				'desc'  => __( 'Song of the moment or music highlight', 'post-kinds-for-indieweb' ),
+				'icon'  => 'playlist-audio',
+			],
+			'watch'       => [
 				'label' => __( 'Watch', 'post-kinds-for-indieweb' ),
 				'desc'  => __( 'Movies, TV shows, videos you\'ve watched', 'post-kinds-for-indieweb' ),
 				'icon'  => 'video-alt3',
 			],
-			'read'     => [
+			'play'        => [
+				'label' => __( 'Play', 'post-kinds-for-indieweb' ),
+				'desc'  => __( 'Video games and gaming sessions', 'post-kinds-for-indieweb' ),
+				'icon'  => 'games',
+			],
+			'read'        => [
 				'label' => __( 'Read', 'post-kinds-for-indieweb' ),
 				'desc'  => __( 'Books, articles, and reading progress', 'post-kinds-for-indieweb' ),
 				'icon'  => 'book',
 			],
-			'event'    => [
+			'event'       => [
 				'label' => __( 'Event', 'post-kinds-for-indieweb' ),
 				'desc'  => __( 'Create and share events', 'post-kinds-for-indieweb' ),
 				'icon'  => 'calendar',
 			],
-			'photo'    => [
+			'photo'       => [
 				'label' => __( 'Photo', 'post-kinds-for-indieweb' ),
 				'desc'  => __( 'Image-focused posts', 'post-kinds-for-indieweb' ),
 				'icon'  => 'format-image',
 			],
-			'video'    => [
+			'video'       => [
 				'label' => __( 'Video', 'post-kinds-for-indieweb' ),
 				'desc'  => __( 'Video posts you create', 'post-kinds-for-indieweb' ),
 				'icon'  => 'format-video',
 			],
-			'review'   => [
+			'mood'        => [
+				'label' => __( 'Mood', 'post-kinds-for-indieweb' ),
+				'desc'  => __( 'Share how you\'re feeling', 'post-kinds-for-indieweb' ),
+				'icon'  => 'smiley',
+			],
+			'wish'        => [
+				'label' => __( 'Wish', 'post-kinds-for-indieweb' ),
+				'desc'  => __( 'Items on your wishlist', 'post-kinds-for-indieweb' ),
+				'icon'  => 'star-empty',
+			],
+			'acquisition' => [
+				'label' => __( 'Acquisition', 'post-kinds-for-indieweb' ),
+				'desc'  => __( 'Things you\'ve acquired or purchased', 'post-kinds-for-indieweb' ),
+				'icon'  => 'cart',
+			],
+			'review'      => [
 				'label' => __( 'Review', 'post-kinds-for-indieweb' ),
 				'desc'  => __( 'Reviews with ratings', 'post-kinds-for-indieweb' ),
 				'icon'  => 'star-filled',
@@ -1718,23 +1620,51 @@ class Settings_Page {
 			printf( '<p class="description" style="margin-bottom: 16px;">%s</p>', esc_html( $args['desc'] ) );
 		}
 
-		echo '<div class="enabled-kinds-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px;">';
+		echo '<div class="enabled-kinds-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px;">';
 
 		foreach ( $all_kinds as $kind_slug => $kind_data ) {
-			$is_enabled = in_array( $kind_slug, $enabled_kinds, true );
+			$is_enabled     = in_array( $kind_slug, $enabled_kinds, true );
+			$current_format = $format_mappings[ $kind_slug ] ?? '';
 
-			echo '<label class="enabled-kind-item" style="display: flex; align-items: flex-start; gap: 8px; padding: 12px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 4px; cursor: pointer;">';
+			echo '<div class="enabled-kind-item" style="display: flex; align-items: flex-start; gap: 8px; padding: 12px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 4px;">';
+
+			// Checkbox.
 			printf(
-				'<input type="checkbox" name="post_kinds_indieweb_settings[enabled_kinds][]" value="%s"%s style="margin-top: 2px;">',
+				'<input type="checkbox" name="post_kinds_indieweb_settings[enabled_kinds][]" value="%s"%s id="kind_%s" style="margin-top: 2px;">',
 				esc_attr( $kind_slug ),
-				checked( $is_enabled, true, false )
+				checked( $is_enabled, true, false ),
+				esc_attr( $kind_slug )
 			);
+
+			// Icon.
 			echo '<span class="dashicons dashicons-' . esc_attr( $kind_data['icon'] ) . '" style="color: #2271b1; margin-top: 2px;"></span>';
-			echo '<span>';
-			printf( '<strong style="display: block;">%s</strong>', esc_html( $kind_data['label'] ) );
-			printf( '<span class="description" style="font-size: 12px; color: #646970;">%s</span>', esc_html( $kind_data['desc'] ) );
-			echo '</span>';
-			echo '</label>';
+
+			// Label and description.
+			echo '<div style="flex: 1; min-width: 0;">';
+			printf(
+				'<label for="kind_%s" style="display: block; font-weight: 600; cursor: pointer;">%s</label>',
+				esc_attr( $kind_slug ),
+				esc_html( $kind_data['label'] )
+			);
+			printf( '<span class="description" style="display: block; font-size: 12px; color: #646970; margin-bottom: 6px;">%s</span>', esc_html( $kind_data['desc'] ) );
+
+			// Post format dropdown.
+			printf(
+				'<select name="post_kinds_indieweb_settings[kind_format_mappings][%s]" style="width: 100%%; max-width: 150px; font-size: 12px;">',
+				esc_attr( $kind_slug )
+			);
+			foreach ( $post_formats as $format_slug => $format_label ) {
+				printf(
+					'<option value="%s"%s>%s</option>',
+					esc_attr( $format_slug ),
+					selected( $current_format, $format_slug, false ),
+					esc_html( $format_label )
+				);
+			}
+			echo '</select>';
+
+			echo '</div>';
+			echo '</div>';
 		}
 
 		echo '</div>';
@@ -1772,13 +1702,52 @@ class Settings_Page {
 			'bookmark',
 			'rsvp',
 			'checkin',
+			'eat',
+			'drink',
 			'listen',
+			'jam',
 			'watch',
+			'play',
 			'read',
 			'event',
 			'photo',
 			'video',
+			'mood',
+			'wish',
+			'acquisition',
 			'review',
+		];
+	}
+
+	/**
+	 * Get default kind to post format mappings.
+	 *
+	 * @return array<string, string>
+	 */
+	private function get_default_kind_format_mappings(): array {
+		return [
+			'note'        => 'status',
+			'article'     => 'standard',
+			'reply'       => 'status',
+			'like'        => 'status',
+			'repost'      => 'quote',
+			'bookmark'    => 'link',
+			'rsvp'        => 'status',
+			'checkin'     => 'status',
+			'eat'         => 'status',
+			'drink'       => 'status',
+			'listen'      => 'audio',
+			'jam'         => 'audio',
+			'watch'       => 'video',
+			'play'        => 'status',
+			'read'        => 'standard',
+			'event'       => 'standard',
+			'photo'       => 'image',
+			'video'       => 'video',
+			'mood'        => 'status',
+			'wish'        => 'status',
+			'acquisition' => 'link',
+			'review'      => 'standard',
 		];
 	}
 
